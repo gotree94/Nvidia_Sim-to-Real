@@ -244,6 +244,42 @@ make -j$(nproc)
 sudo make install
 ```
 
+```
+-- 
+-- Configuring done
+WARNING: Target "tbb" has EXCLUDE_FROM_ALL set and will not be built by default but an install rule has been provided for it.  CMake does not define behavior for this case.
+-- Generating done
+-- Build files have been written to: /home/nvidia/opencv-4.5.1/build
+[  0%] Built target gen-pkgconfig
+[  1%] Built target libopenjp2
+[  3%] Built target carotene_objs
+[  4%] Built target tegra_hal
+[  5%] Built target ade
+[  5%] Built target opencv_videoio_plugins
+[  5%] Built target opencv_cudev
+[  6%] Built target tbb
+[  6%] Built target ittnotify
+[  9%] Built target opencv_core
+[ 12%] Built target opencv_imgproc
+[ 14%] Built target libtiff
+[ 19%] Built target libwebp
+[ 23%] Built target IlmImf
+[ 24%] Built target opencv_imgcodecs
+[ 24%] Built target opencv_videoio
+Scanning dependencies of target opencv_highgui
+[ 24%] Building CXX object modules/highgui/CMakeFiles/opencv_highgui.dir/src/window_gtk.cpp.o
+/home/nvidia/opencv-4.5.1/modules/highgui/src/window_gtk.cpp:48:10: fatal error: gtk/gtk.h: No such file or directory
+ #include <gtk/gtk.h>
+          ^~~~~~~~~~~
+compilation terminated.
+modules/highgui/CMakeFiles/opencv_highgui.dir/build.make:110: recipe for target 'modules/highgui/CMakeFiles/opencv_highgui.dir/src/window_gtk.cpp.o' failed
+make[2]: *** [modules/highgui/CMakeFiles/opencv_highgui.dir/src/window_gtk.cpp.o] Error 1
+CMakeFiles/Makefile2:6752: recipe for target 'modules/highgui/CMakeFiles/opencv_highgui.dir/all' failed
+make[1]: *** [modules/highgui/CMakeFiles/opencv_highgui.dir/all] Error 2
+Makefile:165: recipe for target 'all' failed
+make: *** [all] Error 2
+
+```
 ---
 
 ## OpenCV C++ 프로그래밍
