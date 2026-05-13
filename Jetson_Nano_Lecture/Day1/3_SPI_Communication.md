@@ -1,4 +1,4 @@
-# 3일차: SPI 통신 및 ADC 실습
+# STEP3 : SPI 통신 및 ADC 실습
 
 ---
 
