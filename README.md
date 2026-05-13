@@ -4,7 +4,8 @@
 
 * https://github.com/eleparts
 * https://blog.naver.com/allai-
-* https://brr.kr/erfpgd
+* 1일차 자료 : https://brr.kr/erfpgd
+* 2일차 자료 : https://brr.kr/h58xxe
 
 ## Day1
    * Class01 : (강의) 교육소개 : 운영체제 리눅스 기초 / Jetson Nano에 OS image flashing 
