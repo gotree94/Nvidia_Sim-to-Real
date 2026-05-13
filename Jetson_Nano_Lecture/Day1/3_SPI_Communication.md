@@ -197,39 +197,8 @@ while True:
 
 ### LCD + 조도센서 연동
 
-```python
-import spidev
-import RPi_I2C_driver
-from time import *
-
-lcd = RPi_I2C_driver.lcd(0x27)
-
-spi = spidev.SpiDev()
-spi.open(0, 0)
-spi.max_speed_hz = 1350000
-
-def analog_read(channel):
-    r = spi.xfer2([1, (8 + channel) << 4, 0])
-    data = ((r[1] & 3) << 8) + r[2]
-    return data
-
-while True:
-    reading = analog_read(0)
-    
-    lcd.clear()
-    if reading > 500:
-        lcd.print("light")
-    else:
-        lcd.print("dark")
-    
-    lcd.setCursor(0, 1)
-    lcd.print(str(reading))
-    
-    sleep(0.5)
-```
-
 * mcp3008_output.py
-```
+```python
 import spidev
 import RPi_I2C_driver
 from time import *
