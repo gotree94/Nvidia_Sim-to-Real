@@ -228,6 +228,49 @@ while True:
     sleep(0.5)
 ```
 
+* mcp3008_output.py
+```
+import spidev
+import RPi_I2C_driver
+from time import *
+
+# RPi_I2C_driver.lcd( I2C address )
+lcd = RPi_I2C_driver.lcd(0x27)
+
+spi=spidev.SpiDev()
+spi.open(0, 0)
+spi.max_speed_hz=1350000
+
+time_sec = 0
+
+def analog_read(channel):
+    r=spi.xfer2([1,(8+channel)<<4,0])
+    data=((r[1]&3)<<8)+r[2]
+    return data
+
+while True :
+    reading = analog_read(0)
+    readingstr = str(reading)
+    print('reading : ' , readingstr , 'Voltage:' , reading*3.3/1024 )
+
+    lcd.clear()
+
+    if reading > 600:
+        lcd.print("light")
+    else:
+        lcd.print("dark")
+
+    # set the cursor to column 0, line 1
+    # (note: line 1 is the second row, since counting begins with 0):
+    lcd.setCursor(0,1)
+
+    # Print a message to the LCD.
+    lcd.print(reading)
+
+    # print the number of seconds:
+    sleep(0.5)
+```
+
 > **참고**: 환경에 따라 조도센서 출력값이 다르므로 기준값(500)을 조정해야 할 수 있음
 
 ---
