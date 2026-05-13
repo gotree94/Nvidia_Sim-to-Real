@@ -1,4 +1,4 @@
-# 4일차: OpenCV with CUDA 및 객체 탐지
+# STEP4: OpenCV with CUDA 및 객체 탐지
 
 ---
 
