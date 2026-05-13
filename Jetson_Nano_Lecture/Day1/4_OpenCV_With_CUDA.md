@@ -212,6 +212,28 @@ nvidia@tegra-ubuntu:~/opencv-4.5.1/build$
 
 ```
 
+```
+# 1. opencv_contrib가 올바른 경로에 있는지 확인
+ls -la ~/opencv_contrib-4.5.1/modules/ 2>/dev/null || echo "modules folder not found"
+
+# 2. 올바른 버전인지 확인
+cd ~/opencv_contrib-4.5.1
+git tag | grep "4.5.1"
+
+# 3. CMake 재실행 (절대 경로 사용)
+cd ~/opencv-4.5.1/build
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+      -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D OPENCV_EXTRA_MODULES_PATH=/home/nvidia/opencv_contrib-4.5.1/modules \
+      -D WITH_CUDA=ON \
+      -D CUDA_ARCH_BIN=5.3 \
+      -D CUDA_FAST_MATH=ON \
+      ..
+
+# 4. 성공하면 make install
+make -j$(nproc)
+sudo make install
+```
 
 ---
 
