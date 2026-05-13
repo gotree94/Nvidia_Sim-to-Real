@@ -109,7 +109,8 @@ sudo apt install -y python3-pip python-dev python3-dev python-numpy python3-nump
 sudo sh -c "echo '/usr/local/cuda/lib64' >> /etc/ld.so.conf.d/nvidia-tegra.conf"
 sudo apt install -y qt5-default
 sudo apt install -y build-essential cmake git unzip pkg-config libswscale-dev
-sudo apt install -y libcanberra-gtk* libgtk2.0-dev$ sudo apt install -y libtbb2 libtbb-dev libavresample-dev libvorbis-dev libxine2-dev
+sudo apt install -y libcanberra-gtk* libgtk2.0-dev
+sudo apt install -y libtbb2 libtbb-dev libavresample-dev libvorbis-dev libxine2-dev
 sudo apt install -y curl
 
 # 사진, 비디오 포맷 관련된 패키지를 설치합니다.
