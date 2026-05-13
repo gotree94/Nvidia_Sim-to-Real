@@ -997,6 +997,16 @@ sudo nvpmodel -m 0
 sudo jetson_clocks
 ```
 
+<img src="./img/001.jpg" width="50%"> <br>
+<img src="./img/002.jpg" width="50%"> <br>
+<img src="./img/003.jpg" width="50%"> <br>
+<img src="./img/004.jpg" width="50%"> <br>
+<img src="./img/005.jpg" width="50%"> <br>
+<img src="./img/006.jpg" width="50%"> <br>
+<img src="./img/007.jpg" width="50%"> <br>
+<img src="./img/008.jpg" width="50%">
+
+
 ---
 
 ## 참고 자료
