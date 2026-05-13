@@ -150,6 +150,69 @@ $ sudo /etc/init.d/dphys-swapfile stop
 $ sudo apt-get remove --purge dphys-swapfile
 ```
 
+# Error
+
+```
+Get:24 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libxml2-utils arm64 2.9.4+dfsg1-6.1ubuntu1.9 [32.8 kB]     
+Get:25 http://ports.ubuntu.com/ubuntu-ports bionic/main arm64 libgtk2.0-dev arm64 2.24.32-1ubuntu1 [2,476 kB]                    
+Get:26 http://ports.ubuntu.com/ubuntu-ports bionic/universe arm64 libcanberra-gtk-dev arm64 0.30-5ubuntu1 [2,056 B]              
+Get:27 http://ports.ubuntu.com/ubuntu-ports bionic/universe arm64 libcanberra-gtk-module arm64 0.30-5ubuntu1 [8,556 B]           
+Get:28 http://ports.ubuntu.com/ubuntu-ports bionic/main arm64 libepoxy-dev arm64 1.4.3-1 [119 kB]                                
+Get:29 http://ports.ubuntu.com/ubuntu-ports bionic/main arm64 wayland-protocols all 1.13-1 [50.5 kB]                             
+Get:30 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libgtk-3-dev arm64 3.22.30-1ubuntu4 [897 kB]               
+Get:31 http://ports.ubuntu.com/ubuntu-ports bionic/main arm64 libcanberra-gtk3-dev arm64 0.30-5ubuntu1 [2,048 B]                 
+Get:32 http://ports.ubuntu.com/ubuntu-ports bionic-updates/main arm64 libpng-tools arm64 1.6.34-1ubuntu0.18.04.2 [23.5 kB]       
+Fetched 7,946 kB in 1min 46s (74.7 kB/s)                                                                                         
+E: Failed to fetch http://ports.ubuntu.com/ubuntu-ports/pool/main/f/fontconfig/libfontconfig1-dev_2.12.6-0ubuntu2_arm64.deb  Connection failed [IP: 91.189.92.21 80]
+E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+
+```
+
+```
+nvidia@tegra-ubuntu:~/opencv-4.5.1/build$ sudo make install
+-- Detected processor: aarch64
+-- Looking for ccache - not found
+-- Found ZLIB: /usr/lib/aarch64-linux-gnu/libz.so (found suitable version "1.2.11", minimum required is "1.2.3") 
+Cleaning INTERNAL cached variable: WEBP_LIBRARY
+Cleaning INTERNAL cached variable: WEBP_INCLUDE_DIR
+-- Could NOT find OpenJPEG (minimal suitable version: 2.0, recommended version >= 2.3.1). OpenJPEG will be built from sources
+-- OpenJPEG: VERSION = 2.3.1, BUILD = opencv-4.5.1-openjp2-2.3.1
+-- OpenJPEG libraries will be built from sources: libopenjp2 (version "2.3.1")
+-- Found ZLIB: /usr/lib/aarch64-linux-gnu/libz.so (found version "1.2.11") 
+-- CUDA detected: 10.2
+-- CUDA: Using CUDA_ARCH_BIN=5.3
+-- CUDA NVCC target flags: -gencode;arch=compute_53,code=sm_53;-D_FORCE_INLINES
+-- Could not find OpenBLAS include. Turning OpenBLAS_FOUND off
+-- Could not find OpenBLAS lib. Turning OpenBLAS_FOUND off
+-- Could NOT find Atlas (missing: Atlas_CLAPACK_INCLUDE_DIR) 
+-- A library with BLAS API found.
+-- A library with LAPACK API found.
+-- Could NOT find JNI (missing: JAVA_AWT_LIBRARY JAVA_JVM_LIBRARY JAVA_INCLUDE_PATH JAVA_INCLUDE_PATH2 JAVA_AWT_INCLUDE_PATH) 
+-- VTK is not found. Please set -DVTK_DIR in CMake to VTK build directory, or to VTK install subdirectory with VTKConfig.cmake file
+CMake Error at cmake/OpenCVModule.cmake:274 (message):
+  No modules has been found: /home/nvidia/opencv_contrib-4.5.1/modules
+Call Stack (most recent call first):
+  cmake/OpenCVModule.cmake:356 (_glob_locations)
+  modules/CMakeLists.txt:7 (ocv_glob_modules)
+
+
+-- OpenCV Python: during development append to PYTHONPATH: /home/nvidia/opencv-4.5.1/build/python_loader
+CMake Error at modules/core/CMakeLists.txt:40 (message):
+  CUDA: OpenCV requires enabled 'cudev' module from 'opencv_contrib'
+  repository: https://github.com/opencv/opencv_contrib
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/nvidia/opencv-4.5.1/build/CMakeFiles/CMakeOutput.log".
+See also "/home/nvidia/opencv-4.5.1/build/CMakeFiles/CMakeError.log".
+Makefile:2433: recipe for target 'cmake_check_build_system' failed
+make: *** [cmake_check_build_system] Error 1
+nvidia@tegra-ubuntu:~/opencv-4.5.1/build$ ^C
+nvidia@tegra-ubuntu:~/opencv-4.5.1/build$ 
+
+```
+
+
 ---
 
 ## OpenCV C++ 프로그래밍
