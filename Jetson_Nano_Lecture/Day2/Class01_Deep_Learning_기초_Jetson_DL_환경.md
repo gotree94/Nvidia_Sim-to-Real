@@ -1,3 +1,6 @@
+
+https://learn.nvidia.com/courses/course?course_id=course-v1:DLI+S-RX-02+V2&unit=block-v1:DLI+S-RX-02+V2+type@vertical+block@aba5104413ae454c8c63a6f301925337
+
 # Class 01: Deep Learning 기초 및 Jetson DL 환경
 
 ## 1. 컴퓨터 구성 부품 개요
