@@ -411,6 +411,94 @@ cap.release()
 cv2.destroyAllWindows()
 ```
 
+```
+import cv2
+
+cap = cv2.VideoCapture(0)
+
+# 해상도 지정 (너비, 높이)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+
+# 또는 한 번에
+cap.set(3, 1280)  # CAP_PROP_FRAME_WIDTH = 3
+cap.set(4, 720)   # CAP_PROP_FRAME_HEIGHT = 4
+
+# 확인
+width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+print(f"해상도: {width}x{height}")
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+    cv2.imshow('camera', frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+```
+
+```
+#include <opencv2/opencv.hpp>
+int main() {
+// Open the default camera using default API // 0 is the ID of the default camera
+cv::VideoCapture cap(0);
+// Check if camera opened successfully
+if (!cap.isOpened()) {
+printf("Error: Could not open camera");
+return -1;
+}
+// Get the frame width and height
+int width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
+int height = cap.get(cv::CAP_PROP_FRAME_HEIGHT); printf("width, height = %d, %d\n", width, height);
+// Create a window for display
+cv::namedWindow("Camera Capture", cv::WINDOW_AUTOSIZE);
+while (true) {
+cv::Mat frame;
+// Capture frame-by-frame
+cap >> frame;
+// If the frame is empty, break immediately
+if (frame.empty()) {
+printf("Error: Captured empty frame");
+break;
+}
+// Display the resulting frame
+cv::imshow("Camera Capture", frame);
+// Press 'q' on the keyboard to exit the loop
+if (cv::waitKey(10) == 'q') {
+break;
+}
+}
+// When everything is done, release the video capture object
+cap.release();
+// Closes all the windows
+cv::destroyAllWindows(); return 0;
+}
+```
+
+CMakeLists.txt 파일을 생성합니다.
+```
+cmake_minimum_required(VERSION 3.0)
+project(camera_capture)
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS}) add_executable(camera_capture camera_capture.cpp) target_link_libraries(camera_capture ${OpenCV_LIBS})
+```
+
+```
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+```
+
+```
+./camera_capture
+```
+
+
 ---
 
 ## OpenCV 실습 - 이미지 처리
