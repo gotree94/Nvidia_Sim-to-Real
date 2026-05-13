@@ -1,4 +1,4 @@
-# Linux 기초 및 Jetson Nano 개발 환경 구축
+# STEP1 : Linux 기초 및 Jetson Nano 개발 환경 구축
 
 ## Linux 개요
 
