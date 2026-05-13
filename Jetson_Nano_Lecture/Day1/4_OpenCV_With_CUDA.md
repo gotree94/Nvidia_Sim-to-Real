@@ -280,6 +280,46 @@ Makefile:165: recipe for target 'all' failed
 make: *** [all] Error 2
 
 ```
+
+```
+GTK 개발 라이브러리 설치
+sudo apt-get update
+sudo apt-get install libgtk2.0-dev
+또는 GTK3 사용 시:
+
+sudo apt-get install libgtk-3-dev
+이전 네트워크 문제로 실패했던 경우
+이전 apt-get 에러에서 이미 이 패키지들을 다운로드 시도했으나 실패했습니다:
+
+Get:25 http://ports.ubuntu.com/ubuntu-ports bionic/main arm64 libgtk2.0-dev arm64 2.24.32-1ubuntu1 [2,476 kB]
+이제 네트워크가 복구되었다면 다시 시도:
+
+# 네트워크 재시도
+sudo apt-get update --fix-missing
+
+# GTK 설치
+sudo apt-get install -y libgtk2.0-dev libgtk-3-dev
+
+# 또는 필수 패키지만
+sudo apt-get install -y libgtk2.0-dev
+설치 후 빌드 재개
+cd ~/opencv-4.5.1/build
+make -j$(nproc)
+sudo make install
+그래도 안 되면
+GTK 없이 highgui 없이 빌드하는 옵션:
+
+cd ~/opencv-4.5.1/build
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+      -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D OPENCV_EXTRA_MODULES_PATH=/home/nvidia/opencv_contrib-4.5.1/modules \
+      -D WITH_CUDA=ON \
+      -D BUILD_opencv_highgui=OFF \
+      ..
+
+make -j$(nproc)
+sudo make install
+```
 ---
 
 ## OpenCV C++ 프로그래밍
