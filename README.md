@@ -10,6 +10,7 @@
 
 https://stevenkim1217.tistory.com/entry/%EC%9E%84%EB%B2%A0%EB%94%94%EB%93%9C-%EC%95%BC%EB%B6%90-%EC%A0%AF%EC%8A%A8%EB%82%98%EB%85%B8-B01-SUB-%EB%B6%80%ED%8C%85-Yahboom-Jetson-Nano-B01-SUB
 
+https://learn.nvidia.com/courses/course?course_id=course-v1:DLI+S-RX-02+V2&unit=block-v1:DLI+S-RX-02+V2+type@vertical+block@aba5104413ae454c8c63a6f301925337
 
 ## Day1
    * Class01 : (강의) 교육소개 : 운영체제 리눅스 기초 / Jetson Nano에 OS image flashing 
