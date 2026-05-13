@@ -320,6 +320,8 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 make -j$(nproc)
 sudo make install
 ```
+* 고려대실습 환경에에서일부 사이트의 연결을 맏아서 위의 실슴에 필요한 라이브러리를 모두 가지고 오지 못함.
+
 ---
 
 ## OpenCV C++ 프로그래밍
