@@ -1,6 +1,6 @@
 # Nvidia Sim-to-Real (KOREA Univ.)
 
-<img src="001.png" width="30%"> <img src="002.png" width="30%"> <br>
+<img src="001.png" width="50%"> <img src="002.png" width="50%"> <br>
 
 * https://github.com/eleparts
 * https://blog.naver.com/allai-
