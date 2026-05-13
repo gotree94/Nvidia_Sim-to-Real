@@ -103,36 +103,41 @@ pkg-config --modversion opencv4
 
 jetson_release
 
-▪    패키지 업데이트 및 필요한 패키지를 설치합니다.
-$ sudo apt update
-$ sudo apt install -y python3-pip python-dev python3-dev python-numpy python3-
-numpy
-$ sudo sh -c "echo '/usr/local/cuda/lib64' >> /etc/ld.so.conf.d/nvidia-tegra.conf"
-$ sudo apt install -y qt5-default
-$ sudo apt install -y build-essential cmake git unzip pkg-config libswscale-dev
-$ sudo apt install -y libcanberra-gtk* libgtk2.0-dev$ sudo apt install -y libtbb2 libtbb-dev libavresample-dev libvorbis-dev libxine2-
-dev
-$ sudo apt install -y curl
-▪    사진, 비디오 포맷 관련된 패키지를 설치합니다.
-$ sudo apt install -y libxvidcore-dev libx264-dev libgtk-3-dev
-$ sudo apt install -y libjpeg-dev libpng-dev libtiff-dev
-$ sudo apt install -y libmp3lame-dev libtheora-dev libfaac-dev libopencore-
-amrnb-dev
-$ sudo apt install -y libopencore-amrwb-dev libopenblas-dev libatlas-base-dev
-$ sudo apt install -y libblas-dev liblapack-dev libeigen3-dev libgflags-dev
-$ sudo apt install -y protobuf-compiler libprotobuf-dev libgoogle-glog-dev 
-$ sudo apt install -y libavcodec-dev libavformat-dev gfortran libhdf5-dev
-$ sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
-$ sudo apt install -y libv4l-dev v4l-utils qv4l2 v4l2ucp libdc1394-22-dev
+#  패키지 업데이트 및 필요한 패키지를 설치합니다.
+sudo apt update
+sudo apt install -y python3-pip python-dev python3-dev python-numpy python3-numpy
+sudo sh -c "echo '/usr/local/cuda/lib64' >> /etc/ld.so.conf.d/nvidia-tegra.conf"
+sudo apt install -y qt5-default
+sudo apt install -y build-essential cmake git unzip pkg-config libswscale-dev
+sudo apt install -y libcanberra-gtk* libgtk2.0-dev$ sudo apt install -y libtbb2 libtbb-dev libavresample-dev libvorbis-dev libxine2-dev
+sudo apt install -y curl
+
+# 사진, 비디오 포맷 관련된 패키지를 설치합니다.
+sudo apt install -y libxvidcore-dev libx264-dev libgtk-3-dev
+sudo apt install -y libjpeg-dev libpng-dev libtiff-dev
+sudo apt install -y libmp3lame-dev libtheora-dev libfaac-dev libopencore-amrnb-dev
+sudo apt install -y libopencore-amrwb-dev libopenblas-dev libatlas-base-dev
+sudo apt install -y libblas-dev liblapack-dev libeigen3-dev libgflags-dev
+sudo apt install -y protobuf-compiler libprotobuf-dev libgoogle-glog-dev 
+sudo apt install -y libavcodec-dev libavformat-dev gfortran libhdf5-dev
+sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+sudo apt install -y libv4l-dev v4l-utils qv4l2 v4l2ucp libdc1394-22-dev
 (참고: 실습자료를 복사할 경우 복사가 잘 안될 수 있습니다. 실습자료로 제공된 opencv_install.txt 파일을 참고하세요.)
-▪    사전 빌드 된 ’opencv-4.5.1.tar.gz’ 파일을 Jetson Nano 홈 디렉토리(‘~’)에 복사하여 넣고, 아래 명령어로 압축 해제합니다.
+
+#사전 빌드 된 ’opencv-4.5.1.tar.gz’ 파일을 Jetson Nano 홈 디렉토리(‘~’)에 복사하여 넣고, 아래 명령어로 압축 해제합니다.
 (’opencv-4.5.1.tar.gz’  파일을 USB disk 또는 원격 연결된 Visual Studio code 를 이용해서 Jetson Nano 에 복사하여 놓습니다.)
+
 $ tar -xvzf opencv-4.5.1.tar.gz
-▪    opencv-4.5.1/build 경로로 이동합니다.
+
+# opencv-4.5.1/build 경로로 이동합니다.
 $ cd opencv-4.5.1/build/
-▪    아래 명령어로 사전 빌드된 OpenCV 패키지를 설치합니다.
+
+# 아래 명령어로 사전 빌드된 OpenCV 패키지를 설치합니다.
 $ sudo make install
-(참고: 사전에 설치하는 패키지가 제대로 설치가 안됐을 경우 OpenCV 패키지를 설치할 때 빌드로 넘어가서 시간이 오래 걸리거나 에러가 나는 경우가 있을 수 있습니다. 그럴 경우 ‘Ctrl + C ‘를 눌러 install 을 중단하고, 패키지를 제대로 설치한 후에 진행해야 합니다. 단, 100%에서 오래 걸리는 건 기다려 주시기 바랍니다.)▪    설치가 완료되면 시스템이 설치한 라이브러리를 인식할 수 있도록 다음 명령어를 실행하여 라이브러리 캐시를 업데이트 합니다.
+(참고: 사전에 설치하는 패키지가 제대로 설치가 안됐을 경우 OpenCV 패키지를 설치할 때 빌드로 넘어가서 시간이 오래 걸리거나 에러가 나는 경우가 있을 수 있습니다.
+그럴 경우 ‘Ctrl + C ‘를 눌러 install 을 중단하고, 패키지를 제대로 설치한 후에 진행해야 합니다. 단, 100%에서 오래 걸리는 건 기다려 주시기 바랍니다.)
+
+# 설치가 완료되면 시스템이 설치한 라이브러리를 인식할 수 있도록 다음 명령어를 실행하여 라이브러리 캐시를 업데이트 합니다.
 $ sudo ldconfig
 OpenCV with CUDA 설치 확인 (Jetson_release)
 ▪ CUDA 를 사용하는 OpenCV 가 잘 설치 되었는지 확인합니다.
