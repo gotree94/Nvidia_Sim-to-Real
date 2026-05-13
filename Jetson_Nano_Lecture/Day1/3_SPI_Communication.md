@@ -240,6 +240,26 @@ while True :
     sleep(0.5)
 ```
 
+```
+nvidia@tegra-ubuntu:~/spidev-test$ sudo python3 mcp3008_output.py
+reading :  865 Voltage: 2.78759765625
+reading :  872 Voltage: 2.81015625
+reading :  871 Voltage: 2.8069335937499997
+reading :  867 Voltage: 2.79404296875
+reading :  872 Voltage: 2.81015625
+reading :  864 Voltage: 2.784375
+reading :  865 Voltage: 2.78759765625
+reading :  867 Voltage: 2.79404296875
+reading :  862 Voltage: 2.7779296875
+reading :  868 Voltage: 2.7972656249999996
+reading :  871 Voltage: 2.8069335937499997
+reading :  871 Voltage: 2.8069335937499997
+reading :  865 Voltage: 2.78759765625
+reading :  863 Voltage: 2.7811523437499996
+reading :  867 Voltage: 2.79404296875
+
+```
+
 > **참고**: 환경에 따라 조도센서 출력값이 다르므로 기준값(500)을 조정해야 할 수 있음
 
 ---
