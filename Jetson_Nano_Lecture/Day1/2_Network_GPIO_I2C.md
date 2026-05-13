@@ -1,4 +1,4 @@
-# Step2 : Linux Network, Jetpack Library, GPIO, I2C
+# STEP2 : Linux Network, Jetpack Library, GPIO, I2C
 
 <img src="59.png" width="40%">
 
