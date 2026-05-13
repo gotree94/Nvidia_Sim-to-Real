@@ -2,13 +2,127 @@
 
 <img src="001.png" width="30%"> <img src="002.png" width="30%"> <br>
 
-https://github.com/eleparts
-
-https://blog.naver.com/allai-
+* https://github.com/eleparts
+* https://blog.naver.com/allai-
+* https://brr.kr/erfpgd
 
 ## Day1
+   * Class01 : (강의) 교육소개 : 운영체제 리눅스 기초 / Jetson Nano에 OS image flashing 
+   * Class02 : (실습) Virtual Box 설치 / Jetson Nano에 OS image flashing
+   * Class03 : (강의) Jetson 소개 / 리눅스 네트워크, Jetpack library 소개 / (실습) Jetpack library 설치, Network 실습
+   * Class04 : (강의) Jetson GPIO 소개 / (실습) Jetson gpio로 LED 제어 실습
+   * Class05 : (강의) Jetson I2C 소개 / (실습) Jetson I2C로 LCD/IMU 제어 실습
+   * Class06 : (강의) Jetson SPI 소개 / (실습) Jetson SPI로 광센서(CDS) 제어 실습
+   * Class07 : (강의) OpenCV 소개 / (실습) Cuda Enabled OpenCV 실습
+   * Class08 : (실습) OpenCV기반 Label, DNN 실습
 
-* https://brr.kr/erfpgd
+```
+sudo apt update
+sudo apt install gparted -y
+```
+
+## Day2
+   * Class01 : (강의) Jetson DLI 소개 / CUDA, Object Detection 등 소개 
+   * Class02 : (실습) Jetson DLI docker 설치 / Jupyter 사용 실습
+   * Class03 : (실습) Jetson DLI Image classification 실습
+   * Class04 : (실습) Jetson DLI Image regression 실습
+   * Class05 : (강의) Tensorflow 소개 / (실습) Cuda Enabled Tensorflow 실습
+   * Class06 : (실습) Tensorflow MNIST mlc/cnn 학습 추론 실습
+   * Class07 : (강의) Darknet, Pytorch. TensorRT 소개 / (실습) Darknet 실습
+   * Class08 : (실습) Pytorch (yolov5) 실습
+
+## Day3
+   * Class01 : (실습) TensorRT 모델 변환 및 추론 실습
+   * Class02 : (강의) Mediapipe 소개 / (실습) mediapipe 실습
+   * Class03 : (실습) mediapipe 얼굴 인식 실습
+   * Class04 : (실습) mediapipe 손 제스처 인식 실습
+   * Class05 : 로봇에 jetson nano 조립
+   * Class06 : 로봇에 jetson nano 조립
+   * Class07 : (강의) 교육소개 / ROS 소개 및 설치
+   * Class08 : (실습) Jetson ROS 설치
+
+## Day4
+   * Class01 : (강의) ROS 토픽 서비스 액션 소개 / (실습) 토픽 발간 구독
+   * Class02 : (강의) ROS 제어기 패키지 / (실습) Catkin 토픽 발간구독
+   * Class03 : (강의) ROS 주요도구 / (실습) 로봇 Catkin 패키지
+   * Class04 : (실습) 로봇 Catkin 패키지
+   * Class05 : (실습) ROS 주요 tool 보기 / 원격개발환경구축
+   * Class06 : (실습) 원격개발환경구축
+   * Class07 : (강의) Rviz, Odometry TF
+   * Class08 : (실습) 모터구동
+
+## Day5
+   * Class01 : (강의) SLAM / (실습) SLAM(Gmapping)
+   * Class02 : (실습) SLAM(Gmapping)
+   * Class03 : (강의) Navigation / (실습) Navigation 해보기
+   * Class04 : (실습) Navigation 해보기
+   * Class05 : (실습) SLAM(Cartographer)
+   * Class06 : (실습) SLAM(Cartographer) / (실습) Rviz와 Nevigation
+   * Class07 : (실습) Rviz와 Nevigation
+   * Class08 : (실습) Move_Base노드와 SendGoals
+
+```
+nvidia@nvidia-desktop:~$ ifconfig
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:e6:b5:49:4d  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether 3c:6d:66:0b:0f:55  txqueuelen 1000  (Ethernet)
+        RX packets 12416  bytes 16950312 (16.9 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 5476  bytes 384393 (384.3 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+        device interrupt 151  base 0xb000  
+
+l4tbr0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.55.1  netmask 255.255.255.0  broadcast 192.168.55.255
+        inet6 fe80::1  prefixlen 128  scopeid 0x20<link>
+        inet6 fe80::f4bb:a1ff:fe3d:5255  prefixlen 64  scopeid 0x20<link>
+        ether f6:bb:a1:3d:52:55  txqueuelen 1000  (Ethernet)
+        RX packets 1669  bytes 133004 (133.0 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 425  bytes 59094 (59.0 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1  (Local Loopback)
+        RX packets 979  bytes 75617 (75.6 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 979  bytes 75617 (75.6 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+rndis0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::f4bb:a1ff:fe3d:5255  prefixlen 64  scopeid 0x20<link>
+        ether f6:bb:a1:3d:52:55  txqueuelen 1000  (Ethernet)
+        RX packets 1703  bytes 136272 (136.2 KB)
+        RX errors 0  dropped 4  overruns 0  frame 0
+        TX packets 463  bytes 90241 (90.2 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+usb0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::f4bb:a1ff:fe3d:5257  prefixlen 64  scopeid 0x20<link>
+        ether f6:bb:a1:3d:52:57  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 654  bytes 126496 (126.4 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlan0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.7  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::8e58:189d:2be7:fc11  prefixlen 64  scopeid 0x20<link>
+        ether 90:de:80:db:79:96  txqueuelen 1000  (Ethernet)
+        RX packets 22477  bytes 28928373 (28.9 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 7151  bytes 1351905 (1.3 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+```
 
 ```
 +---실습_1-02_windowPC_virtualbox_install
@@ -733,122 +847,5 @@ https://blog.naver.com/allai-
                     coco.names
                     yolov3.weights
                     yolov3-tiny.weights
-```
-
-* Class01 : (강의) 교육소개 : 운영체제 리눅스 기초 / Jetson Nano에 OS image flashing 
-* Class02 : (실습) Virtual Box 설치 / Jetson Nano에 OS image flashing
-* Class03 : (강의) Jetson 소개 / 리눅스 네트워크, Jetpack library 소개 / (실습) Jetpack library 설치, Network 실습
-* Class04 : (강의) Jetson GPIO 소개 / (실습) Jetson gpio로 LED 제어 실습
-* Class05 : (강의) Jetson I2C 소개 / (실습) Jetson I2C로 LCD/IMU 제어 실습
-* Class06 : (강의) Jetson SPI 소개 / (실습) Jetson SPI로 광센서(CDS) 제어 실습
-* Class07 : (강의) OpenCV 소개 / (실습) Cuda Enabled OpenCV 실습
-* Class08 : (실습) OpenCV기반 Label, DNN 실습
-
-```
-sudo apt update
-sudo apt install gparted -y
-```
-
-## Day2
-* Class01 : (강의) Jetson DLI 소개 / CUDA, Object Detection 등 소개 
-* Class02 : (실습) Jetson DLI docker 설치 / Jupyter 사용 실습
-* Class03 : (실습) Jetson DLI Image classification 실습
-* Class04 : (실습) Jetson DLI Image regression 실습
-* Class05 : (강의) Tensorflow 소개 / (실습) Cuda Enabled Tensorflow 실습
-* Class06 : (실습) Tensorflow MNIST mlc/cnn 학습 추론 실습
-* Class07 : (강의) Darknet, Pytorch. TensorRT 소개 / (실습) Darknet 실습
-* Class08 : (실습) Pytorch (yolov5) 실습
-
-## Day3
-* Class01 : (실습) TensorRT 모델 변환 및 추론 실습
-* Class02 : (강의) Mediapipe 소개 / (실습) mediapipe 실습
-* Class03 : (실습) mediapipe 얼굴 인식 실습
-* Class04 : (실습) mediapipe 손 제스처 인식 실습
-* Class05 : 로봇에 jetson nano 조립
-* Class06 : 로봇에 jetson nano 조립
-* Class07 : (강의) 교육소개 / ROS 소개 및 설치
-* Class08 : (실습) Jetson ROS 설치
-
-## Day4
-* Class01 : (강의) ROS 토픽 서비스 액션 소개 / (실습) 토픽 발간 구독
-* Class02 : (강의) ROS 제어기 패키지 / (실습) Catkin 토픽 발간구독
-* Class03 : (강의) ROS 주요도구 / (실습) 로봇 Catkin 패키지
-* Class04 : (실습) 로봇 Catkin 패키지
-* Class05 : (실습) ROS 주요 tool 보기 / 원격개발환경구축
-* Class06 : (실습) 원격개발환경구축
-* Class07 : (강의) Rviz, Odometry TF
-* Class08 : (실습) 모터구동
-
-## Day5
-* Class01 : (강의) SLAM / (실습) SLAM(Gmapping)
-* Class02 : (실습) SLAM(Gmapping)
-* Class03 : (강의) Navigation / (실습) Navigation 해보기
-* Class04 : (실습) Navigation 해보기
-* Class05 : (실습) SLAM(Cartographer)
-* Class06 : (실습) SLAM(Cartographer) / (실습) Rviz와 Nevigation
-* Class07 : (실습) Rviz와 Nevigation
-* Class08 : (실습) Move_Base노드와 SendGoals
-
-```
-nvidia@nvidia-desktop:~$ ifconfig
-docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
-        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
-        ether 02:42:e6:b5:49:4d  txqueuelen 0  (Ethernet)
-        RX packets 0  bytes 0 (0.0 B)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 0  bytes 0 (0.0 B)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-
-eth0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
-        ether 3c:6d:66:0b:0f:55  txqueuelen 1000  (Ethernet)
-        RX packets 12416  bytes 16950312 (16.9 MB)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 5476  bytes 384393 (384.3 KB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-        device interrupt 151  base 0xb000  
-
-l4tbr0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet 192.168.55.1  netmask 255.255.255.0  broadcast 192.168.55.255
-        inet6 fe80::1  prefixlen 128  scopeid 0x20<link>
-        inet6 fe80::f4bb:a1ff:fe3d:5255  prefixlen 64  scopeid 0x20<link>
-        ether f6:bb:a1:3d:52:55  txqueuelen 1000  (Ethernet)
-        RX packets 1669  bytes 133004 (133.0 KB)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 425  bytes 59094 (59.0 KB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-
-lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
-        inet 127.0.0.1  netmask 255.0.0.0
-        inet6 ::1  prefixlen 128  scopeid 0x10<host>
-        loop  txqueuelen 1  (Local Loopback)
-        RX packets 979  bytes 75617 (75.6 KB)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 979  bytes 75617 (75.6 KB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-
-rndis0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet6 fe80::f4bb:a1ff:fe3d:5255  prefixlen 64  scopeid 0x20<link>
-        ether f6:bb:a1:3d:52:55  txqueuelen 1000  (Ethernet)
-        RX packets 1703  bytes 136272 (136.2 KB)
-        RX errors 0  dropped 4  overruns 0  frame 0
-        TX packets 463  bytes 90241 (90.2 KB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-
-usb0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet6 fe80::f4bb:a1ff:fe3d:5257  prefixlen 64  scopeid 0x20<link>
-        ether f6:bb:a1:3d:52:57  txqueuelen 1000  (Ethernet)
-        RX packets 0  bytes 0 (0.0 B)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 654  bytes 126496 (126.4 KB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-
-wlan0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet 192.168.1.7  netmask 255.255.255.0  broadcast 192.168.1.255
-        inet6 fe80::8e58:189d:2be7:fc11  prefixlen 64  scopeid 0x20<link>
-        ether 90:de:80:db:79:96  txqueuelen 1000  (Ethernet)
-        RX packets 22477  bytes 28928373 (28.9 MB)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 7151  bytes 1351905 (1.3 MB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ```
 
