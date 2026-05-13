@@ -1,4 +1,4 @@
-# Nvidia Sim-to-Real (고려대학교)
+# Nvidia Sim-to-Real (KOREA Univ.)
 
 <img src="001.png" width="30%"> <img src="002.png" width="30%"> <br>
 
