@@ -213,6 +213,15 @@ nvidia@tegra-ubuntu:~/opencv-4.5.1/build$
 ```
 
 ```
+확인해야 할 사항 (Tegra에서 실행)
+opencv_contrib 디렉토리 존재 여부:
+ls -la /home/nvidia/opencv_contrib-4.5.1/
+ls -la /home/nvidia/opencv_contrib-4.5.1/modules/
+CMakeCache.txt 확인 (어떤 옵션으로 설정했는지):
+cat /home/nvidia/opencv-4.5.1/build/CMakeCache.txt | grep -i OPENCV_EXTRA
+CMakeLists.txt에서 opencv_contrib 참조:
+cat /home/nvidia/opencv-4.5.1/CMakeLists.txt | grep -i contrib
+
 # 1. opencv_contrib가 올바른 경로에 있는지 확인
 ls -la ~/opencv_contrib-4.5.1/modules/ 2>/dev/null || echo "modules folder not found"
 
