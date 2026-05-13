@@ -329,6 +329,9 @@ sudo ./spidev_test -D /dev/spidev0.0 -v
 sudo ./spidev_test -D /dev/spidev0.0 -v -p "TestData"
 ```
 
+<img src="/img/009.jpg"> <br>
+<img src="/img/009.jpg">
+
 ---
 
 ## 참고 자료
