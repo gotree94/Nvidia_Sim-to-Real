@@ -3,6 +3,7 @@
 > **작성일**: 2026-05-14
 > **타겟 HW**: Jetson Orin Nano Super (교육용 제품화)
 > **보조 HW**: Jetson Nano 2GB, Jetson TX2 (경험/학습용)
+> **Workstation GPU**: RTX 5090 Laptop 24GB (보유 중)
 
 ---
 
@@ -10,12 +11,13 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    1. 개발 Workstation                          │
-│            (Isaac Sim 실행 — RTX GPU 필수)                      │
+│              1. 개발 Workstation (노트북)                       │
+│        (Isaac Sim 실행 — RTX 5090 Laptop 24GB)                 │
 │  - 물리 시뮬레이션 (PhysX)                                      │
 │  - 센서 데이터 생성 (LiDAR, Camera, IMU)                        │
 │  - 3D 렌더링 / GUI 시각화                                       │
 │  - Omniverse Streaming (Headless → 원격 접속)                   │
+│  - 24GB VRAM — 복잡한 로봇개 시뮬레이션 충분                   │
 └────────────────────────┬────────────────────────────────────────┘
                          │ ROS2 Network (Ethernet / WiFi)
                          ▼
@@ -49,14 +51,16 @@
 
 Isaac Sim은 **Jetson 계열 보드에서는 절대 직접 실행할 수 없습니다.**
 
-| 요소 | Isaac Sim 요구사항 | Jetson Orin Nano Super |
-|------|-------------------|----------------------|
-| **GPU** | RTX 3070 이상 (RT Cores 필수) | Ampere 1024 CUDA (RT Cores 없음) |
-| **VRAM** | 최소 8GB | 8GB (공유 메모리) |
-| **RAM** | 최소 32GB | 8GB |
-| **결론** | — | **Isaac Sim 직접 구동 불가** |
+| 요소 | Isaac Sim 요구사항 | **RTX 5090 Laptop 24GB** | Jetson Orin Nano Super |
+|------|:------------------:|:------------------------:|:----------------------:|
+| **GPU** | RTX 3070 이상 (RT Cores 필수) | **RTX 5090 (Blackwell)** ✅ | Ampere 1024 CUDA (RT Cores 없음) |
+| **VRAM** | 최소 8GB | **24GB** ✅ | 8GB (공유 메모리) |
+| **RT Cores** | 필수 | **4세대 RT Cores** ✅ | 없음 |
+| **판정** | — | **Ideal 수준 초과** ✅ | **Isaac Sim 직접 구동 불가** |
 
-> Isaac Sim은 **Workstation에서만 실행**하고, Jetson은 ROS2로 연결된 **Hardware-in-the-Loop(HIL) 파트너**로서 역할을 분담합니다.
+> **RTX 5090 Laptop 24GB면 Isaac Sim 시스템 요구사항을 크게 상회합니다.** 데스크톱 RTX 4090 이상급 성능으로, 로봇개 시뮬레이션에 필요한 고해상도 센서 + 물리 연산 + 실시간 렌더링을 모두 여유 있게 처리 가능합니다.
+>
+> Isaac Sim은 **Workstation(본 노트북)에서 실행**하고, Jetson은 ROS2로 연결된 **Hardware-in-the-Loop(HIL) 파트너**로서 역할을 분담합니다.
 
 ---
 
@@ -90,17 +94,19 @@ Isaac Sim은 **Jetson 계열 보드에서는 절대 직접 실행할 수 없습�
 ### Phase 1: Workstation 환경 구축
 
 ```
-필요 사양
-├── GPU: RTX 3070 이상 (권장 RTX 4080+)
-├── RAM: 32GB 이상 (권장 64GB)
-├── 저장소: 50GB 이상 SSD
-├── OS: Ubuntu 22.04 또는 Windows 10/11
+보유 장비
+├── GPU: RTX 5090 Laptop 24GB ✅ (Ideal 수준 초과)
+├── 시스템 RAM: 확인 필요 (Isaac Sim 최소 32GB, 권장 64GB)
+├── 저장소: 50GB 이상 SSD 확보 필요
+├── OS: Ubuntu 22.04 듀얼부팅 또는 WSL2 고려
 └── 네트워크: Jetson과 동일 LAN (유선 권장)
 ```
 
+> Isaac Sim은 Windows 네이티브도 지원하지만, ROS2 연동 안정성을 위해 **Ubuntu 22.04 듀얼부팅**을 권장합니다. (노트북이므로 WSL2도 대안이 될 수 있으나 GPU 가속 ROS2 노드에서 제약이 있을 수 있습니다.)
+
 설치:
 - NVIDIA Isaac Sim (공식 페이지에서 다운로드)
-- ROS2 Humble (Ubuntu) 또는 ROS2 Foxy (Windows)
+- ROS2 Humble (Ubuntu)
 - Isaac Sim Compatibility Checker 로 사전 검증
 
 ### Phase 2: Jetson Nano 2GB — ROS2 기초 체험
@@ -286,13 +292,13 @@ Isaac Sim은 **Jetson 계열 보드에서는 절대 직접 실행할 수 없습�
 
 | 항목 | 예상 비용 | 비고 |
 |------|----------|------|
-| **Workstation GPU** (RTX 4080+) | ~$800-1,600 | Isaac Sim 최소 RTX 3070 |
+| **Workstation GPU** | **보유 중 (RTX 5090 Laptop 24GB)** ✅ | 별도 구매 불필요 |
 | **Jetson Nano 2GB** | 이미 보유 | — |
 | **Jetson TX2** | 이미 보유 | — |
 | **Jetson Orin Nano Super DevKit 8GB** | ~$459-519 | 정식 DevKit 기준 |
 | **로봇개 하드웨어** (프레임, 모터, 배터리) | 별도 | Orin Nano Super 탑재 공간 확보 필요 |
 
-> **참고**: Jetson Orin Nano Super는 기존 Orin Nano 대비 가격이 소폭 상승했지만, TOPS 당 가격은 오히려 더 효율적입니다.
+> **예산 절감 포인트**: RTX 5090 노트북을 이미 보유하고 있어, 고가의 Workstation GPU를 별도로 구매할 필요가 없습니다. Isaac Sim 운영 측면에서 가장 큰 비용 항목이 해결된 셈입니다.
 
 ---
 
@@ -306,6 +312,17 @@ Isaac Sim은 **Jetson 계열 보드에서는 절대 직접 실행할 수 없습�
 | **Nano 2GB / TX2를 활용할 가치가 있나요?** | ✅ **충분합니다.** 성능 차이를 직접 체감하고, 단계별 학습이 가능합니다. |
 | **최종 교육용 제품 타겟으로 무엇을 선택해야 하나요?** | **Jetson Orin Nano Super 8GB** — 가성비 + 성능 + Isaac ROS 풀지원 |
 
+### 보유 장비 최종 점검
+
+| 장비 | 상태 | 활용 |
+|------|------|------|
+| **RTX 5090 Laptop 24GB** | ✅ 보유 완료 | Isaac Sim 실행 Workstation (Ideal 이상) |
+| **Jetson Nano 2GB** | ✅ 보유 완료 | ROS2 기초 학습 |
+| **Jetson TX2** | ✅ 보유 완료 | 중급 SW 포팅 경험 |
+| **Jetson Orin Nano Super** | 🛒 구매 필요 | 최종 교육용 제품 타겟 |
+
 ### 핵심 One-Liner
 
-> **Isaac Sim은 Workstation에서 시뮬레이션하고, Jetson Orin Nano Super는 실제 로봇개 SW를 실행하며, 둘은 ROS2로 연결된다.**
+> **RTX 5090 노트북에서 Isaac Sim으로 시뮬레이션하고, Jetson Orin Nano Super는 실제 로봇개 SW를 실행하며, 둘은 ROS2로 연결된다.**
+>
+> **Isaac Sim 구동을 위한 추가 GPU 구매는 전혀 필요 없습니다.**
