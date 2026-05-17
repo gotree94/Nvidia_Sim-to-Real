@@ -693,12 +693,147 @@ $ sudo python3 CustomCharactor_Hangle_Test.py
 * 다음 이미지는 IMU (mpu6050-gy25)입니다.
 
 <img src="images/Image_038.jpg"> <br>
+
+* IMU (mpu6050-gy25)를 Jetson Nano 40pin 에 다음과 같이 연결해주세요.
+
 <img src="images/Image_039.jpg"> <br>
+
+* 다음 명령어를 실행하여 i2c 장치의 주소를 확인하세요. 여기서 연결한 I2C 버스 번호는 0 입니다.
+```
+$ i2cdetect -y -r 0
+```
+
 <img src="images/Image_040.jpg"> <br>
+
+* 실습에 필요한 파이썬 패키지들을 먼저 설치합니다.
+
+```
+$ pip3 install PyOpenGL
+$ sudo apt-get install libsdl2-dev
+$ pip3 install pygame
+```
+
 <img src="images/Image_041.jpg"> <br>
+
+* python3 smbus 패키지를 사용해서 레지스터 값을 쓰고 읽어보세요. (실습코드 경로: mpu6050/smbus_test.py)
+
+```
+import smbus            #import SMBus module of I2C
+#some MPU6050 Registers and their Address PWR_MGMT_1   = 0x6B
+SMPLRT_DIV   = 0x19 CONFIG       = 0x1A GYRO_CONFIG  = 0x1B INT_ENABLE   = 0x38
+ACCEL_XOUT_H = 0x3B
+ACCEL_YOUT_H = 0x3D
+ACCEL_ZOUT_H = 0x3F
+GYRO_XOUT_H  = 0x43
+GYRO_YOUT_H  = 0x45
+GYRO_ZOUT_H  = 0x47
+def read_raw_data(addr):
+#Accelero and Gyro value are 16-bit
+high = bus.read_byte_data(Device_Address, addr)
+low = bus.read_byte_data(Device_Address, addr+1)
+#concatenate higher and lower value
+value = ((high << 8) | low)
+#to get signed value from mpu6050
+if(value > 32768):
+value = value - 65536
+return value
+bus = smbus.SMBus(0)    # or bus = smbus.SMBus(0) for older version boards Device_Address = 0x68    # MPU6050 device address
+#write to sample rate register
+bus.write_byte_data(Device_Address, SMPLRT_DIV, 7)
+#Write to power management register
+bus.write_byte_data(Device_Address, PWR_MGMT_1, 1)
+#Write to Configuration register
+bus.write_byte_data(Device_Address, CONFIG, 0)
+#Write to Gyro configuration register
+bus.write_byte_data(Device_Address, GYRO_CONFIG, 24)
+#Write to interrupt enable register
+bus.write_byte_data(Device_Address, INT_ENABLE, 1)
+#Read Accelerometer raw value
+acc_x = read_raw_data(ACCEL_XOUT_H) acc_y = read_raw_data(ACCEL_YOUT_H) acc_z = read_raw_data(ACCEL_ZOUT_H) print(acc_x, ",", acc_y, ",", acc_z,"\n")
+#Read Gyroscope raw value
+gyro_x = read_raw_data(GYRO_XOUT_H) gyro_y = read_raw_data(GYRO_YOUT_H) gyro_z = read_raw_data(GYRO_ZOUT_H) print(gyro_x, ",", gyro_y, ",", gyro_z,"\n")
+
+
+```
+
 <img src="images/Image_042.jpg"> <br>
+
+* 파일을 실행합니다.
+$ sudo python3 smbus_test.py
+
 <img src="images/Image_043.jpg"> <br>
+
+(참고 : imu를 움직이면서 실행하면 값의 변화를 더 잘 볼 수 있습니다.)
+
+* smbus 패키지를 사용해서 mpu6050 의 회전 속도와 가속도를 실시간으로 모니터링 해보세요.
+(실습코드 경로: mpu6050/mpu6050_simpletest1.py)
+
 <img src="images/Image_044.jpg"> <br>
+
+
+```
+'''
+Read Gyro and Accelerometer by Interfacing Raspberry Pi with MPU6050 using Python http://www.electronicwings.com
+'''
+import smbus            #import SMBus module of I2C from time import sleep          #import
+#some MPU6050 Registers and their Address PWR_MGMT_1   = 0x6B
+SMPLRT_DIV   = 0x19 CONFIG       = 0x1A GYRO_CONFIG  = 0x1B INT_ENABLE   = 0x38
+
+ACCEL_XOUT_H = 0x3B
+ACCEL_YOUT_H = 0x3D
+ACCEL_ZOUT_H = 0x3F
+GYRO_XOUT_H  = 0x43
+GYRO_YOUT_H  = 0x45
+GYRO_ZOUT_H  = 0x47
+def MPU_Init():
+#write to sample rate register
+bus.write_byte_data(Device_Address, SMPLRT_DIV, 7)
+#Write to power management register
+bus.write_byte_data(Device_Address, PWR_MGMT_1, 1)
+#Write to Configuration register
+bus.write_byte_data(Device_Address, CONFIG, 0)
+#Write to Gyro configuration register
+bus.write_byte_data(Device_Address, GYRO_CONFIG, 24)
+#Write to interrupt enable register
+bus.write_byte_data(Device_Address, INT_ENABLE, 1)
+def read_raw_data(addr):
+#Accelero and Gyro value are 16-bit
+high = bus.read_byte_data(Device_Address, addr)
+low = bus.read_byte_data(Device_Address, addr+1)
+#concatenate higher and lower value
+value = ((high << 8) | low)
+#to get signed value from mpu6050
+if(value > 32768):
+value = value - 65536
+return value
+bus = smbus.SMBus(0)    # or bus = smbus.SMBus(0) for older version boards Device_Address = 0x68    # MPU6050 device address
+MPU_Init()
+
+print (" Reading Data of Gyroscope and Accelerometer")
+while True:
+#Read Accelerometer raw value
+acc_x = read_raw_data(ACCEL_XOUT_H)
+acc_y = read_raw_data(ACCEL_YOUT_H)
+acc_z = read_raw_data(ACCEL_ZOUT_H)
+#Read Gyroscope raw value
+gyro_x = read_raw_data(GYRO_XOUT_H)
+gyro_y = read_raw_data(GYRO_YOUT_H)
+gyro_z = read_raw_data(GYRO_ZOUT_H)
+#Full scale range +/- 250 degree/C as per sensitivity scale factor
+Ax = acc_x/16384.0
+Ay = acc_y/16384.0
+Az = acc_z/16384.0
+Gx = gyro_x/131.0
+Gy = gyro_y/131.0
+Gz = gyro_z/131.0
+print ("Gx=%.2f" %Gx, u'\u00b0'+ "/s", "\tGy=%.2f" %Gy, u'\u00b0'+ "/s", "\tGz=%.2f" %Gz, u'\u00b0'+ "/s", "\tAx=%.2f g" %Ax, "\tAy=%.2f g" %Ay, "\tAz=%.2f g" %Az)     
+sleep(1)
+```
+* 파일을 실행합니다.
+
+```
+$ sudo python3 mpu6050_simpletest1.py
+```
 
 #### BMP280 연결
 
