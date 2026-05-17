@@ -220,8 +220,6 @@ NVIDIA Jetson 플랫폼은 하드웨어 성능을 최대한 활용할 수 있도
 - **OpenCV**: CUDA 가속 OpenCV
 - **TensorFlow / PyTorch**: NVIDIA 최적화 버전 제공
 
-
-
 ---
 
 ## 6. NVIDIA Jetson Developer Kit
@@ -230,7 +228,7 @@ NVIDIA Jetson 플랫폼은 하드웨어 성능을 최대한 활용할 수 있도
 •   NVIDIA Jetson Developer Kit은 Jetson SOM을 기반으로 한 개발 보드로, AI 및 엣지 컴퓨팅 애플리케이션 을 개발하고 테스트하는데 사용
 •   Jetson 사용자들이 좀 더 쉽게 소프트웨어 개발 하기 위한 표준 하드웨어 플랫폼으로 하드웨어 제작 이전에 소프트웨어 구현 및 시험을 가능하게 해줌
 
-## Jetson Module(SOM) vs Jetson Developer Kit
+### Jetson Module(SOM) vs Jetson Developer Kit
 ▪  Jetson Module(SOM)과 NVIDIA Jetson Developer kit 차이점?
 
 ### Nvidia Jetson Module(SOM)
@@ -275,7 +273,6 @@ NVIDIA Jetson 플랫폼은 하드웨어 성능을 최대한 활용할 수 있도
 <img src="images/Image_015.png">
 
 ---
-
 
 ## 참고 자료
 
