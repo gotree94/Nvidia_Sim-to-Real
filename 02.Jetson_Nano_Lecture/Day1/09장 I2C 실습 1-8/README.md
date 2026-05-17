@@ -576,6 +576,7 @@ while True:
 
 
 ```
+'''
 # RPi_I2C_driver - LiquidCrystal Library - Custom Characters
 #
 # This example has been implemented to enable Python in Raspberry Pi.
@@ -604,14 +605,34 @@ modified 7 Nov 2016
 by Arturo Guadalupi
 # modified Python 21 June 2019
 # by eleparts (yeon) (https://www.eleparts.co.kr/) '''
-import RPi_I2C_driver from time import *
+'''
+import RPi_I2C_driver
+from time import *
+
 Giyuk = [
-0b11111, 0b00001, 0b00001, 0b00001, 0b00001, 0b00001, 0b00001, 0b00001
+0b11111,
+0b00001,
+0b00001,
+0b00001,
+0b00001,
+0b00001,
+0b00001,
+0b00001
 ]
+
 Ah = [
-0b00100, 0b00100, 0b00100, 0b00111, 0b00100, 0b00100, 0b00100, 0b00100
+0b00100,
+0b00100,
+0b00100,
+0b00111,
+0b00100,
+0b00100,
+0b00100,
+0b00100
 ]
-Mium = [0b11111,
+
+Mium = [
+0b11111,
 0b10001,
 0b10001,
 0b10001,
@@ -620,6 +641,7 @@ Mium = [0b11111,
 0b10001,
 0b11111
 ]
+
 Siot = [
 0b00100,
 0b00100,
@@ -630,6 +652,7 @@ Siot = [
 0b10001,
 0b10001
 ]
+
 # RPi_I2C_driver.lcd( I2C address ) lcd = RPi_I2C_driver.lcd(0x27)
 # create a new character lcd.createChar(0, Giyuk)
 # create a new character lcd.createChar(1, Ah)
@@ -640,12 +663,12 @@ lcd.write(0)
 lcd.setCursor(2, 0) lcd.write(1)
 lcd.setCursor(2, 1) lcd.write(2)
 lcd.setCursor(4, 0) lcd.write(3)
-lcd.setCursor(5, 0)lcd.write(1)
+lcd.setCursor(5, 0) lcd.write(1)
 ```
 * 파일을 실행합니다.
 
 ```
-$ sudo python3 CustomCharactor_Hangle_Test py
+$ sudo python3 CustomCharactor_Hangle_Test.py
 ```
 
 * 같은 경로에 있는 다른 예제도 실행해봅니다.
