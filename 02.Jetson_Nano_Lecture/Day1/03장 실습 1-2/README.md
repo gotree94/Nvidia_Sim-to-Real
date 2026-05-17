@@ -273,21 +273,21 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
 
 2. 윈도우 파일 탐색기를 열고, '다운로드' 폴더로 이동하면 다운로드 받은 `VSCodeUserSetup-x64-1.84.2.exe` 파일을 볼 수 있다.
 
-![Ubuntu Install](images/Image_045.jpg)
+![Ubuntu Install](images/Image_047.jpg)
 
 3. 아래 내용을 참고하여 설치를 진행한다:
    - **동의합니다**를 선택한 후 **다음** 버튼 클릭
-![Ubuntu Install](images/Image_046.jpg)
-   - **다음** 버튼 클릭
-![Ubuntu Install](images/Image_047.jpg)
-   - **다음** 버튼 클릭
 ![Ubuntu Install](images/Image_048.jpg)
    - **다음** 버튼 클릭
 ![Ubuntu Install](images/Image_049.jpg)
-   - **설치** 버튼 클릭
+   - **다음** 버튼 클릭
 ![Ubuntu Install](images/Image_050.jpg)
-   - **종료** 버튼 클릭
+   - **다음** 버튼 클릭
 ![Ubuntu Install](images/Image_051.jpg)
+   - **설치** 버튼 클릭
+![Ubuntu Install](images/Image_052.jpg)
+   - **종료** 버튼 클릭
+![Ubuntu Install](images/Image_053.jpg)
    - Windows 검색창에 **Visual Studio Code**를 입력하고, 표시된 항목을 클릭하여 실행
 
 4. Windows PC에서 Visual Studio Code를 설치할 경우 **자동 업데이트 기능**이 기본적으로 활성화되어 있다. 업데이트가 진행되면 Jetson Nano와의 SSH 연결이 정상적으로 되지 않는 문제가 발생할 수 있으므로, 설치 직후 자동 업데이트 기능을 비활성화하는 것이 좋다.
