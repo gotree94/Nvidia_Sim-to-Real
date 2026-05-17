@@ -191,9 +191,20 @@ Windows PC에 다음과 같이 폴더 생성: `D:\share`
 ### 게스트 확장 CD 이미지 삽입
 
 1. 화면이 켜졌다면 **장치 → 게스트 확장 CD 이미지 삽입**을 눌러주세요.
-2. 아래 창이 뜬다면 **Run** 버튼을 눌러주세요.
-3. 아래와 같은 창이 뜬다면 **Don't Upgrade** 버튼을 눌러주세요.
-4. 아래와 같이 "Press Return to close this window..."가 뜬다면 **Enter**를 눌러주세요.
+
+![Ubuntu Install](images/Image_035.jpg)
+
+3. 아래 창이 뜬다면 **Run** 버튼을 눌러주세요.
+
+![Ubuntu Install](images/Image_036.jpg)
+
+5. 아래와 같은 창이 뜬다면 **Don't Upgrade** 버튼을 눌러주세요.
+
+![Ubuntu Install](images/Image_037.jpg)
+
+7. 아래와 같이 "Press Return to close this window..."가 뜬다면 **Enter**를 눌러주세요.
+
+![Ubuntu Install](images/Image_038.jpg)
 
 게스트 확장 CD 이미지 삽입을 완료하면 아래와 같은 기능을 사용할 수 있다:
 
@@ -213,8 +224,14 @@ $ sudo reboot
 ```
 
 1. VirtualBox에서 파일 관리자 (Nautilus)를 열고, 공유 폴더가 있는지 확인한다.
-2. 공유 폴더를 들어가보면 사용자가 `vboxsf` 그룹에 없어서 에러가 발생한다.
-3. 아래 명령어를 실행하여 `vboxsf` 그룹에 사용자를 추가한다:
+
+![Ubuntu Install](images/Image_039.jpg)
+
+3. 공유 폴더를 들어가보면 사용자가 `vboxsf` 그룹에 없어서 에러가 발생한다.
+
+![Ubuntu Install](images/Image_040.jpg)
+
+5. 아래 명령어를 실행하여 `vboxsf` 그룹에 사용자를 추가한다:
 
 ```bash
 $ sudo usermod -G vboxsf -a nvidia
@@ -228,6 +245,8 @@ $ sudo usermod -G vboxsf -a nvidia
 $ cat /etc/group
 ```
 
+![Ubuntu Install](images/Image_041.jpg)
+
 5. VirtualBox를 재부팅한다:
 
 ```bash
@@ -235,6 +254,8 @@ $ sudo reboot
 ```
 
 6. Windows PC에 테스트할 텍스트 파일을 만들고, 공유 폴더 경로와 VirtualBox 내의 공유 폴더 안에 같은 파일이 있는지 확인한다. Windows PC에 있는 파일을 VirtualBox로 옮겨야 할 때 공유 폴더를 사용하면 편리하게 옮길 수 있다.
+
+![Ubuntu Install](images/Image_042.jpg)
 
 ---
 
