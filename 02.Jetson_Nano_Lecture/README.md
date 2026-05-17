@@ -55,7 +55,8 @@
    * Class07 : (실습) Rviz와 Nevigation
    * Class08 : (실습) Move_Base노드와 SendGoals
 
-```
+---
+
 ## OpenUSD 및 Omniverse IssacSim 기반 시뮿헤이션
 
 ### Day1
@@ -85,3 +86,6 @@ sudo apt install gparted -y
 ---
 
 ## Physical AI 캡스톤 프로젝트 (Sim-to-Real)
+
+
+
