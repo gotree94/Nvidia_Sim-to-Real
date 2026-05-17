@@ -381,29 +381,33 @@ $ sudo apt-get clean
 $ sudo apt-get update
 4.  jetpack library 설치$ sudo apt install nvidia-jetpack
 (참고: Jetson Nano 는 NVIDIA 의 커스텀 커널과 부트로더를 기반으로 작동합니다. 따라서 Ubuntu 일반 시스템과 달리 전체 시스템 패키지를 업그레이드 (‘sudo apt upgrade’) 하면 Jetson 전용 커널 및 부팅 구성요소가 손상되어 부팅이 안되는 상태가 될 수 있습니다. 따라서 ‘sudo apt upgrade’ 명령어는 사용하지 마십시오.)
-n    ‘jetson_release’ 도구를 이용하여 jetpack library 가 설치됐는지 확인합니다.
+
+* ‘jetson_release’ 도구를 이용하여 jetpack library 가 설치됐는지 확인합니다.
+
 $ jetson_releasen    ‘jtop’ 도구를 이용하여 jetson nano 의 CPU, GPU, 메모리 사용량 등을 실시간으로 확인합니다.
+
+```
 $ jtop
-•      jtop 을 실행할 경우 1 번 화면이 나타납니다
+```
 
-1 번은 시스템의 요약 정보
-화면이며, CPU, GPU, 메모리, 디스크 사용량과 같은 전반적인 시스템 상태를 한눈에 볼 수 있습니다. 또한 각 하드웨어 자원의 온도, 전력 소비량 등을 볼 수 있습니다. 다른 메뉴로 전환하고 다시 1 번 메뉴를 보고싶으면 1 번을 누르면 됩니다.
 
+* jtop 을 실행할 경우 1 번 화면이 나타납니다.
+* 1 번은 시스템의 요약 정보 화면이며, CPU, GPU, 메모리, 디스크 사용량과 같은 전반적인 시스템 상태를 한눈에 볼 수 있습니다.
+* 또한 각 하드웨어 자원의 온도, 전력 소비량 등을 볼 수 있습니다.
+* 다른 메뉴로 전환하고 다시 1 번 메뉴를 보고싶으면 1 번을 누르면 됩니다.
 <img src="images/Image_045.png"> <br>
-<img src="images/Image_046.png"> <br>
 
 * 2 번(GPU)을 누르면 GPU 사용 현황을 보여줍니다. AI 연산이나 영상 처리 작업 시 GPU 의 상태를 모니터링 할 때 유용합니다.
 
-
-<img src="images/Image_047.png"> <br>
+<img src="images/Image_046.png"> <br>
 
 * 3 번(CPU)을 누르면 CPU 사용 현황을 보여줍니다. 각 코어별로 사용률을 파악할 수 있습니다.
 
-<img src="images/Image_048.png"> <br>
+<img src="images/Image_047.png"> <br>
 
 * 4 번(MEM)을 누르면 메모리 사용 현황을 보여줍니다. 시스템의 전체 메모리 용량과 현재 사용 중인 메모리의 양을 보여주며, 스왑 메모리 사용량도 함께 확인할 수 있습니다.•
 
-<img src="images/Image_049.png"> <br>
+<img src="images/Image_048.png"> <br>
 
 * 5 번(ENG)을 누르면 엔진 상태들을 보여줍니다. Jetson Nano 의 하드웨어 가속 엔진들의 상태와 클럭 속도를 실시간으로 모니터링 할 수 있습니다.
 
