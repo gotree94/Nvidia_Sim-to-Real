@@ -209,8 +209,6 @@ Device_Address = 0x68           # MPU6050 i2c 장치 주소
 
 ## 실습 1-8: Jetson Nano에서 I2C 통신 실습
 
-![실습 1-8](images/Image_024.png)
-
 ### 실습 개요
 
 I2C (Inter-Integrated Circuit) 통신을 학습한다.
