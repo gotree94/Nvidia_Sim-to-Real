@@ -224,7 +224,7 @@ NVIDIA Jetson 플랫폼은 하드웨어 성능을 최대한 활용할 수 있도
 
 ---
 
-## NVIDIA Jetson Developer Kit
+## 6. NVIDIA Jetson Developer Kit
 
 ### NVIDIA Jetson Developer kit
 •   NVIDIA Jetson Developer Kit은 Jetson SOM을 기반으로 한 개발 보드로, AI 및 엣지 컴퓨팅 애플리케이션 을 개발하고 테스트하는데 사용
@@ -253,17 +253,27 @@ NVIDIA Jetson 플랫폼은 하드웨어 성능을 최대한 활용할 수 있도
 ▪ 그리고 외부 인터페이스
 ▪ 개발자는 Jetson SOM과 연결할 커넥터와 사용할 외부 인터페이스를 구현한 Carrier Board를 제작 생산하면, Jetson에서 개발한 소프트웨어 이식 가능
 
-NVIDIA Jetson Platform 소프트웨어 구성
-▪  Nvidia는 Jetson Platform 개발자를 위해 커널과 Bootloader, 소스코드, 툴 그리고 AI 소프트웨어 패키지를 모아 Jetpack이라는 소프트웨어 패키지 제공
-jetpack https://docs.nvidia.com/jetson/archives/index.html
-Developer guide https://docs.nvidia.com/jetson/archives/r34.1/DeveloperGuide/index.html Jetson Linux Archive https://developer.nvidia.com/embedded/jetson-linux-archive
+<img src="images/Image_010.png">
 
-JCB100 (Jetson Carrier Board)
+### NVIDIA Jetson Platform 소프트웨어 구성
+▪  Nvidia는 Jetson Platform 개발자를 위해 커널과 Bootloader, 소스코드, 툴 그리고 AI 소프트웨어 패키지를 모아 Jetpack이라는 소프트웨어 패키지 제공
+  * jetpack https://docs.nvidia.com/jetson/archives/index.html
+  * Developer guide https://docs.nvidia.com/jetson/archives/r34.1/DeveloperGuide/index.html
+  * Jetson Linux Archive https://developer.nvidia.com/embedded/jetson-linux-archive
+
+<img src="images/Image_012.png">
+
+### JCB100 (Jetson Carrier Board)
 ▪  JCB100
 •   Nvidia Jetson Module(SoM)을 운영하기 위한 시스템 보드
 •   다양한 외부 인터페이스와 NVIDIA의 Jetson Nano Developer Kit과 Jetson Xavier NX Developer kit에 호환되 도록 설계 되어 있으며, 추가 적인 외부 저장 장치 및 CAN 통신을(Jetson Nano제외) 지원할 수 있도록 설계 되어 있 음.
 
-<img src="images/Image_010.png">
+<img src="Image_011.png">
+
+<img src="Image_013.png"> <img src="Image_014.png">
+
+<img src="Image_015.png">
+
 ---
 
 
