@@ -88,7 +88,7 @@
 ▪ 그리고 외부 인터페이스
 ▪ 개발자는 Jetson SOM과 연결할 커넥터와 사용할 외부 인터페이스를 구현한 Carrier Board를 제작 생산하면, Jetson에서 개발한 소프트웨어 이식 가능
 
-<img src="Image_010.png">
+<img src="images/Image_010.png">
 
 ---
 
