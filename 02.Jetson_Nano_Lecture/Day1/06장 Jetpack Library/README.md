@@ -1,8 +1,5 @@
 # Jetpack Library
 
-> **충청ICT 교육과정 Day1 — 06장**  
-> NVIDIA Jetson AI 핵심 소프트웨어 라이브러리
-
 ---
 
 ## 1. Jetpack Library 개요
