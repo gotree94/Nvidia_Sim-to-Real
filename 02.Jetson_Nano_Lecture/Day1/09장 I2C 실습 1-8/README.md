@@ -653,18 +653,26 @@ Siot = [
 0b10001
 ]
 
-# RPi_I2C_driver.lcd( I2C address ) lcd = RPi_I2C_driver.lcd(0x27)
-# create a new character lcd.createChar(0, Giyuk)
-# create a new character lcd.createChar(1, Ah)
-# create a new character lcd.createChar(2, Mium)
-# create a new character lcd.createChar(3, Siot)
-# set the cursor to the top left lcd.setCursor(1, 0)
-lcd.write(0)
+# RPi_I2C_driver.lcd( I2C address )
+lcd = RPi_I2C_driver.lcd(0x27)
+
+# create a new character
+lcd.createChar(0, Giyuk)
+# create a new character
+lcd.createChar(1, Ah)
+# create a new character
+lcd.createChar(2, Mium)
+# create a new character
+lcd.createChar(3, Siot)
+
+# set the cursor to the top left
+lcd.setCursor(1, 0) lcd.write(0)
 lcd.setCursor(2, 0) lcd.write(1)
 lcd.setCursor(2, 1) lcd.write(2)
 lcd.setCursor(4, 0) lcd.write(3)
 lcd.setCursor(5, 0) lcd.write(1)
 ```
+
 * 파일을 실행합니다.
 
 ```
@@ -677,9 +685,20 @@ $ sudo python3 CustomCharactor_Hangle_Test.py
 
 ---
 
-### BMP280 센서 실습 (온도/습도/기압)
+### IMU (MPU6050-gy25) 실습
 
-BMP280은 온도와 기압을 측정하는 센서로, I2C 통신을 통해 데이터를 읽을 수 있다.
+* MPU6050-GY25 모듈은 가속도와 자이로 데이터를 기반으로 물체의 움직임과 방향을 측정할 수 있는 IMU(Inertial Measurement Unit) 센서입니다.
+* 이번 실습에서는 I2C 통신을 통해 MPU6050 의 가속도, 자이로, 온도 데이터를 읽고 출력하는 방법을 학습합니다.
+
+* 다음 이미지는 IMU (mpu6050-gy25)입니다.
+
+<img src="images/Image_038.jpg"> <br>
+<img src="images/Image_039.jpg"> <br>
+<img src="images/Image_040.jpg"> <br>
+<img src="images/Image_041.jpg"> <br>
+<img src="images/Image_042.jpg"> <br>
+<img src="images/Image_043.jpg"> <br>
+<img src="images/Image_044.jpg"> <br>
 
 #### BMP280 연결
 
@@ -723,16 +742,6 @@ while True:
     time.sleep(1)
 ```
 
-
-
-
-<img src="images/Image_038.jpg"> <br>
-<img src="images/Image_039.jpg"> <br>
-<img src="images/Image_040.jpg"> <br>
-<img src="images/Image_041.jpg"> <br>
-<img src="images/Image_042.jpg"> <br>
-<img src="images/Image_043.jpg"> <br>
-<img src="images/Image_044.jpg"> <br>
 
 
 ---
