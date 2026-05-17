@@ -4,8 +4,6 @@
 
 ## 1. 실습 개요
 
-![실습 개요](images/Image_001.png)
-
 **실습 내용:**
 1. 리눅스 네트워크 명령어 실습 (`ip`, `ifconfig`, `wget`, `curl` 등)
 2. Jetson ←→ Host PC VSCode SSH 연결
