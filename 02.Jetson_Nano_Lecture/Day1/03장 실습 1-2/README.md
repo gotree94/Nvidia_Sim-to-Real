@@ -507,7 +507,7 @@ Host PC (Windows)에서 SD 카드에 이미지를 굽기 위해 사용되는 도
    ```
    > 참고: 인터넷이 연결되어 있지 않으면 에러가 발생할 수 있다. 이더넷 케이블을 연결해주세요.
 
-<img src="images/Image_088.jpg">
+<img src="images/Image_088.png">
 
 4. gparted를 실행했을 때 창이 뜰 경우 **Fix**를 클릭한다.
 
