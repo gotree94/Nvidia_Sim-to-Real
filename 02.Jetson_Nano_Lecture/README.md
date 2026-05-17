@@ -1,5 +1,7 @@
 # Nvidia Sim-to-Real (KOREA Univ.)
-
+ 
+    * 교육 일정 : 2026-05-12 ~ 2026-06-02
+ 
 <img src="001.png" width="80%"> <br>
 <img src="002.png" width="80%"> <br>
 
@@ -14,7 +16,7 @@
 > * 생성형 AI 실습
 >   * 로컬 LLM/VLM 구동, 프롬프트 설계 및 비전-언어 모델 활용
 
-### Day1
+### Day1 (화)
    * Class01 : (강의) 교육소개 : 운영체제 리눅스 기초 / Jetson Nano에 OS image flashing 
    * Class02 : (실습) Virtual Box 설치 / Jetson Nano에 OS image flashing
    * Class03 : (강의) Jetson 소개 / 리눅스 네트워크, Jetpack library 소개 / (실습) Jetpack library 설치, Network 실습
@@ -24,7 +26,7 @@
    * Class07 : (강의) OpenCV 소개 / (실습) Cuda Enabled OpenCV 실습
    * Class08 : (실습) OpenCV기반 Label, DNN 실습
 
-### Day2
+### Day2 (수)
    * Class01 : (강의) Jetson DLI 소개 / CUDA, Object Detection 등 소개 
    * Class02 : (실습) Jetson DLI docker 설치 / Jupyter 사용 실습
    * Class03 : (실습) Jetson DLI Image classification 실습
@@ -34,7 +36,7 @@
    * Class07 : (강의) Darknet, Pytorch. TensorRT 소개 / (실습) Darknet 실습
    * Class08 : (실습) Pytorch (yolov5) 실습
 
-### Day3
+### Day3 (목)
    * Class01 : (실습) TensorRT 모델 변환 및 추론 실습
    * Class02 : (강의) Mediapipe 소개 / (실습) mediapipe 실습
    * Class03 : (실습) mediapipe 얼굴 인식 실습
@@ -44,7 +46,7 @@
    * Class07 : (강의) 교육소개 / ROS 소개 및 설치
    * Class08 : (실습) Jetson ROS 설치
 
-### Day4
+### Day4 (금)
    * Class01 : (강의) ROS 토픽 서비스 액션 소개 / (실습) 토픽 발간 구독
    * Class02 : (강의) ROS 제어기 패키지 / (실습) Catkin 토픽 발간구독
    * Class03 : (강의) ROS 주요도구 / (실습) 로봇 Catkin 패키지
@@ -54,7 +56,7 @@
    * Class07 : (강의) Rviz, Odometry TF
    * Class08 : (실습) 모터구동
 
-### Day5
+### Day5 (월)
    * Class01 : (강의) SLAM / (실습) SLAM(Gmapping)
    * Class02 : (실습) SLAM(Gmapping)
    * Class03 : (강의) Navigation / (실습) Navigation 해보기
@@ -76,19 +78,19 @@
 > * Sim-to-Real 연계
 >    * 합성 데이터 생성, 시뮬레이션 데이터 활용 모델 검증
 
-### Day1
+### Day1 (화)
 
 
-### Day2
+### Day2 (수)
 
 
-### Day3
+### Day3 (목)
 
 
-### Day4
+### Day4 (금)
 
 
-### Day5
+### Day5 (월)
 
 
 ---
@@ -112,5 +114,28 @@ sudo apt install gparted -y
 >    * Jetson-시뮬레이터 연계, Sim-to-Real 검증
 > * 최종 발표 및 평가
 >    * 프로젝트 시연, 결과 발표 및 종합 피드백
+
+
+### Day1 (화)
+
+
+### Day2 (수)
+
+
+### Day3 (목)
+
+
+### Day4 (금)
+
+
+### Day5 (월)
+
+
+
+
+
+
+
+
 
 
