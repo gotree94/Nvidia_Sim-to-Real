@@ -33,7 +33,7 @@ TX2 시리즈는 총 4가지 모듈 변종이 존재한다:
   <thead>
     <tr>
       <th>모델</th>
-      <th>GPU 클럭</th>
+      <th>GPU 클럭(GHz)</th>
       <th>메모리</th>
       <th>스토리지</th>
       <th>전력</th>
@@ -44,7 +44,7 @@ TX2 시리즈는 총 4가지 모듈 변종이 존재한다:
   <tbody>
     <tr>
       <td><b>Jetson TX2</b></td>
-      <td>1.30 GHz</td>
+      <td>1.30</td>
       <td>8GB LPDDR4 (128bit) 59.7GB/s</td>
       <td>32GB eMMC 5.1</td>
       <td>7.5W / 15W</td>
@@ -53,7 +53,7 @@ TX2 시리즈는 총 4가지 모듈 변종이 존재한다:
     </tr>
     <tr>
       <td><b>Jetson TX2i</b></td>
-      <td>1.12 GHz</td>
+      <td>1.12</td>
       <td>8GB LPDDR4 (128bit) 51.2GB/s</td>
       <td>32GB eMMC 5.1</td>
       <td>10W / 20W</td>
@@ -62,7 +62,7 @@ TX2 시리즈는 총 4가지 모듈 변종이 존재한다:
     </tr>
     <tr>
       <td><b>Jetson TX2 4GB</b></td>
-      <td>1.12 GHz</td>
+      <td>1.12</td>
       <td>4GB LPDDR4 (128bit) 51.2GB/s</td>
       <td>16GB eMMC 5.1</td>
       <td>7.5W / 15W</td>
@@ -71,7 +71,7 @@ TX2 시리즈는 총 4가지 모듈 변종이 존재한다:
     </tr>
     <tr>
       <td><b>Jetson TX2 NX</b></td>
-      <td>1.30 GHz</td>
+      <td>1.30</td>
       <td>8GB LPDDR4 (128bit) 59.7GB/s</td>
       <td>16GB eMMC 5.1</td>
       <td>7.5W / 15W</td>
