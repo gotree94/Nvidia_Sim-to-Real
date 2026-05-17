@@ -277,28 +277,28 @@ $ ifconfig
 
 **Client device (Window or Ubuntu)**
 
-* 1. Visual Studio Code 가 실행되면 아래와 같은 순서로 ‘SSH extension’을 설치합니다.
+*1. Visual Studio Code 가 실행되면 아래와 같은 순서로 ‘SSH extension’을 설치합니다.
   * ① 왼쪽 메뉴에서 “Extension” 클릭
   * ② 입력창에 “SSH”를 입력하고 “Remote-SSH” extension 선택
   * ③ “install” 버튼 클릭
 
 <img src="images/Image_027.png">
 
-* 2. Visual Studio Code 중앙의 “Remote SSH”에 대한 설명 화면에서 “install” 버튼을 누르면 설치가 시작됩니다.
+*2. Visual Studio Code 중앙의 “Remote SSH”에 대한 설명 화면에서 “install” 버튼을 누르면 설치가 시작됩니다.
 
 <img src="images/Image_028.jpg">
 
-* 3. Visual Studio Code 가 활성화된 상태에서 ‘Ctrl’ + ‘Shift’ + ‘P’ 키를 동시에 누릅니다.
+*3. Visual Studio Code 가 활성화된 상태에서 ‘Ctrl’ + ‘Shift’ + ‘P’ 키를 동시에 누릅니다.
   * 또는 메뉴 “Help” -> “Show All Commands”를 누르면, 아래 화면과 같이 ‘Command’입력창이 나타납니다.
 
 <img src="images/Image_029.jpg">
 
-* 4. 입력창에 “ssh”를 입력하고 아래 화면과 같이 ssh 관련 커맨드들이 나타나면……
+*4. 입력창에 “ssh”를 입력하고 아래 화면과 같이 ssh 관련 커맨드들이 나타나면……
    * “Remote-SSH: Add New SSH Host…”를 선택합니다.
 
 <img src="images/Image_030.jpg">
 
-* 5. 입력창이 “Enter SSH Connection Command”로 바뀌면, 아래와 같이 접속할 Jetson 디바이스의 SSH 커맨드를 입력합니다.
+*5. 입력창이 “Enter SSH Connection Command”로 바뀌면, 아래와 같이 접속할 Jetson 디바이스의 SSH 커맨드를 입력합니다.
 
 ```
 ssh 계정@IP 주소
@@ -307,48 +307,47 @@ ssh 계정@IP 주소
 
 <img src="images/Image_031.jpg">
 
-* 6. 새로 생성한 SSH 접속 커맨드를 저장할 위치를 묻는 화면에, default 위치를 선택합니다.
+*6. 새로 생성한 SSH 접속 커맨드를 저장할 위치를 묻는 화면에, default 위치를 선택합니다.
 
 <img src="images/Image_032.jpg">
 
-* 7.   그러면 오른쪽 하단에 아래와 같은 팝업이 나타난다. “Open Config” 버튼을 누르면 생성한 SSH 접속 커맨드를 확인할 수 있습니다.
+*7.   그러면 오른쪽 하단에 아래와 같은 팝업이 나타난다. “Open Config” 버튼을 누르면 생성한 SSH 접속 커맨드를 확인할 수 있습니다.
 
 <img src="images/Image_033.jpg">
 
-* 8. 다시 ‘Ctrl’ + ‘Shift’ + ‘P’ 키를 동시에 눌러 아래와 같이 ‘Command’입력창이 나타나면,  “Remote-SSH: Connect to Host…” 를 선택합니다.
+*8. 다시 ‘Ctrl’ + ‘Shift’ + ‘P’ 키를 동시에 눌러 아래와 같이 ‘Command’입력창이 나타나면,  “Remote-SSH: Connect to Host…” 를 선택합니다.
 
 <img src="images/Image_034.jpg">
 
-* 9. 앞에서 생성한 SSH 접속 커맨드에 대한 IP 주소가 나타나면 선택합니다.
+*9. 앞에서 생성한 SSH 접속 커맨드에 대한 IP 주소가 나타나면 선택합니다.
 
 <img src="images/Image_035.jpg">
 
-* 10. 그러면 새로운 Visual Studio Code 가 열리고, 접속 진행여부를 묻는 창이 나타나면 “Continue” 선택합니다. 
+*10. 그러면 새로운 Visual Studio Code 가 열리고, 접속 진행여부를 묻는 창이 나타나면 “Continue” 선택합니다. 
 
 <img src="images/Image_036.jpg">
 
-* 11.   접속할 디바이스에 대한 “Password”를 묻는 창에 password 를 입력합니다. (예: nvidia)
+*11. 접속할 디바이스에 대한 “Password”를 묻는 창에 password 를 입력합니다. (예: nvidia)
 
 <img src="images/Image_037.jpg">
 
-* 12. 그러면 visual studio code 가 디바이스에 SSH 접속을 시도하고, 접속이 완료되면 아래 화면과 같이 왼쪽 하단에 디바이스의 IP 주소가 표시됩니다. 
+*12. 그러면 visual studio code 가 디바이스에 SSH 접속을 시도하고, 접속이 완료되면 아래 화면과 같이 왼쪽 하단에 디바이스의 IP 주소가 표시됩니다. 
 
 <img src="images/Image_038.png">
 
-* 13. Visual Studio Code 상단 오른쪽에 있는 “Explorer”버튼을 누르고, 버튼을 누릅니다. 
-“Open Folder”
+*13. Visual Studio Code 상단 오른쪽에 있는 “Explorer”버튼을 누르고, “Open Folder” 버튼을 누릅니다. 
 
 <img src="images/Image_039.png">
 
-* 14. “Open Folder”를 묻는 입력창이 나오면, default 경로(예: /home/nvidia/)를 선택하고 “OK” 버튼을 누릅니다.. 최초 SSH 접속일 경우 password 를 다시한번 묻는 창이 나옵니다.
+*14. “Open Folder”를 묻는 입력창이 나오면, default 경로(예: /home/nvidia/)를 선택하고 “OK” 버튼을 누릅니다.. 최초 SSH 접속일 경우 password 를 다시한번 묻는 창이 나옵니다.
 
 <img src="images/Image_040.jpg">
 
-* 15. 접속할 폴더에 대한 신뢰여부를 묻는 창이 나오면 아래와 같이 “Trust” 체크 박스를 선택하고 “Yes, ~~ 버튼을 누릅니다.
+*15. 접속할 폴더에 대한 신뢰여부를 묻는 창이 나오면 아래와 같이 “Trust” 체크 박스를 선택하고 “Yes, ~~ 버튼을 누릅니다.
 
 <img src="images/Image_041.jpg">
 
-* ”16. SSH 접속 과정이 모두 끝나면, Visual Studio Code 오른쪽 패널을 통해서 Jetson 디바이스의 주요 폴더와 파일들을 선택하고, 수정할 수 있습니다.
+*16. SSH 접속 과정이 모두 끝나면, Visual Studio Code 오른쪽 패널을 통해서 Jetson 디바이스의 주요 폴더와 파일들을 선택하고, 수정할 수 있습니다.
 
 <img src="images/Image_042.jpg">
 
