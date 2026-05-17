@@ -143,17 +143,45 @@ Windows PC에 다음과 같이 폴더 생성: `D:\share`
 ![Ubuntu Install](images/Image_022.jpg)
 
 1. **Continue** 버튼을 눌러주세요.
-2. 아래와 같이 선택한 후 **Continue** 버튼을 눌러주세요.
-3. 아래와 같이 선택한 후 **Install Now** 버튼을 선택해주세요.
-4. **Continue** 버튼을 눌러주세요.
-5. **Continue** 버튼을 눌러주세요.
-6. **Name**, **user name**, **password**를 입력하고 **Continue** 버튼을 눌러주세요.
+
+![Ubuntu Install](images/Image_023.jpg)
+
+3. 아래와 같이 선택한 후 **Continue** 버튼을 눌러주세요.
+
+![Ubuntu Install](images/Image_024.jpg)
+
+5. 아래와 같이 선택한 후 **Install Now** 버튼을 선택해주세요.
+
+![Ubuntu Install](images/Image_025.jpg)
+
+7. **Continue** 버튼을 눌러주세요.
+
+![Ubuntu Install](images/Image_026.jpg)
+
+9. **Continue** 버튼을 눌러주세요.
+
+![Ubuntu Install](images/Image_027.jpg)
+
+11. **Name**, **user name**, **password**를 입력하고 **Continue** 버튼을 눌러주세요.
    - (참고: 이번 실습에서는 모두 **nvidia**로 통일합니다.)
-7. 설치되는 동안 기다려주세요. 설치가 완료되었다면 **Restart Now** 버튼을 눌러주세요.
-8. "Please remove the installation medium, then press ENTER" 문구가 나오면 **Enter**를 눌러주세요.
+
+![Ubuntu Install](images/Image_028.jpg)
+
+11. 설치되는 동안 기다려주세요. 설치가 완료되었다면 **Restart Now** 버튼을 눌러주세요.
+
+![Ubuntu Install](images/Image_029.jpg)
+
+13. "Please remove the installation medium, then press ENTER" 문구가 나오면 **Enter**를 눌러주세요.
    - (삽입한 iso 이미지 파일을 제거하라는 의미인데 VirtualBox는 자동 해제해주기 때문에 Enter를 누르면 됩니다.)
-9. 만약 아래 이미지가 떴다면 VirtualBox 우측 상단에 **X** 표시를 눌러 시스템 전원 끄기를 누른 후 다시 시작해주세요.
-10. 이전에 설정한 **Password**를 입력하고 **Enter**를 눌러주세요.
+![Ubuntu Install](images/Image_030.jpg)
+
+11. 만약 아래 이미지가 떴다면 VirtualBox 우측 상단에 **X** 표시를 눌러 시스템 전원 끄기를 누른 후 다시 시작해주세요.
+
+![Ubuntu Install](images/Image_031.jpg)
+
+13. 이전에 설정한 **Password**를 입력하고 **Enter**를 눌러주세요.
+
+![Ubuntu Install](images/Image_032.jpg)
 
 ### 게스트 확장 CD 이미지 삽입
 
