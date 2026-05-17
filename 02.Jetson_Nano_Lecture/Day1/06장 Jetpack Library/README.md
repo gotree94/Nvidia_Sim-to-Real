@@ -173,11 +173,11 @@ $ sudo -H pip3 install -U jetson-stats
 ### Jetson 시스템 상태 (온도) 확인
    * 현재 시스템 온도를 확인 가능
    * 출력 값에서 1000을 나눈 값이 온도 <br>
-<img src="images/Image_021.png"> <br>
+<img src="images/Image_022.png"> <br>
 
 ### With CUDA vs W/O CUDA
    * With CUDA & Without CUDA 비교 데모 동영상 <br>
-<img src="images/Image_022.png"> <br>
+<img src="images/Image_021.png"> <br>
 
 
 ---
