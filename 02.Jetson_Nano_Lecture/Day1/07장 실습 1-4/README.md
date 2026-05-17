@@ -333,12 +333,12 @@ ssh 계정@IP 주소
 
 * 12. 그러면 visual studio code 가 디바이스에 SSH 접속을 시도하고, 접속이 완료되면 아래 화면과 같이 왼쪽 하단에 디바이스의 IP 주소가 표시됩니다. 
 
-<img src="images/Image_038.jpg">
+<img src="images/Image_038.png">
 
 * 13. Visual Studio Code 상단 오른쪽에 있는 “Explorer”버튼을 누르고, 버튼을 누릅니다. 
 “Open Folder”
 
-<img src="images/Image_039.jpg">
+<img src="images/Image_039.png">
 
 * 14. “Open Folder”를 묻는 입력창이 나오면, default 경로(예: /home/nvidia/)를 선택하고 “OK” 버튼을 누릅니다.. 최초 SSH 접속일 경우 password 를 다시한번 묻는 창이 나옵니다.
 
