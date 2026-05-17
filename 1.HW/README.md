@@ -48,6 +48,26 @@ TX2 (2017)                  Nano 4GB (2019)            Orin Nano Super (2024)
 │ 256 CUDA cores  │        │ 128 CUDA cores  │        │ 1024 CUDA cores      │
 │ No Tensor Core  │        │ No Tensor Core  │        │ 32 Tensor Cores ✅   │
 │                 │        │                 │        │                      │
+
+---
+
+## 충청ICT Day1 — Jetson Nano 교육 과정
+
+Jetson Nano를 활용한 임베디드 AI 교육 11개 챕터 마크다운 문서.
+
+| # | 파일명 | 내용 |
+|---|--------|------|
+| 01 | [Day1_Linux_OS.md](./Day1_Linux_OS.md) | Linux OS 개요, 배포판, 아키텍처 (BootLoader, Kernel, Daemon, Shell, File System, X Window, Repository) |
+| 02 | [Day1_02_Jetson_OS_Flash.md](./Day1_02_Jetson_OS_Flash.md) | Jetson OS 플래싱 개념, SDK Manager, BSP, MFI, VirtualBox, Recovery 모드 |
+| 03 | [Day1_03_Practice_1-2.md](./Day1_03_Practice_1-2.md) | 실습 1-2: VirtualBox 설치, VM 생성, Ubuntu 설정, Flash 준비 |
+| 04 | [Day1_04_NVIDIA_Jetson.md](./Day1_04_NVIDIA_Jetson.md) | NVIDIA Jetson 시리즈 개요, SOM 스펙 비교 (Nano → Orin NX), GPU 아키텍처 진화 |
+| 05 | [Day1_05_Linux_Network.md](./Day1_05_Linux_Network.md) | Linux 네트워크 명령어 (ifconfig, ip, wget, curl, ssh, scp), VSCode Remote SSH |
+| 06 | [Day1_06_Jetpack_Library.md](./Day1_06_Jetpack_Library.md) | JetPack 라이브러리: CUDA, TensorRT, cuDNN, OpenCV CUDA, TensorFlow, PyTorch, jtop |
+| 07 | [Day1_07_Practice_1-4.md](./Day1_07_Practice_1-4.md) | 실습 1-4: 네트워크 명령, SSH, 시스템 정보, nvidia-jetpack 설치 |
+| 08 | [Day1_08_GPIO.md](./Day1_08_GPIO.md) | GPIO 실습 1-6: 40-pin 헤더, sysfs GPIO, Jetson.GPIO 라이브러리, LED 제어 |
+| 09 | [Day1_09_I2C.md](./Day1_09_I2C.md) | I2C 실습 1-8: I2C 프로토콜, i2cdetect, LCD 1602 I2C, IMU MPU6050, smbus |
+| 10 | [Day1_10_SPI.md](./Day1_10_SPI.md) | SPI 실습 1-10: SPI 프로토콜, spidev, Loopback 테스트, MCP3008 ADC, 조도센서 |
+| 11 | [Day1_11_OpenCV.md](./Day1_11_OpenCV.md) | OpenCV 실습 1-12: OpenCV with CUDA 설치/빌드, 카메라 캡처, 이진화, 레이블링, DNN Face Detection, YOLO 객체 검출 |
 │ Denver2 + A57   │        │ A57 ×4          │        │ A78AE ×6             │
 │ 6-core HMP      │        │                 │        │ 2-cluster HMP        │
 │                 │        │                 │        │                      │
