@@ -546,10 +546,21 @@ Host PC (Windows)에서 SD 카드에 이미지를 굽기 위해 사용되는 도
    ```bash
    # vi로 편집
    $ sudo vi /boot/extlinux/extlinux.conf
+```
 
+<img src="images/Image_096.jpg">
+
+<img src="images/Image_097.jpg">
+
+<img src="images/Image_098.jpg">
+
+```
    # gedit으로 편집
    $ sudo gedit /boot/extlinux/extlinux.conf
    ```
+<img src="images/Image_099.jpg">
+
+<img src="images/Image_100.jpg">
 
 2. 빨간색 네모로 표시된 부분을 **mmcblk1p1**로 바꾸고 저장 후 닫아준다.
 
@@ -562,12 +573,14 @@ Host PC (Windows)에서 SD 카드에 이미지를 굽기 위해 사용되는 도
    ```bash
    $ sudo reboot
    ```
+<img src="images/Image_101.jpg">
 
 2. Reboot이 되면 터미널을 열어서 아래 명령어를 실행하여 Filesystem `/dev/mmcblk1p1`이 `/`(root)에 Mount 되어있는지 확인한다:
 
    ```bash
    $ df -h
    ```
+<img src="images/Image_102.jpg">
 
 ---
 
