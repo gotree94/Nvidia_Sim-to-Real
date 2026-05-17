@@ -1,8 +1,5 @@
 # Linux Network
 
-> **충청ICT 교육과정 Day1 — 05장**  
-> 리눅스 네트워크 관리 및 설정 명령어
-
 ---
 
 ## 1. Linux Network 개요
