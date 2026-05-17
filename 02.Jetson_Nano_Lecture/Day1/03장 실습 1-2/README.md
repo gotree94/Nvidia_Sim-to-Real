@@ -427,28 +427,30 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
 
 ![Ubuntu Install](images/Image_072.jpg)
 
+![Ubuntu Install](images/Image_073.jpg)
+
 2. **English**를 선택한 뒤 **Continue** 버튼을 클릭한다.
    - (설치 경로나 파일 경로에 한글이 포함되면 호환성 문제가 발생할 수 있으므로, 언어는 영어로 설정하는 것을 권장한다.)
 
-![Ubuntu Install](images/Image_073.jpg)
+![Ubuntu Install](images/Image_074.jpg)
 
 3. **Seoul**을 입력한 뒤 **Continue** 버튼을 클릭한다.
    - (Jetson Nano에 랜선을 연결한 상태에서는 지역이 자동으로 Seoul로 설정된다.)
 
-![Ubuntu Install](images/Image_074.jpg)
+![Ubuntu Install](images/Image_075.jpg)
 
 4. **Name**, **username**, **passwd**를 모두 **nvidia**로 입력한 후 **Continue** 버튼을 클릭한다.
    - (참고: 아이디와 패스워드는 nvidia로 통일한다.)
 
-![Ubuntu Install](images/Image_075.jpg)
+![Ubuntu Install](images/Image_076.jpg)
 
 5. **Continue** 버튼을 클릭한다.
 
-![Ubuntu Install](images/Image_076.jpg)
+![Ubuntu Install](images/Image_077.jpg)
 
 > 참고: Jetson Nano 설정이 완료된 후 부팅이 됐다면, SD 카드를 세팅하기 위해 Host PC에서 다음 내용을 진행한다.
 
-![Ubuntu Install](images/Image_077.jpg)
+![Ubuntu Install](images/Image_078.jpg)
 
 ---
 
@@ -458,44 +460,44 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
 
 Host PC (Windows)에서 SD 카드에 이미지를 굽기 위해 사용되는 도구인 **BalenaEtcher**를 설치한다.
 
-![Ubuntu Install](images/Image_078.jpg)
+![Ubuntu Install](images/Image_079.jpg)
 
 ### 10.2 SD 카드 이미지 굽기
 
 1. 제공된 SD 카드를 SD 어댑터에 삽입하고, 어댑터를 USB 방식의 SD 카드 리더기에 연결한 후, 이를 Host PC (Windows)에 꽂아 사용한다.
 
-![Ubuntu Install](images/Image_079.jpg)
+![Ubuntu Install](images/Image_080.jpg)
 
 2. BalenaEtcher를 **관리자 권한**으로 실행한 후 **Image File** (실습자료로 제공된 `jcb100_nano_sd.img` 파일)과 **Target** (`Generic STORAGE DEVICE Media 128GB SD card`)을 선택한다.
 
-![Ubuntu Install](images/Image_080.jpg)
+![Ubuntu Install](images/Image_081.jpg)
 
 3. **Yes, I'm sure** 버튼을 클릭한다.
 
-![Ubuntu Install](images/Image_081.jpg)
+![Ubuntu Install](images/Image_082.jpg)
 
 4. 다음 내용이 나오면 **취소**를 눌러준다.
 
-![Ubuntu Install](images/Image_082.jpg)
+![Ubuntu Install](images/Image_083.jpg)
 
 5. **Flash Completed!** 문구가 나오면 Flash가 완료된 것이다. SD 카드 리더기를 Host PC와 분리해준다.
 
-![Ubuntu Install](images/Image_083.jpg)
+![Ubuntu Install](images/Image_084.jpg)
 
 ### 10.3 SD 카드 장착 및 파티션 확장
 
 1. Jetson eMMC에 Flash가 완료되어 부팅이 되었으면 Jetson Nano Board SD Card Slot에 SD 카드를 꽂아준다.
 
-![Ubuntu Install](images/Image_084.jpg)
+![Ubuntu Install](images/Image_085.jpg)
 
    > 참고: SD 카드 이미지를 구운 후 부팅하면, user와 passwd는 모두 `nvidia`로 고정되어 있다.
 
-![Ubuntu Install](images/Image_085.jpg)
+![Ubuntu Install](images/Image_086.jpg)
 
 2. Jetson Nano에서 SD 카드가 인식됐는지 확인하고, Flash된 SD 카드의 공간을 **gparted** 도구를 이용해서 늘려준다.
    - Jetson Nano에서 부팅한 후 사이드 메뉴바에 아이콘으로 SD 카드가 인식됐는지 확인한다.
 
-![Ubuntu Install](images/Image_086.jpg)
+![Ubuntu Install](images/Image_087.jpg)
 
 3. gparted를 설치한 후 실행한다:
 
@@ -504,11 +506,11 @@ Host PC (Windows)에서 SD 카드에 이미지를 굽기 위해 사용되는 도
    $ sudo gparted
    ```
 
-![Ubuntu Install](images/Image_087.jpg)
+![Ubuntu Install](images/Image_088.jpg)
 
    > 참고: 인터넷이 연결되어 있지 않으면 에러가 발생할 수 있다. 이더넷 케이블을 연결해주세요.
 
-![Ubuntu Install](images/Image_088.jpg)
+![Ubuntu Install](images/Image_089.jpg)
 
 4. gparted를 실행했을 때 창이 뜰 경우 **Fix**를 클릭한다.
 
