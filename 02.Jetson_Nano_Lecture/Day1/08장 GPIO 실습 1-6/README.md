@@ -1,8 +1,5 @@
 # GPIO 실습 1-6: Jetson Nano GPIO LED 제어
 
-> **충청ICT 교육과정 Day1 — 08장**  
-> Jetson Nano의 GPIO를 이용한 디지털 입출력 및 LED 제어 실습
-
 ---
 
 ## 1. GPIO (General Purpose Input Output)
@@ -58,8 +55,6 @@
 ---
 
 ## 5. 실습 1-6: Jetson Nano에서 GPIO 사용
-
-![실습 개요](images/Image_013.png)
 
 ### 5.1 sysfs GPIO를 이용한 LED 제어 실습
 
