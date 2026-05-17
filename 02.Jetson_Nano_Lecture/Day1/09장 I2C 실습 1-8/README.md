@@ -515,6 +515,10 @@ while True:
     time.sleep(1)
 ```
 
+<img src="images/Image_035.jpg">
+
+<img src="images/Image_036.jpg">
+
 ---
 
 ### BMP280 센서 실습 (온도/습도/기압)
@@ -562,6 +566,18 @@ while True:
     print(f"Temperature: {temp}")
     time.sleep(1)
 ```
+
+
+
+<img src="images/Image_037.jpg"> <br>
+<img src="images/Image_038.jpg"> <br>
+<img src="images/Image_039.jpg"> <br>
+<img src="images/Image_040.jpg"> <br>
+<img src="images/Image_041.jpg"> <br>
+<img src="images/Image_042.jpg"> <br>
+<img src="images/Image_043.jpg"> <br>
+<img src="images/Image_044.jpg"> <br>
+
 
 ---
 
