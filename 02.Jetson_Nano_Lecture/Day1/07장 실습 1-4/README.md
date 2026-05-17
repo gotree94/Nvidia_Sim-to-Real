@@ -319,31 +319,63 @@ ssh 계정@IP 주소
 -    이더넷 케이블을 다시 연결합니다.
 방법 2
 -    Jetson nano 에서 다음 명령어를 실행합니다.
+
+```
 $ sudo apt purge openssh-server
 $ sudo apt install openssh-serverJetson 시스템 정보 및 온도 확인
+```
+
 n Jetson information 관련 명령어를 확인합니다.
 •      Ubuntu Version 을 확인합니다.
+
+```
 $ cat /etc/lsb-release
+```
+
 •      L4T Version 을 확인합니다.
+
+```
 $ cat /etc/nv_tegra_release
+```
+
 •      Kernel Version 을 확인합니다.
+
+```
 $ uname -a
+```
+
 n    PWM FAN 제어
 Jetson 디바이스는 고성능 작업을 실행할 때 많은 열을 발생 시킬 수 있습니다. 이러한 과열 상태를 방지하기 위해 팬이 필요하며, PWM 팬은 정확한 속도 제어를 통해 장치의 온도에 맞춰 효율적으로 열을 배출할 수 있습니다.
 •      현재 시스템 온도 확인 (결과 값 나누기 1000 하면 현재 시스템의 온도)
+
+```
 $ cat /sys/class/thermal/thermal_zone0/temp
+```
+
 à 시스템 온도가 약 46 도 정도임을 확인할 수 있습니다. (46000/1000)
 •      온도에 따른 fan 제어를 합니다. 
 fan-ctl git 을 clone 하고, clone 한 폴더로 이동합니다.
+
+```
 $ git clone https://github.com/jetsonworld/jetson-fan-ctl.git
-$ cd jetson-fan-ctl 
+$ cd jetson-fan-ctl
+```
+
 •      install.sh 을 실행합니다. Install.sh 을 실행하면 서비스가 설치되고, 자동으로 실행됩니다.
+
+```
 $ sudo sh install.sh•      편집기로 config.json 을 수정합니다.
 $ sudo vi /etc/automagic-fan/config.json
+```
+
 config.json 을 다음과 같이 수정합니다. 이 경우 60 도 이상에서 fan 속도가 최대로 작동하고, 40 도보다 낮아지면 팬이 꺼집니다.
+
+```
 {
 “FAN_OFF_TEMP”:40, “FAN_MAX_TEMP”:60, “UPDATE_INTERVAL”:2, “MAX_PERF”:1
 }
+```
+
 config.json
 FAN_OFF_TEMP
 이 온도(°C)보다 낮아지면 팬이 꺼짐
@@ -353,48 +385,90 @@ UPDATE_INTERVAL
 온도 체크하는 주기 (초)
 MAX_PERF 
 “1”로 설정하면 Jetson 이 항상 최대 성능 모드로 동작하게 되어, 온도 변동이 줄고 팬 제어가 더 안정적으로 작동함 전력 소모를 줄이고 싶다면 “0”으로 설정하면 됨
-•      service 명령어로 재부팅 없이 변경사항을 적용하세요.
+* service 명령어로 재부팅 없이 변경사항을 적용하세요.
+
+```
 $ sudo service automagic-fan restart
-•      automagic-fan status 를 확인하세요.
+```
+
+* automagic-fan status 를 확인하세요.
+
+```
 $ sudo service automagic-fan status
-(참고: 현재 시스템 온도가 설정한 FAN_OFF_TEMP 보다 낮을 경우 팬은 동작하지 않으며, 이 값을 초과할 경우 자동으로 팬이 동작하게 됩니다.)Jetpack Library, Jetson-stats 설치 및 유틸리티 사용
+```
+
+   * (참고: 현재 시스템 온도가 설정한 FAN_OFF_TEMP 보다 낮을 경우 팬은 동작하지 않으며, 이 값을 초과할 경우 자동으로 팬이 동작하게 됩니다.)
+   * Jetpack Library, Jetson-stats 설치 및 유틸리티 사용
 Jetson-stats 는 NVIDIA Jetson 시리즈를 모니터링하고 제어하기 위한 패키지입니다. 
 보드를 분석하는 강력한 도구이며, jtop 이 있는 독립 실행형 응용 프로그램과 함께
 사용하거나 파이썬 스크립트에서 가져올 수 있습니다. 자세한 유틸리티 사용 방법은 이후 시간에 진행하고, 이번시간에는 설치만 합니다.
 n    Commercial 보드(JCB100)이기 때문에 SDK Manager 가 아닌, Linux repository 를 통해 nvidia-jetpack, jetson-stats 를 설치합니다.
-•      apt 를 업데이트 합니다.
+
+* apt 를 업데이트 합니다.
+
+```
 $ sudo apt update
-•      nvidia-jetpack 을 설치합니다.
+```
+
+* nvidia-jetpack 을 설치합니다.
+
+```
 $ sudo apt install nvidia-jetpack
+```
+
 (참고 : 설치 중 Y/n 내용이 나올 경우 엔터를 누르세요.)
-• python3-pip 를 설치합니다. (이미 설치한 경우 넘어가도 됩니다.)
+
+* python3-pip 를 설치합니다. (이미 설치한 경우 넘어가도 됩니다.)
+
+```
 $ sudo apt-get install python3-pip
-•      jetson-stats 를 설치합니다.
+```
+
+* jetson-stats 를 설치합니다.
+
+```
 $ sudo -H pip3 install -U jetson-stats
-•      재부팅 합니다.
+```
+
+* 재부팅 합니다.
+
+```
 $ sudo reboot
-n    Jetpack Library install broken error 발생 시 다음 내용을 따라해주세요. 1.  패키지 리스트 삭제
+```
+
+* Jetpack Library install broken error 발생 시 다음 내용을 따라해주세요. 1.  패키지 리스트 삭제
+
+```
 $ sudo rm -rf /var/lib/apt/lists/*
+```
+
 2.  apt clean
+
+```
 $ sudo apt-get clean
+```
+
 3.  apt update
+
+```
 $ sudo apt-get update
+```
+
 4.  jetpack library 설치$ sudo apt install nvidia-jetpack
 (참고: Jetson Nano 는 NVIDIA 의 커스텀 커널과 부트로더를 기반으로 작동합니다. 따라서 Ubuntu 일반 시스템과 달리 전체 시스템 패키지를 업그레이드 (‘sudo apt upgrade’) 하면 Jetson 전용 커널 및 부팅 구성요소가 손상되어 부팅이 안되는 상태가 될 수 있습니다. 따라서 ‘sudo apt upgrade’ 명령어는 사용하지 마십시오.)
 
-* ‘jetson_release’ 도구를 이용하여 jetpack library 가 설치됐는지 확인합니다.
-
-$ jetson_releasen    ‘jtop’ 도구를 이용하여 jetson nano 의 CPU, GPU, 메모리 사용량 등을 실시간으로 확인합니다.
+* 'jetson_release' 도구를 이용하여 jetpack library 가 설치됐는지 확인합니다.
+   * '$ jetson_releasen' jtop’ 도구를 이용하여 jetson nano 의 CPU, GPU, 메모리 사용량 등을 실시간으로 확인합니다.
 
 ```
 $ jtop
 ```
 
+   * jtop 을 실행할 경우 1 번 화면이 나타납니다.
+   * 1 번은 시스템의 요약 정보 화면이며, CPU, GPU, 메모리, 디스크 사용량과 같은 전반적인 시스템 상태를 한눈에 볼 수 있습니다.
+   * 또한 각 하드웨어 자원의 온도, 전력 소비량 등을 볼 수 있습니다.
+   * 다른 메뉴로 전환하고 다시 1 번 메뉴를 보고싶으면 1 번을 누르면 됩니다.
 
-* jtop 을 실행할 경우 1 번 화면이 나타납니다.
-* 1 번은 시스템의 요약 정보 화면이며, CPU, GPU, 메모리, 디스크 사용량과 같은 전반적인 시스템 상태를 한눈에 볼 수 있습니다.
-* 또한 각 하드웨어 자원의 온도, 전력 소비량 등을 볼 수 있습니다.
-* 다른 메뉴로 전환하고 다시 1 번 메뉴를 보고싶으면 1 번을 누르면 됩니다.
 <img src="images/Image_045.png"> <br>
 
 * 2 번(GPU)을 누르면 GPU 사용 현황을 보여줍니다. AI 연산이나 영상 처리 작업 시 GPU 의 상태를 모니터링 할 때 유용합니다.
