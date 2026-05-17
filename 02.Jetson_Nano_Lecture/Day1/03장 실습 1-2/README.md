@@ -320,7 +320,13 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
      - **Auto Update** → `None`
      - **Enable Windows Background updates** → 체크 해제
      - **Update: Mode** → `None`
+
+![Ubuntu Install](images/Image_057.jpg)
+   
    - 다음 창이 나타날 경우 **restart**를 눌러주세요.
+
+
+![Ubuntu Install](images/Image_058.jpg)
 
 > 참고: 초기 설정 시 Visual Studio Code가 이미 1.100.x 버전으로 업데이트되어 있을 수 있다. 이 경우, 제어판에서 해당 프로그램을 제거한 뒤 1.84.2 버전을 다시 설치하면 자동 업데이트 없이 해당 버전으로 유지된다.
 
