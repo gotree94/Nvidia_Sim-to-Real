@@ -699,6 +699,7 @@ $ sudo python3 CustomCharactor_Hangle_Test.py
 <img src="images/Image_039.jpg"> <br>
 
 * 다음 명령어를 실행하여 i2c 장치의 주소를 확인하세요. 여기서 연결한 I2C 버스 번호는 0 입니다.
+
 ```
 $ i2cdetect -y -r 0
 ```
@@ -717,45 +718,78 @@ $ pip3 install pygame
 
 * python3 smbus 패키지를 사용해서 레지스터 값을 쓰고 읽어보세요. (실습코드 경로: mpu6050/smbus_test.py)
 
-```
-import smbus            #import SMBus module of I2C
-#some MPU6050 Registers and their Address PWR_MGMT_1   = 0x6B
-SMPLRT_DIV   = 0x19 CONFIG       = 0x1A GYRO_CONFIG  = 0x1B INT_ENABLE   = 0x38
+```python
+import smbus
+import time
+
+# --- MPU6050 레지
+```python
+import smbus
+import time
+
+# MPU6050 레지스터 주소
+PWR_MGMT_1   = 0x6B
+SMPLRT_DIV   = 0x19
+CONFIG       = 0x1A
+GYRO_CONFIG  = 0x1B
+INT_ENABLE   = 0x38
 ACCEL_XOUT_H = 0x3B
 ACCEL_YOUT_H = 0x3D
 ACCEL_ZOUT_H = 0x3F
 GYRO_XOUT_H  = 0x43
 GYRO_YOUT_H  = 0x45
 GYRO_ZOUT_H  = 0x47
+
+# I2C 설정
+Device_Address = 0x68
+bus = smbus.SMBus(1) # 최신 라즈베리 파이는 보통 1번 포트를 사용합니다.
+
+def MPU_Init():
+    """MPU6050 센서 초기화 설정"""
+    bus.write_byte_data(Device_Address, SMPLRT_DIV, 7)    # Sample Rate 설정
+    bus.write_byte_data(Device_Address, PWR_MGMT_1, 1)    # 전원 관리 (Internal 8MHz oscillator)
+    bus.write_byte_data(Device_Address, CONFIG, 0)       # 프레임 동기화 및 디지털 저역 통과 필터
+    bus.write_byte_data(Device_Address, GYRO_CONFIG, 24)  # 자이로 풀 스케일 범위 설정
+    bus.write_byte_data(Device_Address, INT_ENABLE, 1)    # 인터럽트 활성화
+
 def read_raw_data(addr):
-#Accelero and Gyro value are 16-bit
-high = bus.read_byte_data(Device_Address, addr)
-low = bus.read_byte_data(Device_Address, addr+1)
-#concatenate higher and lower value
-value = ((high << 8) | low)
-#to get signed value from mpu6050
-if(value > 32768):
-value = value - 65536
-return value
-bus = smbus.SMBus(0)    # or bus = smbus.SMBus(0) for older version boards Device_Address = 0x68    # MPU6050 device address
-#write to sample rate register
-bus.write_byte_data(Device_Address, SMPLRT_DIV, 7)
-#Write to power management register
-bus.write_byte_data(Device_Address, PWR_MGMT_1, 1)
-#Write to Configuration register
-bus.write_byte_data(Device_Address, CONFIG, 0)
-#Write to Gyro configuration register
-bus.write_byte_data(Device_Address, GYRO_CONFIG, 24)
-#Write to interrupt enable register
-bus.write_byte_data(Device_Address, INT_ENABLE, 1)
-#Read Accelerometer raw value
-acc_x = read_raw_data(ACCEL_XOUT_H) acc_y = read_raw_data(ACCEL_YOUT_H) acc_z = read_raw_data(ACCEL_ZOUT_H) print(acc_x, ",", acc_y, ",", acc_z,"\n")
-#Read Gyroscope raw value
-gyro_x = read_raw_data(GYRO_XOUT_H) gyro_y = read_raw_data(GYRO_YOUT_H) gyro_z = read_raw_data(GYRO_ZOUT_H) print(gyro_x, ",", gyro_y, ",", gyro_z,"\n")
+    """16비트 원시 데이터 읽기 및 2의 보수 처리"""
+    high = bus.read_byte_data(Device_Address, addr)
+    low = bus.read_byte_data(Device_Address, addr + 1)
+    
+    # 두 바이트를 합쳐서 16비트 값 생성
+    value = ((high << 8) | low)
+    
+    # 부호 있는 정수(signed int) 처리를 위한 변환 (2의 보수)
+    if value > 32768:
+        value = value - 65536
+    return value
 
+# --- 메인 실행 루프 ---
+MPU_Init()
 
+print("MPU6050 데이터 읽기를 시작합니다... (Ctrl+C로 종료)")
+
+try:
+    while True:
+        # 가속도 데이터 읽기
+        acc_x = read_raw_data(ACCEL_XOUT_H)
+        acc_y = read_raw_data(ACCEL_YOUT_H)
+        acc_z = read_raw_data(ACCEL_ZOUT_H)
+        
+        # 자이로 데이터 읽기
+        gyro_x = read_raw_data(GYRO_XOUT_H)
+        gyro_y = read_raw_data(GYRO_YOUT_H)
+        gyro_z = read_raw_data(GYRO_ZOUT_H)
+        
+        # 결과 출력
+        print(f"Accel: X={acc_x:6d} Y={acc_y:6d} Z={acc_z:6d} | Gyro: X={gyro_x:6d} Y={gyro_y:6d} Z={gyro_z:6d}")
+        
+        time.sleep(0.5) # 0.5초 대기
+
+except KeyboardInterrupt:
+    print("\n프로그램을 종료합니다.")
 ```
-
 <img src="images/Image_042.jpg"> <br>
 
 * 파일을 실행합니다.
@@ -771,7 +805,7 @@ $ sudo python3 smbus_test.py
 <img src="images/Image_044.jpg"> <br>
 
 
-```
+```python
 '''
 Read Gyro and Accelerometer by Interfacing Raspberry Pi with MPU6050 using Python http://www.electronicwings.com
 '''
