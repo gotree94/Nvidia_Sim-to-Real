@@ -575,7 +575,7 @@ while True:
 (참고 : RPi_I2C_LCD_driver/example 하위에 해당 파일이 없을 경우 제공된 실습코드를 실행 경로로 복사하거나, 직접 코드를 작성합니다.)
 
 
-```
+```python
 '''
 # RPi_I2C_driver - LiquidCrystal Library - Custom Characters
 #
