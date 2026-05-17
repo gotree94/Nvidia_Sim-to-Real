@@ -380,13 +380,11 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
    $ cd mfi_jetson-nano-emmc/
    ```
 
-![Ubuntu Install](images/Image_063.jpg)
+![Ubuntu Install](images/Image_064.jpg)
 
 ### 9.2 Flash 실행
 
 1. Jetson Nano와 Windows PC를 **5핀**으로 연결하고, **Recovery mode**를 만들어준다.
-
-![Ubuntu Install](images/Image_064.jpg)
 
 ![Ubuntu Install](images/Image_065.jpg)
 
