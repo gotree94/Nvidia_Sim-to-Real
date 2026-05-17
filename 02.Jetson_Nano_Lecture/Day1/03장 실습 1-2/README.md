@@ -196,17 +196,15 @@ Windows PC에 다음과 같이 폴더 생성: `D:\share`
 
 3. 아래 창이 뜬다면 **Run** 버튼을 눌러주세요.
 
-![Ubuntu Install](images/Image_036.jpg)
-
 ![Ubuntu Install](images/Image_037.jpg)
 
 5. 아래와 같은 창이 뜬다면 **Don't Upgrade** 버튼을 눌러주세요.
 
-![Ubuntu Install](images/Image_038.jpg)
+![Ubuntu Install](images/Image_039.jpg)
 
 7. 아래와 같이 "Press Return to close this window..."가 뜬다면 **Enter**를 눌러주세요.
 
-![Ubuntu Install](images/Image_039.jpg)
+![Ubuntu Install](images/Image_041.jpg)
 
 게스트 확장 CD 이미지 삽입을 완료하면 아래와 같은 기능을 사용할 수 있다:
 
@@ -227,11 +225,11 @@ $ sudo reboot
 
 1. VirtualBox에서 파일 관리자 (Nautilus)를 열고, 공유 폴더가 있는지 확인한다.
 
-![Ubuntu Install](images/Image_039.jpg)
+![Ubuntu Install](images/Image_042.jpg)
 
 3. 공유 폴더를 들어가보면 사용자가 `vboxsf` 그룹에 없어서 에러가 발생한다.
 
-![Ubuntu Install](images/Image_040.jpg)
+![Ubuntu Install](images/Image_043.jpg)
 
 5. 아래 명령어를 실행하여 `vboxsf` 그룹에 사용자를 추가한다:
 
