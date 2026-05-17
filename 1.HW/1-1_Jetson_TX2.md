@@ -48,7 +48,7 @@ TX2 시리즈는 총 4가지 모듈 변종이 존재한다:
       <td>8GB LPDDR4 (128bit) 59.7GB/s</td>
       <td>32GB eMMC 5.1</td>
       <td>7.5W / 15W</td>
-      <td>50×87mm<br>400-pin</td>
+      <td>50×87mm 400-pin</td>
       <td>WLAN/BT 내장</td>
     </tr>
     <tr>
@@ -57,7 +57,7 @@ TX2 시리즈는 총 4가지 모듈 변종이 존재한다:
       <td>8GB LPDDR4 (128bit) 51.2GB/s</td>
       <td>32GB eMMC 5.1</td>
       <td>10W / 20W</td>
-      <td>50×87mm<br>400-pin</td>
+      <td>50×87mm 400-pin</td>
       <td>산업용, ECC 지원</td>
     </tr>
     <tr>
@@ -66,7 +66,7 @@ TX2 시리즈는 총 4가지 모듈 변종이 존재한다:
       <td>4GB LPDDR4 (128bit) 51.2GB/s</td>
       <td>16GB eMMC 5.1</td>
       <td>7.5W / 15W</td>
-      <td>50×87mm<br>400-pin</td>
+      <td>50×87mm 400-pin</td>
       <td>보급형</td>
     </tr>
     <tr>
@@ -75,7 +75,7 @@ TX2 시리즈는 총 4가지 모듈 변종이 존재한다:
       <td>8GB LPDDR4 (128bit) 59.7GB/s</td>
       <td>16GB eMMC 5.1</td>
       <td>7.5W / 15W</td>
-      <td>69.6×45mm<br>260-pin</td>
+      <td>69.6×45mm 260-pin</td>
       <td>Nano 크기 폼팩터</td>
     </tr>
   </tbody>
