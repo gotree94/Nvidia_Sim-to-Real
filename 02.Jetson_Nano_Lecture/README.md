@@ -5,7 +5,7 @@
 <img src="001.png" width="80%"> <br>
 <img src="002.png" width="80%"> <br>
 
-## Jetson Orin Nano 기반 엣지 AI 기초 및 생성형 AI (40H)
+## 1. Jetson Orin Nano 기반 엣지 AI 기초 및 생성형 AI (40H)
 > * 엣지 AI 아키텍처 이해 및 환경 구축
 >   * Jetson Orin Nano 아키텍처 이해
 >   * Jetson 및 컨테이너 기반 개발환경 구축
@@ -68,7 +68,7 @@
 
 ---
 
-## OpenUSD 및 Omniverse IssacSim 기반 시뮬레이션 (40H)
+## 2. OpenUSD 및 Omniverse IssacSim 기반 시뮬레이션 (40H)
 > * OpenUSD 기본 구조 이해
 >    * OpenUSD 개념, Stage·Prims·Layer 구조 이해
 > * 디지털 트윈 구축 실습
@@ -95,16 +95,7 @@
 
 ---
 
-
-
-```
-sudo apt update
-sudo apt install gparted -y
-```
-
----
-
-## Physical AI 캡스톤 프로젝트 (Sim-to-Real)  (40H)
+## 3. Physical AI 캡스톤 프로젝트 (Sim-to-Real)  (40H)
 
 > * 프로젝트 기획
 >    * Physical AI 주제 선정, 시스템 아키텍처 설계
