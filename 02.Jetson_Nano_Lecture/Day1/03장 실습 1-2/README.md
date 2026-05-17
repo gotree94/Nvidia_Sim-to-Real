@@ -325,7 +325,6 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
    
    - 다음 창이 나타날 경우 **restart**를 눌러주세요.
 
-
 ![Ubuntu Install](images/Image_058.jpg)
 
 > 참고: 초기 설정 시 Visual Studio Code가 이미 1.100.x 버전으로 업데이트되어 있을 수 있다. 이 경우, 제어판에서 해당 프로그램을 제거한 뒤 1.84.2 버전을 다시 설치하면 자동 업데이트 없이 해당 버전으로 유지된다.
@@ -336,14 +335,22 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
 
    [https://code.visualstudio.com/updates/v1_84](https://code.visualstudio.com/updates/v1_84)
 
+![Ubuntu Install](images/Image_059.jpg)
+
    > 참고: 최신 버전의 Visual Studio Code가 Ubuntu 18.04에 설치되지 않아 구 버전을 설치한다.
 
 2. 리눅스 파일 탐색기 (Nautilus)를 열고, **Downloads** 폴더로 이동하면 다운로드 받은 `code_1.84.2-1699528352_amd64.deb` 파일을 볼 수 있다.
 
+![Ubuntu Install](images/Image_060.jpg)
+
 3. `code_1.84.2-1699528352_amd64.deb` 파일을 더블 클릭하면 설치창이 나타난다. **Install** 버튼을 눌러 설치를 진행한다.
+
+![Ubuntu Install](images/Image_061.jpg)
 
 4. 설치가 완료되면, Host PC (VirtualBox + Ubuntu)의 바탕화면 왼쪽 아래에 있는 **Show Applications** 버튼을 눌러, 설치한 Visual Studio Code를 찾아 실행한다.
    - 또는 터미널에서 `code`를 입력하면 Visual Studio Code를 실행할 수 있다.
+
+![Ubuntu Install](images/Image_062.jpg)
 
 ---
 
@@ -365,19 +372,29 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
    $ tar xvjf allai-mfi-jcb100-nano.tbz2
    ```
 
+![Ubuntu Install](images/Image_063.jpg)
+
 4. 압축해제가 다 되면 해당 폴더로 이동한다:
 
    ```bash
    $ cd mfi_jetson-nano-emmc/
    ```
 
+![Ubuntu Install](images/Image_063.jpg)
+
 ### 9.2 Flash 실행
 
 1. Jetson Nano와 Windows PC를 **5핀**으로 연결하고, **Recovery mode**를 만들어준다.
 
+![Ubuntu Install](images/Image_064.jpg)
+
+![Ubuntu Install](images/Image_065.jpg)
+
 2. VirtualBox 상단에 **장치 → USB**에서 `NVIDIA Corp, APX [0102]`를 선택한다.
 
    ![USB Passthrough](images/usb_passthrough.jpg)
+
+![Ubuntu Install](images/Image_066.jpg)
 
 3. Guest PC (Ubuntu)에서 터미널 창을 열어 아래 명령어를 입력한 후 `0955:7f21 Nvidia Corp.`로 뜨는지 확인한다:
 
