@@ -35,56 +35,147 @@
 
 ### 종합 사양표
 
-| 모델 | AI 성능 | GPU | CPU | 메모리 | DL 가속기 | Vision 가속기 |
-|------|---------|-----|-----|--------|-----------|-------------|
-| **Jetson NANO** | 472 GFLOPs | 128-core Maxwell | Quad-Core A57 MPCore | 4GB LPDDR4 25.6GB/s | - | - |
-| **Jetson TX2 NX** | 1.33 TFLOPs | 256-core Pascal | Dual Denver2 64-bit + Quad A57 MPCore | 4GB LPDDR4 51.2GB/s | - | - |
-| **Jetson Xavier NX** | 21 TOPS | 384-core Volta (48 Tensor) | 6-core Carmel ARMv8.2 6MB L2 + 4MB L3 | 8GB/16GB LPDDR4x 59.7GB/s | 2x NVDLA | - |
-| **Jetson Orin Nano 4GB** | 20 TOPS | 512-core Ampere (16 Tensor) | 6-core A78AE | 4GB LPDDR5 34GB/s | - | - |
-| **Jetson Orin Nano 8GB** | 40 TOPS | 1024-core Ampere (32 Tensor) | 6-core A78AE | 8GB LPDDR5 68GB/s | - | - |
-| **Jetson Orin NX 8GB** | 70 TOPS | 1024-core Ampere (32 Tensor) | 6-core A78AE | 8GB LPDDR5 102.4GB/s | 1x NVDLA V2.0 | PVA v2.0 |
-| **Jetson Orin NX 16GB** | 100 TOPS | 1024-core Ampere (32 Tensor) | 8-core A78AE | 16GB LPDDR5 102.4GB/s | 2x NVDLA V2.0 | PVA v2.0 |
-| **Jetson AGX Xavier 32GB** | 32 TOPS | 512-core Volta (64 Tensor) | 8-core Carmel ARMv8.2 8MB L2 + 4MB L3 | 32GB LPDDR4x 136.5GB/s | 2x NVDLA V1.0 | 2x 7-way VLIW |
-| **Jetson AGX Xavier 64GB** | 32 TOPS | 512-core Volta (64 Tensor) | 8-core Carmel ARMv8.2 8MB L2 + 4MB L3 | 64GB LPDDR4x 136.5GB/s | 2x NVDLA V1.0 | 2x 7-way VLIW |
-| **Jetson AGX Orin 32GB** | 200 TOPS | 1792-core Ampere (56 Tensor) | 8-core A78AE v8.2 2MB L2 + 4MB L3 | 32GB LPDDR5 205GB/s | 2x NVDLA V2.0 | PVA v2.0 |
-| **Jetson AGX Orin 64GB** | 275 TOPS | 2048-core Ampere (64 Tensor) | 12-core A78AE v8.2 3MB L2 + 6MB L3 | 64GB LPDDR5 205GB/s | 2x NVDLA V2.0 | PVA v2.0 |
-| **Jetson AGX Orin industrial** | 248 TOPS | 2048-core Ampere (64 Tensor) | 12-core A78AE v8.2 3MB L2 + 6MB L3 | 64GB LPDDR5 (+ ECC) 204.8GB/s | 2x NVDLA V2.0 | PVA v2.0 |
+**AI 성능 · GPU · 메모리**
+
+| 모델 | AI 성능 | GPU | 메모리 |
+|------|---------|-----|--------|
+| **Jetson NANO** | 472 GFLOPs | 128-core Maxwell | 4GB LPDDR4 25.6GB/s |
+| **Jetson TX2 NX** | 1.33 TFLOPs | 256-core Pascal | 4GB LPDDR4 51.2GB/s |
+| **Jetson Xavier NX** | 21 TOPS | 384-core Volta (48 Tensor) | 8GB/16GB LPDDR4x 59.7GB/s |
+| **Jetson Orin Nano 4GB** | 20 TOPS | 512-core Ampere (16 Tensor) | 4GB LPDDR5 34GB/s |
+| **Jetson Orin Nano 8GB** | 40 TOPS | 1024-core Ampere (32 Tensor) | 8GB LPDDR5 68GB/s |
+| **Jetson Orin NX 8GB** | 70 TOPS | 1024-core Ampere (32 Tensor) | 8GB LPDDR5 102.4GB/s |
+| **Jetson Orin NX 16GB** | 100 TOPS | 1024-core Ampere (32 Tensor) | 16GB LPDDR5 102.4GB/s |
+| **Jetson AGX Xavier 32GB** | 32 TOPS | 512-core Volta (64 Tensor) | 32GB LPDDR4x 136.5GB/s |
+| **Jetson AGX Xavier 64GB** | 32 TOPS | 512-core Volta (64 Tensor) | 64GB LPDDR4x 136.5GB/s |
+| **Jetson AGX Orin 32GB** | 200 TOPS | 1792-core Ampere (56 Tensor) | 32GB LPDDR5 205GB/s |
+| **Jetson AGX Orin 64GB** | 275 TOPS | 2048-core Ampere (64 Tensor) | 64GB LPDDR5 205GB/s |
+| **Jetson AGX Orin industrial** | 248 TOPS | 2048-core Ampere (64 Tensor) | 64GB LPDDR5 (+ ECC) 204.8GB/s |
+
+**CPU · 가속기**
+
+| 모델 | CPU | DL 가속기 | Vision 가속기 |
+|------|-----|-----------|-------------|
+| **Jetson NANO** | Quad-Core A57 MPCore | - | - |
+| **Jetson TX2 NX** | Dual Denver2 64-bit + Quad A57 MPCore | - | - |
+| **Jetson Xavier NX** | 6-core Carmel ARMv8.2 6MB L2 + 4MB L3 | 2x NVDLA | - |
+| **Jetson Orin Nano 4GB** | 6-core A78AE | - | - |
+| **Jetson Orin Nano 8GB** | 6-core A78AE | - | - |
+| **Jetson Orin NX 8GB** | 6-core A78AE | 1x NVDLA V2.0 | PVA v2.0 |
+| **Jetson Orin NX 16GB** | 8-core A78AE | 2x NVDLA V2.0 | PVA v2.0 |
+| **Jetson AGX Xavier 32GB** | 8-core Carmel ARMv8.2 8MB L2 + 4MB L3 | 2x NVDLA V1.0 | 2x 7-way VLIW |
+| **Jetson AGX Xavier 64GB** | 8-core Carmel ARMv8.2 8MB L2 + 4MB L3 | 2x NVDLA V1.0 | 2x 7-way VLIW |
+| **Jetson AGX Orin 32GB** | 8-core A78AE v8.2 2MB L2 + 4MB L3 | 2x NVDLA V2.0 | PVA v2.0 |
+| **Jetson AGX Orin 64GB** | 12-core A78AE v8.2 3MB L2 + 6MB L3 | 2x NVDLA V2.0 | PVA v2.0 |
+| **Jetson AGX Orin industrial** | 12-core A78AE v8.2 3MB L2 + 6MB L3 | 2x NVDLA V2.0 | PVA v2.0 |
 
 
 ### CPU 상세 및 비디오 사양
 
-| 모델 | CPU 상세 | Video Encode | Video Decode | Storage |
-|------|---------|-------------|-------------|---------|
-| **Jetson NANO** | Quad-Core A57 MPCore | 250MP/sec | 500MP/sec | 16GB eMMC 5.1 |
-| **Jetson TX2 NX** | Dual Denver2 64-bit + Quad A57 MPCore | 1x 4K@30 (HEVC) | 1x 4K@60 (HEVC) | 16GB eMMC 5.1 |
-| **Jetson Xavier NX** | 6-core Carmel ARMv8.2 6MB L2 + 4MB L3 | 2x 1080p@60 (HEVC) | 4x 1080p@60 (HEVC) | 16GB eMMC 5.1 |
-| **Jetson Orin Nano 4GB** | 6-core A78AE | 1080p30 (1-2 CPU cores) | 1x 4K60 \| 2x 4K30 \| 5x 1080p60 \| 11x 1080p30 (H.265) | External NVMe |
-| **Jetson Orin Nano 8GB** | 6-core A78AE | 1080p30 (1-2 CPU cores) | 1x 4K60 \| 5x 1080p60 (H.265) | External NVMe |
-| **Jetson Orin NX 8GB** | 6-core A78AE | 1x 4K60 \| 3x 4K30 \| 6x 1080p60 \| 12x 1080p30 (H.265/H.264/AV1) | 1x 4K60 \| 3x 4K30 \| 6x 1080p60 (H.265) | External NVMe |
-| **Jetson Orin NX 16GB** | 8-core A78AE | 1x 4K60 \| 3x 4K30 \| 6x 1080p60 \| 12x 1080p30 (H.265/H.264/AV1) | 1x 8K30 \| 2x 4K60 \| 9x 1080p60 (H.265) | External NVMe |
-| **Jetson AGX Xavier 32GB** | 8-core Carmel ARMv8.2 8MB L2 + 4MB L3 | 4x 4K@60 \| 16x 1080p@60 \| 32x 1080p@30 (H.265) | 2x 8K@30 \| 6x 4K@60 \| 26x 1080p@60 \| 52x 1080p@30 (H.265) | 32GB eMMC 5.1 |
-| **Jetson AGX Xavier 64GB** | 8-core Carmel ARMv8.2 8MB L2 + 4MB L3 | 4x 4K@60 \| 16x 1080p@60 \| 32x 1080p@30 (H.265) | 2x 8K@30 \| 6x 4K@60 \| 26x 1080p@60 \| 52x 1080p@30 (H.265) | 32GB eMMC 5.1 |
-| **Jetson AGX Orin 32GB** | 8-core A78AE v8.2 2MB L2 + 4MB L3 | 1x 4K60 \| 3x 4K30 \| 6x 1080p60 \| 12x 1080p30 (H.265) | 1x 8K30 \| 2x 4K60 \| 4x 4K30 \| 9x 1080p60 \| 18x 1080p30 (H.265) | 64GB eMMC 5.1 |
-| **Jetson AGX Orin 64GB** | 12-core A78AE v8.2 3MB L2 + 6MB L3 | 2x 4K60 \| 4x 4K30 \| 8x 1080p60 \| 16x 1080p30 (H.265) | 1x 8K30 \| 3x 4K60 \| 7x 4K30 \| 11x 1080p60 \| 22x 1080p30 (H.265) | 64GB eMMC 5.1 |
-| **Jetson AGX Orin industrial** | 12-core A78AE v8.2 3MB L2 + 6MB L3 | 1x 4K60 \| 3x 4K30 \| 7x 1080p60 \| 15x 1080p30 (H.265) | 1x 8K30 \| 3x 4K60 \| 7x 4K30 \| 11x 1080p60 \| 22x 1080p30 (H.265) | 64GB eMMC 5.1 |
+**저장장치**
+
+| 모델 | Storage |
+|------|---------|
+| **Jetson NANO** | 16GB eMMC 5.1 |
+| **Jetson TX2 NX** | 16GB eMMC 5.1 |
+| **Jetson Xavier NX** | 16GB eMMC 5.1 |
+| **Jetson Orin Nano 4GB** | External NVMe |
+| **Jetson Orin Nano 8GB** | External NVMe |
+| **Jetson Orin NX 8GB** | External NVMe |
+| **Jetson Orin NX 16GB** | External NVMe |
+| **Jetson AGX Xavier 32GB** | 32GB eMMC 5.1 |
+| **Jetson AGX Xavier 64GB** | 32GB eMMC 5.1 |
+| **Jetson AGX Orin 32GB** | 64GB eMMC 5.1 |
+| **Jetson AGX Orin 64GB** | 64GB eMMC 5.1 |
+| **Jetson AGX Orin industrial** | 64GB eMMC 5.1 |
+
+**Video Encode**
+
+| 모델 | Video Encode |
+|------|-------------|
+| **Jetson NANO** | 250MP/sec |
+| **Jetson TX2 NX** | 1x 4K@30 (HEVC) |
+| **Jetson Xavier NX** | 2x 1080p@60 (HEVC) |
+| **Jetson Orin Nano 4GB** | 1080p30 (1-2 CPU cores) |
+| **Jetson Orin Nano 8GB** | 1080p30 (1-2 CPU cores) |
+| **Jetson Orin NX 8GB** | 1x 4K60 \| 3x 4K30 \| 6x 1080p60 \| 12x 1080p30 (H.265/H.264/AV1) |
+| **Jetson Orin NX 16GB** | 1x 4K60 \| 3x 4K30 \| 6x 1080p60 \| 12x 1080p30 (H.265/H.264/AV1) |
+| **Jetson AGX Xavier 32GB** | 4x 4K@60 \| 16x 1080p@60 \| 32x 1080p@30 (H.265) |
+| **Jetson AGX Xavier 64GB** | 4x 4K@60 \| 16x 1080p@60 \| 32x 1080p@30 (H.265) |
+| **Jetson AGX Orin 32GB** | 1x 4K60 \| 3x 4K30 \| 6x 1080p60 \| 12x 1080p30 (H.265) |
+| **Jetson AGX Orin 64GB** | 2x 4K60 \| 4x 4K30 \| 8x 1080p60 \| 16x 1080p30 (H.265) |
+| **Jetson AGX Orin industrial** | 1x 4K60 \| 3x 4K30 \| 7x 1080p60 \| 15x 1080p30 (H.265) |
+
+**Video Decode**
+
+| 모델 | Video Decode |
+|------|-------------|
+| **Jetson NANO** | 500MP/sec |
+| **Jetson TX2 NX** | 1x 4K@60 (HEVC) |
+| **Jetson Xavier NX** | 4x 1080p@60 (HEVC) |
+| **Jetson Orin Nano 4GB** | 1x 4K60 \| 2x 4K30 \| 5x 1080p60 \| 11x 1080p30 (H.265) |
+| **Jetson Orin Nano 8GB** | 1x 4K60 \| 5x 1080p60 (H.265) |
+| **Jetson Orin NX 8GB** | 1x 4K60 \| 3x 4K30 \| 6x 1080p60 (H.265) |
+| **Jetson Orin NX 16GB** | 1x 8K30 \| 2x 4K60 \| 9x 1080p60 (H.265) |
+| **Jetson AGX Xavier 32GB** | 2x 8K@30 \| 6x 4K@60 \| 26x 1080p@60 \| 52x 1080p@30 (H.265) |
+| **Jetson AGX Xavier 64GB** | 2x 8K@30 \| 6x 4K@60 \| 26x 1080p@60 \| 52x 1080p@30 (H.265) |
+| **Jetson AGX Orin 32GB** | 1x 8K30 \| 2x 4K60 \| 4x 4K30 \| 9x 1080p60 \| 18x 1080p30 (H.265) |
+| **Jetson AGX Orin 64GB** | 1x 8K30 \| 3x 4K60 \| 7x 4K30 \| 11x 1080p60 \| 22x 1080p30 (H.265) |
+| **Jetson AGX Orin industrial** | 1x 8K30 \| 3x 4K60 \| 7x 4K30 \| 11x 1080p60 \| 22x 1080p30 (H.265) |
 
 
 ### 카메라 / PCIe / 규격 / 전력
 
-| 모델 | Camera | PCI Express | Mechanical | Power |
-|------|--------|-------------|-------------|-------|
-| **Jetson NANO** | Up to 4 cameras, 12 lanes MIPI CSI-2, D-PHY 1.1 (up to 18 Gbps) | 1 x4 (PCIe Gen2) | 69.6mm x 45mm, 260-pin SO-DIMM | 5W – 10W |
-| **Jetson TX2 NX** | Up to 5 cameras (12 via virtual), 12 lanes MIPI CSI-2 (3×4 or 5×2), D-PHY 1.2 (up to 30 Gbps) | 1 x1 + 1 x2 (PCIe Gen2, total 30GT/s) | 69.6mm x 45mm, 260-pin SO-DIMM | 7.5W – 15W |
-| **Jetson Xavier NX** | Up to 6 cameras (24 via virtual), 12 lanes MIPI CSI-2, D-PHY 1.2 (up to 30 Gbps) | 1 x1 + 1 x4 (PCIe Gen3, Root Port & Endpoint) | 69.6mm x 45mm, 260-pin SO-DIMM | 10W – 20W |
-| **Jetson Orin Nano 4GB** | Up to 4 cameras (8 via virtual), 8 lanes MIPI CSI-2, D-PHY 2.1 (up to 20 Gbps) | 1 x4 + 3 x1 (PCIe Gen3, Root Port & Endpoint) | 69.6mm x 45mm, 260-pin SO-DIMM | 5W – 10W |
-| **Jetson Orin Nano 8GB** | Up to 4 cameras (8 via virtual), 8 lanes MIPI CSI-2, D-PHY 2.1 (up to 20 Gbps) | 1 x4 + 3 x1 (PCIe Gen3, Root Port & Endpoint) | 69.6mm x 45mm, 260-pin SO-DIMM | 7W – 15W |
-| **Jetson Orin NX 8GB** | Up to 4 cameras (8 via virtual), 8 lanes MIPI CSI-2, D-PHY 2.1 (up to 20 Gbps) | 1 x4 + 3 x1 (PCIe Gen4, Root Port & Endpoint) | 69.6mm x 45mm, 260-pin SO-DIMM | 10W – 20W |
-| **Jetson Orin NX 16GB** | Up to 4 cameras (8 via virtual), 8 lanes MIPI CSI-2, D-PHY 2.1 (up to 20 Gbps) | 1 x4 + 3 x1 (PCIe Gen4, Root Port & Endpoint) | 69.6mm x 45mm, 260-pin SO-DIMM | 10W – 25W |
-| **Jetson AGX Xavier 32GB** | Up to 6 cameras (36 via virtual), 16 lanes MIPI CSI-2 \| 8 lanes SLVS-EC, D-PHY 1.2 (up to 40 Gbps) | 1 x8 + 1 x4 + 1 x2 + 2 x1 (PCIe Gen4, Root Port & Endpoint) | 100mm x 87mm, 699-pin connector, Integrated thermal transfer plate | 10W – 30W |
-| **Jetson AGX Xavier 64GB** | Up to 6 cameras (36 via virtual), 16 lanes MIPI CSI-2 \| 8 lanes SLVS-EC, D-PHY 1.2 (up to 40 Gbps) | 1 x8 + 1 x4 + 1 x2 + 2 x1 (PCIe Gen4, Root Port & Endpoint) | 100mm x 87mm, 699-pin Molex Mirror Mezz, Integrated thermal transfer plate | 10W – 30W |
-| **Jetson AGX Orin 32GB** | Up to 6 cameras (16 via virtual), 16 lanes MIPI CSI-2, D-PHY 2.1 (up to 40 Gbps) \| C-PHY 2.0 (up to 164 Gbps) | Up to 2 x8 + 1 x4 + 2 x1 (PCIe Gen4, Root Port & Endpoint) | 100mm x 87mm, 699-pin Molex Mirror Mezz, Integrated thermal transfer plate | 15W – 40W |
-| **Jetson AGX Orin 64GB** | Up to 6 cameras (16 via virtual), 16 lanes MIPI CSI-2, D-PHY 2.1 (up to 40 Gbps) \| C-PHY 2.0 (up to 164 Gbps) | Up to 2 x8 + 1 x4 + 2 x1 (PCIe Gen4, Root Port & Endpoint) | 100mm x 87mm, 699-pin Molex Mirror Mezz, Integrated thermal transfer plate | 15W – 60W |
-| **Jetson AGX Orin industrial** | Up to 6 cameras (16 via virtual), 16 lanes MIPI CSI-2, D-PHY 2.1 (up to 40 Gbps) \| C-PHY 2.0 (up to 164 Gbps) | Up to 2 x8 + 1 x4 + 2 x1 (PCIe Gen4, Root Port & Endpoint) | 100mm x 87mm, 699-pin Molex Mirror Mezz, Integrated thermal transfer plate | 15W – 75W |
+**Camera**
+
+| 모델 | Camera |
+|------|--------|
+| **Jetson NANO** | Up to 4 cameras, 12 lanes MIPI CSI-2, D-PHY 1.1 (up to 18 Gbps) |
+| **Jetson TX2 NX** | Up to 5 cameras (12 via virtual), 12 lanes MIPI CSI-2 (3×4 or 5×2), D-PHY 1.2 (up to 30 Gbps) |
+| **Jetson Xavier NX** | Up to 6 cameras (24 via virtual), 12 lanes MIPI CSI-2, D-PHY 1.2 (up to 30 Gbps) |
+| **Jetson Orin Nano 4GB** | Up to 4 cameras (8 via virtual), 8 lanes MIPI CSI-2, D-PHY 2.1 (up to 20 Gbps) |
+| **Jetson Orin Nano 8GB** | Up to 4 cameras (8 via virtual), 8 lanes MIPI CSI-2, D-PHY 2.1 (up to 20 Gbps) |
+| **Jetson Orin NX 8GB** | Up to 4 cameras (8 via virtual), 8 lanes MIPI CSI-2, D-PHY 2.1 (up to 20 Gbps) |
+| **Jetson Orin NX 16GB** | Up to 4 cameras (8 via virtual), 8 lanes MIPI CSI-2, D-PHY 2.1 (up to 20 Gbps) |
+| **Jetson AGX Xavier 32GB** | Up to 6 cameras (36 via virtual), 16 lanes MIPI CSI-2 \| 8 lanes SLVS-EC, D-PHY 1.2 (up to 40 Gbps) |
+| **Jetson AGX Xavier 64GB** | Up to 6 cameras (36 via virtual), 16 lanes MIPI CSI-2 \| 8 lanes SLVS-EC, D-PHY 1.2 (up to 40 Gbps) |
+| **Jetson AGX Orin 32GB** | Up to 6 cameras (16 via virtual), 16 lanes MIPI CSI-2, D-PHY 2.1 (up to 40 Gbps) \| C-PHY 2.0 (up to 164 Gbps) |
+| **Jetson AGX Orin 64GB** | Up to 6 cameras (16 via virtual), 16 lanes MIPI CSI-2, D-PHY 2.1 (up to 40 Gbps) \| C-PHY 2.0 (up to 164 Gbps) |
+| **Jetson AGX Orin industrial** | Up to 6 cameras (16 via virtual), 16 lanes MIPI CSI-2, D-PHY 2.1 (up to 40 Gbps) \| C-PHY 2.0 (up to 164 Gbps) |
+
+**PCI Express**
+
+| 모델 | PCI Express |
+|------|-------------|
+| **Jetson NANO** | 1 x4 (PCIe Gen2) |
+| **Jetson TX2 NX** | 1 x1 + 1 x2 (PCIe Gen2, total 30GT/s) |
+| **Jetson Xavier NX** | 1 x1 + 1 x4 (PCIe Gen3, Root Port & Endpoint) |
+| **Jetson Orin Nano 4GB** | 1 x4 + 3 x1 (PCIe Gen3, Root Port & Endpoint) |
+| **Jetson Orin Nano 8GB** | 1 x4 + 3 x1 (PCIe Gen3, Root Port & Endpoint) |
+| **Jetson Orin NX 8GB** | 1 x4 + 3 x1 (PCIe Gen4, Root Port & Endpoint) |
+| **Jetson Orin NX 16GB** | 1 x4 + 3 x1 (PCIe Gen4, Root Port & Endpoint) |
+| **Jetson AGX Xavier 32GB** | 1 x8 + 1 x4 + 1 x2 + 2 x1 (PCIe Gen4, Root Port & Endpoint) |
+| **Jetson AGX Xavier 64GB** | 1 x8 + 1 x4 + 1 x2 + 2 x1 (PCIe Gen4, Root Port & Endpoint) |
+| **Jetson AGX Orin 32GB** | Up to 2 x8 + 1 x4 + 2 x1 (PCIe Gen4, Root Port & Endpoint) |
+| **Jetson AGX Orin 64GB** | Up to 2 x8 + 1 x4 + 2 x1 (PCIe Gen4, Root Port & Endpoint) |
+| **Jetson AGX Orin industrial** | Up to 2 x8 + 1 x4 + 2 x1 (PCIe Gen4, Root Port & Endpoint) |
+
+**규격(Mechanical) · 전력(Power)**
+
+| 모델 | Mechanical | Power |
+|------|-------------|-------|
+| **Jetson NANO** | 69.6mm x 45mm, 260-pin SO-DIMM | 5W – 10W |
+| **Jetson TX2 NX** | 69.6mm x 45mm, 260-pin SO-DIMM | 7.5W – 15W |
+| **Jetson Xavier NX** | 69.6mm x 45mm, 260-pin SO-DIMM | 10W – 20W |
+| **Jetson Orin Nano 4GB** | 69.6mm x 45mm, 260-pin SO-DIMM | 5W – 10W |
+| **Jetson Orin Nano 8GB** | 69.6mm x 45mm, 260-pin SO-DIMM | 7W – 15W |
+| **Jetson Orin NX 8GB** | 69.6mm x 45mm, 260-pin SO-DIMM | 10W – 20W |
+| **Jetson Orin NX 16GB** | 69.6mm x 45mm, 260-pin SO-DIMM | 10W – 25W |
+| **Jetson AGX Xavier 32GB** | 100mm x 87mm, 699-pin connector, Integrated thermal transfer plate | 10W – 30W |
+| **Jetson AGX Xavier 64GB** | 100mm x 87mm, 699-pin Molex Mirror Mezz, Integrated thermal transfer plate | 10W – 30W |
+| **Jetson AGX Orin 32GB** | 100mm x 87mm, 699-pin Molex Mirror Mezz, Integrated thermal transfer plate | 15W – 40W |
+| **Jetson AGX Orin 64GB** | 100mm x 87mm, 699-pin Molex Mirror Mezz, Integrated thermal transfer plate | 15W – 60W |
+| **Jetson AGX Orin industrial** | 100mm x 87mm, 699-pin Molex Mirror Mezz, Integrated thermal transfer plate | 15W – 75W |
 
 
 ---
