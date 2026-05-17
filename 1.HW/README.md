@@ -6,9 +6,9 @@
 
 | # | 파일 | 대상 보드 | 핵심 내용 |
 |---|------|----------|----------|
-| 1 | [1-1_Jetson_TX2.md](./1-1_Jetson_TX2.md) | **Jetson TX2** | Pascal GPU 256코어, Denver2+A57 HMP 6코어 CPU, 8GB LPDDR4, 32GB eMMC, SDK Manager 플래싱 |
-| 2 | [1-2_Jetson_Nano_4GB_SD.md](./1-2_Jetson_Nano_4GB_SD.md) | **Jetson Nano 4GB (no eMMC)** | Maxwell GPU 128코어, 4GB LPDDR4, microSD 전용 부팅, A02/B01 리비전 차이, SD 카드 이미지 기록 |
-| 3 | [1-3_Jetson_Orin_Nano_Super.md](./1-3_Jetson_Orin_Nano_Super.md) | **Jetson Orin Nano Super** | Ampere GPU 1024코어 + 32 Tensor 코어, 8GB LPDDR5, 67 TOPS, NVMe SSD, MAXN SUPER 모드 |
+| 1 | [1-1_Jetson_TX2.md](./1-1_Jetson_TX2.md) | **Jetson TX2** | Pascal GPU 256코어, Denver2+A57 HMP 6코어 CPU<br>8GB LPDDR4, 32GB eMMC, SDK Manager 플래싱 |
+| 2 | [1-2_Jetson_Nano_4GB_SD.md](./1-2_Jetson_Nano_4GB_SD.md) | **Jetson Nano 4GB (no eMMC)** | Maxwell GPU 128코어, 4GB LPDDR4, microSD 전용 부팅<br>A02/B01 리비전 차이, SD 카드 이미지 기록 |
+| 3 | [1-3_Jetson_Orin_Nano_Super.md](./1-3_Jetson_Orin_Nano_Super.md) | **Jetson Orin Nano Super** | Ampere GPU 1024코어 + 32 Tensor 코어, 8GB LPDDR5, 67 TOPS<br>NVMe SSD, MAXN SUPER 모드 |
 
 ## 보드 비교 요약
 
