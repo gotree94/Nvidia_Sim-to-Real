@@ -515,8 +515,6 @@ while True:
     time.sleep(1)
 ```
 
-<img src="images/Image_035.jpg">
-
 <img src="images/Image_036.jpg">
 
 ---
