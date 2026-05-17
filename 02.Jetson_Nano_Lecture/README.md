@@ -67,14 +67,14 @@
 ---
 
 ## OpenUSD 및 Omniverse IssacSim 기반 시뮬레이션 (40H)
-> ○ OpenUSD 기본 구조 이해
-> - OpenUSD 개념, Stage·Prims·Layer 구조 이해
-> ○ 디지털 트윈 구축 실습
-> - OpenUSD 기반 가상 환경 및 로봇 모델 구성
-> ○ Isaac Sim 물리 시뮬레이션
-> - 물리 엔진 설정, 센서·관절 제어 실습
-> ○ Sim-to-Real 연계
-> - 합성 데이터 생성, 시뮬레이션 데이터 활용 모델 검증
+> * OpenUSD 기본 구조 이해
+>    * OpenUSD 개념, Stage·Prims·Layer 구조 이해
+> * 디지털 트윈 구축 실습
+>    * OpenUSD 기반 가상 환경 및 로봇 모델 구성
+> * Isaac Sim 물리 시뮬레이션
+>    * 물리 엔진 설정, 센서·관절 제어 실습
+> * Sim-to-Real 연계
+>    * 합성 데이터 생성, 시뮬레이션 데이터 활용 모델 검증
 
 ### Day1
 
@@ -104,13 +104,13 @@ sudo apt install gparted -y
 
 ## Physical AI 캡스톤 프로젝트 (Sim-to-Real)  (40H)
 
-> ○ 프로젝트 기획
-> - Physical AI 주제 선정, 시스템 아키텍처 설계
-> ○ AI 파이프라인 개발
-> - 모델 선정·학습·최적화, 데이터 흐름 구현
-> ○ 시스템 통합 및 검증
-> - Jetson-시뮬레이터 연계, Sim-to-Real 검증
-> ○ 최종 발표 및 평가
-> - 프로젝트 시연, 결과 발표 및 종합 피드백
+> * 프로젝트 기획
+>    * Physical AI 주제 선정, 시스템 아키텍처 설계
+> * AI 파이프라인 개발
+>    * 모델 선정·학습·최적화, 데이터 흐름 구현
+> * 시스템 통합 및 검증
+>    * Jetson-시뮬레이터 연계, Sim-to-Real 검증
+> * 최종 발표 및 평가
+>    * 프로젝트 시연, 결과 발표 및 종합 피드백
 
 
