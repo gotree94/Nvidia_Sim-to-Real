@@ -243,19 +243,7 @@ $ curl --limit-rate 500B -o allai_limit_rate.txt https://blog.naver.com/allai-
 
 ---
 
-## 5. 시스템 정보 확인
-
-### CPU 정보 확인
-
-
-
-### 시스템 리소스 확인
-
-
-
----
-
-## 6. nvidia-jetpack 설치
+## 5. nvidia-jetpack 설치
 
 ```bash
 $ sudo apt update
