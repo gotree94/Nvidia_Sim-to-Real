@@ -193,7 +193,35 @@ $ curl --limit-rate 500B -o allai_limit_rate.txt https://blog.naver.com/allai-
 
 ## 4. SSH를 사용한 원격 접속
 
-**Jetson Nano에 SSH 접속:**
+**SSH 원격 시스템 실습**
+
+   * ssh(secure Shell)는 네트워크 상에서 다른 컴퓨터에 접속하거나 명령을 실행하거나 파일을 전송하는데 사용되는 프로토콜입니다.
+   * 보안이 취약한 네트워크에서 암호화된 통신을 제공하여, 데이터의 도청이나 변조를 방지하고 주로 원격 실행이나 파일 전송에 사용됩니다.
+
+   * SSH 사용방법
+      * Jetson Nano 의 ip 를 확인한 후 Window PC CMD 창 또는 Virtual Box + Ubuntu 터미널에서 ssh 명령어를 사용하여 Jetson Nano 에 접속합니다.
+      * 접속 시 비밀번호를 입력해야 하며, 입력 중에는 화면에 표시되지 않지만 정상적인 동작이므로 그대로 입력해 주시면 됩니다.
+```
+사용법 : $ ssh [아이디]@[서버 주소]
+예) ssh nvidia@172.30.1.5
+```
+
+<img src="images/Image_022.jpg">
+
+**SCP 사용방법**
+
+   * Jetson Nano 의 ip 를 확인한 후 다른 Window PC CMD 창 또는 Virtual Box (Ubuntu) 터미널에서 scp 를 이용하여 Jetson Nano 에 파일을 전송합니다.
+   * 다른 서버로 전송
+```
+사용법 : $ scp [option] [보낼 파일] [아이디]@[서버 주소]:[저장할 경로]
+예) scp text.txt nvidia@172.30.1.5:~
+```
+
+<img src="images/Image_023.jpg">
+
+   * <Window 의 Jetson Nano 의 ‘~’ 경로로 전송 받은 test.txt 확인>
+
+<img src="images/Image_024.jpg">
 
 ```bash
 # Jetson Nano IP 확인 (Jetson 터미널에서)
@@ -203,19 +231,17 @@ $ ip addr show
 $ ssh jetson@192.168.x.x
 ```
 
-<img src="images/Image_022.png">
-
 ---
 
 ## 5. 시스템 정보 확인
 
 ### CPU 정보 확인
 
-<img src="images/Image_023.png">
+
 
 ### 시스템 리소스 확인
 
-<img src="images/Image_024.png">
+
 
 ---
 
@@ -227,6 +253,16 @@ $ sudo apt install nvidia-jetpack
 ```
 
 > **참고**: 설치에는 시간이 소요되며, 인터넷 연결 상태에 따라 수 분에서 수십 분까지 소요될 수 있다.
+
+
+
+
+
+
+
+
+
+
 
 ---
 
