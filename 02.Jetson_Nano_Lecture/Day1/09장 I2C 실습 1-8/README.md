@@ -6,9 +6,6 @@
 
 **Master/Slave 방식**으로 동작하며, 다양한 센서(온도, 압력, 가속도 등)를 쉽게 연결할 수 있다. 각 센서는 고유한 주소를 가지고 있어서 버스에서 충돌 없이 통신할 수 있다.
 
-![I2C 개념](images/Image_001.png)
-![I2C 버스 구성](images/Image_002.png)
-
 ```
 Master ────┬──── SDA ────┬──── Slave (Address 01)
            │             │
