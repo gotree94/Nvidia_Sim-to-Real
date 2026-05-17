@@ -245,7 +245,7 @@ $ sudo usermod -G vboxsf -a nvidia
 $ cat /etc/group
 ```
 
-<img src="images/Image_044.jpg">
+<img src="images/Image_044.png">
 
 5. VirtualBox를 재부팅한다:
 
@@ -255,7 +255,7 @@ $ sudo reboot
 
 6. Windows PC에 테스트할 텍스트 파일을 만들고, 공유 폴더 경로와 VirtualBox 내의 공유 폴더 안에 같은 파일이 있는지 확인한다. Windows PC에 있는 파일을 VirtualBox로 옮겨야 할 때 공유 폴더를 사용하면 편리하게 옮길 수 있다.
 
-<img src="images/Image_045.jpg">
+<img src="images/Image_045.png">
 
 ---
 
