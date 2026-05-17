@@ -149,14 +149,34 @@ $ sudo -H pip3 install -U jetson-stats
 
 <img src="images/Image_008.png"> <br>
 
+### jtop - GPU
 <img src="images/Image_014.png"> <br>
+
+### jtop - GPU
 <img src="images/Image_015.png"> <br>
+
+### jtop - Memory
 <img src="images/Image_016.png"> <br>
+
+### jtop - engine
 <img src="images/Image_017.png"> <br>
+
+### jtop - control
 <img src="images/Image_018.png"> <br>
+
+### jtop - information
 <img src="images/Image_019.png"> <br>
+
+### jetson release
 <img src="images/Image_020.png"> <br>
+
+### Jetson 시스템 상태 (온도) 확인
+   * 현재 시스템 온도를 확인 가능
+   * 출력 값에서 1000을 나눈 값이 온도
 <img src="images/Image_021.png"> <br>
+
+### With CUDA vs W/O CUDA
+   * With CUDA & Without CUDA 비교 데모 동영상
 <img src="images/Image_022.png"> <br>
 
 
