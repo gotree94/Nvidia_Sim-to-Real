@@ -217,19 +217,29 @@ $ curl --limit-rate 500B -o allai_limit_rate.txt https://blog.naver.com/allai-
 예) scp text.txt nvidia@172.30.1.5:~
 ```
 
+   * <Window CMD 창>
+
 <img src="images/Image_023.jpg">
 
    * <Window 의 Jetson Nano 의 ‘~’ 경로로 전송 받은 test.txt 확인>
 
 <img src="images/Image_024.jpg">
 
-```bash
-# Jetson Nano IP 확인 (Jetson 터미널에서)
-$ ip addr show
-
-# Host PC에서 SSH 접속
-$ ssh jetson@192.168.x.x
+   * 서버로부터 다운
 ```
+사용법 : $ scp [option] [아이디]@[서버주소]:[파일경로] [저장할경로]
+예) scp nvidia@172.30.1.5:~/test1.txt C:\Users\allai\Desktop\
+```
+
+* <Window CMD 창>
+
+<img src="images/Image_025.jpg">
+
+<Jetson Nano ‘~’ 경로에 있는 test1.txt 파일이 Window PC 의 C:\Users\allai\Desktop\ 경로에 전송 됐는지 확인>
+
+<img src="images/Image_026.jpg">
+
+(참고: Ubuntu/Linux 에서는 /를, Windows PowerShell 에서는 \를 경로 구분자로 사용하므로, scp 명령어 실행 시 파일 경로 표기에 주의해 주세요.)
 
 ---
 
