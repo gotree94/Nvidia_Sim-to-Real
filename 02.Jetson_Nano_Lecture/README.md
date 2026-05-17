@@ -4,15 +4,15 @@
 <img src="002.png" width="80%"> <br>
 
 ## Jetson Orin Nano 기반 엣지 AI 기초 및 생성형 AI (40H)
-> ○ 엣지 AI 아키텍처 이해 및 환경 구축
->   - Jetson Orin Nano 아키텍처 이해
->   - Jetson 및 컨테이너 기반 개발환경 구축
-> ○ 컴퓨터 비전 기초 및 실습
->   - OpenCV 기반 이미지 처리, 분류·객체 탐지 모델 활용 및 최적화
-> ○ 생성형 AI 이론
->   - Transformer 구조 이해, 엣지 환경에서의 생성형 AI 활용 개념
-> ○ 생성형 AI 실습
->   - 로컬 LLM/VLM 구동, 프롬프트 설계 및 비전-언어 모델 활용
+> * 엣지 AI 아키텍처 이해 및 환경 구축
+>   * Jetson Orin Nano 아키텍처 이해
+>   * Jetson 및 컨테이너 기반 개발환경 구축
+> * 컴퓨터 비전 기초 및 실습
+>   * OpenCV 기반 이미지 처리, 분류·객체 탐지 모델 활용 및 최적화
+> * 생성형 AI 이론
+>   * Transformer 구조 이해, 엣지 환경에서의 생성형 AI 활용 개념
+> * 생성형 AI 실습
+>   * 로컬 LLM/VLM 구동, 프롬프트 설계 및 비전-언어 모델 활용
 
 ### Day1
    * Class01 : (강의) 교육소개 : 운영체제 리눅스 기초 / Jetson Nano에 OS image flashing 
