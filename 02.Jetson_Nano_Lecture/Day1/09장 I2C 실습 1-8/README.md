@@ -714,8 +714,6 @@ $ sudo apt-get install libsdl2-dev
 $ pip3 install pygame
 ```
 
-<img src="images/Image_041.jpg"> <br>
-
 * python3 smbus 패키지를 사용해서 레지스터 값을 쓰고 읽어보세요. (실습코드 경로: mpu6050/smbus_test.py)
 
 ```python
@@ -790,17 +788,21 @@ try:
 except KeyboardInterrupt:
     print("\n프로그램을 종료합니다.")
 ```
-<img src="images/Image_042.jpg"> <br>
+
+<img src="images/Image_041.jpg"> <br>
+
 
 * 파일을 실행합니다.
 $ sudo python3 smbus_test.py
 
-<img src="images/Image_043.jpg"> <br>
+<img src="images/Image_042.jpg"> <br>
 
 (참고 : imu를 움직이면서 실행하면 값의 변화를 더 잘 볼 수 있습니다.)
 
 * smbus 패키지를 사용해서 mpu6050 의 회전 속도와 가속도를 실시간으로 모니터링 해보세요.
 (실습코드 경로: mpu6050/mpu6050_simpletest1.py)
+
+<img src="images/Image_043.jpg"> <br>
 
 <img src="images/Image_044.jpg"> <br>
 
