@@ -220,7 +220,7 @@ NVIDIA Jetson 플랫폼은 하드웨어 성능을 최대한 활용할 수 있도
 - **OpenCV**: CUDA 가속 OpenCV
 - **TensorFlow / PyTorch**: NVIDIA 최적화 버전 제공
 
-<img src="images/Image_015.png">
+
 
 ---
 
@@ -268,11 +268,11 @@ NVIDIA Jetson 플랫폼은 하드웨어 성능을 최대한 활용할 수 있도
 •   Nvidia Jetson Module(SoM)을 운영하기 위한 시스템 보드
 •   다양한 외부 인터페이스와 NVIDIA의 Jetson Nano Developer Kit과 Jetson Xavier NX Developer kit에 호환되 도록 설계 되어 있으며, 추가 적인 외부 저장 장치 및 CAN 통신을(Jetson Nano제외) 지원할 수 있도록 설계 되어 있 음.
 
-<img src="Image_011.png">
+<img src="images/Image_011.png">
 
-<img src="Image_013.png"> <img src="Image_014.png">
+<img src="images/Image_013.png"> <img src="images/Image_014.png">
 
-<img src="Image_015.png">
+<img src="images/Image_015.png">
 
 ---
 
