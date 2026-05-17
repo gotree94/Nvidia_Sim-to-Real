@@ -568,6 +568,92 @@ while True:
 
 ---
 
+### 한글 Custom Character  (CustomCharactor_Hangle_Test.py)
+
+* 기본 예제 코드 ‘CustomCharactor_Test.py’를 참고하여 한글 Custom Character 를 만들어서 “감사”라는 한글 단어를 출력합니다.
+(실습코드 경로: RPi_I2C_LCD_driver/example/CustomCharactor_Hangle_Test.py)
+(참고 : RPi_I2C_LCD_driver/example 하위에 해당 파일이 없을 경우 제공된 실습코드를 실행 경로로 복사하거나, 직접 코드를 작성합니다.)
+
+
+```
+# RPi_I2C_driver - LiquidCrystal Library - Custom Characters
+#
+# This example has been implemented to enable Python in Raspberry Pi.
+# 
+# This sketch prints "I <heart> Ras Pi!!" and a little dancing man
+# to the LCD.
+#
+# example code
+# https://www.arduino.cc/en/Reference/LiquidCrystalCreateChar
+#
+# Based on Adafruit's example at
+# https://github.com/adafruit/SPI_VFD/blob/master/examples/createChar/createChar.pde #
+# The circuit:
+# RaspberryPi       - 1602 I2C LCD # Vcc               - Vcc
+# GND               - GND # GPIO02 (PIN3/SDA) - SDA# GPIO03 (PIN5/SCL) - SCL
+#
+# Modified to not use poterntiometer and analog input.
+# 
+# ※ I2C Enable is required in Raspberry Pi configuration.
+# ※ When the voltage of the LCD / I2C board is 5V, use of 3.3V logic level converter is recommended. #
+created 21 Mar 2011
+by Tom Igoe
+modified 11 Nov 2013
+by Scott Fitzgerald
+modified 7 Nov 2016
+by Arturo Guadalupi
+# modified Python 21 June 2019
+# by eleparts (yeon) (https://www.eleparts.co.kr/) '''
+import RPi_I2C_driver from time import *
+Giyuk = [
+0b11111, 0b00001, 0b00001, 0b00001, 0b00001, 0b00001, 0b00001, 0b00001
+]
+Ah = [
+0b00100, 0b00100, 0b00100, 0b00111, 0b00100, 0b00100, 0b00100, 0b00100
+]
+Mium = [0b11111,
+0b10001,
+0b10001,
+0b10001,
+0b10001,
+0b10001,
+0b10001,
+0b11111
+]
+Siot = [
+0b00100,
+0b00100,
+0b00100,
+0b01010,
+0b01010,
+0b10001,
+0b10001,
+0b10001
+]
+# RPi_I2C_driver.lcd( I2C address ) lcd = RPi_I2C_driver.lcd(0x27)
+# create a new character lcd.createChar(0, Giyuk)
+# create a new character lcd.createChar(1, Ah)
+# create a new character lcd.createChar(2, Mium)
+# create a new character lcd.createChar(3, Siot)
+# set the cursor to the top left lcd.setCursor(1, 0)
+lcd.write(0)
+lcd.setCursor(2, 0) lcd.write(1)
+lcd.setCursor(2, 1) lcd.write(2)
+lcd.setCursor(4, 0) lcd.write(3)
+lcd.setCursor(5, 0)lcd.write(1)
+```
+* 파일을 실행합니다.
+
+```
+$ sudo python3 CustomCharactor_Hangle_Test py
+```
+
+* 같은 경로에 있는 다른 예제도 실행해봅니다.
+
+<img src="images/Image_037.jpg"> <br>
+
+---
+
 ### BMP280 센서 실습 (온도/습도/기압)
 
 BMP280은 온도와 기압을 측정하는 센서로, I2C 통신을 통해 데이터를 읽을 수 있다.
@@ -616,7 +702,7 @@ while True:
 
 
 
-<img src="images/Image_037.jpg"> <br>
+
 <img src="images/Image_038.jpg"> <br>
 <img src="images/Image_039.jpg"> <br>
 <img src="images/Image_040.jpg"> <br>
