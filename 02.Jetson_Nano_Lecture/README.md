@@ -3,7 +3,7 @@
 <img src="001.png" width="80%"> <br>
 <img src="002.png" width="80%"> <br>
 
-##
+## Jetson Orin Nano 기반 엣지 AI 기초 및 생성형 AI
 
 ### Day1
    * Class01 : (강의) 교육소개 : 운영체제 리눅스 기초 / Jetson Nano에 OS image flashing 
@@ -56,7 +56,7 @@
    * Class08 : (실습) Move_Base노드와 SendGoals
 
 ```
-##
+## OpenUSD 및 Omniverse IssacSim 기반 시뮿헤이션
 
 ### Day1
 
@@ -81,3 +81,7 @@
 sudo apt update
 sudo apt install gparted -y
 ```
+
+---
+
+## Physical AI 캡스톤 프로젝트 (Sim-to-Real)
