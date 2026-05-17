@@ -1,10 +1,5 @@
 # 실습 1-2: Jetson Nano OS Image Flash 실습
 
-> **충청ICT 교육과정 Day1 — 03장**  
-> Windows PC에 VirtualBox 설치 후 Ubuntu 세팅 및 Jetson Nano Flash
-> 
-> **목표**: Windows PC에서 VirtualBox로 Ubuntu 환경을 구성하고, Jetson Nano에 OS를 플래싱한다.
-
 ---
 
 ## 1. 실습 개요
