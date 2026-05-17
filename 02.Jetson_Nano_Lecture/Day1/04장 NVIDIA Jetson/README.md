@@ -1,8 +1,5 @@
 # NVIDIA Jetson
 
-> **충청ICT 교육과정 Day1 — 04장**  
-> NVIDIA Jetson 플랫폼 개요 및 Module별 사양 비교
-
 ---
 
 ## 1. NVIDIA Jetson 개요
@@ -29,7 +26,7 @@ NVIDIA Jetson Module (SOM)은 AI 작업 부하를 처리하도록 특별히 설�
 - GPU: 128-core NVIDIA Maxwell™ GPU
 - CPU: Quad-Core Arm® Cortex®-A57 MPCore processor
 
-![Jetson Series](images/Image_001.png)
+<img src="images/Image_001.png">
 
 ---
 
@@ -101,6 +98,7 @@ NVIDIA Jetson 플랫폼은 하드웨어 성능을 최대한 활용할 수 있도
 - **OpenCV**: CUDA 가속 OpenCV
 - **TensorFlow / PyTorch**: NVIDIA 최적화 버전 제공
 
+<img src="images/Image_015.png">
 ---
 
 ## 참고 자료
