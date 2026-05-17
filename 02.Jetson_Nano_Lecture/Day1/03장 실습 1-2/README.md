@@ -9,8 +9,6 @@
 
 ## 1. 실습 개요
 
-![실습 개요](images/Image_001.png)
-
 Windows PC에서 VirtualBox를 설치하고 Ubuntu 18.04(Guest OS)를 구성하여 Jetson Nano Flash를 위한 Host PC 환경을 만든다.
 
 > **참고**: Windows 11의 WSL을 사용해도 가능하지만 복잡한 설정으로 인해 VirtualBox 환경을 권장한다.
