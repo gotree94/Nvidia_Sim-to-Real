@@ -3,16 +3,16 @@
 <img src="001.png" width="80%"> <br>
 <img src="002.png" width="80%"> <br>
 
-## Jetson Orin Nano 기반 엣지 AI 기초 및 생성형 AI
+## Jetson Orin Nano 기반 엣지 AI 기초 및 생성형 AI (40H)
 > ○ 엣지 AI 아키텍처 이해 및 환경 구축
-> - Jetson Orin Nano 아키텍처 이해
-> - Jetson 및 컨테이너 기반 개발환경 구축
+>   - Jetson Orin Nano 아키텍처 이해
+>   - Jetson 및 컨테이너 기반 개발환경 구축
 > ○ 컴퓨터 비전 기초 및 실습
-> - OpenCV 기반 이미지 처리, 분류·객체 탐지 모델 활용 및 최적화
+>   - OpenCV 기반 이미지 처리, 분류·객체 탐지 모델 활용 및 최적화
 > ○ 생성형 AI 이론
-> - Transformer 구조 이해, 엣지 환경에서의 생성형 AI 활용 개념
+>   - Transformer 구조 이해, 엣지 환경에서의 생성형 AI 활용 개념
 > ○ 생성형 AI 실습
-> - 로컬 LLM/VLM 구동, 프롬프트 설계 및 비전-언어 모델 활용	40H	
+>   - 로컬 LLM/VLM 구동, 프롬프트 설계 및 비전-언어 모델 활용
 
 ### Day1
    * Class01 : (강의) 교육소개 : 운영체제 리눅스 기초 / Jetson Nano에 OS image flashing 
@@ -66,7 +66,7 @@
 
 ---
 
-## OpenUSD 및 Omniverse IssacSim 기반 시뮬레이션
+## OpenUSD 및 Omniverse IssacSim 기반 시뮬레이션 (40H)
 > ○ OpenUSD 기본 구조 이해
 > - OpenUSD 개념, Stage·Prims·Layer 구조 이해
 > ○ 디지털 트윈 구축 실습
@@ -74,7 +74,7 @@
 > ○ Isaac Sim 물리 시뮬레이션
 > - 물리 엔진 설정, 센서·관절 제어 실습
 > ○ Sim-to-Real 연계
-> - 합성 데이터 생성, 시뮬레이션 데이터 활용 모델 검증	40H	
+> - 합성 데이터 생성, 시뮬레이션 데이터 활용 모델 검증
 
 ### Day1
 
@@ -102,7 +102,7 @@ sudo apt install gparted -y
 
 ---
 
-## Physical AI 캡스톤 프로젝트 (Sim-to-Real)
+## Physical AI 캡스톤 프로젝트 (Sim-to-Real)  (40H)
 
 > ○ 프로젝트 기획
 > - Physical AI 주제 선정, 시스템 아키텍처 설계
