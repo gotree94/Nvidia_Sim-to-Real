@@ -147,11 +147,18 @@ $ sudo -H pip3 install -U jetson-stats
 | GPU | GPU 사용률 및 클럭 |
 | Processes | 실행 중인 프로세스 목록 |
 
-![jtop CPU](images/Image_008.png)
-![jtop Memory](images/Image_009.png)
-![jtop GPU](images/Image_010.png)
-![jtop Processes](images/Image_011.png)
-![jtop Info](images/Image_012.png)
+<img src="images/Image_008.png"> <br>
+
+<img src="images/Image_014.png"> <br>
+<img src="images/Image_015.png"> <br>
+<img src="images/Image_016.png"> <br>
+<img src="images/Image_017.png"> <br>
+<img src="images/Image_018.png"> <br>
+<img src="images/Image_019.png"> <br>
+<img src="images/Image_020.png"> <br>
+<img src="images/Image_021.png"> <br>
+<img src="images/Image_022.png"> <br>
+
 
 ---
 
