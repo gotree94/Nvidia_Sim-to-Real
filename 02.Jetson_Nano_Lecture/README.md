@@ -57,7 +57,7 @@
 
 ---
 
-## OpenUSD 및 Omniverse IssacSim 기반 시뮿헤이션
+## OpenUSD 및 Omniverse IssacSim 기반 시뮬헤이션
 
 ### Day1
 
