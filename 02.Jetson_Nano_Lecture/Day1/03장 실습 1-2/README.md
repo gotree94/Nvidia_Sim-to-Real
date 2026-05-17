@@ -18,8 +18,8 @@ Windows PC에서 **VirtualBox**를 설치하고 **Ubuntu 18.04 (Guest OS)**를 �
 
 "**VirtualBox Extension Pack**"과 "**VBox GuestAdditions**"도 같이 다운로드 받는다.
 
-![VirtualBox Download](images/Image_002.jpg">
-![Extension Pack](images/Image_003.jpg">
+<img src="images/Image_002.jpg">
+<img src="images/Image_003.jpg">
 
 ---
 
@@ -30,7 +30,7 @@ Windows PC에서 **VirtualBox**를 설치하고 **Ubuntu 18.04 (Guest OS)**를 �
 - **Next** 버튼을 누르고 **Finish** 버튼이 나타날 때까지 설치 진행
 - 기본 설치가 완료되면 **Extension Pack**도 설치
 
-![VirtualBox Installer](images/Image_004.jpg">
+<img src="images/Image_004.jpg">
 
 ---
 
@@ -56,7 +56,7 @@ VC++ 설치 완료 후 VirtualBox 설치를 다시 진행하면 정상적으로 
 
 VirtualBox에서 **새로 만들기** 클릭
 
-![New VM](images/Image_007.jpg">
+<img src="images/Image_007.jpg">
 
 이름에 "ubuntu"가 들어가면 자동으로 종류와 버전이 **Linux → Ubuntu**로 변경된다.
 
@@ -66,19 +66,19 @@ VirtualBox에서 **새로 만들기** 클릭
 
 가상환경의 기본 메모리와 프로세서 개수를 선택한다 (초록색 범위 내에서 선택).
 
-![Memory & CPU](images/Image_009.jpg">
+<img src="images/Image_009.jpg">
 
 ### 5.3 하드 디스크 설정
 
 **지금 새 가상 하드 디스크 만들기**를 선택하고, 디스크 크기는 여유롭게 설정한다 (최소 **30GB 이상**).
 
-![Disk Size](images/Image_010.jpg">
+<img src="images/Image_010.jpg">
 
 ### 5.4 설정 확인
 
 설정한 내용을 확인하고 **완료** 버튼 클릭
 
-![Confirm Settings](images/Image_011.jpg">
+<img src="images/Image_011.jpg">
 
 ---
 
@@ -88,45 +88,45 @@ VirtualBox에서 **새로 만들기** 클릭
 
 VirtualBox 초기 화면에서 **설정** 버튼 클릭
 
-![Settings Button](images/Image_012.jpg">
+<img src="images/Image_012.jpg">
 
 **일반 → 고급**에서 클립보드 공유와 드래그 앤 드롭을 **양방향**으로 변경 (Host PC와 VirtualBox 간 공유 가능)
 
-![Clipboard & DnD](images/Image_013.jpg">
+<img src="images/Image_013.jpg">
 
 ### 6.2 시스템 설정
 
 부팅 순서를 적절히 설정
 
-![Boot Order](images/Image_014.jpg">
+<img src="images/Image_014.jpg">
 
 ### 6.3 네트워크 설정
 
 **어댑터에 브리지**로 변경
 
-![Network Bridge](images/Image_015.jpg">
+<img src="images/Image_015.jpg">
 
 네트워크 연결 방법에 맞게 선택
 
-![Network Type](images/Image_016.jpg">
+<img src="images/Image_016.jpg">
 
 ### 6.4 공유 폴더 설정
 
 Windows PC에 다음과 같이 폴더 생성: `D:\share`
 
-![Share Folder Create](images/Image_017.jpg">
+<img src="images/Image_017.jpg">
 
 설정 → 공유 폴더 → 폴더 추가 아이콘 클릭
 
-![Add Share Folder](images/Image_018.jpg">
+<img src="images/Image_018.jpg">
 
 공유 폴더에 Windows PC에 생성한 폴더 경로 입력
 
-![Share Folder Path](images/Image_019.jpg">
+<img src="images/Image_019.jpg">
 
 공유 폴더가 추가된 것 확인
 
-![Share Folder Added](images/Image_020.jpg">
+<img src="images/Image_020.jpg">
 
 ---
 
@@ -134,77 +134,77 @@ Windows PC에 다음과 같이 폴더 생성: `D:\share`
 
 설정이 완료되었다면 **시작** 버튼 클릭
 
-![Start VM](images/Image_021.jpg">
+<img src="images/Image_021.jpg">
 
 ### VirtualBox에서 Ubuntu 설치
 
 **Install Ubuntu**를 눌러주세요.
 
-![Ubuntu Install](images/Image_022.jpg">
+<img src="images/Image_022.jpg">
 
 1. **Continue** 버튼을 눌러주세요.
 
-![Ubuntu Install](images/Image_023.jpg">
+<img src="images/Image_023.jpg">
 
 3. 아래와 같이 선택한 후 **Continue** 버튼을 눌러주세요.
 
-![Ubuntu Install](images/Image_024.jpg">
+<img src="images/Image_024.jpg">
 
 5. 아래와 같이 선택한 후 **Install Now** 버튼을 선택해주세요.
 
-![Ubuntu Install](images/Image_025.jpg">
+<img src="images/Image_025.jpg">
 
 7. **Continue** 버튼을 눌러주세요.
 
-![Ubuntu Install](images/Image_026.jpg">
+<img src="images/Image_026.jpg">
 
 9. **Continue** 버튼을 눌러주세요.
 
-![Ubuntu Install](images/Image_027.jpg">
+<img src="images/Image_027.jpg">
 
 11. **Name**, **user name**, **password**를 입력하고 **Continue** 버튼을 눌러주세요.
    - (참고: 이번 실습에서는 모두 **nvidia**로 통일합니다.)
 
-![Ubuntu Install](images/Image_028.jpg">
+<img src="images/Image_028.jpg">
 
 11. 설치되는 동안 기다려주세요. 설치가 완료되었다면 **Restart Now** 버튼을 눌러주세요.
 
-![Ubuntu Install](images/Image_029.jpg">
+<img src="images/Image_029.jpg">
 
-![Ubuntu Install](images/Image_030.jpg">
+<img src="images/Image_030.jpg">
 
 13. "Please remove the installation medium, then press ENTER" 문구가 나오면 **Enter**를 눌러주세요.
    - (삽입한 iso 이미지 파일을 제거하라는 의미인데 VirtualBox는 자동 해제해주기 때문에 Enter를 누르면 됩니다.)
 
-![Ubuntu Install](images/Image_031.jpg">
+<img src="images/Image_031.jpg">
 
 11. 만약 아래 이미지가 떴다면 VirtualBox 우측 상단에 **X** 표시를 눌러 시스템 전원 끄기를 누른 후 다시 시작해주세요.
 
-![Ubuntu Install](images/Image_032.jpg">
+<img src="images/Image_032.jpg">
 
-![Ubuntu Install](images/Image_033.jpg">
+<img src="images/Image_033.jpg">
 
 13. 이전에 설정한 **Password**를 입력하고 **Enter**를 눌러주세요.
 
-![Ubuntu Install](images/Image_034.jpg">
+<img src="images/Image_034.jpg">
 
 ### 게스트 확장 CD 이미지 삽입
 
 1. 화면이 켜졌다면 **장치 → 게스트 확장 CD 이미지 삽입**을 눌러주세요.
 
-![Ubuntu Install](images/Image_035.jpg">
+<img src="images/Image_035.jpg">
 
 3. 아래 창이 뜬다면 **Run** 버튼을 눌러주세요.
 
-![Ubuntu Install](images/Image_037.jpg">
+<img src="images/Image_037.jpg">
 
 5. 아래와 같은 창이 뜬다면 **Don't Upgrade** 버튼을 눌러주세요.
 
-![Ubuntu Install](images/Image_039.jpg">
+<img src="images/Image_039.jpg">
 
 7. 아래와 같이 "Press Return to close this window..."가 뜬다면 **Enter**를 눌러주세요.
 
-![Ubuntu Install](images/Image_041.jpg">
+<img src="images/Image_041.jpg">
 
 게스트 확장 CD 이미지 삽입을 완료하면 아래와 같은 기능을 사용할 수 있다:
 
@@ -225,11 +225,11 @@ $ sudo reboot
 
 1. VirtualBox에서 파일 관리자 (Nautilus)를 열고, 공유 폴더가 있는지 확인한다.
 
-![Ubuntu Install](images/Image_042.jpg">
+<img src="images/Image_042.jpg">
 
 3. 공유 폴더를 들어가보면 사용자가 `vboxsf` 그룹에 없어서 에러가 발생한다.
 
-![Ubuntu Install](images/Image_043.jpg">
+<img src="images/Image_043.jpg">
 
 5. 아래 명령어를 실행하여 `vboxsf` 그룹에 사용자를 추가한다:
 
@@ -245,7 +245,7 @@ $ sudo usermod -G vboxsf -a nvidia
 $ cat /etc/group
 ```
 
-![Ubuntu Install](images/Image_044.jpg">
+<img src="images/Image_044.jpg">
 
 5. VirtualBox를 재부팅한다:
 
@@ -255,7 +255,7 @@ $ sudo reboot
 
 6. Windows PC에 테스트할 텍스트 파일을 만들고, 공유 폴더 경로와 VirtualBox 내의 공유 폴더 안에 같은 파일이 있는지 확인한다. Windows PC에 있는 파일을 VirtualBox로 옮겨야 할 때 공유 폴더를 사용하면 편리하게 옮길 수 있다.
 
-![Ubuntu Install](images/Image_045.jpg">
+<img src="images/Image_045.jpg">
 
 ---
 
@@ -269,40 +269,40 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
 
    [https://code.visualstudio.com/updates/v1_84](https://code.visualstudio.com/updates/v1_84)
 
-![Ubuntu Install](images/Image_046.jpg">
+<img src="images/Image_046.jpg">
 
 2. 윈도우 파일 탐색기를 열고, '다운로드' 폴더로 이동하면 다운로드 받은 `VSCodeUserSetup-x64-1.84.2.exe` 파일을 볼 수 있다.
 
-![Ubuntu Install](images/Image_047.jpg">
+<img src="images/Image_047.jpg">
 
 3. 아래 내용을 참고하여 설치를 진행한다:
    - **동의합니다**를 선택한 후 **다음** 버튼 클릭
 
-![Ubuntu Install](images/Image_048.jpg">
+<img src="images/Image_048.jpg">
 
    - **다음** 버튼 클릭
 
-![Ubuntu Install](images/Image_049.jpg">
+<img src="images/Image_049.jpg">
 
    - **다음** 버튼 클릭
 
-![Ubuntu Install](images/Image_050.jpg">
+<img src="images/Image_050.jpg">
 
    - **다음** 버튼 클릭
 
-![Ubuntu Install](images/Image_051.jpg">
+<img src="images/Image_051.jpg">
 
    - **설치** 버튼 클릭
 
-![Ubuntu Install](images/Image_052.jpg">
+<img src="images/Image_052.jpg">
 
    - **종료** 버튼 클릭
 
-![Ubuntu Install](images/Image_053.jpg">
+<img src="images/Image_053.jpg">
 
    - Windows 검색창에 **Visual Studio Code**를 입력하고, 표시된 항목을 클릭하여 실행
 
-![Ubuntu Install](images/Image_054.jpg">
+<img src="images/Image_054.jpg">
 
 4. Windows PC에서 Visual Studio Code를 설치할 경우 **자동 업데이트 기능**이 기본적으로 활성화되어 있다. 업데이트가 진행되면 Jetson Nano와의 SSH 연결이 정상적으로 되지 않는 문제가 발생할 수 있으므로, 설치 직후 자동 업데이트 기능을 비활성화하는 것이 좋다.
 
@@ -310,22 +310,22 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
 
    - **File → Preferences → Settings** 클릭
 
-![Ubuntu Install](images/Image_055.jpg">
+<img src="images/Image_055.jpg">
   
    - 검색창에 `update` 입력
 
-![Ubuntu Install](images/Image_056.jpg">
+<img src="images/Image_056.jpg">
 
    - 아래 항목을 변경:
      - **Auto Update** → `None`
      - **Enable Windows Background updates** → 체크 해제
      - **Update: Mode** → `None`
 
-![Ubuntu Install](images/Image_057.jpg">
+<img src="images/Image_057.jpg">
    
    - 다음 창이 나타날 경우 **restart**를 눌러주세요.
 
-![Ubuntu Install](images/Image_058.jpg">
+<img src="images/Image_058.jpg">
 
 > 참고: 초기 설정 시 Visual Studio Code가 이미 1.100.x 버전으로 업데이트되어 있을 수 있다. 이 경우, 제어판에서 해당 프로그램을 제거한 뒤 1.84.2 버전을 다시 설치하면 자동 업데이트 없이 해당 버전으로 유지된다.
 
@@ -335,22 +335,22 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
 
    [https://code.visualstudio.com/updates/v1_84](https://code.visualstudio.com/updates/v1_84)
 
-![Ubuntu Install](images/Image_059.jpg">
+<img src="images/Image_059.jpg">
 
    > 참고: 최신 버전의 Visual Studio Code가 Ubuntu 18.04에 설치되지 않아 구 버전을 설치한다.
 
 2. 리눅스 파일 탐색기 (Nautilus)를 열고, **Downloads** 폴더로 이동하면 다운로드 받은 `code_1.84.2-1699528352_amd64.deb` 파일을 볼 수 있다.
 
-![Ubuntu Install](images/Image_060.jpg">
+<img src="images/Image_060.jpg">
 
 3. `code_1.84.2-1699528352_amd64.deb` 파일을 더블 클릭하면 설치창이 나타난다. **Install** 버튼을 눌러 설치를 진행한다.
 
-![Ubuntu Install](images/Image_061.jpg">
+<img src="images/Image_061.jpg">
 
 4. 설치가 완료되면, Host PC (VirtualBox + Ubuntu)의 바탕화면 왼쪽 아래에 있는 **Show Applications** 버튼을 눌러, 설치한 Visual Studio Code를 찾아 실행한다.
    - 또는 터미널에서 `code`를 입력하면 Visual Studio Code를 실행할 수 있다.
 
-![Ubuntu Install](images/Image_062.jpg">
+<img src="images/Image_062.jpg">
 
 ---
 
@@ -372,7 +372,7 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
    $ tar xvjf allai-mfi-jcb100-nano.tbz2
    ```
 
-![Ubuntu Install](images/Image_063.jpg">
+<img src="images/Image_063.jpg">
 
 4. 압축해제가 다 되면 해당 폴더로 이동한다:
 
@@ -380,17 +380,17 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
    $ cd mfi_jetson-nano-emmc/
    ```
 
-![Ubuntu Install](images/Image_064.jpg">
+<img src="images/Image_064.jpg">
 
 ### 9.2 Flash 실행
 
 1. Jetson Nano와 Windows PC를 **5핀**으로 연결하고, **Recovery mode**를 만들어준다.
 
-![Ubuntu Install](images/Image_065.jpg">
+<img src="images/Image_065.jpg">
 
 2. VirtualBox 상단에 **장치 → USB**에서 `NVIDIA Corp, APX [0102]`를 선택한다.
 
-![Ubuntu Install](images/Image_066.jpg">
+<img src="images/Image_066.jpg">
 
 3. Guest PC (Ubuntu)에서 터미널 창을 열어 아래 명령어를 입력한 후 `0955:7f21 Nvidia Corp.`로 뜨는지 확인한다:
 
@@ -398,14 +398,14 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
    $ lsusb
    ```
 
-![Ubuntu Install](images/Image_067.jpg">
+<img src="images/Image_067.jpg">
 
 4. 압축을 해제한 폴더 (`~/jetson/mfi_jetson-nano-emmc/`)에서 아래 명령어를 실행한다:
 
    ```bash
    $ sudo ./nvmflash.sh
    ```
-![Ubuntu Install](images/Image_068.jpg">
+<img src="images/Image_068.jpg">
 
 5. 아래처럼 **Flash complete (SUCCESS)** 라고 뜨면 Jetson Nano Flash가 성공적으로 완료된 것이다.
 
@@ -413,40 +413,40 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
    Flash complete (SUCCESS)
    ```
 
-![Ubuntu Install](images/Image_069.jpg">
+<img src="images/Image_069.jpg">
 
-![Ubuntu Install](images/Image_070.jpg">
+<img src="images/Image_070.jpg">
 
    > 참고: Flash complete (SUCCESS)가 출력됐다면, Jetson Nano에 다음 사진과 같이 연결하고, 다음 내용부터 진행한다.
 
-![Ubuntu Install](images/Image_071.jpg">
+<img src="images/Image_071.jpg">
 
 ### 9.3 Jetson Nano 초기 설정
 
 1. Jetson Nano에 키보드, 마우스 USB와 Power, HDMI를 연결한 다음 아래 화면이 나타나면, 체크박스에 체크를 한 뒤 **Continue** 버튼을 클릭한다.
 
-![Ubuntu Install](images/Image_072.jpg">
+<img src="images/Image_072.jpg">
 
 2. **English**를 선택한 뒤 **Continue** 버튼을 클릭한다.
    - (설치 경로나 파일 경로에 한글이 포함되면 호환성 문제가 발생할 수 있으므로, 언어는 영어로 설정하는 것을 권장한다.)
 
-![Ubuntu Install](images/Image_073.jpg">
+<img src="images/Image_073.jpg">
 
-![Ubuntu Install](images/Image_074.jpg">
+<img src="images/Image_074.jpg">
 
 3. **Seoul**을 입력한 뒤 **Continue** 버튼을 클릭한다.
    - (Jetson Nano에 랜선을 연결한 상태에서는 지역이 자동으로 Seoul로 설정된다.)
 
-![Ubuntu Install](images/Image_075.jpg">
+<img src="images/Image_075.jpg">
 
 4. **Name**, **username**, **passwd**를 모두 **nvidia**로 입력한 후 **Continue** 버튼을 클릭한다.
    - (참고: 아이디와 패스워드는 nvidia로 통일한다.)
 
-![Ubuntu Install](images/Image_076.jpg">
+<img src="images/Image_076.jpg">
 
 5. **Continue** 버튼을 클릭한다.
 
-![Ubuntu Install](images/Image_077.jpg">
+<img src="images/Image_077.jpg">
 
 > 참고: Jetson Nano 설정이 완료된 후 부팅이 됐다면, SD 카드를 세팅하기 위해 Host PC에서 다음 내용을 진행한다.
 
