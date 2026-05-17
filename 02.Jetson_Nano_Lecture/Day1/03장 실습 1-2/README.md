@@ -302,12 +302,20 @@ Visual Studio Code는 원격으로 소스 코드를 수정하고, 파일 복사,
 
    - Windows 검색창에 **Visual Studio Code**를 입력하고, 표시된 항목을 클릭하여 실행
 
+![Ubuntu Install](images/Image_054.jpg)
+
 4. Windows PC에서 Visual Studio Code를 설치할 경우 **자동 업데이트 기능**이 기본적으로 활성화되어 있다. 업데이트가 진행되면 Jetson Nano와의 SSH 연결이 정상적으로 되지 않는 문제가 발생할 수 있으므로, 설치 직후 자동 업데이트 기능을 비활성화하는 것이 좋다.
 
    아래 안내에 따라 자동 업데이트를 비활성화해주세요:
 
    - **File → Preferences → Settings** 클릭
+
+![Ubuntu Install](images/Image_055.jpg)
+  
    - 검색창에 `update` 입력
+
+![Ubuntu Install](images/Image_056.jpg)
+
    - 아래 항목을 변경:
      - **Auto Update** → `None`
      - **Enable Windows Background updates** → 체크 해제
