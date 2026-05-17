@@ -455,10 +455,18 @@ $ sudo apt-get update
 ```
 
 4.  jetpack library 설치$ sudo apt install nvidia-jetpack
+
+```
 (참고: Jetson Nano 는 NVIDIA 의 커스텀 커널과 부트로더를 기반으로 작동합니다. 따라서 Ubuntu 일반 시스템과 달리 전체 시스템 패키지를 업그레이드 (‘sudo apt upgrade’) 하면 Jetson 전용 커널 및 부팅 구성요소가 손상되어 부팅이 안되는 상태가 될 수 있습니다. 따라서 ‘sudo apt upgrade’ 명령어는 사용하지 마십시오.)
+```
 
 * 'jetson_release' 도구를 이용하여 jetpack library 가 설치됐는지 확인합니다.
-   * '$ jetson_releasen' jtop’ 도구를 이용하여 jetson nano 의 CPU, GPU, 메모리 사용량 등을 실시간으로 확인합니다.
+
+```
+'$ jetson_releasen'
+```
+
+ **jtop’ 도구를 이용하여 jetson nano 의 CPU, GPU, 메모리 사용량 등을 실시간으로 확인합니다.**
 
 ```
 $ jtop
