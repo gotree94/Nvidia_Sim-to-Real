@@ -176,8 +176,8 @@ $ curl https://blog.naver.com/allai- > allai_resource.txt
 $ curl -O https://blog.naver.com/allai-/allai[0-5].txt
 ```
 
-![curl multiple](images/Image_019.jpg)
-![curl multiple result](images/Image_020.jpg)
+<img src="images/Image_019.jpg">
+<img src="images/Image_020.jpg">
 
 **다운로드 속도 제한 (curl)**
 
@@ -185,7 +185,7 @@ $ curl -O https://blog.naver.com/allai-/allai[0-5].txt
 $ curl --limit-rate 500B -o allai_limit_rate.txt https://blog.naver.com/allai-
 ```
 
-![curl limit-rate](images/Image_021.png)
+<img src="images/Image_021.png">
 
 > **wget vs curl 속도 제한 차이점**: wget은 다운로드 속도를 더 엄격하게 제한하며, 네트워크 트래픽을 모니터링하고 일정한 시간 간격으로 데이터를 전송하는 방식으로 속도 제한을 구현한다. curl은 버퍼링 방식을 사용하여 더 유연한 속도 제어가 가능하다.
 
@@ -203,7 +203,7 @@ $ ip addr show
 $ ssh jetson@192.168.x.x
 ```
 
-![SSH Connection](images/Image_022.png)
+<img src="images/Image_022.png">
 
 ---
 
@@ -211,11 +211,11 @@ $ ssh jetson@192.168.x.x
 
 ### CPU 정보 확인
 
-![CPU Info](images/Image_023.png)
+<img src="images/Image_023.png">
 
 ### 시스템 리소스 확인
 
-![System Resources](images/Image_024.png)
+<img src="images/Image_024.png">
 
 ---
 
