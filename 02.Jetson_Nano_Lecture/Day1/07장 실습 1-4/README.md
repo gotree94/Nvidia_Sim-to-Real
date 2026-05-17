@@ -1,8 +1,5 @@
 # 실습 1-4: Linux Network / Jetpack Library 실습
 
-> **충청ICT 교육과정 Day1 — 07장**  
-> Jetson Nano 네트워크 명령어 실습, VSCode SSH 연결, 시스템 명령어 및 JetPack 설치
-
 ---
 
 ## 1. 실습 개요
