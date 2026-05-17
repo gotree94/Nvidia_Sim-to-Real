@@ -29,7 +29,7 @@
 
 TX2 시리즈는 총 4가지 모듈 변종이 존재한다:
 
-<table style="font-size: 0.75em; white-space: nowrap;">
+<table style="font-size: 0.55em; white-space: nowrap;">
   <thead>
     <tr>
       <th>모델</th>
