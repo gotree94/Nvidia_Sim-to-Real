@@ -392,14 +392,15 @@ $ jtop
 •      Q 버튼을 누를 경우 jtop 이 종료됩니다.
 
 
-<img src="Image_045.png"> <br>
-<img src="Image_046.png"> <br>
-<img src="Image_047.png"> <br>
-<img src="Image_048.png"> <br>
-<img src="Image_049.png"> <br>
-<img src="Image_049.png"> <br>
-<img src="Image_050.jpg"> <br>
-<img src="Image_051.jpg">
+<img src="images/Image_045.png"> <br>
+<img src="images/Image_046.png"> <br>
+<img src="images/Image_047.png"> <br>
+<img src="images/Image_048.png"> <br>
+<img src="images/Image_049.png"> <br>
+<img src="images/Image_049.png"> <br>
+<img src="images/Image_050.jpg"> <br>
+<img src="images/Image_051.jpg">
+
 ---
 
 ## 참고 자료
