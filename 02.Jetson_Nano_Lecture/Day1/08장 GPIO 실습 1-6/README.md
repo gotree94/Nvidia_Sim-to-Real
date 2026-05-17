@@ -126,7 +126,12 @@ $ cd jetson-gpio
 
 ### 예제 코드 수정
 
-GitHub에서 받은 예제(`samples/simple_out.py`)를 다음과 같이 수정한다.
+* GitHub에서 받은 예제(`samples/simple_out.py`)를 다음과 같이 수정한다.
+* (경로: ~/jetson-gpio/samples/simple_out.py)
+
+```
+$ gedit simple_out.py
+```
 
 <Img src ="images/Image_022.jpg">
 
@@ -151,6 +156,24 @@ try:
 except KeyboardInterrupt:
     GPIO.cleanup()
 ```
+
+* 예제 소스를 실행합니다.
+* (경로 : ~/jetson-gpio/samples/simple_out.py)
+
+```
+$ sudo python3 simple_out.py
+```
+
+<Img src ="images/Image_023.jpg">
+
+
+* ‘simple_out.py’ 코드에서 time.sleep(1) 을 time.sleep(5)로 수정한 상태로 실행하면 LED 출력이 어떻게 달라지는지 확인합니다.
+
+```
+$ sudo python3 simple_out.py
+```
+
+<Img src ="images/Image_024.jpg">
 
 ---
 
