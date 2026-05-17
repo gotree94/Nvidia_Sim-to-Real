@@ -1,0 +1,74 @@
+﻿NVIDIA Jetson
+
+NVIDIA JetsonNvidia JetsonCPU(Cortex  -A: Tegra)와 Nvidia GPU 그리고 NPU등을 하나의 SOC(System On Chip)에 탑재한 임베디드
+플랫폼Embedded Edge Device에서 Nvidia의 고성능 병렬처리 연산 GPU를 일반 SW에서도 활용도록 하는 &#39;CUDA&#39;
+와 &#39;CUDA&#39;를 기반으로 하는 Deep  -Learning (cu  -DNN) 환경 및 주요 Deep  -Learning 프레임워크(예: tensorflow, pytouch)에 대한 다양한 SW 라이브러리와 예제코드 제공SOM(System  -On  -Module) 형태로 Hardware를 설계하며, 개발 시간과 비용 절감 가능Jetson Nano, TX2 NX, Xavier NX, AGX Xavier, Orin  -Nano, Orin NX, AGX Orin, Thor등이 있음
+NVIDIA Jetson Module(SOM)Nvidia Jetson Module (SOM)AI 작업 부하를 처리하도록 특별히 설계되어 복잡한 데이터를 처리하고 edge 디바이스에서 AI 알고
+리즘을 실행하는데 필요한 컴퓨팅 성능을 제공CPU, GPU, 메모리 및 다양한 인터페이스를 단일 소형 모듈에 통합
+Nvidia Jetson Nano128개의 NVIDIA의 CUDA 코어를 장착한 Maxwell 아키텍쳐AI Performance : 472 GFLOPsGPU : 128  -core NVIDIA Maxwell™ GPUCPU : Quad  -Core Arm® Cortex®  -A57 MPCore processorJetson Nano SOM
+FeatureJetson NANOJetson TX2 NXJetson Xavier NXJetson Orin Nano 4GBJetson Orin Nano 8GBJetson Orin NX 8GBJeton Orin NX 16GBAI Performance472 GFLOPs1.33 TFLOPs21 TOPs20 TOPS40 TOPS70 TOPS100 TOPSGPU128  -core NVIDIA Maxwell™256  -core NVIDIA Pascal™384  -core NVIDIA Volta™ GPU512  -core Ampere, with 161024  -core Ampere, with 321024 Core Ampere, with 321024 Core Ampere, with 32
+GPUGPUwith 48 Tensor CoresTensor CoresTensor CoresTensor CoresTensor Cores
+
+Cortex®  -A57 MPCore
+processor+ 4MB L3
+Memory4 GB 64  -bit LPDDR44 GB 128  -bit LPDDR48 GB/16GB 128  -bit LPDDR4x4GB 64  -bit LPDDR58GB 128  -bit LPDDR58GB 128  -bit LPDDR5 102.416GB 128  -bit LPDDR5 102.4
+25.6 GB/s51.2 GB/s59.7 GB/s34 GB/s68 GB/sGB/sGB/sDL Accelerator  -  -2x NVDLA Engines  -  -(1x) NVDLA V2.0(2x) NVDLA V2.0Vision
+Accelerator  -  -  -  -  -PVA v2.0PVA v2.0Storage16 GB eMMC 5.116 GB eMMC 5.116 GB eMMC 5.1Supports External NVMeSupports External NVMeSupports external NVMeSupports external NVMe[IMAGE: index_files/Image_001.png]NVIDIA Jetson Series Specification #1CPUQuad  -Core ARM® Cortex®  -A57 Dual  -Core NVIDIA Denver 2 64  - 6  -core NVIDIA Carmel6  -core Arm® Cortex®  -A78AE 6  -core Arm® Cortex®  -A78AE 6  -core Arm® Cortex®  -A78AE 8  -core Arm® Cortex®  -A78AEMPCore       Bit CPU and Quad  -Core ARM® ARM®v8.2 64  -bit CPU 6MB L2Video Encode 250MP/sec1x 4K @ 30 (HEVC)2x 1080p @ 60 (HEVC)Video Decode 500 MP/sec1x 4K @ 60 (HEVC)4x 1080p @ 60 (HEVC)1x 4Kp @ 60 | 3x 4K @ 30  2x 4K @ 60 | 4x 4K @ 30 | 10x 1080p30 supported by 1  -2 CPU 1080p30 supported by 1  -2 CPU 1x 4K60 | 3x 4K30| 6x 1080p60 1x 4K60 | 3x 4K30| 6x 1080p604x 1080 @ 60 | 8x 1080 @ 30 1080p @ 60 | 22x 1080p @ 30 corescores| 12x 1080p30 (H.265), H.264, | 12x 1080p30 (H.265), H.264,(H.265)(H.265)2x 4K @ 60 | 4x 4Kp @ 30 | 7x 2x 8K @ 30 | 6x 4K @ 60 | 12x 1x 4K60 (H.265) | 2x 4K301080p @ 60 | 14x 1080p @ 30 4K @ 30 | 22x 1080p @ 60 |  (H.265) | 5x 1080p60 (H.265)1x 4K60 (H.265)5x 1080p60 (H.265)(H.265 & H.264)44x 1080p @ 30 (H.265)   11x 1080p30 (H.265)H.265, AV11x 4K60 (H.265)3x 4K30 (H.265)6x 1080p60 (H.265)H.265, AV11x 8K30 (H.265)2x 4K60 (H.265)9x 1080p60 (H.265)CameraUp to 4 cameras12 lanes MIPI CSI  -2D  -PHY 1.1 (up to 18 Gbps)Up to 5 cameras (12 via virtual Up to 6 cameras (24 via virtual Up to 4 cameras (8 via virtualchannels)12 lanes MIPI CSI  -2 (3×4 or5×2)D  -PHY 1.2 (up to 30 Gbps)1 x1 + 1 x2, total 30GT/s
+(PCIe Gen2)channels)12 lanes MIPI CSI  -2D  -PHY 1.2 (up to 30 Gbps)channels***)8 lanes MIPI CSI  -2D  -PHY 2.1 (up to 20Gbps)Up to 4 cameras (8 via virtual Up to 4 cameras (8 via virtual Up to 4 cameras (8 via virtual
+channels***)     channels***)     channels***)8 lanes MIPI CSI  -2     8 lanes MIPI CSI  -2     8 lanes MIPI CSI  -2D  -PHY 2.1 (up to 20Gbps)  D  -PHY 2.1 (up to 20Gbps)  D  -PHY 2.1 (up to 20Gbps)PCI Express1 x4(PCIe Gen2)1 x1 + 1 x4(PCIe Gen3, Root Port &
+Endpoint)69.6mm x 45mm260  -pin SO  -DIMM connector10W   - 20W1 x4 + 3 x1 (PCIe Gen3, Root 1 x4 + 3 x1 (PCIe Gen3, Root 1 x4 + 3 x1 (PCIe Gen4, Root 1 x4 + 3 x1 (PCIe Gen4, RootPort, & Endpoint)Port, & Endpoint)Port, & Endpoint)Port, & Endpoint)MechanicalPower69.6mm x 45mm260  -pin SO  -DIMM connector5W   - 10W69.6mm x 45mm260  -pin SO  -DIMM connector7.5W   - 15W69.6mm x 45mm260  -pin SO  -DIMM connector5W   - 10W69.6mm x 45mm260  -pin SO  -DIMM connector7W   - 15W69.6mm x 45mm260  -pin SO  -DIMM connector10W   - 20W69.6mm x 45mm260  -pin SO  -DIMM connector10W   - 25W[IMAGE: index_files/Image_002.png][IMAGE: index_files/Image_003.png][IMAGE: index_files/Image_004.png][IMAGE: index_files/Image_005.png][IMAGE: index_files/Image_006.png]
+FeatureJetson AGX Xavier 32GBJetson AGX Xavier 64GBJetson AGX Orin 32GBJetson AGX Orin 64GBJetson AGX Orin industrialAI Performance32 TOPS32 TOPS200 TOPS275 TOPS248 TOPSGPU512  -core NVIDIA Volta™ GPU512  -core NVIDIA Volta™ GPU1792 Core Ampere, with 56 Tensor Cores2048 Core Ampere, with 64 Tensor Cores2048 Core Ampere, with 64 Tensor Cores
+(with 64 Tensor cores)(with 64 Tensor cores)
+
+
+CPU8  -core NVIDIA Carmel ARM® v8.28  -core NVIDIA Carmel ARM® v8.28  -core Arm® Cortex®  -A78AE v8.22  -core Arm® Cortex®  -A78AE v8.22  -core Arm® Cortex®  -A78AE v8.2
+64  -bit CPU 8 MB L2 + 4 MB L364  -bit CPU 8 MB L2 + 4 MB L364  -bit CPU 2MB L2 + 4MB L364  -bit CPU 3MB L2 + 6MB L364  -bit CPU 3MB L2 + 6MB L3
+Memory
+64 GB 256  -bit LPDDR4x 136.5 GB/s
+64 GB 256  -bit LPDDR4x 136.5 GB/s
+32GB 256  -bit LPDDR5 205 GB/s
+64GB 256  -bit LPDDR5 205 GB/s
+64GB 256  -bit LPDDR5 (+ ECC) 204.8GB/sDL Accelerator(2x) NVDLA V1.0(2x) NVDLA V1.0(2x) NVDLA V2.0(2x) NVDLA V2.0(2x) NVDLA V2.0Vision Accelerator(2x) 7  -way VLIW Processor(2x) 7  -way VLIW Processor(2x) 7  -way VLIW Processor(2x) 7  -way VLIW Processor(2x) 7  -way VLIW ProcessorStorage32 GB eMMC 5.132 GB eMMC 5.164 GB eMMC 5.164 GB eMMC 5.164 GB eMMC 5.1Video Encode4x 4K @ 60 (H.265)4x 4K @ 60 (H.265)1x 4K60 (H.265)2x 4K60 (H.265)1x 4K60 (H.265)
+16x 1080p @ 60 (H.265)32x 1080p @ 30 (H.265)16x 1080p @ 60 (H.265)32x 1080p @ 30 (H.265)3x 4K30 (H.265)6x 1080p60 (H.265)4x 4K30 (H.265)8x 1080p60 (H.265)3x 4K30 (H.265)7x 1080p60 (H.265)
+
+
+12x 1080p30 (H.265)16x 1080p30 (H.265)15x 1080p30 (H.265)Video Decode2x 8K @ 30 (H.265)2x 8K @ 30 (H.265)1x 8K30 (H.265)1x 8K30 (H.265)1x 8K30 (H.265)
+6x 4K @ 60 (H.265)26x 1080p @ 60 (H.265)6x 4K @ 60 (H.265)26x 1080p @ 60 (H.265)2x 4K60 (H.265)4x 4K30 (H.265)3x 4K60 (H.265)7x 4K30 (H.265)3x 4K60 (H.265)7x 4K30 (H.265)
+52x 1080p @ 30 (H.265)52x 1080p @ 30 (H.265)9x 1080p60 (H.265)11x 1080p60 (H.265)11x 1080p60 (H.265)
+
+
+18x 1080p30 (H.265)22x 1080p30 (H.265)22x 1080p30 (H.265)CameraUp to 6 camerasUp to 6 camerasUp to 6 cameras (16 via virtual channels)Up to 6 cameras (16 via virtual channels)Up to 6 cameras (16 via virtual channels)
+(36 via virtual channels)16 lanes MIPI CSI  -2 | 8 lanes SLVS  -EC(36 via virtual channels)16 lanes MIPI CSI  -2 | 8 lanes SLVS  -EC16 lanes MIPI CSI  -2D  -PHY 2.1 (up to 40Gbps) | C  -PHY 2.0 (up16 lanes MIPI CSI  -2D  -PHY 2.1 (up to 40Gbps) | C  -PHY 2.0 (up16 lanes MIPI CSI  -2D  -PHY 2.1 (up to 40Gbps) | C  -PHY 2.0 (up
+D  -PHY 1.2 (up to 40 Gbps)D  -PHY 1.2 (up to 40 Gbps)to 164Gbps)to 164Gbps)to 164Gbps)PCI Express1 x8 + 1 x4 + 1 x2 + 2 x11 x8 + 1 x4 + 1 x2 + 2 x1Up to 2 x8 + 1 x4 + 2 x1 (PCIe Gen4, RootUp to 2 x8 + 1 x4 + 2 x1 (PCIe Gen4, RootUp to 2 x8 + 1 x4 + 2 x1 (PCIe Gen4, Root
+(PCIe Gen4, Root Port and Endpoint)(PCIe Gen4, Root Port and Endpoint)Port, & Endpoint)Port, & Endpoint)Port, & Endpoint)Mechanical100 mm x 87 mm100mm x 87mm100mm x 87mm100mm x 87mm100mm x 87mm
+699  -pin connectorIntegrated thermal transfer plate699  -pin Molex Mirror Mezz Connector
+Integrated Thermal Transfer Plate699  -pin Molex Mirror Mezz Connector
+Integrated Thermal Transfer Plate699  -pin Molex Mirror Mezz Connector
+Integrated Thermal Transfer Plate699  -pin Molex Mirror Mezz Connector
+Integrated Thermal Transfer PlatePower10W   - 30W10W   - 30W15W   - 40W15W   - 60W15W – 75Temperature  -25°C to 80°C at TTP  -25°C to 80°C at TTP  -25°C to 80°C at TTP  -25°C to 80°C at TTP  -25°C to 85°C at TTP
+NVIDIA Jetson Developer KitNVIDIA Jetson Developer kitNVIDIA Jetson Developer Kit은 Jetson SOM을 기반으로 한 개발 보드로, AI 및 엣지 컴퓨팅 애플리케이션
+을 개발하고 테스트하는데 사용Jetson 사용자들이 좀 더 쉽게 소프트웨어 개발 하기 위한 표준 하드웨어 플랫폼으로 하드웨어 제작 이전
+에 소프트웨어 구현 및 시험을 가능하게 해줌
+Jetson Nano Developer KitNVIDIA Jetson Series Specification #2[IMAGE: index_files/Image_007.png][IMAGE: index_files/Image_008.png][IMAGE: index_files/Image_009.png]
+Jetson Module(SOM) vs Jetson Developer KitJetson Module(SOM)과 NVIDIA Jetson Developer kit 차이점?[Nvidia Jetson Module(SOM)]Jetson 모듈은 양산 및 운영 환경에 적합하며, 각 모듈은 사전 설치된 소프트웨어 없이 판매됨최종 양산용으로 설계되거나 판매되는 캐리어(I/O interface) 보드에 Jetson 모듈을 부착하고, 개발한 소프트웨어를 탑재
+(Image Flash)하여 배포해야 함
+[Nvidia Jetson Developer Kit]각 Jetson Developer Kit에는 참조용 캐리어 보드와 비양산 용도의 Jetson 모듈이 포함Jetpack SDK를 통해서 소프트웨어를 개발하고 테스트하는데 사용되며, 양산 용도로 사용되지 않음
+Jetson Developer Kit은 양산 용도가 아니며, Jetson 모듈은 Operating  -Life time내 양산
+환경에 맞춰 설계 됨
+
+NVIDIA Jetson Platform 하드웨어 구성Nvidia Jetson SOM 구성CPU/GPURAMNVDLANV Encoder/NV Decoder, NV JPEGISP/VICeMMC(Storage)그리고 외부 인터페이스
+Jetson Xavier NX개발자는 Jetson SOM과 연결할 커넥터와 사용할 외부 인터페이스를 구현한 Carrier Board를
+제작 생산하면, Jetson에서 개발한 소프트웨어 이식 가능[IMAGE: index_files/Image_010.png]
+NVIDIA Jetson Platform 소프트웨어 구성Nvidia는 Jetson Platform 개발자를 위해 커널과 Bootloader, 소스코드, 툴 그리고 AI 소프트웨어
+패키지를 모아 Jetpack이라는 소프트웨어 패키지 제공jetpack https://docs.nvidia.com/jetson/archives/index.htmlDeveloper guide https://docs.nvidia.com/jetson/archives/r34.1/DeveloperGuide/index.htmlJetson Linux Archive https://developer.nvidia.com/embedded/jetson  -linux  -archiveLinux KernelBootloaderBSP, DriversFlash UtilitiesRootfs
+Jetpack SDK
+
+JCB100 (Jetson Carrier Board)JCB100Nvidia Jetson Module(SoM)을 운영하기 위한 시스템 보드다양한 외부 인터페이스와 NVIDIA의 Jetson Nano
+Developer Kit과 Jetson Xavier NX Developer kit에 호환되
+도록 설계 되어 있으며, 추가 적인 외부 저장 장치 및 CAN
+통신을(Jetson Nano제외) 지원할 수 있도록 설계 되어 있
+음.
+Jetson Carrier Board (JCB100)[IMAGE: index_files/Image_011.png][IMAGE: index_files/Image_012.png]
+JCB100JCB100 인터페이스Jetson 모듈별 인터페이스 지원 현황[IMAGE: index_files/Image_013.png][IMAGE: index_files/Image_014.png]
+
+JCB100[IMAGE: index_files/Image_015.png]

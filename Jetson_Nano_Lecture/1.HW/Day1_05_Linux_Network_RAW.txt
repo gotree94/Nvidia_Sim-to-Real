@@ -1,0 +1,24 @@
+﻿Linux Network
+
+Linux Network리눅스는 네트워크 관리와 설정에서 강력하고 유연한 기능을 제공다양한 도구와 명령어를 통해 네트워크 인터페이스를 구성하고 , 네트워크 상태를 모니터
+링 할 수 있음네트워크와 관련된 대표적인 명령어로는 ip, ifconfig, wget, curl, ssh 등이 있음
+ifconfig유닉스 계열 운영체제에서 네트워크 설정을 간단하게 관리하기 위해 만들어짐네트워크 인터페이스 설정 및 관리 기능네트워크 상태 확인 기능
+모든 네트워크 인터페이스 정보 표시
+
+ipifconfig 명령어의 기능을 확장하고, 더 많은 네트워크 설정을 지원네트워크 인터페이스 설정 및 관리 기능라우팅 테이블 관리 기능네트워크 장치 관리 기능
+모든 네트워크 인터페이스 정보 표시[IMAGE: index_files/Image_001.png][IMAGE: index_files/Image_002.png]
+wget웹에서 파일을 다운로드하기 위해 만들어짐HTTP, HTTPS, FTP등 다양한 프로토콜을 통해 파일을 다운로드배치 다운로드와 재시도 기능이 필요할 때 유용더 엄격하게 속도를 제한하고, 네트워크 트래픽을 모니터링하며 일정한 시간 간격으로 데
+이터를 전송
+
+curl웹 API와의 상호작용을 위해 만들어짐HTTP, HTTPS, FTP등 다양한 프로토콜 지원유연성과 다양한 기능을 중점으로 설계[IMAGE: index_files/Image_003.png][IMAGE: index_files/Image_004.png]
+ssh(secure shell)네트워크를 통해 안전하게 원격 시스템에 접속하고 명령을 실행할 수 있는 프로토콜비암호화된 통신인 Telnet을 대체하기 위해 개발암호화된 연결을 통해 데이터 전송의 기밀성과 무결성을 보장리눅스에서 ssh에 관련된 대표적인 명령어로는 ssh(원격접속)와 scp(파일전송)가 있음Hello!y6nW$iHello! Encrypt  Decrypt SSH clientSSH server[IMAGE: index_files/Image_005.png][IMAGE: index_files/Image_006.png][IMAGE: index_files/Image_007.png]
+
+ssh(secure shell) – Visual Studio Code에서 ssh 연결vscode의 ssh 연결 기능은 원격 서버의 리소스를 활용하면서
+도 로컬에서 개발을 계속할 수 있는 도구개발자가 원격 시스템에서 직접 작업하는 것처럼 로컬 개발
+환경을 사용할 수 있도록 해줌ssh 연결을 통해 vscode는 원격 서버에서 실행되는 서버 컴
+포넌트를 시작하고, 이 서버와 로컬 vscode 클라이언트 사이
+에 터널을 설정이 터널을 통해 vscode는 원격 파일 시스템을 탐색하고, 파
+일을 열고 저장하며, 명령을 실행할 수 있음코드 편집, 디버깅, 터미널 사용 등 모든 작업이 ssh 터널을
+통해 원격 서버와 동기화[IMAGE: index_files/Image_008.png]
+ssh(secure shell) – vscode에서 ssh 연결
+<https://code.visualstudio.com/docs/remote/ssh>[IMAGE: index_files/Image_009.png]
