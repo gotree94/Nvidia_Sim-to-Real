@@ -128,6 +128,8 @@ $ cd jetson-gpio
 
 GitHub에서 받은 예제(`samples/simple_out.py`)를 다음과 같이 수정한다.
 
+<Img src ="images/Image_022.jpg">
+
 ```python
 import RPi.GPIO as GPIO
 import time
