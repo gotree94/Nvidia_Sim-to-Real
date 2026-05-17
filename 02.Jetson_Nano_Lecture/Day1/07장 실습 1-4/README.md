@@ -189,6 +189,7 @@ $ curl --limit-rate 500B -o allai_limit_rate.txt https://blog.naver.com/allai-
 
 > **wget vs curl 속도 제한 차이점**: wget은 다운로드 속도를 더 엄격하게 제한하며, 네트워크 트래픽을 모니터링하고 일정한 시간 간격으로 데이터를 전송하는 방식으로 속도 제한을 구현한다. curl은 버퍼링 방식을 사용하여 더 유연한 속도 제어가 가능하다.
 
+> (참고 : wget 은 다운로드 속도를 더 엄격하게 제한하며, 네트워크 트래픽을 모니터링하고 일정한 시간 간격으로 데이터를 전송하는 방식으로 속도 제한을 구현합니다. curl 은 버퍼를 사용하여 데이터를 다운로드하는 동안 대기 시간을 적용합니다. 이 방식은 설정된 속도 제한보다 순간적으로 더 빠르게 다운로드될 수 있습니다. 위와 같은 이유로 curl 이 다운로드 속도가 더 빠를 수 있습니다.)
 ---
 
 ## 4. SSH를 사용한 원격 접속
@@ -201,6 +202,7 @@ $ curl --limit-rate 500B -o allai_limit_rate.txt https://blog.naver.com/allai-
    * SSH 사용방법
       * Jetson Nano 의 ip 를 확인한 후 Window PC CMD 창 또는 Virtual Box + Ubuntu 터미널에서 ssh 명령어를 사용하여 Jetson Nano 에 접속합니다.
       * 접속 시 비밀번호를 입력해야 하며, 입력 중에는 화면에 표시되지 않지만 정상적인 동작이므로 그대로 입력해 주시면 됩니다.
+
 ```
 사용법 : $ ssh [아이디]@[서버 주소]
 예) ssh nvidia@172.30.1.5
@@ -252,8 +254,8 @@ $ sudo apt install nvidia-jetpack
 
 > **참고**: 설치에는 시간이 소요되며, 인터넷 연결 상태에 따라 수 분에서 수십 분까지 소요될 수 있다.
 
-
 ---
+
 
 ## Visual Studio Code SSH 연결
 
@@ -266,7 +268,9 @@ $ sudo apt install nvidia-jetpack
 ```
 $ sudo apt-get install openssh-server
 ```
+
 * Jetson Nano 에서 아래 명령어를 실행하여 IP 주소를 확인해주세요.
+
 ```
 $ ifconfig
 ```
@@ -274,41 +278,71 @@ $ ifconfig
 **Client device (Window or Ubuntu)**
 
 * 1. Visual Studio Code 가 실행되면 아래와 같은 순서로 ‘SSH extension’을 설치합니다.
-   ① 왼쪽 메뉴에서 “Extension” 클릭
-   ② 입력창에 “SSH”를 입력하고 “Remote-SSH” extension 선택
-   ③ “install” 버튼 클릭2. Visual Studio Code 중앙의 “Remote SSH”에 대한 설명 화면에서 “install” 버튼을 누르면 설치가 시작됩니다.
+  * ① 왼쪽 메뉴에서 “Extension” 클릭
+  * ② 입력창에 “SSH”를 입력하고 “Remote-SSH” extension 선택
+  * ③ “install” 버튼 클릭
 
+<img src="images/Image_027.png">
+
+* 2. Visual Studio Code 중앙의 “Remote SSH”에 대한 설명 화면에서 “install” 버튼을 누르면 설치가 시작됩니다.
+
+<img src="images/Image_028.png">
 
 * 3. Visual Studio Code 가 활성화된 상태에서 ‘Ctrl’ + ‘Shift’ + ‘P’ 키를 동시에 누릅니다.
   * 또는 메뉴 “Help” -> “Show All Commands”를 누르면, 아래 화면과 같이 ‘Command’입력창이 나타납니다.
 
+<img src="images/Image_029.png">
+
 * 4. 입력창에 “ssh”를 입력하고 아래 화면과 같이 ssh 관련 커맨드들이 나타나면……
    * “Remote-SSH: Add New SSH Host…”를 선택합니다.
 
+<img src="images/Image_030.png">
+
 * 5. 입력창이 “Enter SSH Connection Command”로 바뀌면, 아래와 같이 접속할 Jetson 디바이스의 SSH 커맨드를 입력합니다.
+
 ```
 ssh 계정@IP 주소
 예시: ssh nvidia@192.168.0.16
 ```
 
+<img src="images/Image_031.png">
+
 * 6. 새로 생성한 SSH 접속 커맨드를 저장할 위치를 묻는 화면에, default 위치를 선택합니다.
+
+<img src="images/Image_032.png">
 
 * 7.   그러면 오른쪽 하단에 아래와 같은 팝업이 나타난다. “Open Config” 버튼을 누르면 생성한 SSH 접속 커맨드를 확인할 수 있습니다.
 
+<img src="images/Image_033.png">
+
 * 8. 다시 ‘Ctrl’ + ‘Shift’ + ‘P’ 키를 동시에 눌러 아래와 같이 ‘Command’입력창이 나타나면,  “Remote-SSH: Connect to Host…” 를 선택합니다.
+
+<img src="images/Image_034.png">
 
 * 9. 앞에서 생성한 SSH 접속 커맨드에 대한 IP 주소가 나타나면 선택합니다.
 
+<img src="images/Image_035.png">
+
 * 10. 그러면 새로운 Visual Studio Code 가 열리고, 접속 진행여부를 묻는 창이 나타나면 “Continue” 선택합니다. 
+
+<img src="images/Image_036.png">
 
 * 11.   접속할 디바이스에 대한 “Password”를 묻는 창에 password 를 입력합니다. (예: nvidia)
 
+<img src="images/Image_037.png">
+
 * 12. 그러면 visual studio code 가 디바이스에 SSH 접속을 시도하고, 접속이 완료되면 아래 화면과 같이 왼쪽 하단에 디바이스의 IP 주소가 표시됩니다. 
+
+<img src="images/Image_038.png">
 
 * 13. Visual Studio Code 상단 오른쪽에 있는 “Explorer”버튼을 누르고, 버튼을 누릅니다. 
 “Open Folder”
 
+<img src="images/Image_039.png">
+
 * 14. “Open Folder”를 묻는 입력창이 나오면, default 경로(예: /home/nvidia/)를 선택하고 “OK” 버튼을 누릅니다.. 최초 SSH 접속일 경우 password 를 다시한번 묻는 창이 나옵니다.
+
+<img src="images/Image_040.png">
 
 * 15. 접속할 폴더에 대한 신뢰여부를 묻는 창이 나오면 아래와 같이           체크 박스를 선택하고              버튼을 누릅니다.
 “Trust”
