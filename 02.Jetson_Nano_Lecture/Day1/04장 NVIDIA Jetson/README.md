@@ -15,8 +15,9 @@
 
 ## 2. NVIDIA Jetson Module (SOM)
 
-NVIDIA Jetson Module (SOM)은 AI 작업 부하를 처리하도록 특별히 설계되어 복잡한 데이터를 처리하고 edge 디바이스에서 AI 알고리즘을 실행하는데 필요한 컴퓨팅 성능을 제공한다.
+### NVIDIA Jetson Module (SOM)
 
+- NVIDIA Jetson Module (SOM)은 AI 작업 부하를 처리하도록 특별히 설계되어 복잡한 데이터를 처리하고 edge 디바이스에서 AI 알고리즘을 실행하는데 필요한 컴퓨팅 성능을 제공한다.
 - CPU, GPU, 메모리 및 다양한 인터페이스를 **단일 소형 모듈에 통합**
 
 ### NVIDIA Jetson Nano
@@ -55,6 +56,39 @@ NVIDIA Jetson Module (SOM)은 AI 작업 부하를 처리하도록 특별히 설�
 | **Jetson Orin Nano 8GB** | 6-core A78AE | 1080p30 (1-2 CPU cores) | 1x 4K60 (H.265) | External NVMe |
 | **Jetson Orin NX 8GB** | 6-core A78AE | 1x 4K60 \| 3x 4K30 | 1x 4K60 \| 3x 4K30 \| 5x 1080p60 | External NVMe |
 | **Jetson Orin NX 16GB** | 8-core A78AE | 1x 4K60 \| 3x 4K30 | 1x 4K60 \| 3x 4K30 \| 5x 1080p60 | External NVMe |
+
+---
+
+## NVIDIA Jetson Developer Kit
+
+### NVIDIA Jetson Developer kit
+•   NVIDIA Jetson Developer Kit은 Jetson SOM을 기반으로 한 개발 보드로, AI 및 엣지 컴퓨팅 애플리케이션 을 개발하고 테스트하는데 사용
+•   Jetson 사용자들이 좀 더 쉽게 소프트웨어 개발 하기 위한 표준 하드웨어 플랫폼으로 하드웨어 제작 이전에 소프트웨어 구현 및 시험을 가능하게 해줌
+
+## Jetson Module(SOM) vs Jetson Developer Kit
+▪  Jetson Module(SOM)과 NVIDIA Jetson Developer kit 차이점?
+
+### Nvidia Jetson Module(SOM)
+▪ Jetson 모듈은 양산 및 운영 환경에 적합하며, 각 모듈은 사전 설치된 소프트웨어 없이 판매됨
+▪ 최종 양산용으로 설계되거나 판매되는 캐리어(I/O interface) 보드에 Jetson 모듈을 부착하고, 개발한 소프트웨어를 탑재 (Image Flash)하여 배포해야 함
+
+### Nvidia Jetson Developer Kit
+▪ 각 Jetson Developer Kit에는 참조용 캐리어 보드와 비양산 용도의 Jetson 모듈이 포함
+▪ Jetpack SDK를 통해서 소프트웨어를 개발하고 테스트하는데 사용되며, 양산 용도로 사용되지 않음
+▪ Jetson Developer Kit은 양산 용도가 아니며, Jetson 모듈은 Operating-Life time내 양산 환경에 맞춰 설계 됨
+
+### NVIDIA Jetson Platform 하드웨어 구성
+▪ Nvidia Jetson SOM 구성
+▪ CPU/GPU
+▪ RAM
+▪ NVDLA
+▪ NV Encoder/NV Decoder, NV JPEG
+▪ ISP/VIC
+▪ eMMC(Storage)
+▪ 그리고 외부 인터페이스
+▪ 개발자는 Jetson SOM과 연결할 커넥터와 사용할 외부 인터페이스를 구현한 Carrier Board를 제작 생산하면, Jetson에서 개발한 소프트웨어 이식 가능
+
+<img src="Image_010.png">
 
 ---
 
