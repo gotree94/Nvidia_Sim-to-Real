@@ -286,17 +286,17 @@ $ ifconfig
 
 * 2. Visual Studio Code 중앙의 “Remote SSH”에 대한 설명 화면에서 “install” 버튼을 누르면 설치가 시작됩니다.
 
-<img src="images/Image_028.png">
+<img src="images/Image_028.jpg">
 
 * 3. Visual Studio Code 가 활성화된 상태에서 ‘Ctrl’ + ‘Shift’ + ‘P’ 키를 동시에 누릅니다.
   * 또는 메뉴 “Help” -> “Show All Commands”를 누르면, 아래 화면과 같이 ‘Command’입력창이 나타납니다.
 
-<img src="images/Image_029.png">
+<img src="images/Image_029.jpg">
 
 * 4. 입력창에 “ssh”를 입력하고 아래 화면과 같이 ssh 관련 커맨드들이 나타나면……
    * “Remote-SSH: Add New SSH Host…”를 선택합니다.
 
-<img src="images/Image_030.png">
+<img src="images/Image_030.jpg">
 
 * 5. 입력창이 “Enter SSH Connection Command”로 바뀌면, 아래와 같이 접속할 Jetson 디바이스의 SSH 커맨드를 입력합니다.
 
@@ -305,44 +305,44 @@ ssh 계정@IP 주소
 예시: ssh nvidia@192.168.0.16
 ```
 
-<img src="images/Image_031.png">
+<img src="images/Image_031.jpg">
 
 * 6. 새로 생성한 SSH 접속 커맨드를 저장할 위치를 묻는 화면에, default 위치를 선택합니다.
 
-<img src="images/Image_032.png">
+<img src="images/Image_032.jpg">
 
 * 7.   그러면 오른쪽 하단에 아래와 같은 팝업이 나타난다. “Open Config” 버튼을 누르면 생성한 SSH 접속 커맨드를 확인할 수 있습니다.
 
-<img src="images/Image_033.png">
+<img src="images/Image_033.jpg">
 
 * 8. 다시 ‘Ctrl’ + ‘Shift’ + ‘P’ 키를 동시에 눌러 아래와 같이 ‘Command’입력창이 나타나면,  “Remote-SSH: Connect to Host…” 를 선택합니다.
 
-<img src="images/Image_034.png">
+<img src="images/Image_034.jpg">
 
 * 9. 앞에서 생성한 SSH 접속 커맨드에 대한 IP 주소가 나타나면 선택합니다.
 
-<img src="images/Image_035.png">
+<img src="images/Image_035.jpg">
 
 * 10. 그러면 새로운 Visual Studio Code 가 열리고, 접속 진행여부를 묻는 창이 나타나면 “Continue” 선택합니다. 
 
-<img src="images/Image_036.png">
+<img src="images/Image_036.jpg">
 
 * 11.   접속할 디바이스에 대한 “Password”를 묻는 창에 password 를 입력합니다. (예: nvidia)
 
-<img src="images/Image_037.png">
+<img src="images/Image_037.jpg">
 
 * 12. 그러면 visual studio code 가 디바이스에 SSH 접속을 시도하고, 접속이 완료되면 아래 화면과 같이 왼쪽 하단에 디바이스의 IP 주소가 표시됩니다. 
 
-<img src="images/Image_038.png">
+<img src="images/Image_038.jpg">
 
 * 13. Visual Studio Code 상단 오른쪽에 있는 “Explorer”버튼을 누르고, 버튼을 누릅니다. 
 “Open Folder”
 
-<img src="images/Image_039.png">
+<img src="images/Image_039.jpg">
 
 * 14. “Open Folder”를 묻는 입력창이 나오면, default 경로(예: /home/nvidia/)를 선택하고 “OK” 버튼을 누릅니다.. 최초 SSH 접속일 경우 password 를 다시한번 묻는 창이 나옵니다.
 
-<img src="images/Image_040.png">
+<img src="images/Image_040.jpg">
 
 * 15. 접속할 폴더에 대한 신뢰여부를 묻는 창이 나오면 아래와 같이           체크 박스를 선택하고              버튼을 누릅니다.
 “Trust”
