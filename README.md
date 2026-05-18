@@ -9,7 +9,7 @@
 * 2일차 자료 : https://brr.kr/h58xxe
 * 3일차 자료 : https://brr.kr/h2lkiu
 * 4일차 자료 : https://brr.kr/d9oxae
-https://drive.google.com/drive/folders/1Lm9mPqfTw9OyiB6-bTZT8ha_cEBZaGRX
+* 5일차 자료 : https://drive.google.com/drive/folders/1Lm9mPqfTw9OyiB6-bTZT8ha_cEBZaGRX
 
 
 https://stevenkim1217.tistory.com/entry/%EC%9E%84%EB%B2%A0%EB%94%94%EB%93%9C-%EC%95%BC%EB%B6%90-%EC%A0%AF%EC%8A%A8%EB%82%98%EB%85%B8-B01-SUB-%EB%B6%80%ED%8C%85-Yahboom-Jetson-Nano-B01-SUB
