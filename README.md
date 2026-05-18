@@ -859,3 +859,59 @@ wlan0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
                     yolov3-tiny.weights
 ```
 
+
+```
+1. 물리적 연결 확인
+리본 케이블 방향: 파란색(또는 은색) 단자가 Jetson Nano 보드 바깥쪽을 향하게, 금속 핀이 CSI 커넥터 안쪽으로 들어가도록 끼움
+커넥터 위치: Jetson Nano의 CAM0 포트(전원 커넥터 반대쪽)에 연결
+Jetson Nano 전원 OFF 상태에서 연결 후 부팅
+2. 디바이스 인식 확인 (기본)
+# CSI 카메라 디바이스 노드 확인
+ls /dev/video*
+
+# 보통 video0, video1 (raw sensor) 확인 가능
+정상: /dev/video0, /dev/video1 등이 보임
+
+3. v4l2-util로 상세 확인
+# v4l2-ctl 설치 (없으면)
+sudo apt-get install v4l-utils
+
+# 디바이스 정보 확인
+v4l2-ctl --list-devices
+
+# 카메라 지원 포맷 확인
+v4l2-ctl -d /dev/video0 --list-formats-ext
+출력에 IMX219 또는 [16] (MJPG 포맷 등)이 보이면 인식된 것.
+
+4. nvgstcapture로 실시간 미리보기 (가장 확실한 방법)
+# CSI 카메라 실시간 미리보기
+nvgstcapture-1.0 --camsrc=0 --cap-dev-node=0
+
+# 옵션 설명:
+#   --camsrc=0    : CSI 카메라 (1=USB)
+#   --cap-dev-node=0 : /dev/video0 사용
+카메라 화면이 보이면 정상 인식 + 작동 확인까지 된 것.
+
+5. 사진 촬영 테스트
+# JPEG 사진 저장
+nvgstcapture-1.0 --camsrc=0 --cap-dev-node=0 --capture-auto
+# 또는
+gst-launch-1.0 nvarguscamerasrc ! nvjpegenc ! filesink location=test.jpg
+6. Python으로 확인 (간단 코드)
+import cv2
+cap = cv2.VideoCapture(0)  # 또는 1
+ret, frame = cap.read()
+if ret:
+    print("Camera OK")
+    cv2.imwrite("test.jpg", frame)
+cap.release()
+⚠️ 안 되는 경우 (트러블슈팅)
+문제	원인/해결
+/dev/video*에 아무것도 안 뜸	케이블 방향/연결 불량 → 재연결
+IMX219인데 인식 안 됨	JetPack 버전 확인 (4.4+ 권장)
+nvgstcapture 실행 안 됨	sudo apt-get install v4l-utils && sudo apt-get install nvgstcapture
+검은 화면만 나옴	라즈베리파이 카메라 V1(OV5647) 사용 중 → V2(IMX219)로 교체 필요
+Arducam 등 서드파티	별도 드라이버 설치 필요 (제조사 문서 참조)
+```
+
+
