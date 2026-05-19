@@ -17,14 +17,25 @@ Controls:
     C/V    - Joint 6
     F/H    - Joint 7
     K      - Gripper toggle (open/close)
+    M      - Toggle IK Control Mode
     Space  - Start/stop recording
     1/2/3  - Toggle subtask signals (grasp_1, grasp_2, stack_1)
     R      - Reset to home position
     Ctrl+S - Save HDF5
 
-  Mouse:
+  Mouse (Normal Mode):
     Left drag   - Rotate 3D view
     Scroll wheel - Zoom in/out
+
+  Mouse (IK Control Mode — press M to toggle):
+    Left drag   - Move robot end-effector (IK solved automatically)
+    Scroll wheel - Adjust Z height of control plane
+
+  IK Control Mode:
+    The robot arm's end-effector follows the mouse cursor in 3D space.
+    Inverse kinematics solves joint angles in real-time.
+    Use the Z slider (or scroll) to change height.
+    Record demonstrations by pressing Space while dragging.
 
 Usage:
     python main.py

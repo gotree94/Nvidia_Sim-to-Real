@@ -11,7 +11,7 @@ Frame convention:
 
 import numpy as np
 from config import (
-    DH_ALPHA, DH_A, DH_D, NUM_JOINTS,
+    DH_ALPHA, DH_A, DH_D, NUM_JOINTS, BASE_HEIGHT,
     JOINT_LIMITS, IK_DAMPING, IK_MAX_ITER,
     IK_POS_TOLERANCE, IK_ORI_TOLERANCE, IK_STEP_SIZE,
 )
@@ -155,7 +155,7 @@ def forward_kinematics(joint_angles):
     # Base offset: robot mount is at (0, 0, TABLE_HEIGHT+0.01) in world
     # The base of the robot sits on the table.
     T_base = np.eye(4)
-    T_base[2, 3] = 0.03   # small base height above table
+    T_base[2, 3] = BASE_HEIGHT  # base height above table
 
     T_all = [T_base.copy()]
     T = T_base.copy()

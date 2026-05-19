@@ -125,8 +125,9 @@ class DemonstrationRecorder:
         # Action: [delta_q1..7, gripper_cmd]
         # gripper_cmd: -1 (close) to +1 (open), normalized
         gripper_cmd = (gripper_width - 0.02) / 0.02  # normalize to [-1, 1]
-        self._episode_data["actions"].append(
-            np.concatenate([delta_joint, [np.clip(gripper_cmd, -1, 1)]]))
+        action = np.concatenate([delta_joint, [np.clip(gripper_cmd, -1, 1)]])
+        self._episode_data["actions"].append(action)
+        self._episode_data["obs/actions"].append(action)
 
         # --- obs/cube_* ---
         if cube_positions:
@@ -293,7 +294,7 @@ class DemonstrationRecorder:
                 # Ensure initial_state group exists with first frame
                 self._write_initial_state(ep_group, episode)
 
-        print(f"✅ Saved {len(self._all_episodes)} episodes to {filepath}")
+        print(f"[OK] Saved {len(self._all_episodes)} episodes to {filepath}")
 
     def _write_initial_state(self, ep_group, episode):
         """Write initial_state group from first frame of episode."""

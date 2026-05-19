@@ -182,18 +182,25 @@ class RobotViewer(QOpenGLWidget):
 
     def _draw_table(self):
         glPushMatrix()
-        glTranslatef(0.0, 0.0, -TABLE_HEIGHT)
+        glTranslatef(0.0, 0.0, -TABLE_HEIGHT / 2)
         self._draw_box(TABLE_SIZE, TABLE_SIZE, TABLE_HEIGHT, COLOR_TABLE)
         glPopMatrix()
 
     def _draw_base(self):
+        """Draw a flat horizontal base disc (solid cylinder with caps)."""
         glPushMatrix()
         glTranslatef(0.0, 0.0, 0.0)
         quadric = gluNewQuadric()
         gluQuadricNormals(quadric, GLU_SMOOTH)
         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,
                      [*COLOR_BASE[:3], 1.0])
+        # Bottom flat face (horizontal disc)
+        gluDisk(quadric, 0, BASE_RADIUS, 24, 1)
+        # Side wall (vertical)
         gluCylinder(quadric, BASE_RADIUS, BASE_RADIUS, BASE_HEIGHT, 24, 1)
+        # Top flat face (horizontal disc)
+        glTranslatef(0.0, 0.0, BASE_HEIGHT)
+        gluDisk(quadric, 0, BASE_RADIUS, 24, 1)
         gluDeleteQuadric(quadric)
         glPopMatrix()
 

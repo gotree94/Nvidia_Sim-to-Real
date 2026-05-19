@@ -14,6 +14,7 @@ from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QFont
 
 from config import JOINT_LIMITS, HOME_POSITION, SUBTASK_NAMES, DEFAULT_FPS
+from config import IK_DEFAULT_Z, IK_Z_MIN, IK_Z_MAX
 from kinematics import franka_fk, rotation_matrix_to_quat
 from recorder import DemonstrationRecorder
 from playback import PlaybackDialog
@@ -46,8 +47,18 @@ class MainWindow(QMainWindow):
         # Key repeat
         self.key_states = {}  # key_code → bool
 
+        # IK state tracking (for UI sync)
+        self._prev_ik_joints = self.joint_angles.copy()
+        self._ik_was_dragging = False
+
         self._setup_ui()
         self._setup_timers()
+
+        # Connect IK callbacks from viewer
+        self.viewer.set_ik_callbacks(
+            target_cb=self._on_ik_target,
+            joint_cb=self._on_ik_joints,
+        )
 
     def _setup_ui(self):
         self.setWindowTitle("Synthetic Manipulation - Robot Arm Simulator")
@@ -128,6 +139,56 @@ class MainWindow(QMainWindow):
         gripper_layout.addWidget(QLabel("▶ Open"))
         gripper_layout.addWidget(self.gripper_label)
         right_layout.addWidget(gripper_group)
+
+        # --- IK Control Mode ---
+        ik_group = QGroupBox("IK Control Mode (M)")
+        ik_layout = QVBoxLayout(ik_group)
+        ik_layout.setSpacing(4)
+
+        # Mode toggle
+        self.ik_mode_btn = QPushButton("🔲 IK Mode: OFF")
+        self.ik_mode_btn.setCheckable(True)
+        self.ik_mode_btn.setStyleSheet("""
+            QPushButton { font-weight: bold; padding: 6px 12px; }
+            QPushButton:checked { background-color: #2d7a3a; color: white; }
+        """)
+        self.ik_mode_btn.toggled.connect(self._on_ik_mode_toggle)
+
+        # IK hint label
+        self.ik_hint = QLabel("Drag: Move EEF | Scroll: Adjust Z")
+        self.ik_hint.setFont(QFont("Segoe UI", 8))
+        self.ik_hint.setStyleSheet("color: #888;")
+        self.ik_hint.setVisible(False)
+
+        ik_layout.addWidget(self.ik_mode_btn)
+        ik_layout.addWidget(self.ik_hint)
+
+        # Z height slider
+        z_row = QHBoxLayout()
+        z_row.addWidget(QLabel("Z:"))
+        self.ik_z_slider = QSlider(Qt.Horizontal)
+        self.ik_z_slider.setRange(int(IK_Z_MIN * 100), int(IK_Z_MAX * 100))
+        self.ik_z_slider.setValue(int(IK_DEFAULT_Z * 100))
+        self.ik_z_slider.valueChanged.connect(self._on_ik_z_slider)
+        self.ik_z_label = QLabel(f"{IK_DEFAULT_Z:.2f} m")
+        self.ik_z_label.setFixedWidth(55)
+        self.ik_z_label.setFont(QFont("Consolas", 9))
+        z_row.addWidget(self.ik_z_slider)
+        z_row.addWidget(self.ik_z_label)
+        ik_layout.addLayout(z_row)
+
+        # IK target display
+        self.ik_target_label = QLabel("Target: (---, ---, ---)")
+        self.ik_target_label.setFont(QFont("Consolas", 9))
+        ik_layout.addWidget(self.ik_target_label)
+
+        # IK solve status
+        self.ik_status_label = QLabel("Status: Idle")
+        self.ik_status_label.setFont(QFont("Consolas", 9))
+        self.ik_status_label.setStyleSheet("color: #888;")
+        ik_layout.addWidget(self.ik_status_label)
+
+        right_layout.addWidget(ik_group)
 
         # --- Recording Controls ---
         rec_group = QGroupBox("Recording")
@@ -216,15 +277,39 @@ class MainWindow(QMainWindow):
 
     def _update_loop(self):
         """Sync internal state with viewer and UI."""
-        # Apply key repeat states (smooth key-hold movement)
-        self._apply_key_repeat()
+        if self.viewer.ik_mode:
+            # In IK mode: viewer owns joint_angles (IK solver runs in viewer timer)
+            # Read back the viewer's angles for display and recording
+            self.joint_angles[:] = self.viewer.joint_angles
 
-        # Update viewer
-        self.viewer.update_robot(self.joint_angles, self.gripper_width)
+            # Sync sliders if joints changed
+            if not np.array_equal(self.joint_angles, self._prev_ik_joints):
+                self._sync_sliders()
+                self._prev_ik_joints = self.joint_angles.copy()
+
+            # Update IK status
+            if self.viewer.ik_dragging:
+                if not self._ik_was_dragging:
+                    self.ik_status_label.setText("Status: IK solving...")
+                    self.ik_status_label.setStyleSheet("color: #ffaa00;")
+                    self._ik_was_dragging = True
+            else:
+                if self._ik_was_dragging:
+                    self.ik_status_label.setText("Status: Idle")
+                    self.ik_status_label.setStyleSheet("color: #888;")
+                    self._ik_was_dragging = False
+        else:
+            # Apply key repeat states (smooth key-hold movement) only in non-IK mode
+            self._apply_key_repeat()
+
+            # Update viewer (only if not IK mode; update_robot ignores IK mode)
+            self.viewer.update_robot(self.joint_angles, self.gripper_width)
+
+        # Update cubes always
         self.viewer.update_cubes(self.cube_positions, self.cube_orientations,
                                  self.cube_attached)
 
-        # Update EEF display
+        # Update EEF display (use main_window's joint_angles)
         T_ee = franka_fk(self.joint_angles)
         pos = T_ee[:3, 3]
         quat = rotation_matrix_to_quat(T_ee[:3, :3])
@@ -296,8 +381,60 @@ class MainWindow(QMainWindow):
 
     def _on_playback(self):
         """Open playback dialog."""
+        # Stop update timer during playback to prevent it from overriding
+        # viewer state (cubes, joints) that playback sets.
+        self.update_timer.stop()
         dlg = PlaybackDialog(self.viewer, self)
         dlg.exec_()
+        # Restore viewer to current recorded state
+        self.viewer.update_robot(self.joint_angles, self.gripper_width)
+        self.viewer.update_cubes(self.cube_positions, self.cube_orientations,
+                                 self.cube_attached)
+        self.update_timer.start(16)
+
+    # ───── IK Control Mode Callbacks ─────
+
+    def _on_ik_mode_toggle(self, checked):
+        """Toggle IK control mode on/off."""
+        self.viewer.set_ik_mode(checked)
+        self.ik_mode_btn.setText("🔄 IK Mode: ON" if checked else "🔲 IK Mode: OFF")
+        self.ik_hint.setVisible(checked)
+        self.ik_z_slider.setEnabled(checked)
+        if checked:
+            # Sync Z slider from viewer
+            pos, z = self.viewer.get_ik_target()
+            self.ik_z_slider.setValue(int(z * 100))
+            self.ik_z_label.setText(f"{z:.2f} m")
+            if pos is not None:
+                self.ik_target_label.setText(
+                    f"Target: ({pos[0]:.3f}, {pos[1]:.3f}, {pos[2]:.3f})")
+            self.ik_status_label.setText("Status: Ready — drag in viewport")
+            self.ik_status_label.setStyleSheet("color: #89b4fa;")
+            self.status_display.append(
+                "IK Mode: ON — drag mouse to move EEF, scroll to change Z")
+        else:
+            self.ik_target_label.setText("Target: (---, ---, ---)")
+            self.ik_status_label.setText("Status: Idle")
+            self.ik_status_label.setStyleSheet("color: #888;")
+
+    def _on_ik_z_slider(self, value):
+        """IK control plane Z height changed."""
+        z = value / 100.0
+        self.ik_z_label.setText(f"{z:.2f} m")
+        self.viewer.set_ik_z(z)
+
+    def _on_ik_target(self, pos, z):
+        """Called when IK target position changes (from viewer mouse drag)."""
+        if pos is not None:
+            self.ik_target_label.setText(
+                f"Target: ({pos[0]:.3f}, {pos[1]:.3f}, {pos[2]:.3f})")
+        self.ik_z_slider.setValue(int(z * 100))
+        self.ik_z_label.setText(f"{z:.2f} m")
+
+    def _on_ik_joints(self, angles):
+        """Called when IK solver updates joint angles."""
+        self.joint_angles[:] = angles
+        self._sync_sliders()
 
     def _on_subtask_toggle(self, name, checked):
         self.subtask_states[name] = checked
@@ -396,6 +533,10 @@ class MainWindow(QMainWindow):
             self.gripper_width = 0.0 if self.gripper_width > 0.02 else 0.04
             self.gripper_slider.setValue(int(self.gripper_width / 0.04 * 100))
             self._update_cube_attachment()
+
+        # ── IK Mode Toggle ──
+        if key == Qt.Key_M:
+            self.ik_mode_btn.toggle()
 
         # ── Playback ──
         if key == Qt.Key_P:

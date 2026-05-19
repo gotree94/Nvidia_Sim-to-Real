@@ -354,6 +354,7 @@ class PlaybackDialog(QDialog):
         q = joints[f]
         self.viewer.set_joint_angles(q)
         self.viewer.set_gripper(GRIPPER_DEFAULT)
+        self.viewer.update()
 
         # Display joint values
         vals = "  ".join(f"J{i+1}={q[i]:+.3f}" for i in range(NUM_JOINTS))

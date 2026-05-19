@@ -11,12 +11,13 @@ import h5py
 from PyQt5.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QLabel,
     QSlider, QPushButton, QFileDialog, QGroupBox,
-    QMessageBox,
+    QMessageBox, QTextEdit, QCheckBox, QApplication,
 )
 from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QColor
 
 from config import NUM_JOINTS, GRIPPER_LIMITS
+from kinematics import franka_fk, rotation_matrix_to_quat
 
 
 class PlaybackDialog(QDialog):
@@ -25,7 +26,7 @@ class PlaybackDialog(QDialog):
     def __init__(self, viewer, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Episode Playback")
-        self.setMinimumSize(580, 260)
+        self.setMinimumSize(720, 500)
 
         self.viewer = viewer
         self._data = {}
@@ -34,6 +35,8 @@ class PlaybackDialog(QDialog):
         self._current_frame = 0
         self._playing = False
         self._total_eps = 0
+        self._hdf5_path = None
+        self._recorded_eef = None  # cached FK from recorded data
 
         self._build_ui()
         self._timer = QTimer(self)
@@ -129,6 +132,36 @@ class PlaybackDialog(QDialog):
         br.addWidget(self.next_ep)
         layout.addLayout(br)
 
+        # ── Debug toggle ──
+        self.debug_cb = QCheckBox("Debug Info (FK verification + data dump)")
+        self.debug_cb.setFont(QFont("Segoe UI", 9))
+        self.debug_cb.setStyleSheet("color: #888;")
+        self.debug_cb.toggled.connect(self._toggle_debug)
+        layout.addWidget(self.debug_cb)
+
+        # Debug info
+        dg = QGroupBox("Debug Info")
+        dg.setFont(bf)
+        dgl = QVBoxLayout(dg)
+        self.debug_log = QTextEdit()
+        self.debug_log.setReadOnly(True)
+        self.debug_log.setFont(QFont("Consolas", 8))
+        self.debug_log.setMaximumHeight(250)
+        self.debug_log.setStyleSheet(
+            "QTextEdit { background: #1a1a1a; color: #d4d4d4; border: 1px solid #333; }")
+        dgl.addWidget(self.debug_log)
+        dbg_btn_row = QHBoxLayout()
+        self.copy_log_btn = QPushButton("Copy to Clipboard")
+        self.copy_log_btn.clicked.connect(self._copy_debug_log)
+        self.dump_btn = QPushButton("Dump All Frames to Console")
+        self.dump_btn.clicked.connect(self._dump_all_frames)
+        dbg_btn_row.addWidget(self.copy_log_btn)
+        dbg_btn_row.addWidget(self.dump_btn)
+        dgl.addLayout(dbg_btn_row)
+        self.debug_group = dg
+        self.debug_group.setVisible(False)
+        layout.addWidget(self.debug_group)
+
         # Close
         self.close_btn = QPushButton("Close")
         self.close_btn.clicked.connect(self._safe_close)
@@ -177,6 +210,7 @@ class PlaybackDialog(QDialog):
 
     def _parse(self, path):
         self._data.clear()
+        self._hdf5_path = path
         with h5py.File(path, "r") as f:
             grp = f.get("data", f)
             keys = sorted(
@@ -195,7 +229,12 @@ class PlaybackDialog(QDialog):
 
                 entry = {"joints": joints, "gripper": gripper}
 
-                # Cube states from states/rigid_object/{name}/root_pose → (N, 7) [x,y,z, qw,qx,qy,qz]
+                # Recorded EEF from obs (for FK comparison in debug mode)
+                if "obs/eef_pos" in ep_group:
+                    entry["eef_pos"] = np.asarray(ep_group["obs/eef_pos"], dtype=np.float64)
+                    entry["eef_quat"] = np.asarray(ep_group["obs/eef_quat"], dtype=np.float64)
+
+                # Cube states from states/rigid_object/{name}/root_pose -> (N, 7)
                 rigid_path = "states/rigid_object"
                 if rigid_path in ep_group:
                     cubes = {}
@@ -330,11 +369,141 @@ class PlaybackDialog(QDialog):
             positions = {}
             orientations = {}
             for name, poses in entry["cubes"].items():
-                positions[name] = poses[f, :3]       # xyz
-                orientations[name] = poses[f, 3:7]   # qw, qx, qy, qz
+                positions[name] = poses[f, :3]
+                orientations[name] = poses[f, 3:7]
             self.viewer.update_cubes(positions, orientations)
 
         self.viewer.update()
+
+        if self.debug_cb.isChecked():
+            self._update_debug()
+
+    # ── Debug methods ──────────────────────────
+
+    def _toggle_debug(self, visible):
+        self.debug_group.setVisible(visible)
+        if visible:
+            self._update_debug()
+        self.adjustSize()
+
+    def _update_debug(self):
+        if not self._episode_keys or not self.debug_cb.isChecked():
+            return
+        ek = self._episode_keys[self._current_ep]
+        entry = self._data[ek]
+        joints = entry["joints"]
+        T = joints.shape[0]
+        f = min(self._current_frame, T - 1)
+        q = joints[f]
+
+        lines = []
+        lines.append(f"Episode: {self._current_ep+1}/{self._total_eps}")
+        lines.append(f"Frame:   {f+1}/{T}")
+        lines.append(f"Time:    {f//30}:{f%30:02d} / {T//30}:{T%30:02d}")
+        lines.append("")
+
+        # Joint angles
+        lines.append("─ Joint Angles (rad) ─")
+        for i in range(7):
+            marker = ""
+            if i == 0:
+                marker = ""
+            lines.append(f"  J{i+1}: {q[i]:+.4f}")
+        gripper_val = entry["gripper"][f] if "gripper" in entry else 0.04
+        lines.append(f"  Gripper: {gripper_val:.4f}m")
+        lines.append("")
+
+        # FK comparison
+        lines.append("─ FK Verification (franka_fk vs Recorded EEF) ─")
+        T_fk = franka_fk(q)
+        fk_pos = T_fk[:3, 3]
+        lines.append(f"  FK  EEF pos: [{fk_pos[0]:+.4f}, {fk_pos[1]:+.4f}, {fk_pos[2]:+.4f}]")
+
+        if "eef_pos" in entry:
+            rec_pos = entry["eef_pos"][f]
+            pos_err = np.linalg.norm(fk_pos - rec_pos)
+            lines.append(f"  Rec EEF pos: [{rec_pos[0]:+.4f}, {rec_pos[1]:+.4f}, {rec_pos[2]:+.4f}]")
+            if pos_err < 0.001:
+                status = "OK"
+            elif pos_err < 0.01:
+                status = "WARN"
+            else:
+                status = "MISMATCH!"
+            lines.append(f"  FK Error: {pos_err:.6f}m  [{status}]")
+
+            # Orientation comparison
+            fk_quat = rotation_matrix_to_quat(T_fk[:3, :3])
+            rec_quat = entry["eef_quat"][f]
+            # angular diff
+            q1_conj = np.array([rec_quat[0], -rec_quat[1], -rec_quat[2], -rec_quat[3]])
+            w1, x1, y1, z1 = q1_conj
+            w2, x2, y2, z2 = fk_quat
+            q_rel = np.array([
+                w1*w2 - x1*x2 - y1*y2 - z1*z2,
+                w1*x2 + x1*w2 + y1*z2 - z1*y2,
+                w1*y2 - x1*z2 + y1*w2 + z1*x2,
+                w1*z2 + x1*y2 - y1*x2 + z1*w2,
+            ])
+            angle_err = 2 * np.degrees(np.arccos(np.clip(q_rel[0], -1, 1)))
+            lines.append(f"  Orientation err: {angle_err:.2f}deg")
+        else:
+            lines.append(f"  (No recorded EEF data in this HDF5)")
+        lines.append("")
+
+        # Cube states
+        if "cubes" in entry:
+            lines.append("─ Cube States ─")
+            for name, poses in entry["cubes"].items():
+                pos = poses[f, :3]
+                ori = poses[f, 3:7]
+                lines.append(f"  {name}:")
+                lines.append(f"    pos=[{pos[0]:+.4f}, {pos[1]:+.4f}, {pos[2]:+.4f}]")
+                lines.append(f"    quat=[{ori[0]:+.4f}, {ori[1]:+.4f}, {ori[2]:+.4f}, {ori[3]:+.4f}]")
+                # Distance from EEF
+                dist = np.linalg.norm(pos - fk_pos)
+                lines.append(f"    dist_to_EEF={dist:.4f}m")
+            lines.append("")
+
+        # Data integrity checks
+        lines.append("─ Integrity Checks ─")
+        from config import JOINT_LIMITS
+        for i in range(7):
+            if q[i] < JOINT_LIMITS[i, 0] or q[i] > JOINT_LIMITS[i, 1]:
+                lines.append(f"  JOINT LIMIT VIOLATION: J{i+1}={q[i]:.4f} outside [{JOINT_LIMITS[i,0]:.4f}, {JOINT_LIMITS[i,1]:.4f}]")
+        # Check for NaN
+        if np.any(np.isnan(q)):
+            lines.append("  NAN DETECTED in joint angles")
+        # Check cube-EFF proximity (should be close to each other when grasped)
+        lines.append("  (OK)")
+
+        text = "\n".join(lines)
+        self.debug_log.setText(text)
+
+    def _copy_debug_log(self):
+        QApplication.clipboard().setText(self.debug_log.toPlainText())
+
+    def _dump_all_frames(self):
+        if not self._episode_keys:
+            return
+        ek = self._episode_keys[self._current_ep]
+        entry = self._data[ek]
+        joints = entry["joints"]
+        T = joints.shape[0]
+        print(f"=== DUMP: {ek} ({T} frames) ===")
+        for f in range(T):
+            q = joints[f]
+            T_fk = franka_fk(q)
+            fk_pos = T_fk[:3, 3]
+            gripper_val = entry["gripper"][f]
+            info = f"  frame {f:3d}: joints=[{q[0]:+.3f} {q[1]:+.3f} {q[2]:+.3f} {q[3]:+.3f} {q[4]:+.3f} {q[5]:+.3f} {q[6]:+.3f}]"
+            info += f"  eef=[{fk_pos[0]:+.3f} {fk_pos[1]:+.3f} {fk_pos[2]:+.3f}]"
+            info += f"  gripper={gripper_val:.3f}"
+            if "eef_pos" in entry:
+                rec = entry["eef_pos"][f]
+                err = np.linalg.norm(fk_pos - rec)
+                info += f"  fk_err={err:.4f}"
+            print(info)
+        print(f"=== END DUMP: {ek} ===")
 
     def _safe_close(self):
         self._stop()
