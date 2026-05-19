@@ -93,7 +93,10 @@ The SDK for developing various Omniverse Applications.
 - USD Explorer
 - Modular extension architecture for custom development
 
-### Example
+### cosmos-transfer1-7b
+
+- Free Endpoint
+- Generates physics-aware video world states for physical AI development using text prompts and multiple spatial control inputs derived from real-world data or simulation.
 
 https://build.nvidia.com/nvidia/cosmos-transfer1-7b
 
