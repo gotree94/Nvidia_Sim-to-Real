@@ -185,8 +185,97 @@ A lightweight, fast USD file viewer.
 * https://build.nvidia.com/nvidia/isaac-gr00t-synthetic-manipulation
 * https://github.com/NVIDIA-Omniverse-blueprints/synthetic-manipulation-motion-generation
 
+* 이 프로젝트는 Isaac Lab 의 Mimic 기능과 NVIDIA 의 Cosmos를 활용해,
+* 적은 수의 인간 시연 데이터만으로 대규모 로봇 imitation learning(모방 학습) 데이터셋을 자동 생성하는 워크플로우입니다.
 
+**핵심 흐름은 두 단계입니다.**
 
+1. 모션 궤적(Motion Trajectory) 생성
+   * 인간이 직접 수행한 소수의 로봇 시연 데이터를 기반으로,
+   * Isaac Lab Mimic이 새로운 환경 배치(큐브 위치, 로봇 초기 자세 등)에 맞춰 새로운 로봇 동작 궤적을 합성합니다.
+   * 예제에서는 Franka Emika Panda 로봇 팔이 큐브를 쌓는 작업을 수행합니다.
+   * 환경 랜덤화(randomization)를 통해 다양한 상황의 데이터를 자동 생성합니다.
+
+2. 시각적 데이터 증강(Visual Augmentation)
+   * 생성된 로봇 동작 영상을 입력으로 사용해,
+   * Cosmos 모델이 조명, 질감, 배경 등 시각 요소를 다양하게 변형합니다.
+   * 이를 통해 실제 환경에 가까운 다양한 영상 데이터를 생성하여 모델 일반화 성능을 높입니다.
+
+3. 프로젝트의 목적은:
+   * 비싼 인간 시연 데이터 수집 비용을 줄이고,
+   * 적은 원본 데이터로도
+   * 대규모·고다양성 imitation learning 데이터셋을 자동 구축하는 것입니다.
+
+* 전체 파이프라인은:
+   * 인간 시연 → Mimic 기반 궤적 생성 → 영상 변환(Cosmos) → 학습용 데이터셋 생성 순서로 진행됩니다.
+
+**hdf5**
+
+* .hdf5(또는 .h5)는 HDF5 (Hierarchical Data Format version 5) 형식의 파일입니다.
+* 대용량·복합 데이터를 저장하기 위해 많이 사용하는 바이너리 데이터 포맷입니다.
+
+* 특징은 다음과 같습니다.
+
+   * 폴더처럼 계층 구조를 가짐
+      * 그룹(Group) 안에 데이터셋(Dataset)을 저장
+   * 매우 큰 데이터 저장 가능
+      * 이미지, 영상 프레임, 센서 데이터, 시계열 데이터 등
+   * 머신러닝·과학 계산 분야에서 널리 사용
+   * 압축 및 빠른 읽기/쓰기 지원
+
+* 이번 프로젝트에서는 .hdf5 파일이 다음 용도로 사용됩니다.
+   * 인간 시연 데이터 저장
+      * annotated_dataset.hdf5
+    * 새로 생성된 로봇 trajectory 저장
+      * generated_dataset.hdf5
+
+* 안에는 보통 이런 정보가 들어 있습니다.
+   * 로봇 관절 상태(joint states)
+   * 행동(action)
+   * 관측(observation)
+   * RGB 이미지
+   * depth/segmentation 이미지
+   * 성공 여부
+   * 시뮬레이션 timestep 정보
+
+* 예를 들어 내부 구조는 이런 느낌입니다:
+
+```
+/demo_0
+    /observations
+        rgb
+        depth
+        joint_pos
+    /actions
+    /rewards
+
+/demo_1
+```
+
+* 파이썬에서는 보통 h5py 라이브러리로 읽습니다.
+* 예시:
+
+```python
+import h5py
+
+f = h5py.File("generated_dataset.hdf5", "r")
+
+print(list(f.keys()))
+```
+
+* 데이터 확인:
+
+```python
+print(f["demo_0/actions"][:])
+```
+
+* 머신러닝에서는:
+   * TensorFlow
+   * PyTorch
+   * 로봇 시뮬레이터
+   * 과학 계산 툴
+
+등에서 자주 사용됩니다.
 
 
 ### Stage
