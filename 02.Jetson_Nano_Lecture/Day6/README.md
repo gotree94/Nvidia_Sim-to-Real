@@ -1947,6 +1947,8 @@ Time-based animation storage mechanism.
 - **Linear interpolation** is automatically applied when working with code
 - Non-linear results should be handled in DCC tools
 
+https://dpel.aswf.io/alab-trailer/
+
 #### TimeCodes - Basic Setup
 
 ```python
