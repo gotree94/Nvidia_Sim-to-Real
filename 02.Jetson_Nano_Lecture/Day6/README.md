@@ -84,16 +84,8 @@ NVIDIA Omniverse is a collection of libraries and microservices for developing p
 - [NVIDIA Omniverse Libraries](https://developer.nvidia.com/omniverse)
 - [NVIDIA Omniverse Blueprints](https://developer.nvidia.com/omniverse/blueprints)
 
-### Omniverse Kit SDK
 
-The SDK for developing various Omniverse Applications.
-
-- [Overview — Omniverse Kit](https://docs.omniverse.nvidia.com/kit/docs/kit-manual/latest/)
-- Isaac Sim
-- USD Explorer
-- Modular extension architecture for custom development
-
-### cosmos-transfer1-7b
+#### cosmos-transfer1-7b
 
 - Free Endpoint
 - Generates physics-aware video world states for physical AI development using text prompts and multiple spatial control inputs derived from real-world data or simulation.
@@ -109,6 +101,15 @@ A contemporary and sophisticated black luxury kitchen bathed in natural daylight
 ```
 A contemporary and sophisticated black luxury kitchen bathed in natural daylight, featuring a spacious layout with an expansive dark granite island at its center. There is a white coffee maker on the island in front of the white robot arm. The cabinetry is finished in a matte black, with elegant silver hardware adding a refined touch. The countertops, made of dark granite, gleam under the soft glow of three pendant lights with sleek metallic finishes. A white robot arm interacts with a white coffee cup and red esspresso coffee maker on the kitchen island. The kitchen is equipped with top-of-the-line stainless steel appliances, including a professional-grade gas range with a large custom vent hood, seamlessly integrated into the design. A double-door refrigerator is neatly concealed within the cabinetry. The backsplash is composed of a slab of black marble with gold veins, complementing the crisp aesthetic while reflecting the ambient lighting. The island features a deep sink with a high-end chrome faucet, surrounded by plush, high-backed barstools upholstered in leather. Open shelving on the side of the island provides space for cookbooks and decorative elements, adding a personalized touch. Large windows flood the space with natural light, offering a glimpse of a desert landscape outside.
 ```
+
+### Omniverse Kit SDK
+
+The SDK for developing various Omniverse Applications.
+
+- [Overview — Omniverse Kit](https://docs.omniverse.nvidia.com/kit/docs/kit-manual/latest/)
+- Isaac Sim
+- USD Explorer
+- Modular extension architecture for custom development
 
 ---
 
