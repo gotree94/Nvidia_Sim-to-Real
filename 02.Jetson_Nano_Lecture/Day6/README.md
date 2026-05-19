@@ -495,6 +495,14 @@ Use applications like **KIRI Engine** or **Reality Composer** to capture simple 
 
 <img src="010.png">
 
+* NVIDIA 로봇 생태계 전체 구조를 5개 레이어로 정리했습니다. 각 카드는 클릭하면 해당 주제를 더 깊이 파고들 수 있습니다.
+
+* 핵심 구조 요약:
+   * Omniverse — 모든 것의 공통 기반. OpenUSD 기반 3D 시뮬레이션 플랫폼으로 Isaac Sim, Cosmos, 디지털트윈이 여기서 돌아갑니다.
+   * AI 파운데이션 레이어 — GR00T N1.7 (VLA 모델, Apache 2.0), Cosmos WFM (합성 데이터), GR00T-Dreams/Mimic (데이터 파이프라인).
+   * 시뮬레이션 레이어 — Isaac Sim (물리 정확 시뮬레이터), Isaac Lab (RL 학습 프레임워크), Newton Engine (Google DeepMind 공동개발 물리 엔진), Isaac ROS (CUDA 가속 ROS 2).
+   * 하드웨어 3대 컴퓨터 — DGX (훈련), OVX (시뮬레이션), Jetson AGX Thor (온로봇, Blackwell 기반, 2070 FP4 TFLOPS).
+   * 파트너 생태계 — Boston Dynamics, Figure AI, Agility Robotics, 현대차그룹 등 2백만 이상 개발자와 150개 이상 파트너사.
 
 ---
 
