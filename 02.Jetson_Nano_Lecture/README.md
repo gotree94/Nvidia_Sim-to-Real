@@ -68,6 +68,8 @@
 
 ---
 
+강사 : 김인성
+
 ## 2. OpenUSD 및 Omniverse IssacSim 기반 시뮬레이션 (40H)
 > * OpenUSD 기본 구조 이해
 >    * OpenUSD 개념, Stage·Prims·Layer 구조 이해
@@ -79,6 +81,7 @@
 >    * 합성 데이터 생성, 시뮬레이션 데이터 활용 모델 검증
 
 ### Day1 (화)
+  * http://shorturl.at/6cuVx
 
 
 ### Day2 (수)
