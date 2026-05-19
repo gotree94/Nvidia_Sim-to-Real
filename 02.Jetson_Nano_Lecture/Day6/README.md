@@ -1973,6 +1973,36 @@ sphere_xform_api.SetTranslate(Gf.Vec3d(0, -3.25, 0), time=50)
 sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=60)
 ```
 
+* example 1
+```
+cube_xform_api = UsdGeom.XformCommonAPI(cube)
+cube_xform_api.SetScale(Gf.Vec3f(5, 5, 0.1))
+cube_xform_api.SetTranslate(Gf.Vec3d(0, 0, -2))
+
+stage.SetStartTimeCode(1)
+stage.SetEndTimeCode(60)
+
+
+sphere: UsdGeom.Sphere = UsdGeom.Sphere.Get(stage, "/World/Sphere")
+sphere_xform_api = UsdGeom.XformCommonAPI(sphere)
+# Set translation of the sphere at time 1
+sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=1)
+# Set translation of the sphere at time 30
+sphere_xform_api.SetTranslate(Gf.Vec3d(0, -4.50, 0), time=30)
+# Set translation of the sphere at time 45
+sphere_xform_api.SetTranslate(Gf.Vec3d(0, -5.00, 0), time=45)
+# Set translation of the sphere at time 50
+sphere_xform_api.SetTranslate(Gf.Vec3d(0, -3.25, 0), time=50)
+# Set translation of the sphere at time 60
+sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=60)
+```
+
+* example 2
+```
+
+```
+
+
 ### Scope
 
 **Scope** groups prims for organized material application, etc.
