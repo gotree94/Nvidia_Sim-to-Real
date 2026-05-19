@@ -159,6 +159,8 @@ The SDK for developing various Omniverse Applications.
 
 A lightweight, fast USD file viewer.
 
+* https://docs.omniverse.nvidia.com/usd/latest/usdview/quickstart.html
+
 * For Windows : https://developer.nvidia.com/downloads/usd/usd_binaries/25.08/usd.py312.windows-x86_64.usdview.release-v25.08.71e038c1.zip
     * 다운로드 이후에 C드라이브 바로 아래에 압축을 해제하고 usd라는 폴더명으로 변경할것
 * For Liux : https://developer.nvidia.com/downloads/usd/usd_binaries/25.08/usd.py312.manylinux_2_35_x86_64.usdview.release-v25.08.71e038c1.zip
