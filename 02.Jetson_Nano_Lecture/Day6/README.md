@@ -106,6 +106,30 @@ A contemporary and sophisticated black luxury kitchen bathed in natural daylight
 A contemporary and sophisticated black luxury kitchen bathed in natural daylight, featuring a spacious layout with an expansive dark granite island at its center. There is a white coffee maker on the island in front of the white robot arm. The cabinetry is finished in a matte black, with elegant silver hardware adding a refined touch. The countertops, made of dark granite, gleam under the soft glow of three pendant lights with sleek metallic finishes. A white robot arm interacts with a white coffee cup and red esspresso coffee maker on the kitchen island. The kitchen is equipped with top-of-the-line stainless steel appliances, including a professional-grade gas range with a large custom vent hood, seamlessly integrated into the design. A double-door refrigerator is neatly concealed within the cabinetry. The backsplash is composed of a slab of black marble with gold veins, complementing the crisp aesthetic while reflecting the ambient lighting. The island features a deep sink with a high-end chrome faucet, surrounded by plush, high-backed barstools upholstered in leather. Open shelving on the side of the island provides space for cookbooks and decorative elements, adding a personalized touch. Large windows flood the space with natural light, offering a glimpse of a desert landscape outside.
 ```
 
+
+---
+비밀번호 : 0519Kosa#
+#	수강생	이메일		
+1	김지윤	allai01@allai.co.kr		
+2	강영빈	allai02@allai.co.kr		
+3	유용준	allai03@allai.co.kr		
+4	서예진	allai04@allai.co.kr		
+5	전승현	allai05@allai.co.kr		
+6	권영진	allai06@allai.co.kr		
+7	원주성	allai07@allai.co.kr		
+8	권오주	allai08@allai.co.kr		
+9	박찬수	allai09@allai.co.kr		
+10	임희수	allai10@allai.co.kr		
+11	이호기	allai11@allai.co.kr		
+12	김남우	allai12@allai.co.kr		
+13	채민아	allai13@allai.co.kr		
+14	조인행	allai14@allai.co.kr		
+15	임상혁	allai15@allai.co.kr		
+
+
+---
+
+
 ### Omniverse Kit SDK
 
 The SDK for developing various Omniverse Applications.
