@@ -41,7 +41,9 @@
 ## Phase 1 — Module ① : Stage
 **"씬의 가장 바깥 그릇"**
 
-Stage는 USD의 최상위 컨테이너입니다. 파일을 열고 씬을 쓰고 읽는 모든 작업이 Stage를 통해서 이루어지며, Stage 없이는 USD에서 아무것도 할 수 없습니다. Stage가 어떤 구조인지 먼저 그림으로 파악하겠습니다.
+* Stage는 USD의 최상위 컨테이너입니다.
+* 파일을 열고 씬을 쓰고 읽는 모든 작업이 Stage를 통해서 이루어지며, Stage 없이는 USD에서 아무것도 할 수 없습니다.
+* Stage가 어떤 구조인지 먼저 그림으로 파악하겠습니다.
 
 <img src="usd-buildup\USD-002.png">
 
