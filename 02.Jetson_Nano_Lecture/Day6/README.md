@@ -287,11 +287,12 @@ python inspect_hdf5.py datasets/annotated_dataset.hdf5
 
 * 수행하는 분석:
 
-| 항목	설명
-| Full HDF5 Structure	전체 트리 구조를 재귀적으로 출력 (group/dataset, shape, dtype, attrs)
-| Episode Summary	모든 episode의 프레임 수, actions shape, success 여부를 테이블로 요약
-| Cross-Episode Key Comparison	episode 간 공통/상이한 key 필드를 매트릭스로 비교
-| Subtask Annotation Search	subtask, segment, boundary, phase 등 Mimic annotation 키 탐색
+| 항목	| 설명 | 
+|:--------:|:--------:|
+| Full HDF5 Structure	| 전체 트리 구조를 재귀적으로 출력 (group/dataset, shape, dtype, attrs) | 
+| Episode Summary	| 모든 episode의 프레임 수, actions shape, success 여부를 테이블로 요약 | 
+| Cross-Episode Key Comparison	| episode 간 공통/상이한 key 필드를 매트릭스로 비교 | 
+| Subtask Annotation Search	| subtask, segment, boundary, phase 등 Mimic annotation 키 탐색 | 
 
 **2. Jupyter Notebook: inspect_hdf5.ipynb**
 
