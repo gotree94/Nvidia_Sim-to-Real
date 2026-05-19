@@ -5,6 +5,8 @@ DH parameters, joint limits, link dimensions.
 
 import numpy as np
 
+NUM_JOINTS = 7
+
 # ──────────────────────────────────────────────
 # Franka Emika Panda DH Parameters (standard)
 # ──────────────────────────────────────────────

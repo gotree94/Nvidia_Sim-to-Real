@@ -16,6 +16,7 @@ from PyQt5.QtGui import QFont
 from config import JOINT_LIMITS, HOME_POSITION, SUBTASK_NAMES, DEFAULT_FPS
 from kinematics import franka_fk, rotation_matrix_to_quat
 from recorder import DemonstrationRecorder
+from playback import PlaybackDialog
 
 
 class MainWindow(QMainWindow):
@@ -181,6 +182,14 @@ class MainWindow(QMainWindow):
         subtask_layout.addStretch()
         right_layout.addWidget(subtask_group)
 
+        # --- Playback Button ---
+        pb_layout = QHBoxLayout()
+        self.playback_btn = QPushButton("▶ Playback (P)")
+        self.playback_btn.clicked.connect(self._on_playback)
+        pb_layout.addWidget(self.playback_btn)
+        pb_layout.addStretch()
+        right_layout.addLayout(pb_layout)
+
         # --- Status Display ---
         self.status_display = QTextEdit()
         self.status_display.setReadOnly(True)
@@ -285,6 +294,11 @@ class MainWindow(QMainWindow):
             self.status_bar.showMessage("Recording cancelled")
             self.frame_label.setText("Frames: 0")
 
+    def _on_playback(self):
+        """Open playback dialog."""
+        dlg = PlaybackDialog(self.viewer, self)
+        dlg.exec_()
+
     def _on_subtask_toggle(self, name, checked):
         self.subtask_states[name] = checked
         if self.recorder.is_recording:
@@ -382,6 +396,10 @@ class MainWindow(QMainWindow):
             self.gripper_width = 0.0 if self.gripper_width > 0.02 else 0.04
             self.gripper_slider.setValue(int(self.gripper_width / 0.04 * 100))
             self._update_cube_attachment()
+
+        # ── Playback ──
+        if key == Qt.Key_P:
+            self._on_playback()
 
         # ── Recording ──
         if key == Qt.Key_Space:
