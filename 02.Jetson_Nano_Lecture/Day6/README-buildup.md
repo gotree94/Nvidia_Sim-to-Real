@@ -1003,18 +1003,23 @@ Phase 1이 완료되었습니다. Stage · Prim · Attributes · Relationships �
 
 <img src="usd-buildup\USD-007.png">
 
-Scope란 무엇인가
-Scope는 UsdGeom이 정의한 가장 단순한 Prim 타입입니다. 유일한 역할은 자식 Prim들을 논리적으로 묶는 것이며, 트랜스폼 스택에 아무런 영향을 주지 않습니다.
-렌더러와 DCC 툴은 트랜스폼을 계산할 때 Scope를 완전히 건너뜁니다. Scope 위에 xformOp:translate를 써도 무시됩니다 — Scope는 Schema상 XformOp를 지원하지 않습니다.
+**Scope란 무엇인가**
+   * Scope는 UsdGeom이 정의한 가장 단순한 Prim 타입입니다. 유일한 역할은 자식 Prim들을 논리적으로 묶는 것이며, 트랜스폼 스택에 아무런 영향을 주지 않습니다.
+   * 렌더러와 DCC 툴은 트랜스폼을 계산할 때 Scope를 완전히 건너뜁니다. Scope 위에 xformOp:translate를 써도 무시됩니다 — Scope는 Schema상 XformOp를 지원하지 않습니다.
+
+```
 Scope 사용 = "이 Prim들은 같은 범주다" 라는 선언
 Xform 사용 = "이 Prim들은 함께 이동한다" 라는 선언
+```
 
-Scope를 써야 하는 세 가지 상황
-1. 에셋 분류 컨테이너 — Materials, Lights, Cameras처럼 씬을 카테고리로 나눌 때. 이 그룹들은 공간적으로 이동할 필요가 없습니다.
-2. 논리적 필터링 단위 — DCC 툴이나 파이프라인 스크립트가 GetChildren()으로 특정 범주의 Prim만 빠르게 수집할 때.
-3. Reference 진입점 — 외부 .usda 파일을 Reference로 가져올 때 진입 컨테이너로 씁니다. Xform이면 Reference 시 의도치 않은 트랜스폼이 누적될 수 있습니다.
+**Scope를 써야 하는 세 가지 상황**
+   * 1. 에셋 분류 컨테이너 — Materials, Lights, Cameras처럼 씬을 카테고리로 나눌 때. 이 그룹들은 공간적으로 이동할 필요가 없습니다.
+   * 2. 논리적 필터링 단위 — DCC 툴이나 파이프라인 스크립트가 GetChildren()으로 특정 범주의 Prim만 빠르게 수집할 때.
+   * 3. Reference 진입점 — 외부 .usda 파일을 Reference로 가져올 때 진입 컨테이너로 씁니다. Xform이면 Reference 시 의도치 않은 트랜스폼이 누적될 수 있습니다.
 
-Scope vs Xform vs Group 비교
+**Scope vs Xform vs Group 비교**
+
+```
 타입          트랜스폼   렌더링   주 용도
 ──────────────────────────────────────────────────────
 Scope         없음       없음     논리 분류, 에셋 컨테이너
@@ -1022,10 +1027,15 @@ Xform         있음       없음     공간 그룹, 계층 트랜스폼
 UsdGeom.Mesh  없음*      있음     폴리곤 지오메트리
 Camera        있음       없음     카메라 뷰
 *Mesh는 xformOp를 직접 가질 수 있지만 보통 부모 Xform으로 이동
+```
 
-프로젝트 코드 — Scope 계층 정비
-Phase 1에서 만든 구조를 재검토합니다. /Factory/Robots와 /Factory/Lights는 Scope로 충분하지만, 공장 전체를 라인 단위로 이동시켜야 하는 경우를 대비해 Line_A 조립 그룹을 Xform으로 추가합니다.
-.usda 텍스트 방식
+**프로젝트 코드 — Scope 계층 정비**
+   * Phase 1에서 만든 구조를 재검토합니다.
+   * /Factory/Robots와 /Factory/Lights는 Scope로 충분하지만, 공장 전체를 라인 단위로 이동시켜야 하는 경우를 대비해 Line_A 조립 그룹을 Xform으로 추가합니다.
+
+**.usda 텍스트 방식**
+
+```
 usda#usda 1.0
 (
     doc               = "Robot Factory Scene — Phase 2"
@@ -1143,8 +1153,12 @@ def Xform "Factory"
         rel material:binding = </Factory/Materials/FloorMaterial>
     }
 }
-Python API 방식
-pythonfrom pxr import Usd, UsdGeom, Sdf
+```
+
+**Python API 방식**
+
+```python
+from pxr import Usd, UsdGeom, Sdf
 
 stage = Usd.Stage.Open("factory_base.usda")
 
@@ -1181,9 +1195,12 @@ for r in robots_list:
     print(r.GetPath())   # /Factory/Line_A/Robots/Robot_01 ...
 
 stage.Save()
+```
 
-Scope 탐색 패턴 — 파이프라인 활용
-python# 씬 안의 모든 Scope 찾기 (에셋 분류 구조 파악)
+**Scope 탐색 패턴 — 파이프라인 활용**
+
+```python
+# 씬 안의 모든 Scope 찾기 (에셋 분류 구조 파악)
 for prim in stage.Traverse():
     if prim.GetTypeName() == "Scope":
         children = list(prim.GetChildren())
@@ -1196,8 +1213,11 @@ scope = stage.GetPrimAtPath("/Factory/Line_A/Robots")
 for child in scope.GetChildren():
     if child.IsActive():
         print(f"  active robot: {child.GetName()}")
+```
 
-지금까지 프로젝트 상태
+**지금까지 프로젝트 상태**
+
+```
 factory_base.usda
 └── /Factory                          (Xform, kind=assembly)
     ├── /Factory/Materials            (Scope) ← 논리 분류
@@ -1210,8 +1230,11 @@ factory_base.usda
     │       ├── Robot_01              (Xform, kind=component)
     │       └── Robot_02              (Xform, kind=component)
     └── /Factory/Floor                (Mesh)
-    
-Scope와 Xform의 역할 분리가 명확해졌습니다. 다음 모듈 ⑦ Xform에서는 트랜스폼 자체를 깊이 파고듭니다. xformOp 네임스페이스가 왜 그런 구조인지, xformOpOrder가 왜 필수인지, 그리고 로봇 팔의 관절 계층을 올바르게 쌓는 방법을 다룹니다.
+```
+   
+   * Scope와 Xform의 역할 분리가 명확해졌습니다.
+   * 다음 모듈 ⑦ Xform에서는 트랜스폼 자체를 깊이 파고듭니다.
+   * xformOp 네임스페이스가 왜 그런 구조인지, xformOpOrder가 왜 필수인지, 그리고 로봇 팔의 관절 계층을 올바르게 쌓는 방법을 다룹니다.
 
 ---
 ## Phase 2 — Module ⑦ : Xform
