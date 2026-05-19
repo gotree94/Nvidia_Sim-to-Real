@@ -131,6 +131,14 @@ A contemporary and sophisticated black luxury kitchen bathed in natural daylight
 15	임상혁	allai15@allai.co.kr		
 ```
 
+* nvidia 계정
+https://build.nvidia.com/nvidia/cosmos-transfer1-7b
+
+* nvidia 계정
+https://huggingface.co/
+
+* Deepseek 사용해보기
+ * https://build.nvidia.com/deepseek-ai/deepseek-v4-pro
 ---
 
 
