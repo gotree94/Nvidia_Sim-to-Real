@@ -162,7 +162,7 @@ A lightweight, fast USD file viewer.
 
 
 * For Windows : https://developer.nvidia.com/downloads/usd/usd_binaries/25.08/usd.py312.windows-x86_64.usdview.release-v25.08.71e038c1.zip
-* For Liux : nhttps://developer.nvidia.com/downloads/usd/usd_binaries/25.08/usd.py312.manylinux_2_35_x86_64.usdview.release-v25.08.71e038c1.zip
+* For Liux : https://developer.nvidia.com/downloads/usd/usd_binaries/25.08/usd.py312.manylinux_2_35_x86_64.usdview.release-v25.08.71e038c1.zip
 
 ```bash
 # See: https://docs.omniverse.nvidia.com/usd/latest/guide/usdview-quickstart.html
