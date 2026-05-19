@@ -277,6 +277,57 @@ print(f["demo_0/actions"][:])
 
 등에서 자주 사용됩니다.
 
+### annotated_dataset.hdf5 파일의 구조 파악
+
+**1. CLI 스크립트: inspect_hdf5.py**
+
+```
+python inspect_hdf5.py datasets/annotated_dataset.hdf5
+```
+
+* 수행하는 분석:
+
+| 항목	설명
+| Full HDF5 Structure	전체 트리 구조를 재귀적으로 출력 (group/dataset, shape, dtype, attrs)
+| Episode Summary	모든 episode의 프레임 수, actions shape, success 여부를 테이블로 요약
+| Cross-Episode Key Comparison	episode 간 공통/상이한 key 필드를 매트릭스로 비교
+| Subtask Annotation Search	subtask, segment, boundary, phase 등 Mimic annotation 키 탐색
+
+**2. Jupyter Notebook: inspect_hdf5.ipynb**
+
+* 셀별로 나누어 단계적으로 실행:
+   * 셀 1: 전체 트리 구조 한눈에 보기
+   * 셀 2: 메타 정보 (총 episode 수, env_args)
+   * 셀 3: Episode 요약 테이블 (프레임 수, actions/states shape, success)
+   * 셀 4: 특정 episode (demo_0)의 상세 필드와 샘플 값 확인
+   * 셀 5: 모든 episode에 공통/가변적인 key 분석
+   * 셀 6: Subtask annotation 정보 찾기
+
+* 예상되는 HDF5 구조 (Isaac Lab Mimic)
+
+```
+/data
+ ├── attrs: total=N, env_args={...}
+ ├── demo_0/
+ │   ├── attrs: num_samples=T, success=True
+ │   ├── actions       (T × action_dim)
+ │   ├── states        (T × state_dim)  
+ │   └── obs/
+ │       ├── joint_pos (T × 7)     # Franka 7-DOF joint positions
+ │       ├── joint_vel (T × 7)     # joint velocities
+ │       └── ... (카메라 RGB, depth 등)
+ ├── demo_1/
+ └── ...
+```
+
+* Isaac Lab은 robomimic 호환 HDF5 포맷을 사용합니다.
+* 각 episode는 demo_0, demo_1, ... 형식의 그룹으로 저장되며, actions, states, obs/ 하위의 관측값들이 T × dim shape의 데이터셋으로 들어갑니다.
+* Subtask 경계 정보는 episode의 attributes나 별도 데이터셋에 저장될 수 있습니다.
+
+
+
+
+---
 
 ### Stage
 
