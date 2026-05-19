@@ -1,0 +1,5 @@
+PyQt5>=5.15
+PyOpenGL>=3.1.6
+numpy>=1.21
+h5py>=3.0
+PyOpenGL-accelerate>=3.1.6
