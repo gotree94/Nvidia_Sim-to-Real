@@ -325,14 +325,23 @@ factory_base.usda
 
 <img src="usd-buildup\USD-004.png">
 
-Attribute란 무엇인가
-Attribute는 Prim이 갖는 이름 붙은 데이터 값입니다. 위치, 색상, 반지름, 가시성 등 Prim에 관한 모든 구체적인 수치나 상태가 Attribute로 표현됩니다.
-Prim이 "Robot_01이라는 노드"라면, Attribute는 "그 로봇이 어디에 있고, 어떻게 생겼는지"를 담은 데이터입니다.
-Attribute는 세 종류로 나뉩니다.
-종류예시설명Schema AttributexformOp:translate, visibility해당 Type의 Schema가 정의한 표준 속성API Attributeprimvars:displayColorAPI Schema가 추가하는 속성Custom Attributecustom:serialNumber사용자가 직접 정의하는 속성
+**Attribute란 무엇인가**
+   * Attribute는 Prim이 갖는 이름 붙은 데이터 값입니다.
+   * 위치, 색상, 반지름, 가시성 등 Prim에 관한 모든 구체적인 수치나 상태가 Attribute로 표현됩니다.
+   * Prim이 "Robot_01이라는 노드"라면, Attribute는 "그 로봇이 어디에 있고, 어떻게 생겼는지"를 담은 데이터입니다.
 
-Value Type — USD의 타입 시스템
-USD는 강타입 시스템입니다. Attribute를 만들 때 반드시 타입을 지정해야 하며, 나중에 바꿀 수 없습니다.
+   * Attribute는 세 종류로 나뉩니다.
+| 종류 | 예시 | 설명 |
+|:-------:|:-------:|:-------:|
+| Schema Attribute | xformOp:translate, visibility | 해당 Type의 Schema가 정의한 표준 속성 |
+| API Attribute | primvars:displayColor | API Schema가 추가하는 속성 | 
+| Custom Attribute | custom:serialNumber | 사용자가 직접 정의하는 속성 | 
+
+**Value Type — USD의 타입 시스템**
+
+   * USD는 강타입 시스템입니다. Attribute를 만들 때 반드시 타입을 지정해야 하며, 나중에 바꿀 수 없습니다.
+
+```
 # 스칼라 타입
 bool    int     uint    int64
 float   double  half
@@ -349,11 +358,14 @@ float[]   double3[]   int[]   string[]
 # 특수 타입
 asset    → 파일 경로 참조  @path/to/file.usda@
 token    → 인터닝된 문자열, Enum 역할
-token과 string의 차이: token은 USD 내부에서 인터닝(interning)되어 비교가 O(1)입니다. "inherited", "invisible", "Y" 같은 고정 열거값에 사용합니다.
+```
+   * token과 string의 차이: token은 USD 내부에서 인터닝(interning)되어 비교가 O(1)입니다. "inherited", "invisible", "Y" 같은 고정 열거값에 사용합니다.
 
-프로젝트 코드 — Robot_01에 Attribute 추가
-.usda 텍스트 방식
-usda#usda 1.0
+**프로젝트 코드 — Robot_01에 Attribute 추가**
+   * .usda 텍스트 방식
+
+```usda
+#usda 1.0
 (
     doc = "Robot Factory Scene — Phase 1"
     defaultPrim = "Factory"
@@ -404,8 +416,12 @@ def Xform "Factory"
         color3f[] primvars:displayColor = [(0.3, 0.3, 0.3)]
     }
 }
-Python API 방식
-pythonfrom pxr import Usd, UsdGeom, Sdf, Gf
+```
+
+**Python API 방식**
+
+```python
+from pxr import Usd, UsdGeom, Sdf, Gf
 
 stage = Usd.Stage.Open("factory_base.usda")
 
@@ -442,9 +458,12 @@ floor_prim.GetFaceVertexCountsAttr().Set([4])
 floor_prim.GetFaceVertexIndicesAttr().Set([0, 1, 2, 3])
 
 stage.Save()
+```
 
-Attribute 읽기 · 검사
-pythonprim = stage.GetPrimAtPath("/Factory/Robots/Robot_01")
+**Attribute 읽기 · 검사**
+
+```python
+prim = stage.GetPrimAtPath("/Factory/Robots/Robot_01")
 
 # 모든 Attribute 나열
 for attr in prim.GetAttributes():
@@ -467,16 +486,22 @@ print(serial.GetTypeName())          # int
 # 값이 없는 Attribute는 None 반환
 attr = prim.GetAttribute("nonexistent")
 print(attr.IsValid())                # False
+```
 
-uniform vs varying — Attribute의 가변성
-Attribute 앞에 붙는 uniform 키워드는 시간에 따라 값이 바뀌지 않음을 선언합니다. xformOpOrder처럼 구조적으로 고정되어야 하는 Attribute에 씁니다.
-usda# uniform: 애니메이션 불가, 모든 프레임에서 동일
+**uniform vs varying — Attribute의 가변성**
+   * Attribute 앞에 붙는 uniform 키워드는 시간에 따라 값이 바뀌지 않음을 선언합니다. xformOpOrder처럼 구조적으로 고정되어야 하는 Attribute에 씁니다.
+
+```usda
+# uniform: 애니메이션 불가, 모든 프레임에서 동일
 uniform token[] xformOpOrder = ["xformOp:translate"]
 
 # (기본) varying: 프레임마다 다른 값을 가질 수 있음
 double3 xformOp:translate = (100, 0, 200)
+```
 
-지금까지 프로젝트 상태
+* 지금까지 프로젝트 상태
+
+```
 factory_base.usda
 └── /Factory
     ├── /Factory/Robots
@@ -492,7 +517,11 @@ factory_base.usda
     └── /Factory/Floor
           points / faceVertexCounts / faceVertexIndices  ← 추가됨
           primvars:displayColor = [(0.3, 0.3, 0.3)]      ← 추가됨
-Prim들이 실제 데이터를 갖게 되었습니다. 다음 모듈 ④ Relationships에서는 Prim 간의 연결 — 머티리얼 바인딩, 조명 링크 등 — 을 다룹니다. Attribute가 "값"을 담는다면, Relationship은 "다른 Prim을 가리키는 포인터"입니다.
+```
+
+   * Prim들이 실제 데이터를 갖게 되었습니다.
+   * 다음 모듈 ④ Relationships에서는 Prim 간의 연결 — 머티리얼 바인딩, 조명 링크 등 — 을 다룹니다.
+   * Attribute가 "값"을 담는다면, Relationship은 "다른 Prim을 가리키는 포인터"입니다.
 
 ---
 ## Phase 1 — Module ④ : Relationships
@@ -500,25 +529,37 @@ Prim들이 실제 데이터를 갖게 되었습니다. 다음 모듈 ④ Relatio
 
 <img src="usd-buildup\USD-005.png">
 
-Relationship란 무엇인가
-Relationship은 Prim이 다른 Prim(또는 Attribute)을 SdfPath로 가리키는 포인터입니다. Attribute가 숫자나 문자열 같은 값을 담는다면, Relationship은 씬 그래프 안의 다른 노드를 참조합니다.
-핵심 차이를 한 줄로 정리하면:
+**Relationship란 무엇인가**
+   * Relationship은 Prim이 다른 Prim(또는 Attribute)을 SdfPath로 가리키는 포인터입니다.
+   * Attribute가 숫자나 문자열 같은 값을 담는다면, Relationship은 씬 그래프 안의 다른 노드를 참조합니다.
+
+   * 핵심 차이를 한 줄로 정리하면:
+```
 Attribute   →  값(value)을 저장         ex) translate = (100, 0, 200)
 Relationship → 경로(SdfPath)를 저장      ex) material:binding = </Factory/Materials/Metal>
-Relationship은 타입이 없습니다. 가리키는 대상이 어떤 Prim인지는 Relationship을 사용하는 Schema가 의미를 부여합니다.
+```
+   * Relationship은 타입이 없습니다. 가리키는 대상이 어떤 Prim인지는 Relationship을 사용하는 Schema가 의미를 부여합니다.
 
-가장 중요한 Relationship — material:binding
-USD에서 Relationship이 가장 많이 쓰이는 곳은 머티리얼 바인딩입니다. UsdShade의 material:binding은 Mesh나 Xform이 어떤 Material Prim을 사용할지 가리킵니다.
-usdadef Mesh "Robot_01"
+**가장 중요한 Relationship — material:binding**
+   
+   * USD에서 Relationship이 가장 많이 쓰이는 곳은 머티리얼 바인딩입니다. UsdShade의 material:binding은 Mesh나 Xform이 어떤 Material Prim을 사용할지 가리킵니다.
+
+```usd
+adef Mesh "Robot_01"
 {
     # material:binding은 Relationship — 값이 아니라 경로를 저장
     rel material:binding = </Factory/Materials/MetalMaterial>
 }
-꺾쇠괄호 < > 안의 경로가 Relationship 타겟입니다. Attribute의 값 ( )과 구별되는 .usda 문법입니다.
+```
 
-Relationship의 특징 — 다중 타겟
-Relationship은 타겟을 여러 개 가질 수 있습니다. 조명의 light:targetPrim이 대표적인 예입니다.
-usdadef SphereLight "KeyLight"
+   * 꺾쇠괄호 < > 안의 경로가 Relationship 타겟입니다. Attribute의 값 ( )과 구별되는 .usda 문법입니다.
+
+**Relationship의 특징 — 다중 타겟**
+
+   * Relationship은 타겟을 여러 개 가질 수 있습니다. 조명의 light:targetPrim이 대표적인 예입니다.
+
+```usda
+def SphereLight "KeyLight"
 {
     # 단일 타겟
     rel light:targetPrim = </Factory/Robots/Robot_01>
@@ -529,10 +570,13 @@ usdadef SphereLight "KeyLight"
         </Factory/Robots/Robot_02>
     ]
 }
+```
 
-프로젝트 코드 — Material 바인딩 추가
-.usda 텍스트 방식
-usda#usda 1.0
+**프로젝트 코드 — Material 바인딩 추가**
+   * .usda 텍스트 방식
+
+```usda
+#usda 1.0
 (
     defaultPrim = "Factory"
     upAxis = "Y"
@@ -626,8 +670,12 @@ def Xform "Factory"
         rel material:binding = </Factory/Materials/FloorMaterial>
     }
 }
-Python API 방식
-pythonfrom pxr import Usd, UsdGeom, UsdShade, UsdLux, Sdf, Gf
+```
+
+**Python API 방식**
+
+```python
+from pxr import Usd, UsdGeom, UsdShade, UsdLux, Sdf, Gf
 
 stage = Usd.Stage.Open("factory_base.usda")
 
@@ -673,9 +721,12 @@ for target in target_rel.GetTargets():
     print(target)   # /Factory/Robots/Robot_01, /Factory/Robots/Robot_02
 
 stage.Save()
+```
 
-Relationship 읽기 · 탐색
-pythonprim = stage.GetPrimAtPath("/Factory/Robots/Robot_01")
+**Relationship 읽기 · 탐색**
+
+```python
+prim = stage.GetPrimAtPath("/Factory/Robots/Robot_01")
 
 # 모든 Relationship 나열
 for rel in prim.GetRelationships():
@@ -696,8 +747,10 @@ for path in targets:
 # UsdShade API로 바인딩된 Material 조회 (고수준)
 bound = UsdShade.MaterialBindingAPI(prim).ComputeBoundMaterial()
 print(bound[0].GetPath())   # /Factory/Materials/MetalMaterial
+```
 
-Attribute vs Relationship 선택 기준
+**Attribute vs Relationship 선택 기준**
+```
 언제 Attribute를 쓰나?
   → 값 자체를 저장할 때
      translate = (100, 0, 200)
@@ -710,8 +763,11 @@ Attribute vs Relationship 선택 기준
      light:targetPrim  = </Factory/Robots/Robot_01>
      skel:skeleton     = </Factory/Robots/Robot_01/Skeleton>
      proxyPrim         = </Factory/Robots/Robot_01_Proxy>
+```
 
-지금까지 프로젝트 상태
+**지금까지 프로젝트 상태**
+
+```
 factory_base.usda
 └── /Factory
     ├── /Factory/Materials                         ← 추가됨
@@ -728,7 +784,10 @@ factory_base.usda
     │         rel light:targetPrim → [Robot_01, Robot_02] ← 추가됨
     └── /Factory/Floor
           rel material:binding → FloorMaterial    ← 추가됨
-씬의 Prim들이 이제 서로 연결되었습니다. 다음 모듈 ⑤ Metadata에서는 Prim과 Stage 자체에 붙는 "데이터에 대한 데이터" — 문서화, 렌더링 힌트, 에디터 정보 등을 다룹니다. Attribute나 Relationship과 달리 Metadata는 합성(Composition)에 참여하지 않는 순수한 부가 정보입니다.
+```
+   * 씬의 Prim들이 이제 서로 연결되었습니다.
+   * 다음 모듈 ⑤ Metadata에서는 Prim과 Stage 자체에 붙는 "데이터에 대한 데이터" — 문서화, 렌더링 힌트, 에디터 정보 등을 다룹니다.
+   * Attribute나 Relationship과 달리 Metadata는 합성(Composition)에 참여하지 않는 순수한 부가 정보입니다.
 
 ---
 
@@ -737,19 +796,24 @@ factory_base.usda
 
 <img src="usd-buildup\USD-006.png">
 
-Metadata란 무엇인가
-Metadata는 Prim·Attribute·Layer 자체에 붙는 부가 정보입니다. 씬의 콘텐츠(geometry, transform 등)가 아니라 씬을 설명하고 제어하는 데이터입니다.
-Attribute와 Metadata의 핵심 차이는 딱 하나입니다.
+**Metadata란 무엇인가**
+   * Metadata는 Prim·Attribute·Layer 자체에 붙는 부가 정보입니다. 씬의 콘텐츠(geometry, transform 등)가 아니라 씬을 설명하고 제어하는 데이터입니다.
+   * Attribute와 Metadata의 핵심 차이는 딱 하나입니다.
+
+```
 Attribute  → 합성(Composition) 에 참여한다
              → 값이 레이어 간에 오버라이드·상속된다
 Metadata   → 합성에 참여하지 않는다
              → 각 레이어에 독립적으로 기록된다
              → 단, doc / active / kind 등 일부는 합성 결과에 영향을 준다
-Metadata가 붙을 수 있는 위치는 세 군데입니다. Stage/Layer 레벨, Prim 레벨, Attribute 레벨입니다.
+```
+   * Metadata가 붙을 수 있는 위치는 세 군데입니다. Stage/Layer 레벨, Prim 레벨, Attribute 레벨입니다.
 
-Stage / Layer 레벨 Metadata
-Stage를 열 때 가장 먼저 보게 되는 .usda 파일 상단의 ( ) 블록이 Layer 레벨 Metadata입니다.
-usda#usda 1.0
+**Stage / Layer 레벨 Metadata**
+   * Stage를 열 때 가장 먼저 보게 되는 .usda 파일 상단의 ( ) 블록이 Layer 레벨 Metadata입니다.
+
+```usda
+#usda 1.0
 (
     doc            = "Robot Factory Scene — Phase 1"
     defaultPrim    = "Factory"
@@ -766,12 +830,16 @@ usda#usda 1.0
         bool    approved  = false
     }
 )
-defaultPrim은 이 Layer를 Reference할 때 어떤 Prim을 진입점으로 쓸지 알려줍니다. Phase 5 컴포지션에서 결정적인 역할을 합니다.
-timeCodesPerSecond와 startTimeCode/endTimeCode는 Module ⑨ TimeSamples에서 다시 씁니다.
+```
 
-Prim 레벨 Metadata
-Prim 선언 뒤 괄호 ( ) 블록에 씁니다.
-usdadef Xform "Robot_01"
+   * defaultPrim은 이 Layer를 Reference할 때 어떤 Prim을 진입점으로 쓸지 알려줍니다. Phase 5 컴포지션에서 결정적인 역할을 합니다.
+   * timeCodesPerSecond와 startTimeCode/endTimeCode는 Module ⑨ TimeSamples에서 다시 씁니다.
+
+**Prim 레벨 Metadata**
+   * Prim 선언 뒤 괄호 ( ) 블록에 씁니다.
+
+```usda
+def Xform "Robot_01"
 (
     doc    = "조립 라인 1번 로봇 팔 — ARM-7X 모델"
     active = true
@@ -787,12 +855,24 @@ usdadef Xform "Robot_01"
     double3 xformOp:translate = (100, 0, 200)
     rel material:binding = </Factory/Materials/MetalMaterial>
 }
-( ) 블록(Metadata)과 { } 블록(Attribute/Relationship)은 역할이 완전히 다릅니다. 괄호는 Prim 자체를 설명하고, 중괄호는 Prim의 내용(데이터)을 담습니다.
+```
 
-Kind — 모델 계층 구조
-kind는 Prim이 씬 계층에서 어떤 역할을 하는지 나타내는 Metadata입니다. Omniverse, Houdini, USD Resolver 등 많은 도구가 kind를 기반으로 씬을 탐색합니다.
-Kind의미우리 프로젝트 적용assembly여러 component를 묶는 최상위 그룹/Factorygroup중간 계층 그룹/Factory/Robotscomponent독립적으로 참조 가능한 단위/Factory/Robots/Robot_01subcomponentcomponent 내부의 파츠Robot의 개별 링크
-pythonfrom pxr import Kind
+   * ( ) 블록(Metadata)과 { } 블록(Attribute/Relationship)은 역할이 완전히 다릅니다.
+   * 괄호는 Prim 자체를 설명하고, 중괄호는 Prim의 내용(데이터)을 담습니다.
+
+**Kind — 모델 계층 구조**
+   * kind는 Prim이 씬 계층에서 어떤 역할을 하는지 나타내는 Metadata입니다.
+   * Omniverse, Houdini, USD Resolver 등 많은 도구가 kind를 기반으로 씬을 탐색합니다.
+
+| Kind | 의미 | 우리 프로젝트 적용 | 
+|:-----------:|:-----------:|:-----------:|
+| assembly | 여러 component를 묶는 최상위 그룹 | /Factory | 
+| group | 중간 계층 그룹 | /Factory/Robots | 
+| component | 독립적으로 참조 가능한 단위 | /Factory/Robots/Robot_0 | 
+| 1subcomponent | component 내부의 파츠 | Robot의 개별 링크 | 
+
+```python
+from pxr import Kind
 
 # kind 설정
 model_api = Usd.ModelAPI(prim)
@@ -802,10 +882,13 @@ model_api.SetKind(Kind.Tokens.component)
 print(model_api.GetKind())          # "component"
 print(model_api.IsModel())          # True (assembly/group/component 모두 해당)
 print(model_api.IsGroup())          # False (component는 group 아님)
+```
 
-프로젝트 코드 — Metadata 전면 적용
-.usda 텍스트 방식
-usda#usda 1.0
+**프로젝트 코드 — Metadata 전면 적용**
+   * .usda 텍스트 방식
+
+```usda
+#usda 1.0
 (
     doc               = "Robot Factory Scene — Phase 1"
     defaultPrim       = "Factory"
@@ -903,8 +986,12 @@ def Xform "Factory"
         rel material:binding = </Factory/Materials/FloorMaterial>
     }
 }
-Python API 방식
-pythonfrom pxr import Usd, Sdf, Kind
+```
+
+**Python API 방식**
+
+```python
+from pxr import Usd, Sdf, Kind
 
 stage = Usd.Stage.Open("factory_base.usda")
 
@@ -951,9 +1038,12 @@ for prim in stage.Traverse():
         print(f"{prim.GetPath()}  kind={Usd.ModelAPI(prim).GetKind()}")
 
 stage.Save()
+```
 
-Metadata 읽기 전략 — GetAllMetadata
-pythonprim = stage.GetPrimAtPath("/Factory/Robots/Robot_01")
+**Metadata 읽기 전략 — GetAllMetadata**
+
+```python
+prim = stage.GetPrimAtPath("/Factory/Robots/Robot_01")
 
 # 모든 Metadata를 딕셔너리로 반환
 all_meta = prim.GetAllMetadata()
@@ -966,8 +1056,11 @@ for key, val in all_meta.items():
 #   customData           = {'manufacturer': 'FactoryBot Inc.', 'revision': 3}
 #   typeName             = Xform
 #   specifier            = def
+```
 
-Phase 1 완료 — 지금까지 프로젝트 상태
+**Phase 1 완료 — 지금까지 프로젝트 상태**
+
+```
 factory_base.usda
 │
 │  [Layer Metadata]
@@ -990,7 +1083,10 @@ factory_base.usda
     │         rel light:targetPrim → [Robot_01, Robot_02]
     └── /Factory/Floor           (Mesh)
           rel material:binding → FloorMaterial
-Phase 1이 완료되었습니다. Stage · Prim · Attributes · Relationships · Metadata — USD 씬의 기초 구조가 모두 갖춰졌습니다.
+```
+
+   * Phase 1이 완료되었습니다.
+   * Stage · Prim · Attributes · Relationships · Metadata — USD 씬의 기초 구조가 모두 갖춰졌습니다.
 
 ---
 
