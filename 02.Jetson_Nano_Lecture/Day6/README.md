@@ -2256,6 +2256,10 @@ Use applications like **KIRI Engine** or **Reality Composer** to capture simple 
 
 https://build.nvidia.com/explore/discover
 
+* 3D Model
+https://sketchfab.com/search?q=tuttlebot3&type=models
+https://grabcad.com/library
+
 ---
 
 ## Additional Resources
