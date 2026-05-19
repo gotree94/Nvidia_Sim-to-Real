@@ -2133,6 +2133,12 @@ Key Python modules for OpenUSD development:
 
 > See: [Modules — Omniverse Kit](https://docs.omniverse.nvidia.com/kit/docs/kit-manual/latest/)
 
+**OpenUSD Modules**
+https://openusd.org/release/api/modules.html
+
+**Omniverse Kit Modules**
+https://docs.omniverse.nvidia.com/kit/docs/pxr-usd-api/latest/pxr.html
+
 ### Primvars
 
 **Primvars** enable hierarchical object data manipulation and management in complex 3D scenes.
