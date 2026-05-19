@@ -2251,7 +2251,9 @@ Use applications like **KIRI Engine** or **Reality Composer** to capture simple 
 
 ---
 
+https://build.nvidia.com/explore/discover
 
+---
 
 ## Additional Resources
 
