@@ -1999,7 +1999,57 @@ sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=60)
 
 * example 2
 ```
+cube_xform_api = UsdGeom.XformCommonAPI(cube)
+cube_xform_api.SetScale(Gf.Vec3f(5, 5, 0.1))
+cube_xform_api.SetTranslate(Gf.Vec3d(0, 0, -2))
 
+stage.SetStartTimeCode(1)
+stage.SetEndTimeCode(60)
+
+
+sphere: UsdGeom.Sphere = UsdGeom.Sphere.Get(stage, "/World/Sphere")
+sphere_xform_api = UsdGeom.XformCommonAPI(sphere)
+sphere_color_attr = sphere.GetDisplayColorAttr()
+
+import random
+random.seed(42)
+
+
+def _y_to_color(y):
+    t = max(0.0, min(1.0, (y + 5.0) / 10.5))
+    if t < 0.5:
+        u = t / 0.5
+        r, g, b = 0.0, u, 1.0 - u
+    else:
+        u = (t - 0.5) / 0.5
+        r, g, b = u, 1.0 - u, 0.0
+    return Gf.Vec3f(r, g, b)
+
+
+# Set translation of the sphere at time 1
+sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=1)
+sphere_color_attr.Set(_y_to_color(5.50), time=1)
+# Set translation of the sphere at time 30
+sphere_xform_api.SetTranslate(Gf.Vec3d(0, -4.50, 0), time=30)
+sphere_color_attr.Set(_y_to_color(-4.50), time=30)
+# Set translation of the sphere at time 45
+sphere_xform_api.SetTranslate(Gf.Vec3d(0, -5.00, 0), time=45)
+sphere_color_attr.Set(_y_to_color(-5.00), time=45)
+# Set translation of the sphere at time 50
+sphere_xform_api.SetTranslate(Gf.Vec3d(0, -3.25, 0), time=50)
+sphere_color_attr.Set(_y_to_color(-3.25), time=50)
+# Set translation of the sphere at time 60
+sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=60)
+sphere_color_attr.Set(_y_to_color(5.50), time=60)
+
+
+# Random cube scale at each frame
+for _t in range(1, 61):
+    cube_xform_api.SetScale(Gf.Vec3f(
+        random.uniform(3.0, 7.0),
+        random.uniform(3.0, 7.0),
+        random.uniform(0.05, 0.3)
+    ), time=_t)
 ```
 
 
