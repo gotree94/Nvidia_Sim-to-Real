@@ -66,7 +66,7 @@
 | Designed for repeatability | Designed for generalization |
 | **Highly vulnerable to noise** | **Robust noise grounding** |
 
-<img src="2026_004.png"> <img src="2026_005.png" width="120%">
+<img src="2026_004.png"> <img src="2026_005.png" width="105%">
 
 ---
 
