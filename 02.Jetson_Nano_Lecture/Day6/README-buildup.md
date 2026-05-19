@@ -148,7 +148,175 @@ factory_base.usda   ← Stage의 Root Layer
 
 ---
 
+## Phase 1 — Module ② : Prims
+
+**"씬을 구성하는 모든 것의 기본 단위"**
+
 <img src="usd-buildup\USD-003.png">
+
+**Prim이란 무엇인가**
+   * Prim(Primitive)은 USD 씬 그래프를 구성하는 모든 노드입니다.
+   * 3D 메시, 카메라, 조명, 머티리얼, 논리적 그룹 — 씬에 존재하는 모든 것이 Prim입니다.
+   * 파일시스템으로 비유하면 Prim은 디렉터리 또는 파일에 해당합니다.
+   * Prim들은 /Factory/Robots/Robot_01처럼 슬래시로 구분되는 경로(SdfPath)로 식별되며, 이 경로가 씬 그래프의 주소입니다.
+
+**Prim의 세 가지 Specifier**
+   * 모든 Prim은 선언될 때 반드시 하나의 Specifier를 가집니다. 이것이 Prim의 "존재 방식"을 결정합니다.
+
+| Specifier | 키워드 | 의미 | 
+|:-------:|:-------:|:-------:|
+| Defined | def | 실제로 씬에 존재하는 Prim
+| Abstract | class | 공유 데이터 정의용, 렌더링 안 됨 | 
+| Override | over | 다른 레이어의 Prim을 수정 | 
+
+* def는 가장 일반적인 선언, class는 Phase 5 Inherit에서, over는 컴포지션 오버라이드에서 핵심 역할을 합니다.
+
+**Prim Type — Schema**
+   * Prim에는 Type을 지정할 수 있습니다. Type은 USD Schema 시스템이 정의한 클래스이며, 어떤 Attribute와 동작을 기본으로 갖는지를 결정합니다.
+
+```
+def Xform   "Factory"   { }    ← 트랜스폼을 가질 수 있는 그룹
+def Scope   "Robots"    { }    ← 트랜스폼 없는 논리 컨테이너
+def Mesh    "Floor"     { }    ← 폴리곤 지오메트리
+def Camera  "MainCam"   { }    ← 카메라
+def SphereLight "Key"   { }    ← 조명
+```
+
+   * Type이 없는 Prim(def "MyPrim")도 유효합니다. 이를 typeless Prim이라 하며, 커스텀 데이터를 담는 용도로 사용합니다.
+
+**SdfPath — Prim의 주소**
+```
+/                           ← PseudoRoot (Stage의 가상 루트)
+/Factory                    ← 최상위 Prim
+/Factory/Floor              ← 자식 Prim
+/Factory/Robots/Robot_01    ← 손자 Prim
+/Factory/Robots/Robot_01.visibility  ← Attribute 경로 (점 이후)
+/Factory/Robots/Robot_01.rel:material ← Relationship 경로
+```
+
+   * SdfPath는 문자열처럼 보이지만 USD 내부에서는 인터닝된 토큰으로 관리되어 비교가 매우 빠릅니다.
+
+**프로젝트 코드 — 첫 번째 Prim 추가**
+   * .usda 텍스트 방식
+
+```
+#usda 1.0
+(
+    doc = "Robot Factory Scene — Phase 1"
+    defaultPrim = "Factory"
+    upAxis = "Y"
+    metersPerUnit = 0.01
+)
+
+def Xform "Factory"
+{
+    def Scope "Robots"
+    {
+        def Xform "Robot_01"
+        {
+        }
+
+        def Xform "Robot_02"
+        {
+        }
+    }
+
+    def Scope "Lights"
+    {
+    }
+
+    def Mesh "Floor"
+    {
+    }
+}
+```
+
+**Python API 방식**
+
+```python
+from pxr import Usd, UsdGeom, Sdf
+
+stage = Usd.Stage.Open("factory_base.usda")
+
+# Prim 정의 — DefinePrim(path, typeName)
+factory  = stage.DefinePrim("/Factory", "Xform")
+robots   = stage.DefinePrim("/Factory/Robots", "Scope")
+robot_01 = stage.DefinePrim("/Factory/Robots/Robot_01", "Xform")
+robot_02 = stage.DefinePrim("/Factory/Robots/Robot_02", "Xform")
+lights   = stage.DefinePrim("/Factory/Lights", "Scope")
+floor    = stage.DefinePrim("/Factory/Floor", "Mesh")
+
+# defaultPrim 설정 — Reference할 때 진입점이 됨
+stage.SetDefaultPrim(factory)
+
+stage.Save()
+```
+
+**Prim 순회 — 씬 그래프 탐색**
+
+```python
+# 1. 전체 트리 순회
+for prim in stage.Traverse():
+    indent = "  " * len(prim.GetPath().pathComponents)
+    print(f"{indent}{prim.GetPath()}  [{prim.GetTypeName()}]")
+
+# 출력 예시:
+# /Factory  [Xform]
+#   /Factory/Robots  [Scope]
+#     /Factory/Robots/Robot_01  [Xform]
+#     /Factory/Robots/Robot_02  [Xform]
+#   /Factory/Lights  [Scope]
+#   /Factory/Floor  [Mesh]
+
+# 2. 특정 Prim 가져오기
+prim = stage.GetPrimAtPath("/Factory/Robots/Robot_01")
+print(prim.IsValid())       # True
+print(prim.GetTypeName())   # "Xform"
+print(prim.GetParent().GetPath())  # /Factory/Robots
+
+# 3. 자식 순회
+robots = stage.GetPrimAtPath("/Factory/Robots")
+for child in robots.GetChildren():
+    print(child.GetName())  # Robot_01, Robot_02
+
+# 4. 특정 타입만 필터링
+for prim in stage.Traverse():
+    if prim.IsA(UsdGeom.Xform):
+        print(prim.GetPath())
+```
+
+**Prim의 활성 상태 — Active / Inactive**
+
+   * Prim은 active 또는 inactive 상태를 가질 수 있습니다.
+   * Inactive Prim은 합성에서 완전히 배제됩니다. 이는 씬에서 오브젝트를 완전히 제거하지 않고 숨기는 강력한 방법입니다.
+
+```python
+robot_02 = stage.GetPrimAtPath("/Factory/Robots/Robot_02")
+
+# 비활성화 — 씬에서 사실상 제거
+robot_02.SetActive(False)
+
+# 다시 활성화
+robot_02.SetActive(True)
+
+# .usda에서는
+# def Xform "Robot_02" (active = false) { }
+```
+
+* 지금까지 프로젝트 상태
+```
+factory_base.usda
+└── /Factory                 (Xform, defaultPrim)
+    ├── /Factory/Robots       (Scope)
+    │   ├── /Factory/Robots/Robot_01  (Xform)
+    │   └── /Factory/Robots/Robot_02  (Xform)
+    ├── /Factory/Lights       (Scope)
+    └── /Factory/Floor        (Mesh)
+```
+
+   * Prim 트리가 완성되었습니다.
+   * 하지만 이 Prim들은 아직 아무런 데이터를 갖고 있지 않습니다.
+   * 다음 모듈 ③ Attributes에서 각 Prim에 실제 데이터(위치, 크기, 색상 등)를 부여합니다.
 
 ---
 
