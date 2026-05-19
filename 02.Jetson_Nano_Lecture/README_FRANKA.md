@@ -2,10 +2,12 @@
 
 # Franka Robotics / Franka Emika Panda 정리
 
-<img src="Franka_Emika/001.jpg" Width="30%"> <img src="Franka_Emika/002.jpg" Width="60%"> <img src="Franka_Emika/003.jpg" Width="30%">
-<img src="Franka_Emika/004.jpg" Width="30%"><img src="Franka_Emika/005.jpg" Width="30%"> <img src="Franka_Emika/006.jpg" Width="30%">
-<img src="Franka_Emika/007.jpg" Width="30%"> <img src="Franka_Emika/008.jpg" Width="30%"> <img src="Franka_Emika/009.jpg" Width="30%">
-<img src="Franka_Emika/010.jpg" Width="30%"> <img src="Franka_Emika/011.jpg" Width="30%"> <img src="Franka_Emika/012.jpg" Width="30%">
+<img src="Franka_Emika/002.jpg">
+
+<img src="Franka_Emika/001.jpg" Width="30%"> <img src="Franka_Emika/003.jpg" Width="30%"> <img src="Franka_Emika/004.jpg" Width="30%"> 
+<img src="Franka_Emika/005.jpg" Width="30%"> <img src="Franka_Emika/006.jpg" Width="30%"> <img src="Franka_Emika/007.jpg" Width="30%"> 
+<img src="Franka_Emika/008.jpg" Width="30%"> <img src="Franka_Emika/009.jpg" Width="30%"> <img src="Franka_Emika/010.jpg" Width="30%"> 
+<img src="Franka_Emika/011.jpg" Width="30%"> <img src="Franka_Emika/012.jpg" Width="30%">
 
 ## 개요
 
