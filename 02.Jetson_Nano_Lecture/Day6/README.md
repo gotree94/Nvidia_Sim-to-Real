@@ -33,6 +33,8 @@
 | **OpenUSD (Universal Scene Description)** | Framework for graphics definition and pipeline construction |
 | **OMNIVERSE CAD Converter** | Converts industrial designs into SimReady Assets |
 
+<img src="2026_001.png">
+
 ### Physics
 
 | Concept | Description |
@@ -41,6 +43,8 @@
 | **CUDA Acceleration** | GPU kernel optimization for hardware utilization |
 | **Mechanics Modeling** | Statics and dynamics in robot implementation within simulation |
 
+<img src="2026_002.png">
+
 ### Software
 
 | Concept | Description |
@@ -48,6 +52,8 @@
 | **Basic Coding Experience** | Fundamental coding including deep learning frameworks |
 | **Simulation Step & Loop** | Understanding physics engine stepping |
 | **Lifecycle** | Creation and destruction of simulation objects |
+
+<img src="2026_003.png">
 
 ---
 
@@ -59,6 +65,8 @@
 | Hard-coded trajectories with zero adaptability | Generative trajectories with full adaptability |
 | Designed for repeatability | Designed for generalization |
 | **Highly vulnerable to noise** | **Robust noise grounding** |
+
+<img src="2026_004.png">
 
 ---
 
