@@ -2059,6 +2059,20 @@ for _t in range(1, 61):
     ), time=_t)
 ```
 
+---
+
+* 내부의 기능을 확인할때
+```
+print(sphere_xform_api.__dir__()) 
+또는
+print(dir(sphere_xform_api))
+```
+
+```
+>>> print(sphere_xform_api.__dir__())
+['__module__', '__doc__', '__reduce__', '__instance_size__', 'RotationOrder', 'RotationOrderXYZ', 'RotationOrderXZY', 'RotationOrderYXZ', 'RotationOrderYZX', 'RotationOrderZXY', 'RotationOrderZYX', 'OpFlags', 'OpTranslate', 'OpRotate', 'OpScale', 'OpPivot', '__init__', 'Get', 'GetSchemaAttributeNames', '_GetStaticTfType', '__bool__', '__repr__', 'SetXformVectors', 'GetXformVectors', 'GetXformVectorsByAccumulation', 'SetTranslate', 'SetPivot', 'SetRotate', 'SetScale', 'GetResetXformStack', 'SetResetXformStack', 'CreateXformOps', 'GetRotationTransform', 'ConvertRotationOrderToOpType', 'ConvertOpTypeToRotationOrder', 'CanConvertOpTypeToRotationOrder', 'GetPrim', 'GetPath', 'GetSchemaClassPrimDefinition', 'IsAPISchema', 'IsConcrete', 'IsTyped', 'IsAppliedAPISchema', 'IsMultipleApplyAPISchema', 'GetSchemaKind', '__getattribute__', '__new__', '__weakref__', '__dict__', '__hash__', '__str__', '__setattr__', '__delattr__', '__lt__', '__le__', '__eq__', '__ne__', '__gt__', '__ge__', '__reduce_ex__', '__getstate__', '__subclasshook__', '__init_subclass__', '__format__', '__sizeof__', '__dir__', '__class__']
+>>> 
+```
 
 ### Scope
 
