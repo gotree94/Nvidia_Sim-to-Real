@@ -1348,8 +1348,1106 @@ factory_base.usda
 
 <img src="usd-buildup\USD-008.png">
 
+xformOp 네임스페이스가 존재하는 이유
+USD 이전의 3D 포맷들은 트랜스폼을 단일 행렬이나 TRS(Translate-Rotate-Scale) 세 값으로 저장했습니다. USD는 다른 접근을 선택했습니다. 트랜스폼을 Op(연산) 목록으로 저장하고, 그 목록을 순서대로 곱해서 최종 행렬을 만듭니다.
+이 설계의 이유는 세 가지입니다.
+1. 피벗 회전 표현
+   translate → rotatePivot → rotateY → rotatePivotInverse
+   → 단일 행렬로는 표현할 수 없는 피벗 기반 회전이 가능
+
+2. DCC 툴 간 호환
+   Maya의 트랜스폼 스택을 Houdini로 가져올 때
+   Op 목록을 그대로 보존하면 결과가 동일
+
+3. 애니메이션 분리
+   translate만 키프레임, rotate는 고정
+   → 각 Op를 독립적으로 애니메이션 가능
+
+xformOp의 종류
+# 이동
+xformOp:translate          double3
+xformOp:translate:pivot    double3   (suffix 버전)
+
+# 회전 — 오일러
+xformOp:rotateX            double
+xformOp:rotateY            double
+xformOp:rotateZ            double
+xformOp:rotateXYZ          double3   (XYZ 오일러 한번에)
+xformOp:rotateXZY          double3
+xformOp:rotateYXZ          double3
+... (6가지 순열)
+
+# 회전 — 쿼터니언
+xformOp:orient             quatd
+
+# 스케일
+xformOp:scale              double3
+
+# 행렬 직접 지정
+xformOp:transform          matrix4d  (전체 행렬을 직접)
+
+# 반전 Op — 피벗 복원용
+!invert!xformOp:translate:pivot
+!invert! 접두사는 해당 Op의 역행렬을 적용합니다. 피벗 회전의 전형적인 패턴은 다음과 같습니다.
+usdauniform token[] xformOpOrder = [
+    "xformOp:translate",
+    "xformOp:translate:pivot",
+    "xformOp:rotateY",
+    "!invert!xformOp:translate:pivot"
+]
+
+xformOpOrder — 반드시 명시해야 하는 이유
+xformOpOrder가 없으면 USD는 xformOp:* Attribute들이 있어도 트랜스폼을 계산하지 않습니다. 어떤 Op를 어떤 순서로 곱할지 명시적으로 선언해야 합니다.
+usda# 잘못된 예 — xformOpOrder 없음
+def Xform "Robot_01"
+{
+    double3 xformOp:translate = (100, 0, 200)
+    double  xformOp:rotateY   = 45.0
+    # → 트랜스폼이 적용되지 않음!
+}
+
+# 올바른 예 — xformOpOrder 명시
+def Xform "Robot_01"
+{
+    double3 xformOp:translate = (100, 0, 200)
+    double  xformOp:rotateY   = 45.0
+    uniform token[] xformOpOrder = [
+        "xformOp:translate",
+        "xformOp:rotateY"
+    ]
+    # → translate 후 rotateY 적용
+}
+uniform이 붙는 이유는 xformOpOrder는 프레임마다 달라지면 안 되기 때문입니다. Op의 종류와 순서는 씬 전체에서 고정된 구조입니다.
+
+프로젝트 코드 — 로봇 팔 관절 계층 구축
+.usda 텍스트 방식
+usdadef Xform "Robot_01"
+(
+    doc  = "조립 라인 A — 1번 로봇 팔"
+    kind = "component"
+)
+{
+    # Base 위치 — 공장 바닥 기준
+    double3 xformOp:translate    = (100, 0, 200)
+    double  xformOp:rotateY      = 0.0
+    uniform token[] xformOpOrder = [
+        "xformOp:translate",
+        "xformOp:rotateY"
+    ]
+
+    rel material:binding = </Factory/Materials/MetalMaterial>
+    custom int custom:serialNumber = 1001
+
+    # ── 관절 계층 ─────────────────────────────────────────
+    def Xform "Shoulder"
+    (
+        doc = "어깨 관절 — Z축 회전"
+    )
+    {
+        # 부모(Robot_01) 로컬 좌표 기준 위치
+        double3 xformOp:translate    = (0, 80, 0)
+        double  xformOp:rotateZ      = 0.0
+        uniform token[] xformOpOrder = [
+            "xformOp:translate",
+            "xformOp:rotateZ"
+        ]
+
+        def Xform "Elbow"
+        (
+            doc = "팔꿈치 관절 — Z축 회전"
+        )
+        {
+            double3 xformOp:translate    = (0, 120, 0)
+            double  xformOp:rotateZ      = 0.0
+            uniform token[] xformOpOrder = [
+                "xformOp:translate",
+                "xformOp:rotateZ"
+            ]
+
+            def Xform "Wrist"
+            (
+                doc = "손목 관절 — Z축 회전"
+            )
+            {
+                double3 xformOp:translate    = (0, 80, 0)
+                double  xformOp:rotateZ      = 0.0
+                uniform token[] xformOpOrder = [
+                    "xformOp:translate",
+                    "xformOp:rotateZ"
+                ]
+
+                def Xform "EndEffector"
+                (
+                    doc = "엔드 이펙터 — 용접 툴 장착점"
+                )
+                {
+                    double3 xformOp:translate    = (0, 40, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate"]
+                }
+            }
+        }
+    }
+}
+Python API 방식
+pythonfrom pxr import Usd, UsdGeom, Gf
+
+stage = Usd.Stage.Open("factory_base.usda")
+
+# ── 관절 계층 생성 헬퍼 ───────────────────────────────────
+def make_joint(stage, path, translate, rotate_z=0.0, doc=""):
+    """Xform Prim을 만들고 translate + rotateZ Op를 설정."""
+    xform = UsdGeom.Xform.Define(stage, path)
+    prim  = xform.GetPrim()
+    if doc:
+        prim.SetMetadata("doc", doc)
+
+    # translate Op 추가
+    t_op = xform.AddTranslateOp()
+    t_op.Set(Gf.Vec3d(*translate))
+
+    # rotateZ Op 추가 (기본값 0 — 애니메이션은 Module ⑨)
+    r_op = xform.AddRotateZOp()
+    r_op.Set(rotate_z)
+
+    return xform
+
+# ── Robot_01 관절 트리 구축 ───────────────────────────────
+base      = "/Factory/Line_A/Robots/Robot_01"
+shoulder  = make_joint(stage, f"{base}/Shoulder",
+                       translate=(0, 80, 0),  doc="어깨 관절")
+elbow     = make_joint(stage, f"{base}/Shoulder/Elbow",
+                       translate=(0, 120, 0), doc="팔꿈치 관절")
+wrist     = make_joint(stage, f"{base}/Shoulder/Elbow/Wrist",
+                       translate=(0, 80, 0),  doc="손목 관절")
+ee_path   = f"{base}/Shoulder/Elbow/Wrist/EndEffector"
+ee        = UsdGeom.Xform.Define(stage, ee_path)
+t_op      = ee.AddTranslateOp()
+t_op.Set(Gf.Vec3d(0, 40, 0))
+
+# Robot_02도 동일 구조 복사
+base2 = "/Factory/Line_A/Robots/Robot_02"
+make_joint(stage, f"{base2}/Shoulder",
+           translate=(0, 80, 0),  doc="어깨 관절")
+make_joint(stage, f"{base2}/Shoulder/Elbow",
+           translate=(0, 120, 0), doc="팔꿈치 관절")
+make_joint(stage, f"{base2}/Shoulder/Elbow/Wrist",
+           translate=(0, 80, 0),  doc="손목 관절")
+
+stage.Save()
+
+World Transform 계산 — 계층 누적 확인
+pythonfrom pxr import UsdGeom, Usd
+
+stage = Usd.Stage.Open("factory_base.usda")
+
+# 특정 시간에서 World Transform 행렬 가져오기
+time = Usd.TimeCode.Default()
+
+def get_world_xform(stage, path):
+    prim     = stage.GetPrimAtPath(path)
+    xformable = UsdGeom.Xformable(prim)
+    # GetLocalToWorldTransform → 루트까지 누적된 행렬
+    matrix   = xformable.ComputeLocalToWorldTransform(time)
+    return matrix
+
+# 각 관절의 World 위치 출력
+joints = [
+    "/Factory/Line_A/Robots/Robot_01",
+    "/Factory/Line_A/Robots/Robot_01/Shoulder",
+    "/Factory/Line_A/Robots/Robot_01/Shoulder/Elbow",
+    "/Factory/Line_A/Robots/Robot_01/Shoulder/Elbow/Wrist",
+    "/Factory/Line_A/Robots/Robot_01/Shoulder/Elbow/Wrist/EndEffector",
+]
+
+for path in joints:
+    m = get_world_xform(stage, path)
+    # 행렬의 4번째 행 = World 위치 (translation 성분)
+    tx, ty, tz = m[3][0], m[3][1], m[3][2]
+    name = path.split("/")[-1]
+    print(f"{name:15s}  world=({tx:6.1f}, {ty:6.1f}, {tz:6.1f})")
+
+# 출력 예:
+# Robot_01        world=( 100.0,   0.0, 200.0)
+# Shoulder        world=( 100.0,  80.0, 200.0)
+# Elbow           world=( 100.0, 200.0, 200.0)
+# Wrist           world=( 100.0, 280.0, 200.0)
+# EndEffector     world=( 100.0, 320.0, 200.0)
+
+XformCommonAPI vs 직접 Op 추가 — 선택 기준
+python# ── XformCommonAPI (간편, 제한적) ──────────────────────────
+# TRS만 쓰는 단순한 경우에 적합
+api = UsdGeom.XformCommonAPI(xform)
+api.SetTranslate(Gf.Vec3d(100, 0, 200))
+api.SetRotate(Gf.Vec3f(0, 45, 0),
+              UsdGeom.XformCommonAPI.RotationOrderYXZ)
+api.SetScale(Gf.Vec3f(1, 1, 1))
+# → xformOpOrder를 자동 관리, 피벗·suffix 미지원
+
+# ── 직접 Op 추가 (유연, 명시적) ───────────────────────────
+# 피벗 회전, suffix, !invert! 가 필요한 경우
+xform.AddTranslateOp().Set(Gf.Vec3d(100, 0, 200))
+xform.AddRotateYOp(
+    opSuffix="pivot"          # suffix → xformOp:rotateY:pivot
+).Set(45.0)
+# → xformOpOrder에 자동 추가됨
+
+# ── 현재 Op 목록 조회 ──────────────────────────────────────
+ops = xform.GetOrderedXformOps()
+for op in ops:
+    print(f"  {op.GetOpName():35s} = {op.Get()}")
+
+resetXformStack — 부모 트랜스폼 차단
+특수한 경우에 부모의 트랜스폼을 상속받지 않고 완전히 독립적인 World 좌표를 쓰고 싶을 때 resetXformStack 플래그를 씁니다.
+usdadef Xform "FixedCamera"
+{
+    double3 xformOp:translate    = (0, 200, -500)
+    uniform token[] xformOpOrder = [
+        "xformOp:resetXformStack",   # ← 부모 트랜스폼 무시
+        "xformOp:translate"
+    ]
+}
+python# Python에서 resetXformStack 추가
+xform.SetResetXformStack(True)
+주의: 일반 씬에서 남용하면 계층 구조의 의미가 깨집니다. 카메라나 환경 맵처럼 씬 계층과 독립적으로 고정되어야 할 오브젝트에만 씁니다.
+
+지금까지 프로젝트 상태
+factory_base.usda
+└── /Factory
+    ├── /Factory/Materials           (Scope)
+    ├── /Factory/Lights              (Scope)
+    │   └── KeyLight
+    ├── /Factory/Line_A              (Xform) translate=(0,0,0)
+    │   └── Robots                  (Scope)
+    │       ├── Robot_01            (Xform) translate=(100,0,200) rotateY=0
+    │       │   └── Shoulder        (Xform) translate=(0,80,0)  rotateZ=0 ★
+    │       │       └── Elbow       (Xform) translate=(0,120,0) rotateZ=0 ★
+    │       │           └── Wrist   (Xform) translate=(0,80,0)  rotateZ=0 ★
+    │       │               └── EndEffector (Xform) translate=(0,40,0)   ★
+    │       └── Robot_02            (Xform) — 동일 관절 계층
+    └── /Factory/Floor              (Mesh)
+로봇 팔의 관절 계층이 완성되었습니다. 각 관절의 rotateZ 값이 현재 0.0으로 고정되어 있는데, 이것이 Module ⑨ TimeSamples에서 프레임마다 달라지는 애니메이션 데이터로 채워집니다.
+다음 모듈 ⑧ Primvars에서는 렌더러에 데이터를 전달하는 특수한 Attribute인 Primvar를 다룹니다. 지금 Floor에 붙어 있는 primvars:displayColor가 왜 일반 Attribute와 다른지, 그리고 interpolation이 Mesh 렌더링에 어떤 영향을 주는지를 깊이 파고듭니다.
+
+계속 진행할까요? 다음 → ⑧ Primvars입력 내용: 7번의 블럭도는 다시 그려주고 완료되면 8번으로 진행해줘7번의 블럭도는 다시 그려주고 완료되면 8번으로 진행해줘07:27Claude 응답: Phase 2 — Module ⑦ : Xform 블록도 재작성 블록도 재작성 완료입니다.Phase 2 — Module ⑦ : Xform 블록도 재작성
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+VvisualizeVvisualize show_widget블록도 재작성 완료입니다. 왼쪽은 xformOp 스택의 구조·순서·pivot 패턴·resetXformStack까지, 오른쪽은 각 관절의 World Transform 누적 값을 함께 표시했습니다. 블록을 클릭하면 해당 관절 계산 방법으로 바로 이동할 수 있습니다.
+
 ---
+
+## Phase 2 — Module ⑧ : Primvars
+**"렌더러에게 데이터를 전달하는 특수 Attribute"**
 
 <img src="usd-buildup\USD-009.png">
 
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+VvisualizeVvisualize show_widget
+Primvar란 무엇인가
+**Primvar(Primitive Variable)**는 primvars: 네임스페이스를 가진 특수 Attribute입니다. 일반 Attribute와 세 가지 점에서 다릅니다.
+일반 Attribute     렌더러가 직접 읽지 않음
+                   자식에게 상속되지 않음
+                   interpolation 없음
+
+Primvar            렌더러·Shader가 직접 연결해서 읽음
+                   자식 Prim으로 자동 상속(cascading)
+                   interpolation 메타데이터로 보간 방식 지정
+렌더러 관점에서 Primvar는 Mesh의 각 점·면·버텍스에 데이터를 어떻게 분배할지를 지정하는 채널입니다. UV 좌표, 버텍스 컬러, 노멀, 커스텀 렌더 데이터가 모두 Primvar로 전달됩니다.
+
+Interpolation 4가지
+모드값 개수의미constant1Prim 전체에 단일 값uniformface 수면마다 하나의 값, 면 내부는 동일varying / vertexvertex 수버텍스마다 값, 면 내부는 선형 보간faceVaryingfaceVertex 수UV처럼 면마다 독립적인 버텍스 값
+faceVarying이 UV 텍스처 좌표에 쓰이는 이유는 — 하나의 버텍스가 여러 면에 공유되더라도 면마다 UV 좌표가 달라야 하기 때문입니다.
+
+프로젝트 코드 — Primvar 추가
+.usda 텍스트 방식
+usdadef Mesh "Floor"
+(
+    doc = "공장 바닥면"
+)
+{
+    point3f[] points = [
+        (-500,0,-500),(500,0,-500),(500,0,500),(-500,0,500)
+    ]
+    int[] faceVertexCounts  = [4]
+    int[] faceVertexIndices = [0, 1, 2, 3]
+
+    # constant — 바닥 전체 한 가지 색
+    color3f[] primvars:displayColor = [(0.25, 0.25, 0.25)]
+    (
+        interpolation = "constant"
+    )
+
+    # faceVarying — UV 좌표 (면당 독립 버텍스)
+    texCoord2f[] primvars:st = [
+        (0,0),(1,0),(1,1),(0,1)
+    ]
+    (
+        interpolation = "faceVarying"
+    )
+    int[] primvars:st:indices = [0, 1, 2, 3]
+
+    rel material:binding = </Factory/Materials/FloorMaterial>
+}
+
+def Xform "Robot_01"
+(
+    doc  = "조립 라인 A — 1번 로봇"
+    kind = "component"
+)
+{
+    double3 xformOp:translate    = (100, 0, 200)
+    uniform token[] xformOpOrder = ["xformOp:translate"]
+
+    # constant — 로봇 전체 단일 색 (자식 Shoulder/Elbow/Wrist 로 상속)
+    color3f[] primvars:displayColor = [(0.15, 0.15, 0.6)]
+    (
+        interpolation = "constant"
+    )
+
+    # 커스텀 렌더 데이터 — 렌더러 파라미터 전달용
+    float primvars:robotGloss = 0.85
+    (
+        interpolation = "constant"
+    )
+
+    rel material:binding = </Factory/Materials/MetalMaterial>
+    custom int custom:serialNumber = 1001
+}
+Python API 방식
+pythonfrom pxr import Usd, UsdGeom, Sdf, Gf, Vt
+
+stage = Usd.Stage.Open("factory_base.usda")
+
+# ── Floor Primvar 설정 ─────────────────────────────────────
+floor_mesh = UsdGeom.Mesh(stage.GetPrimAtPath("/Factory/Floor"))
+pvAPI      = UsdGeom.PrimvarsAPI(floor_mesh.GetPrim())
+
+# displayColor — constant
+dc = pvAPI.CreatePrimvar(
+    "displayColor",
+    Sdf.ValueTypeNames.Color3fArray,
+    UsdGeom.Tokens.constant
+)
+dc.Set(Vt.Vec3fArray([Gf.Vec3f(0.25, 0.25, 0.25)]))
+
+# UV (st) — faceVarying
+st = pvAPI.CreatePrimvar(
+    "st",
+    Sdf.ValueTypeNames.TexCoord2fArray,
+    UsdGeom.Tokens.faceVarying
+)
+st.Set(Vt.Vec2fArray([
+    Gf.Vec2f(0,0), Gf.Vec2f(1,0),
+    Gf.Vec2f(1,1), Gf.Vec2f(0,1),
+]))
+st.SetIndices(Vt.IntArray([0, 1, 2, 3]))
+
+# ── Robot_01 Primvar 설정 ──────────────────────────────────
+robot_prim = stage.GetPrimAtPath("/Factory/Line_A/Robots/Robot_01")
+robot_pvAPI = UsdGeom.PrimvarsAPI(robot_prim)
+
+# displayColor — constant (자식 Shoulder/Elbow/Wrist로 상속)
+rc = robot_pvAPI.CreatePrimvar(
+    "displayColor",
+    Sdf.ValueTypeNames.Color3fArray,
+    UsdGeom.Tokens.constant
+)
+rc.Set(Vt.Vec3fArray([Gf.Vec3f(0.15, 0.15, 0.6)]))
+
+# 커스텀 렌더 파라미터
+gloss = robot_pvAPI.CreatePrimvar(
+    "robotGloss",
+    Sdf.ValueTypeNames.Float,
+    UsdGeom.Tokens.constant
+)
+gloss.Set(0.85)
+
+stage.Save()
+
+Primvar 읽기 — 상속 추적
+pythonfrom pxr import UsdGeom
+
+# 자식 Prim에서 상속된 Primvar 포함해서 조회
+shoulder = stage.GetPrimAtPath(
+    "/Factory/Line_A/Robots/Robot_01/Shoulder"
+)
+pvAPI = UsdGeom.PrimvarsAPI(shoulder)
+
+# 자신이 직접 가진 Primvar만
+for pv in pvAPI.GetPrimvars():
+    print(f"  own  {pv.GetName():30s} interp={pv.GetInterpolation()}")
+
+# 상속 포함 (부모 체인 탐색)
+for pv in pvAPI.FindInheritablePrimvars():
+    print(f"  inh  {pv.GetName():30s} = {pv.Get()}")
+
+# 특정 Primvar 직접 접근
+dc = pvAPI.FindPrimvarWithInheritance("displayColor")
+if dc:
+    print(dc.Get())           # [(0.15, 0.15, 0.6)]  Robot_01에서 상속
+    print(dc.GetInterpolation())  # constant
+    print(dc.GetPrimvarName())    # displayColor
+
+indices — 메모리 절약 패턴
+Primvar는 SetIndices()로 값 배열을 인덱싱할 수 있습니다. 동일한 값을 반복하지 않고 인덱스로 참조하는 방식입니다.
+usda# 4개 face에 2가지 색만 쓰는 경우
+color3f[] primvars:displayColor = [(1,0,0), (0,0,1)]
+(
+    interpolation = "uniform"
+)
+# face 0,2는 빨강(인덱스 0), face 1,3은 파랑(인덱스 1)
+int[] primvars:displayColor:indices = [0, 1, 0, 1]
+
+지금까지 프로젝트 상태
+factory_base.usda
+└── /Factory
+    ├── /Factory/Materials           (Scope)
+    ├── /Factory/Lights              (Scope)
+    ├── /Factory/Line_A              (Xform)
+    │   └── Robots                  (Scope)
+    │       ├── Robot_01            (Xform)
+    │       │   primvars:displayColor = [(0.15,0.15,0.6)]  ★ 추가
+    │       │   primvars:robotGloss  = 0.85                ★ 추가
+    │       │   └── Shoulder / Elbow / Wrist / EndEffector
+    │       │         (displayColor 자동 상속)             ★
+    │       └── Robot_02            (Xform)
+    └── /Factory/Floor              (Mesh)
+          primvars:displayColor = [(0.25,0.25,0.25)]       ★ 추가
+          primvars:st (UV, faceVarying)                     ★ 추가
+Phase 2 완료입니다. Scope·Xform·Primvars — 씬의 공간 구조와 렌더 데이터 채널이 모두 갖춰졌습니다.
+
+Phase 3으로 진입합니다
+다음 모듈 ⑨ TimeCodes & TimeSamples에서는 지금까지 0.0으로 고정된 각 관절의 rotateZ 값에 키프레임을 심어 로봇 팔이 실제로 움직이게 만듭니다.
+
+계속 진행할까요? 다음 → ⑨ TimeCodes & TimeSamples입력 내용: 8번의 블럭도에서 글씨가 오버랩 된것이 있어서 다시 수정해주고8번의 블럭도에서 글씨가 오버랩 된것이 있어서 다시 수정해주고
+완료되면 9번을 진행해줘07:30Claude 응답: Module ⑧ 블록도 수정 블록도 수정 완료입니다.Module ⑧ 블록도 수정
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+VvisualizeVvisualize show_widget블록도 수정 완료입니다. 4가지 interpolation 모드 칸 간격을 균등하게 벌리고, 텍스트 위치를 박스 안으로 정확히 배치했습니다. 하단 상속 다이어그램도 라벨 오버랩 없이 재정렬했습니다.
+
+Phase 3 — Module ⑨ : TimeCodes & TimeSamples
+"로봇 팔이 움직인다 — 씬에 시간을 심다"
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+VvisualizeVvisualize show_widget
+TimeCode란 무엇인가
+USD의 시간 단위는 TimeCode입니다. 초(second)가 아니라 추상적인 숫자입니다. timeCodesPerSecond로 실제 시간과 연결합니다.
+timeCodesPerSecond = 24.0
+startTimeCode = 1.0
+endTimeCode   = 240.0
+
+→ TimeCode 1 = 0초
+  TimeCode 24 = 1초
+  TimeCode 240 = 10초 (총 10초 애니메이션)
+TimeCode를 초와 분리한 이유는 파이프라인마다 fps가 다르기 때문입니다. 24fps 영화, 30fps 게임, 60fps 로보틱스 시뮬레이션이 같은 USD 파일을 timeCodesPerSecond만 바꿔서 공유할 수 있습니다.
+
+TimeSamples — Attribute에 키프레임 심기
+Attribute는 Default Value(시간 무관 고정값)와 TimeSamples(프레임별 값 딕셔너리) 중 하나 또는 둘 다를 가질 수 있습니다.
+TimeSample이 있는 프레임에서는 TimeSample 값이 우선합니다. TimeSample이 없는 프레임에서는 앞뒤 샘플 사이를 선형 보간합니다.
+attr.Get(TimeCode(30))  →  f1=0°, f60=45° 사이  →  22.5°  (선형 보간)
+attr.Get(TimeCode(60))  →  정확히 키프레임      →  45.0°
+attr.Get(TimeCode.Default()) → Default Value   →  0.0°
+
+프로젝트 코드 — 로봇 팔 관절 애니메이션
+.usda 텍스트 방식
+usda#usda 1.0
+(
+    doc                = "Robot Factory Scene — Phase 3 Animation"
+    defaultPrim        = "Factory"
+    upAxis             = "Y"
+    metersPerUnit      = 0.01
+    startTimeCode      = 1.0
+    endTimeCode        = 240.0
+    timeCodesPerSecond = 24.0
+)
+
+def Xform "Factory"
+{
+    def Xform "Line_A"
+    {
+        def Scope "Robots"
+        {
+            def Xform "Robot_01"
+            {
+                double3 xformOp:translate    = (100, 0, 200)
+                double  xformOp:rotateY      = 0.0
+                uniform token[] xformOpOrder = [
+                    "xformOp:translate",
+                    "xformOp:rotateY"
+                ]
+
+                def Xform "Shoulder"
+                {
+                    double3 xformOp:translate    = (0, 80, 0)
+                    uniform token[] xformOpOrder = [
+                        "xformOp:translate",
+                        "xformOp:rotateZ"
+                    ]
+
+                    # TimeSamples — 중괄호 안에 TimeCode: value
+                    double xformOp:rotateZ.timeSamples = {
+                        1:    0.0,
+                        60:   45.0,
+                        120: -30.0,
+                        180:  60.0,
+                        240:   0.0
+                    }
+
+                    def Xform "Elbow"
+                    {
+                        double3 xformOp:translate    = (0, 120, 0)
+                        uniform token[] xformOpOrder = [
+                            "xformOp:translate",
+                            "xformOp:rotateZ"
+                        ]
+
+                        double xformOp:rotateZ.timeSamples = {
+                            1:    0.0,
+                            60:   30.0,
+                            120: -60.0,
+                            180:  45.0,
+                            240:   0.0
+                        }
+
+                        def Xform "Wrist"
+                        {
+                            double3 xformOp:translate    = (0, 80, 0)
+                            uniform token[] xformOpOrder = [
+                                "xformOp:translate",
+                                "xformOp:rotateZ"
+                            ]
+
+                            double xformOp:rotateZ.timeSamples = {
+                                1:    0.0,
+                                60:  -20.0,
+                                120:  40.0,
+                                180: -50.0,
+                                240:   0.0
+                            }
+
+                            def Xform "EndEffector"
+                            {
+                                double3 xformOp:translate    = (0, 40, 0)
+                                uniform token[] xformOpOrder = ["xformOp:translate"]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+Python API 방식
+pythonfrom pxr import Usd, UsdGeom, Gf
+
+stage = Usd.Stage.Open("factory_base.usda")
+
+# ── TimeSample 헬퍼 ────────────────────────────────────────
+def set_rotate_z_anim(stage, path, keyframes: dict):
+    """
+    keyframes = {timeCode: degrees, ...}
+    path의 xformOp:rotateZ 에 TimeSample 설정
+    """
+    prim  = stage.GetPrimAtPath(path)
+    xform = UsdGeom.Xform(prim)
+
+    # 이미 Op가 있으면 가져오고, 없으면 추가
+    ops = {op.GetOpName(): op for op in xform.GetOrderedXformOps()}
+    if "xformOp:rotateZ" in ops:
+        rz_attr = ops["xformOp:rotateZ"].GetAttr()
+    else:
+        rz_attr = xform.AddRotateZOp().GetAttr()
+
+    # 키프레임 설정
+    for tc, deg in keyframes.items():
+        rz_attr.Set(deg, Usd.TimeCode(tc))
+
+# ── 각 관절 키프레임 설정 ──────────────────────────────────
+base = "/Factory/Line_A/Robots/Robot_01"
+
+set_rotate_z_anim(stage, f"{base}/Shoulder", {
+    1:   0.0,
+    60:  45.0,
+    120: -30.0,
+    180: 60.0,
+    240: 0.0,
+})
+
+set_rotate_z_anim(stage, f"{base}/Shoulder/Elbow", {
+    1:   0.0,
+    60:  30.0,
+    120: -60.0,
+    180: 45.0,
+    240: 0.0,
+})
+
+set_rotate_z_anim(stage, f"{base}/Shoulder/Elbow/Wrist", {
+    1:   0.0,
+    60:  -20.0,
+    120: 40.0,
+    180: -50.0,
+    240: 0.0,
+})
+
+# ── visibility 애니메이션 (held 보간) ──────────────────────
+robot_02 = stage.GetPrimAtPath("/Factory/Line_A/Robots/Robot_02")
+vis_attr = UsdGeom.Imageable(robot_02).GetVisibilityAttr()
+
+# held 보간: 다음 키까지 값 유지
+vis_attr.Set("inherited",  Usd.TimeCode(1))    # f1~119 보임
+vis_attr.Set("invisible",  Usd.TimeCode(120))  # f120부터 사라짐
+vis_attr.Set("inherited",  Usd.TimeCode(180))  # f180부터 다시 보임
+
+stage.Save()
+
+TimeSample 읽기 · 검사
+pythonprim  = stage.GetPrimAtPath(
+    "/Factory/Line_A/Robots/Robot_01/Shoulder"
+)
+xform = UsdGeom.Xform(prim)
+ops   = {op.GetOpName(): op for op in xform.GetOrderedXformOps()}
+rz    = ops["xformOp:rotateZ"].GetAttr()
+
+# 모든 TimeSample 시간 목록
+print(rz.GetTimeSamples())
+# [1.0, 60.0, 120.0, 180.0, 240.0]
+
+# 특정 시간의 값
+print(rz.Get(Usd.TimeCode(60)))    # 45.0
+print(rz.Get(Usd.TimeCode(90)))    # 7.5  (60→120 선형 보간)
+print(rz.Get())                     # 0.0  (Default Value)
+
+# TimeSample 범위 확인
+lo, hi = rz.GetBracketingTimeSamples(90)
+print(lo, hi)   # 60.0  120.0
+
+# Stage 전체 시간 범위
+print(stage.GetStartTimeCode())    # 1.0
+print(stage.GetEndTimeCode())      # 240.0
+print(stage.GetTimeCodesPerSecond()) # 24.0
+
+레이어 간 시간 오프셋 — offset / scale
+SubLayer나 Reference를 연결할 때 시간을 이동하거나 배속할 수 있습니다. 로봇 팔 애니메이션을 두 로봇이 서로 엇갈려 시작하게 만들 때 유용합니다.
+usda#usda 1.0
+(
+    subLayers = [
+        @robot_anim.usda@ (
+            offset = 24    # 1초 뒤에 시작
+            scale  = 1.0   # 동일 속도
+        ),
+        @robot_anim.usda@ (
+            offset = 72    # 3초 뒤에 시작
+            scale  = 0.5   # 2배 느리게
+        )
+    ]
+)
+pythonfrom pxr import Sdf
+
+root = stage.GetRootLayer()
+
+# SubLayer에 시간 오프셋 적용
+layer_offset = Sdf.LayerOffset(offset=24.0, scale=1.0)
+root.subLayerOffsets[0] = layer_offset
+
+지금까지 프로젝트 상태
+factory_base.usda  (= factory_anim.usda 로 저장 권장)
+└── /Factory/Line_A/Robots
+    ├── Robot_01
+    │   └── Shoulder
+    │         rotateZ.timeSamples = {1:0, 60:45, 120:-30, 180:60, 240:0} ★
+    │         └── Elbow
+    │               rotateZ.timeSamples = {1:0, 60:30, 120:-60 ...}      ★
+    │               └── Wrist
+    │                     rotateZ.timeSamples = {1:0, 60:-20, 120:40 ...} ★
+    │                     └── EndEffector
+    └── Robot_02
+          visibility.timeSamples = {1:"inherited", 120:"invisible" ...}  ★
+Phase 3 완료입니다. 로봇 팔이 10초 동안 세 관절이 독립적으로 움직이는 애니메이션이 완성되었습니다.
+
+Phase 4로 진입합니다
+다음 모듈 ⑩ Lighting에서는 공장 씬에 조명 체계를 구축합니다. UsdLux의 조명 타입들과 Light Linking으로 로봇에만 선택적으로 조명을 비추는 방법을 다룹니다.
+
+계속 진행할까요? 다음 → ⑩ Lighting입력 내용: OKOK07:33Claude 응답: Phase 4 — Module ⑩ : LightingPhase 4 — Module ⑩ : Lighting
+"씬에 빛을 더하다 — UsdLux 조명 시스템"
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+VvisualizeVvisualize show_widget
+UsdLux — USD 조명 시스템
+UsdLux는 USD의 조명 스키마 라이브러리입니다. 렌더러에 독립적인 표준 조명 인터페이스를 제공하며, Hydra를 통해 어떤 렌더러(RenderMan, Arnold, Karma, Omniverse RTX)에서도 동일하게 해석됩니다.
+모든 UsdLux 조명 Prim은 공통 Attribute를 공유합니다.
+inputs:intensity     float    밝기 (선형 배율)
+inputs:exposure      float    EV 단위 밝기 (2^exposure × intensity)
+inputs:color         color3f  조명 색상
+inputs:diffuse       float    디퓨즈 기여도 (0~1)
+inputs:specular      float    스페큘러 기여도 (0~1)
+inputs:normalize     bool     면적 변화에 따른 밝기 정규화
+
+조명 타입별 핵심 Attribute
+SphereLight   inputs:radius            구형 광원 크기
+DiskLight     inputs:radius            원형 면 광원
+RectLight     inputs:width/height      직사각형 면 광원
+CylinderLight inputs:length/radius     원통형 광원
+DistantLight  inputs:angle             태양광 (방향성)
+DomeLight     inputs:texture:file      HDR 환경맵 asset 경로
+PortalLight   (DomeLight 자식)         실내 창문 최적화
+
+프로젝트 코드 — 공장 조명 체계 구축
+.usda 텍스트 방식
+usdadef Scope "Lights"
+(
+    doc  = "공장 조명 그룹"
+    kind = "group"
+)
+{
+    # ── 주 조명: 로봇 작업 구역 ────────────────────────────
+    def SphereLight "KeyLight"
+    (
+        doc = "주 조명 — 로봇 작업 구역 전용"
+    )
+    {
+        float   inputs:intensity  = 500.0
+        float   inputs:radius     = 20.0
+        color3f inputs:color      = (1.0, 0.95, 0.85)
+        float   inputs:exposure   = 0.0
+        bool    inputs:normalize  = true
+
+        double3 xformOp:translate    = (200, 400, 200)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+
+        # Light Linking — Robot_01, Robot_02 에만 조명
+        rel light:lightLink = [
+            </Factory/Line_A/Robots/Robot_01>,
+            </Factory/Line_A/Robots/Robot_02>
+        ]
+        # Shadow Linking — 동일 대상에만 그림자
+        rel light:shadowLink = [
+            </Factory/Line_A/Robots/Robot_01>,
+            </Factory/Line_A/Robots/Robot_02>
+        ]
+    }
+
+    # ── 보조 조명: 바닥 전체 Fill ─────────────────────────
+    def RectLight "FillLight"
+    (
+        doc = "보조 조명 — 바닥 및 전체 Fill"
+    )
+    {
+        float   inputs:intensity = 200.0
+        float   inputs:width     = 800.0
+        float   inputs:height    = 800.0
+        color3f inputs:color     = (0.8, 0.85, 1.0)
+        float   inputs:diffuse   = 1.0
+        float   inputs:specular  = 0.2
+
+        double3 xformOp:translate    = (0, 600, 0)
+        double3 xformOp:rotateX      = 90.0
+        uniform token[] xformOpOrder = [
+            "xformOp:translate",
+            "xformOp:rotateX"
+        ]
+
+        rel light:lightLink = [</Factory/Floor>]
+    }
+
+    # ── 환경 조명: HDR DomeLight ──────────────────────────
+    def DomeLight "EnvLight"
+    (
+        doc = "HDR 환경 조명 — 씬 전체 앰비언트"
+    )
+    {
+        float   inputs:intensity    = 0.6
+        float   inputs:exposure     = 0.0
+        # HDR 텍스처 — asset 타입
+        asset   inputs:texture:file = @./textures/factory_hdr.hdr@
+        token   inputs:texture:format = "latlong"
+
+        double3 xformOp:rotateY      = 90.0
+        uniform token[] xformOpOrder = ["xformOp:rotateY"]
+        # lightLink 없음 → 씬 전체에 자동 적용
+    }
+}
+Python API 방식
+pythonfrom pxr import Usd, UsdGeom, UsdLux, Sdf, Gf
+
+stage = Usd.Stage.Open("factory_base.usda")
+
+lights_scope = stage.GetPrimAtPath("/Factory/Lights")
+
+# ── KeyLight — SphereLight ────────────────────────────────
+key = UsdLux.SphereLight.Define(stage, "/Factory/Lights/KeyLight")
+key.GetPrim().SetMetadata("doc", "주 조명 — 로봇 작업 구역 전용")
+
+key.CreateIntensityAttr(500.0)
+key.CreateRadiusAttr(20.0)
+key.CreateColorAttr(Gf.Vec3f(1.0, 0.95, 0.85))
+key.CreateNormalizeAttr(True)
+
+# 위치 설정
+xf = UsdGeom.Xformable(key.GetPrim())
+xf.AddTranslateOp().Set(Gf.Vec3d(200, 400, 200))
+
+# Light Linking — Relationship 직접 설정
+light_link = key.GetPrim().CreateRelationship(
+    "light:lightLink", custom=False
+)
+light_link.AddTarget(Sdf.Path("/Factory/Line_A/Robots/Robot_01"))
+light_link.AddTarget(Sdf.Path("/Factory/Line_A/Robots/Robot_02"))
+
+shadow_link = key.GetPrim().CreateRelationship(
+    "light:shadowLink", custom=False
+)
+shadow_link.AddTarget(Sdf.Path("/Factory/Line_A/Robots/Robot_01"))
+shadow_link.AddTarget(Sdf.Path("/Factory/Line_A/Robots/Robot_02"))
+
+# ── FillLight — RectLight ─────────────────────────────────
+fill = UsdLux.RectLight.Define(stage, "/Factory/Lights/FillLight")
+fill.CreateIntensityAttr(200.0)
+fill.CreateWidthAttr(800.0)
+fill.CreateHeightAttr(800.0)
+fill.CreateColorAttr(Gf.Vec3f(0.8, 0.85, 1.0))
+
+xf2 = UsdGeom.Xformable(fill.GetPrim())
+xf2.AddTranslateOp().Set(Gf.Vec3d(0, 600, 0))
+xf2.AddRotateXOp().Set(90.0)
+
+fill_link = fill.GetPrim().CreateRelationship(
+    "light:lightLink", custom=False
+)
+fill_link.AddTarget(Sdf.Path("/Factory/Floor"))
+
+# ── DomeLight — HDR 환경 조명 ─────────────────────────────
+dome = UsdLux.DomeLight.Define(stage, "/Factory/Lights/EnvLight")
+dome.CreateIntensityAttr(0.6)
+dome.CreateTextureFileAttr("./textures/factory_hdr.hdr")
+dome.CreateTextureFormatAttr(UsdLux.Tokens.latlong)
+
+xf3 = UsdGeom.Xformable(dome.GetPrim())
+xf3.AddRotateYOp().Set(90.0)
+# lightLink 없음 → 씬 전체 자동 적용
+
+stage.Save()
+
+조명 검사 — LightAPI
+pythonfrom pxr import UsdLux
+
+# 씬의 모든 조명 Prim 수집
+lights = [
+    p for p in stage.Traverse()
+    if UsdLux.LightAPI(p)
+]
+
+for light in lights:
+    api = UsdLux.LightAPI(light)
+    print(f"{light.GetPath()}")
+    print(f"  intensity = {api.GetIntensityAttr().Get()}")
+    print(f"  color     = {api.GetColorAttr().Get()}")
+
+    # Light Linking 대상 확인
+    ll = light.GetRelationship("light:lightLink")
+    if ll and ll.GetTargets():
+        for t in ll.GetTargets():
+            print(f"  links → {t}")
+    else:
+        print(f"  links → (전체 씬)")
+
+ShadowAPI — 그림자 세부 제어
+usdadef SphereLight "KeyLight"
+{
+    float inputs:intensity = 500.0
+
+    # Shadow 활성화
+    bool  inputs:shadow:enable   = true
+    float inputs:shadow:distance = 1000.0
+    float inputs:shadow:falloff  = 0.1
+    color3f inputs:shadow:color  = (0.0, 0.0, 0.05)
+}
+
+지금까지 프로젝트 상태
+factory_base.usda
+└── /Factory
+    ├── /Factory/Lights                          (Scope)
+    │   ├── KeyLight    (SphereLight)            ★ 재구성
+    │   │     intensity=500  radius=20
+    │   │     rel light:lightLink  → [Robot_01, Robot_02]
+    │   │     rel light:shadowLink → [Robot_01, Robot_02]
+    │   ├── FillLight   (RectLight)              ★ 추가
+    │   │     intensity=200  800×800
+    │   │     rel light:lightLink  → [Floor]
+    │   └── EnvLight    (DomeLight)              ★ 추가
+    │         intensity=0.6
+    │         texture:file = factory_hdr.hdr
+    │         (lightLink 없음 — 전체 씬 적용)
+    ├── /Factory/Line_A/Robots/...  (애니메이션 유지)
+    └── /Factory/Floor              (Mesh)
+Phase 4 조명 완료입니다. 세 종류의 조명이 Light Linking으로 각각 담당 영역을 나눠 비추고 있습니다.
+다음 모듈 ⑪ File Formats에서는 .usda / .usdc / .usdz의 차이와 변환 방법, 그리고 파이프라인에서 어떤 포맷을 언제 써야 하는지를 다룹니다.
+
+계속 진행할까요? 다음 → ⑪ File Formats입력 내용: OKOK07:34Claude 응답: Phase 4 — Module ⑪ : File FormatsPhase 4 — Module ⑪ : File Formats
+"usda · usdc · usdz — 포맷을 알면 파이프라인이 보인다"
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+VvisualizeVvisualize show_widget
+포맷 선택 원칙
+세 포맷은 용도가 다릅니다. 파일 확장자만 다른 게 아니라 파이프라인에서의 역할이 완전히 구분됩니다.
+.usda   개발·디버깅·교육·Git 버전 관리
+.usdc   프로덕션 파이프라인 (렌더팜, 대용량 씬)
+.usdz   외부 배포 (AR, 모바일, 고객 납품)
+.usd    파이프라인 중립 (내부 포맷을 숨기고 싶을 때)
+.usdc의 Crate 포맷은 메모리 맵 파일 접근을 지원합니다. 1GB짜리 씬을 열 때 전체를 메모리에 올리지 않고 필요한 부분만 읽어오는 것이 가능합니다. 대형 스튜디오에서 .usda를 프로덕션에 쓰지 않는 이유입니다.
+
+포맷 감지 — 매직 헤더
+USD는 파일을 열 때 내용의 첫 바이트를 보고 포맷을 자동 판별합니다.
+.usda / .usd (텍스트)   →  파일 첫 줄: #usda 1.0
+.usdc / .usd (바이너리) →  파일 첫 8바이트: PXR-USDC
+.usdz                   →  ZIP 시그니처: PK\x03\x04
+python# 파이썬에서 포맷 확인
+from pxr import Sdf
+
+layer = Sdf.Layer.FindOrOpen("factory.usd")
+print(layer.GetFileFormat().GetFormatId())
+# "usda" 또는 "usdc"
+
+프로젝트 코드 — 포맷 변환 전체 흐름
+Python API 방식
+pythonfrom pxr import Usd, Sdf
+
+# ── 1. 개발 단계: .usda 작업 ──────────────────────────────
+stage = Usd.Stage.Open("factory_base.usda")
+# ... 편집 작업 ...
+stage.Save()   # factory_base.usda 저장
+
+# ── 2. usda → usdc 변환 ───────────────────────────────────
+# 방법 A: Export (Stage 레벨)
+stage.Export("factory_base.usdc")
+# 방법 B: Layer 레벨 직접 변환
+src = Sdf.Layer.FindOrOpen("factory_base.usda")
+Sdf.Layer.CreateNew("factory_base.usdc")
+dst = Sdf.Layer.FindOrOpen("factory_base.usdc")
+dst.TransferContent(src)
+dst.Save()
+
+# ── 3. Flatten — 모든 레이어 합성 후 단일 파일 ───────────
+# SubLayer / Reference가 여러 파일로 나뉜 경우 하나로 합침
+flat_stage = Usd.Stage.Open("factory_composed.usda")
+flat_stage.Flatten().Export("factory_flat.usda")
+# 또는
+flat_stage.Export("factory_flat.usdc")
+
+# ── 4. usdz 패키징 ────────────────────────────────────────
+from pxr import UsdUtils
+
+# 의존 파일 자동 수집 + zip 패키징
+UsdUtils.CreateNewUsdzPackage(
+    assetPath   = "factory_base.usda",   # 루트 파일
+    usdzFilePath= "factory.usdz"          # 출력 usdz
+)
+
+# ── 5. usdz 내용 확인 ─────────────────────────────────────
+import zipfile
+with zipfile.ZipFile("factory.usdz", "r") as z:
+    for name in z.namelist():
+        info = z.getinfo(name)
+        print(f"  {name:40s} {info.file_size:>10,} bytes")
+
+커맨드라인 도구
+USD 설치 시 함께 제공되는 CLI 도구들입니다. Omniverse Kit, USD 빌드 모두 포함합니다.
+bash# ── 포맷 변환 ─────────────────────────────────────────────
+usdcat factory.usda -o factory.usdc        # usda → usdc
+usdcat factory.usdc -o factory.usda        # usdc → usda (역변환)
+usdcat --flatten factory.usda -o flat.usda # 모든 레이어 병합
+
+# ── usdz 패키징 ───────────────────────────────────────────
+usdzip -r factory.usdz factory.usdc textures/  # 패키징
+usdzip -l factory.usdz                         # 내용 목록
+usdzip -d factory.usdz ./extracted/            # 압축 해제
+
+# ── 씬 검증 ──────────────────────────────────────────────
+usdchecker factory.usda          # 스키마 유효성 검사
+usdchecker factory.usdz          # usdz 규격 준수 검사
+
+# ── 씬 시각화 (headless) ──────────────────────────────────
+usdview factory.usda             # GUI 뷰어 실행
+usdrecord factory.usda out.png   # 정지 이미지 렌더
+
+# ── 정보 출력 ─────────────────────────────────────────────
+usddumpcrate factory.usdc        # usdc 내부 구조 덤프
+
+의존성 분석 — UsdUtils.ComputeAllDependencies
+프로젝트가 여러 파일로 나뉘어 있을 때 전체 의존 파일 목록을 파악하는 것이 중요합니다.
+pythonfrom pxr import UsdUtils, Ar
+
+# 루트 파일에서 모든 의존 파일 재귀 수집
+layers, assets, unresolved = \
+    UsdUtils.ComputeAllDependencies("factory_composed.usda")
+
+print("=== Layers (USD 파일) ===")
+for l in layers:
+    print(f"  {l}")
+
+print("=== Assets (텍스처, HDR 등) ===")
+for a in assets:
+    print(f"  {a}")
+
+if unresolved:
+    print("=== Unresolved (경로 오류) ===")
+    for u in unresolved:
+        print(f"  !! {u}")
+
+프로젝트 파일 구조 — Phase 4 기준
+현재까지 만든 파일들을 포맷 전략에 맞게 정리합니다.
+robot_factory/
+├── factory_base.usda       ← 개발 원본 (Git 관리)
+├── factory_base.usdc       ← 프로덕션 변환본
+├── factory_anim.usda       ← 애니메이션 레이어 (개발)
+├── factory_anim.usdc       ← 애니메이션 레이어 (프로덕션)
+├── textures/
+│   └── factory_hdr.hdr     ← DomeLight HDR
+└── factory.usdz            ← 배포용 패키지
+
+지금까지 프로젝트 상태
+factory_base.usda   (개발 원본 — 전 모듈 누적)
+factory_base.usdc   ← ★ 프로덕션 변환 추가
+factory_anim.usdc   ← ★ 애니메이션 레이어 변환 추가
+factory.usdz        ← ★ 배포 패키지 생성
+포맷 체계가 갖춰졌습니다. 다음 모듈 ⑫ Modules에서는 USD가 제공하는 스키마 라이브러리 전체를 조망합니다. 지금까지 써온 UsdGeom, UsdShade, UsdLux가 모두 Module 시스템의 일부이며, UsdPhysics, UsdSkel, UsdRender 등 로봇 시뮬레이션에 직결되는 모듈들을 프로젝트에 연결합니다.
+
+계속 진행할까요? 다음 → ⑫ Modules입력 내용: OKOK07:36Claude 응답: Phase 4 — Module ⑫ : Modules (USD Schema Libraries)Phase 4 — Module ⑫ : Modules (USD Schema Libraries)
+"UsdGeom부터 UsdPhysics까지 — USD의 부품 창고"
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+VvisualizeVvisualize show_widget
 ---
+
