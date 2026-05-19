@@ -2,6 +2,19 @@
 
 # Franka Robotics / Franka Emika Panda 정리
 
+<img src="Franka_Emika/001.jpg">
+<img src="Franka_Emika/002.jpg">
+<img src="Franka_Emika/003.jpg">
+<img src="Franka_Emika/004.jpg">
+<img src="Franka_Emika/005.jpg">
+<img src="Franka_Emika/006.jpg">
+<img src="Franka_Emika/007.jpg">
+<img src="Franka_Emika/008.jpg">
+<img src="Franka_Emika/009.jpg">
+<img src="Franka_Emika/010.jpg">
+<img src="Franka_Emika/011.jpg">
+<img src="Franka_Emika/012.jpg">
+
 ## 개요
 
 Franka Robotics의 Franka Emika Panda(FR3)는 연구 및 AI Robotics 분야에서 가장 많이 사용되는 협동로봇(CoBot) 중 하나입니다.
