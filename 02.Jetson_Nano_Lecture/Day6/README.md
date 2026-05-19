@@ -93,6 +93,9 @@ The SDK for developing various Omniverse Applications.
 - USD Explorer
 - Modular extension architecture for custom development
 
+
+https://build.nvidia.com/nvidia/cosmos-transfer1-7b
+
 ---
 
 ## OpenUSD
