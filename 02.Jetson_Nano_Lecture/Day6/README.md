@@ -108,6 +108,10 @@ A contemporary and sophisticated black luxury kitchen bathed in natural daylight
 
 
 ---
+
+### Google 계정
+
+```
 비밀번호 : 0519Kosa#
 #	수강생	이메일		
 1	김지윤	allai01@allai.co.kr		
@@ -125,7 +129,7 @@ A contemporary and sophisticated black luxury kitchen bathed in natural daylight
 13	채민아	allai13@allai.co.kr		
 14	조인행	allai14@allai.co.kr		
 15	임상혁	allai15@allai.co.kr		
-
+```
 
 ---
 
@@ -154,6 +158,11 @@ The SDK for developing various Omniverse Applications.
 ### UsdView
 
 A lightweight, fast USD file viewer.
+
+
+
+* For Windows : https://developer.nvidia.com/downloads/usd/usd_binaries/25.08/usd.py312.windows-x86_64.usdview.release-v25.08.71e038c1.zip
+* For Liux : nhttps://developer.nvidia.com/downloads/usd/usd_binaries/25.08/usd.py312.manylinux_2_35_x86_64.usdview.release-v25.08.71e038c1.zip
 
 ```bash
 # See: https://docs.omniverse.nvidia.com/usd/latest/guide/usdview-quickstart.html
