@@ -66,13 +66,15 @@
 | Designed for repeatability | Designed for generalization |
 | **Highly vulnerable to noise** | **Robust noise grounding** |
 
-<img src="2026_004.png">
+<img src="2026_004.png"> <img src="2026_005.png">
 
 ---
 
 ## NVIDIA Omniverse
 
 NVIDIA Omniverse is a collection of libraries and microservices for developing physically based industrial digital twins and robotics AI applications.
+
+<img src="2026_006.png">
 
 - Originally built on **5 pillars**: Nucleus, Connect, Kit, Simulation, RTX Renderer
 - The definition has evolved as the ecosystem has grown and diversified
