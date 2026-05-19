@@ -1035,8 +1035,8 @@ Camera        있음       없음     카메라 뷰
 
 **.usda 텍스트 방식**
 
-```
-usda#usda 1.0
+```usda
+#usda 1.0
 (
     doc               = "Robot Factory Scene — Phase 2"
     defaultPrim       = "Factory"
