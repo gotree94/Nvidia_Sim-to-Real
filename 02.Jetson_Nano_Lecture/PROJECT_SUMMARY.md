@@ -33,8 +33,7 @@ NVIDIA Isaac Sim / Docker / H100 GPU 없이, 순수 Python 데스크톱 애플�
 
 ## 구현체 1: `robot_arm_simulator` (v1, Desktop)
 
-<img src="sim_001.png"> <br>
-<img src="sim_002.png"> <br>
+<img src="sim_003.png"> <br>
 
 > **최초 구현**. 핵심 기능에 집중 — 3D 뷰어 + 관절 제어 + HDF5 녹화
 
@@ -78,7 +77,9 @@ Shift: fast mode  V: cube attach/detach
 
 > **v1을 기반으로 6가지 편의 기능 추가 + 코드 모듈화**
 
-<img src="sim_003.png"> <br>
+<img src="sim_001.png"> <br>
+<img src="sim_002.png"> <br>
+
 
 ### 파일 구조
 
