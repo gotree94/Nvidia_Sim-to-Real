@@ -491,6 +491,15 @@ Use applications like **KIRI Engine** or **Reality Composer** to capture simple 
 
 ---
 
+<img src="ChatGPT Image 2026년 5월 19일 오전 09_45_07.png">
+
+<img src="010.png">
+
+
+---
+
+
+
 ## Additional Resources
 
 - [Kitchen Set — Universal Scene Description 26.05 documentation](https://openusd.org/release/tut_kitchen_set.html)
