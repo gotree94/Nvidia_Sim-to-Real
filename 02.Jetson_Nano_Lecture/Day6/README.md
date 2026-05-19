@@ -183,6 +183,8 @@ A lightweight, fast USD file viewer.
 ## Project
 
 * https://build.nvidia.com/nvidia/isaac-gr00t-synthetic-manipulation
+* https://github.com/NVIDIA-Omniverse-blueprints/synthetic-manipulation-motion-generation
+
 
 
 
