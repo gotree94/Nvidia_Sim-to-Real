@@ -2121,6 +2121,9 @@ USD lighting is managed under the `UsdLux` domain.
 | `DomeLight` | Environment / dome light |
 | `PortalLight` | Light portal |
 
+<img src="UsdLux.png">
+
+
 ### Modules
 
 Key Python modules for OpenUSD development:
