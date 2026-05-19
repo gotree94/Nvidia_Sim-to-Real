@@ -5,14 +5,12 @@
 
 ## 목차
 
-* [Phase 1](#phase-1)
-    * [Module ① : Stage](#phase-1--module--stage)
-    * [Module ② : Prims](#phase-1--module--prims)
-    * [Module ③ : Attributes](#phase-1--module--attributes)
-    * [Module ④ : Relationships](#phase-1--module--relationships)
-    * [Module ⑤ : Metadata](#phase-1--module--metadata)
-* [Phase 2](#phase-2)
-    * [Module ⑦ : Xform](#phase-2--module--xform)
+* [Phase 1 - Module 1: Stage](#phase-1---module-1-stage)
+* [Phase 1 - Module 2: Prims](#phase-1---module-2-prims)
+* [Phase 1 - Module 3: Attributes](#phase-1---module-3-attributes)
+* [Phase 1 - Module 4: Relationships](#phase-1---module-4-relationships)
+* [Phase 1 - Module 5: Metadata](#phase-1---module-5-metadata)
+* [Phase 2 - Module 7: Xform](#phase-2---module-7-xform)
 
 
 
