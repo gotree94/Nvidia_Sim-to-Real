@@ -1755,8 +1755,6 @@ python inspect_hdf5.py datasets/annotated_dataset.hdf5
 * Subtask 경계 정보는 episode의 attributes나 별도 데이터셋에 저장될 수 있습니다.
 
 
-
-
 ---
 
 ### Stage
@@ -1766,6 +1764,7 @@ A **Stage** is the composited result of layers — the current screen output.
 - **Layer**: Typically a single `.usd` file
 - **Composition**: The combination of multiple layers
 - Reference: [USD Fundamentals](https://docs.omniverse.nvidia.com/usd/latest/guide/usd-fundamentals.html)
+- https://docs.nvidia.com/learn-openusd/latest/stage-setting/index.html
 
 ### Scene Graph Structure
 
