@@ -76,8 +76,9 @@ Layer Stack (강한 → 약한 순서)
    * 이제 우리 프로젝트의 첫 번째 파일을 만듭니다. USD 텍스트 포맷(.usda)으로 직접 작성합니다.
 
 **방법 1 — .usda 텍스트 직접 작성**
+
 ```usda
-usda#usda 1.0
+#usda 1.0
 (
     doc = "Robot Factory Scene — Phase 1"
     defaultPrim = "Factory"
@@ -90,6 +91,7 @@ usda#usda 1.0
    * 괄호 ( ) 블록은 Stage 레벨 메타데이터로, 나중에 Metadata 모듈에서 자세히 다룹니다.
 
 **방법 2 — Python USD API**
+
 ```python
 from pxr import Usd, UsdGeom
 
