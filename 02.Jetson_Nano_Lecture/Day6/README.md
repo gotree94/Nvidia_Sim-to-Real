@@ -2198,6 +2198,9 @@ Original data is preserved through the Composition approach:
 - Layer-based modification overrides
 - Separate workspaces during collaboration
 
+<img src="NON-DESTRUCTIVE_EDITING.png">
+
+
 #### Extensibility
 
 Standard USD can be extended with custom schemas and plugins:
