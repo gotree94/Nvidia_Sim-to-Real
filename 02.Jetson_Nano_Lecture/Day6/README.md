@@ -1997,6 +1997,13 @@ sphere_xform_api.SetTranslate(Gf.Vec3d(0, -3.25, 0), time=50)
 sphere_xform_api.SetTranslate(Gf.Vec3d(0,  5.50, 0), time=60)
 ```
 
+[동영상 보기](TimeCodes_and_TimeSamples.mp4)
+![](TimeCodes_and_TimeSamples.mp4)
+<video src="TimeCodes_and_TimeSamples.mp4" controls width="640"></video>
+[![](thumbnail.png)](TimeCodes_and_TimeSamples.mp4)
+
+
+
 * example 2
 ```
 cube_xform_api = UsdGeom.XformCommonAPI(cube)
