@@ -5,14 +5,15 @@
 
 ## 목차
 
-1. [Phase 1 — Module ① : Stage](#Phase-1-—-Module-①-:-Stage)
-2. [원본 Blueprint 이해](#2-원본-blueprint-이해)
-3. [데이터셋 구조 분석 (annotated_dataset.hdf5)](#3-데이터셋-구조-분석)
-4. [파일 저장 위치](#4-파일-저장-위치)
-5. [하드웨어 요구사항](#5-하드웨어-요구사항)
-6. [커스텀 프로젝트: 웹캠 기반 데이터 생성 파이프라인](#6-커스텀-프로젝트)
-7. [구현 로드맵](#7-구현-로드맵)
-8. [참고 자료](#8-참고-자료)
+* [Phase 1](#phase-1)
+    * [Module ① : Stage](#phase-1--module--stage)
+    * [Module ② : Prims](#phase-1--module--prims)
+    * [Module ③ : Attributes](#phase-1--module--attributes)
+    * [Module ④ : Relationships](#phase-1--module--relationships)
+    * [Module ⑤ : Metadata](#phase-1--module--metadata)
+* [Phase 2](#phase-2)
+    * [Module ⑦ : Xform](#phase-2--module--xform)
+
 
 
 ---
