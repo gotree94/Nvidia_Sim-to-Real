@@ -15,8 +15,9 @@ https://brev.nvidia.com/
 
 <img src="004.png" width="60%">
 
-* 1.3 Deploy Launchable > Go to Instance Page
+* 1.3 Deploy Launchable > Go to Instance Page (우측 하단에 버튼이 있음)
   * Deploy Launchable로 문제 없이 Deploy가 잘 되면 상관 없지만, 잘 되지 않을 경우 꼭 질문할 것
+  * 사용하고 싶은데 서버가 선점되었다면 다른 서버를 실행하기 위함.
 
 <img src="004.png" width="60%">
 
