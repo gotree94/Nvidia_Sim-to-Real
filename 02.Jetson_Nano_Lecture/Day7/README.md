@@ -36,10 +36,9 @@ https://brev.nvidia.com/
 
 <img src="006.png">
 
-입력 후 START 버튼을 눌러 원격 데스크톱 시작
-Isaac Sim
-NVIDIA Isaac Sim™은 NVIDIA Omniverse 기반의 로봇 시뮬레이션 Reference Application입니다.
+* 1.7 입력 후 START 버튼을 눌러 원격 데스크톱 시작
 
+* 1.8 NVIDIA Isaac Sim™은 NVIDIA Omniverse 기반의 로봇 시뮬레이션 Reference Application입니다.
 -	가상 물리 환경 기반 로봇 테스트 및 개발
 -	Omniverse Kit backend 기반 Extension 사용 가능
 -	정적 USD 파일에 ‘Runtime Interaction’ 부여
