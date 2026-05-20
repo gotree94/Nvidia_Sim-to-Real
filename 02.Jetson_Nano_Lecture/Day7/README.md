@@ -9,17 +9,29 @@ https://brev.nvidia.com/
    * 복잡한 설정 없이 NVIDIA GPU  서버를 편하게 사용할 수 있는 서비스
    * 로그인할때 allai12@allai.co.kr로(0519Kosa#) 로그인하고 -> 다른방법으로 -> 다름에 google 계정으로 선택하면 됨.
 
+<img src="001.png">
+
 * 1.2 Launchables > My launchables 에서 ku 선택
+
+<img src="002.png">
 
 * 1.3 Deploy Launchable > Go to Instance Page
   * Deploy Launchable로 문제 없이 Deploy가 잘 되면 상관 없지만, 잘 되지 않을 경우 꼭 질문할 것
 
+<img src="003.png">
+
 * 1.4 Instance는 다음 항목 들로 한정 (금요일 제외)
+
+<img src="004.png">
 
 * 1.5 화면 하단의 Using Secure Links > Share a Service
    * 8080 입력 후 Create
 
+<img src="005.png">
+
 * 1.6 사용자 이름: allai / 비밀번호: kosa 
+
+<img src="006.png">
 
 입력 후 START 버튼을 눌러 원격 데스크톱 시작
 Isaac Sim
