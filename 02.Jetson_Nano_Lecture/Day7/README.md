@@ -359,4 +359,23 @@ source install/setup.bash
 echo "✅ ROS Workspace installation complete."
 ```
 
+```
+67 # Install ROS workspace
+ 68 echo "Installing ROS workspace..."
+ 69 cd ros_ws
+ 70 
+ 71 # Configure and build ROS workspace
+ 72 echo "Configuring and building ROS workspace..."
+ 73 source /opt/ros/humble/setup.bash
+ 74 sudo rosdep init
+ 75 rosdep update
+ 76 
+ 77 rosdep install --from-paths src --ignore-src -r -y
+ 78 colcon build
+ 79 source install/setup.bash
+ 80 
+ 81 echo "ROS Workspace installation complete."
+ 82 
+                   
+```
 
