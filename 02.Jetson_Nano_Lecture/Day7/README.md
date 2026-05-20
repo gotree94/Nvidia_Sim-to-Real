@@ -38,7 +38,9 @@ https://brev.nvidia.com/
 
 <img src="010.png">
 
-* Isaac Sim
+---
+
+## 2. Isaac Sim
    * NVIDIA Isaac Sim™은 NVIDIA Omniverse 기반의 로봇 시뮬레이션 Reference Application입니다.
       -	가상 물리 환경 기반 로봇 테스트 및 개발
       -	Omniverse Kit backend 기반 Extension 사용 가능
@@ -144,7 +146,9 @@ https://brev.nvidia.com/
 * STEP 12 : Assemble a Simple Robot
    * 다음과 같이 설정한 후, Play
 
-## Review
+---
+
+## 3. Review
 - Joint를 연결하려면 RigidBody 속성을 가지고 있어야 한다.
 - 움직임을 위한 Articulation Root는 Root 프림에 설정하는 것을 권장
 - Parent Prim에 RigidBody 속성을 적용하고, Child Prim에 RigidBody 속성을 중복으로 적용하는 것을 피해야 한다.
@@ -157,8 +161,10 @@ https://brev.nvidia.com/
 
    * 메쉬를 분리하고 Collision Mesh를 적용하여 정교함을 얻을 수 있지만, 성능과 속도의 trade-off 관계를 가진다
 
-## DLI 
-Software-in-the-Loop Testing for Robots With OpenUSD, Isaac Sim, and ROS
-https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-OV-39+V1
+---
+
+## 4. DLI 
+   * Software-in-the-Loop Testing for Robots With OpenUSD, Isaac Sim, and ROS
+   * https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-OV-39+V1
 
 
