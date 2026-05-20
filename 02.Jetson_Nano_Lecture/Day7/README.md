@@ -361,7 +361,7 @@ echo "✅ ROS Workspace installation complete."
 
 ---
 
-```
+```Makefile
  # Install ROS workspace
  echo "Installing ROS workspace..."
  cd ros_ws
