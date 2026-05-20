@@ -211,4 +211,34 @@ ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$ c
 ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$ 
 ```
 
+* 설치시 에러가 나기 때문에 아래의 추가 설치 후 확인
+
+```
+ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$ ./install.sh
+...
+...
+...
+Installing ROS workspace...
+Configuring and building ROS workspace...
+/usr/bin/sudo: 175: rosdep: not found
+./install.sh: line 75: rosdep: command not found
+./install.sh: line 77: rosdep: command not found
+./install.sh: line 78: colcon: command not found
+./install.sh: line 79: install/setup.bash: No such file or directory
+ROS Workspace installation complete.
+ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$ 
+```
+
+```
+sudo apt install python3-rosdep
+sudo rosdep init
+sudo rosdep update
+sudo apt-get update && sudo apt-get install -y   ros-humble-topic-tools   ros-humble-navigation2   ros-humble-nav2-amcl   ros-humble-nav2-bringup   ros-humble-nav2-bt-navigator   ros-humble-nav2-costmap-2d   ros-humble-nav2-core   ros-humble-nav2-dwb-controller   ros-humble-nav2-lifecycle-manager   ros-humble-nav2-map-server   ros-humble-nav2-behaviors   ros-humble-nav2-planner   ros-humble-nav2-msgs   ros-humble-nav2-navfn-planner   ros-humble-nav2-rviz-plugins   ros-humble-nav2-behavior-tree   ros-humble-nav2-util   ros-humble-nav2-voxel-grid   ros-humble-nav2-controller   ros-humble-nav2-waypoint-follower   ros-humble-pointcloud-to-laserscan   ros-humble-joint-state-publisher-gui   ros-humble-xacro   ros-humble-moveit   ros-humble-topic-based-ros2-control   ros-humble-ros2-control   ros-humble-ros2-controllers   ros-humble-moveit-simple-controller-manager
+sudo apt-get install -y python3-colcon-common-extensions
+colcon build
+source install/setup.bash
+```
+
+
+
 
