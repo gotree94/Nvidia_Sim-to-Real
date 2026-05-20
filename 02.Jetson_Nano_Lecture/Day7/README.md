@@ -170,4 +170,4 @@ https://brev.nvidia.com/
    
    * https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-OV-39+V1
 
-
+* Download : 6.0.0 : https://github.com/isaac-sim/IsaacSim/tree/develop
