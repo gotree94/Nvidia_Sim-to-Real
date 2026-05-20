@@ -18,9 +18,11 @@ https://brev.nvidia.com/
 * 1.3 Deploy Launchable > Go to Instance Page
   * Deploy Launchable로 문제 없이 Deploy가 잘 되면 상관 없지만, 잘 되지 않을 경우 꼭 질문할 것
 
-<img src="003.png">
+<img src="004.png" width="60%">
 
 * 1.4 Instance는 다음 항목 들로 한정 (금요일 제외)
+
+<img src="003.png">
 
 <img src="002.png">
 
