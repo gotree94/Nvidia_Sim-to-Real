@@ -171,3 +171,44 @@ https://brev.nvidia.com/
    * https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-OV-39+V1
 
 * Download : 6.0.0 : https://github.com/isaac-sim/IsaacSim/tree/develop
+
+
+```
+DModel      aaaa  ALab.zip      DLI_SIL_online_dli      JungleRuins             main_sponza      pkg_b_ivy       pkg_c_trees      roboot2.usd  test.usd
+3DModel.zip  ALab  assemble.usd  DLI_SIL_online_dli.zip  JungleRuins_1_0_1b.zip  main_sponza.zip  pkg_b_ivy1.zip  pkg_c_trees.zip  robot.usd
+ubuntu@e2e484f2865a:~/Downloads$ cd DLI_SIL_online_dli
+ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli$ ls
+Checkpoint1_nova_carter  Checkpoint2_franka  Checkpoint3_occupancy_map  Checkpoint4_completed_environment  Checkpoint5_completed_ros_package  Starting_point
+ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli$ cd Starting_point/
+ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point$ ls
+franka  gtc25-mega1  nova_carter  owl  warehouse_env
+ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point$ cd gtc25-mega1/
+ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$ ls
+install.sh  README.md  ros_ws
+ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$ cat README.md 
+# GTC25-MEGA1 Lab
+
+This repository is part of the GTC MEGA 1 Lab, providing essential resources and instructions for setting up and building the project.
+
+## Installation Instructions
+
+To build and set up the project, follow these steps:
+
+**Run the Installation Script**
+
+Execute the provided installation script to set up the environment from the root folder:
+```bash
+bash ./install.sh
+```
+
+This script will:
+- Initialize and update submodules.
+- Install ROS 2 Humble, including setting up the locale and sources.
+- Install the `nova_carter_description` package.
+- Configure and build the ROS workspace.
+
+ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$ chmod +x install.sh 
+ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$ 
+```
+
+
