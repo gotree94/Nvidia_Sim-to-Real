@@ -239,6 +239,124 @@ colcon build
 source install/setup.bash
 ```
 
+```
+문제 분석
+1. rosdep, colcon 명령어 없음
+설치 스크립트에서 rosdep과 colcon이 설치되지 않은 상태에서 호출됨.
 
+2. ament_cmake not found
+ROS 2 환경(source /opt/ros/humble/setup.bash)이 적용되지 않은 상태에서 colcon build 실행.
+
+3. APT sources.list 중복
+NVIDIA 저장소가 sources.list에 두 번(:43과 :44) 등록됨.
+
+해결 방법
+Step 1: 중복 APT 저장소 정리
+# 중복 라인 확인
+grep -n "isaac" /etc/apt/sources.list
+
+# 중복 제거 (첫 번째는 남기고 두 번째부터 삭제)
+sudo sed -i '/isaac\.download\.nvidia\.com\/isaac-ros/{2,$d}' /etc/apt/sources.list
+
+# 또는 파일을 열어서 직접 중복 라인 삭제
+sudo nano /etc/apt/sources.list
+Step 2: 빠진 패키지 설치
+# rosdep 설치
+sudo apt update
+sudo apt install -y python3-rosdep python3-colcon-common-extensions
+
+# rosdep 초기화
+sudo rosdep init
+rosdep update
+Step 3: ROS 2 Humble 재확인 (ament_cmake 포함)
+# ament_cmake가 실제로 설치되었는지 확인
+dpkg -l | grep ament-cmake
+
+# 없으면 재설치
+sudo apt install --reinstall -y ros-humble-desktop
+Step 4: 올바른 순서로 빌드
+cd ~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1/ros_ws
+
+# ROS 환경 먼저 source (반드시 동일 쉘에서)
+source /opt/ros/humble/setup.bash
+
+# echo $AMENT_PREFIX_PATH 로 환경이 잡혔는지 확인
+echo $AMENT_PREFIX_PATH  # 비어있지 않아야 정상
+
+# rosdep으로 의존성 설치
+rosdep install --from-paths src --ignore-src -r -y
+
+# colcon build
+colcon build
+
+# workspace 환경 source
+source install/setup.bash
+✅ 권장: 전체 수정 설치 스크립트
+기존 install.sh 대신 아래 내용으로 새로 만들어 실행:
+
+#!/bin/bash
+set -e  # 에러 발생 시 중단
+
+# ============================================
+# ROS 2 Humble 설치
+# ============================================
+sudo apt update -y && sudo apt install -y locales
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+sudo apt install -y software-properties-common
+sudo add-apt-repository -y universe
+sudo apt update -y && sudo apt install -y curl
+
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
+  -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+
+sudo apt update -y && sudo apt upgrade -y
+sudo apt install -y ros-humble-desktop
+
+# ============================================
+# ROS 빌드 도구 설치
+# ============================================
+sudo apt install -y python3-rosdep python3-colcon-common-extensions
+
+# ============================================
+# NVIDIA Isaac ROS 저장소 등록
+# ============================================
+sudo apt install -y gnupg wget
+wget -qO - https://isaac.download.nvidia.com/isaac-ros/repos.key | sudo apt-key add -
+
+# 중복 방지: 이미 있으면 추가 안 함
+if ! grep -q "isaac.download.nvidia.com/isaac-ros" /etc/apt/sources.list; then
+  echo "deb https://isaac.download.nvidia.com/isaac-ros/release-3 $(lsb_release -cs) release-3.0" | sudo tee -a /etc/apt/sources.list
+fi
+
+sudo apt update -y
+
+# ============================================
+# nova_carter_description 설치
+# ============================================
+sudo apt install -y ros-humble-nova-carter-description
+
+# ============================================
+# ROS workspace 빌드
+# ============================================
+cd ros_ws
+
+# ROS 환경 source
+source /opt/ros/humble/setup.bash
+
+# rosdep
+sudo rosdep init || true  # 이미 init 되어있으면 skip
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y
+
+# colcon build
+colcon build
+
+source install/setup.bash
+echo "✅ ROS Workspace installation complete."
+```
 
 
