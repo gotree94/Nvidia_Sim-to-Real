@@ -359,8 +359,10 @@ source install/setup.bash
 echo "✅ ROS Workspace installation complete."
 ```
 
+---
+
 ```
-67 # Install ROS workspace
+ 67 # Install ROS workspace
  68 echo "Installing ROS workspace..."
  69 cd ros_ws
  70 
@@ -376,6 +378,5 @@ echo "✅ ROS Workspace installation complete."
  80 
  81 echo "ROS Workspace installation complete."
  82 
-                   
 ```
 
