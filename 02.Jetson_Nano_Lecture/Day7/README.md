@@ -32,7 +32,8 @@ https://brev.nvidia.com/
 
 <img src="005.png">
 
-* 1.6 사용자 이름: allai / 비밀번호: kosa 
+* 1.6 Brev 시작
+   * 사용자 이름: allai / 비밀번호: kosa 
 
 <img src="006.png">
 
