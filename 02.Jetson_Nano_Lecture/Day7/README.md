@@ -7,7 +7,7 @@ https://brev.nvidia.com/
 
 * 1.1 brev.nvidia.com
    * 복잡한 설정 없이 NVIDIA GPU  서버를 편하게 사용할 수 있는 서비스
-   * 로그인할때 allai 로 로그인하고 -> 다른방법으로 -> 다름에 google 계정으로 선택하면 됨.
+   * 로그인할때 allai12@allai.co.kr로(0519Kosa#) 로그인하고 -> 다른방법으로 -> 다름에 google 계정으로 선택하면 됨.
 
 * 1.2 Launchables > My launchables 에서 ku 선택
 
