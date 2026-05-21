@@ -1348,9 +1348,13 @@ factory_base.usda
 
 <img src="usd-buildup\USD-008.png">
 
-xformOp 네임스페이스가 존재하는 이유
-USD 이전의 3D 포맷들은 트랜스폼을 단일 행렬이나 TRS(Translate-Rotate-Scale) 세 값으로 저장했습니다. USD는 다른 접근을 선택했습니다. 트랜스폼을 Op(연산) 목록으로 저장하고, 그 목록을 순서대로 곱해서 최종 행렬을 만듭니다.
-이 설계의 이유는 세 가지입니다.
+**xformOp 네임스페이스가 존재하는 이유**
+
+   * USD 이전의 3D 포맷들은 트랜스폼을 단일 행렬이나 TRS(Translate-Rotate-Scale) 세 값으로 저장했습니다.
+   * USD는 다른 접근을 선택했습니다. 트랜스폼을 Op(연산) 목록으로 저장하고, 그 목록을 순서대로 곱해서 최종 행렬을 만듭니다.
+
+* 이 설계의 이유는 세 가지입니다.
+```
 1. 피벗 회전 표현
    translate → rotatePivot → rotateY → rotatePivotInverse
    → 단일 행렬로는 표현할 수 없는 피벗 기반 회전이 가능
@@ -1362,8 +1366,11 @@ USD 이전의 3D 포맷들은 트랜스폼을 단일 행렬이나 TRS(Translate-
 3. 애니메이션 분리
    translate만 키프레임, rotate는 고정
    → 각 Op를 독립적으로 애니메이션 가능
+```
 
-xformOp의 종류
+**xformOp의 종류**
+
+```
 # 이동
 xformOp:translate          double3
 xformOp:translate:pivot    double3   (suffix 버전)
@@ -1388,17 +1395,26 @@ xformOp:transform          matrix4d  (전체 행렬을 직접)
 
 # 반전 Op — 피벗 복원용
 !invert!xformOp:translate:pivot
-!invert! 접두사는 해당 Op의 역행렬을 적용합니다. 피벗 회전의 전형적인 패턴은 다음과 같습니다.
-usdauniform token[] xformOpOrder = [
+```
+
+* !invert! 접두사는 해당 Op의 역행렬을 적용합니다. 피벗 회전의 전형적인 패턴은 다음과 같습니다.
+
+```usda
+uniform token[] xformOpOrder = [
     "xformOp:translate",
     "xformOp:translate:pivot",
     "xformOp:rotateY",
     "!invert!xformOp:translate:pivot"
 ]
+```
 
-xformOpOrder — 반드시 명시해야 하는 이유
-xformOpOrder가 없으면 USD는 xformOp:* Attribute들이 있어도 트랜스폼을 계산하지 않습니다. 어떤 Op를 어떤 순서로 곱할지 명시적으로 선언해야 합니다.
-usda# 잘못된 예 — xformOpOrder 없음
+**xformOpOrder — 반드시 명시해야 하는 이유**
+
+* xformOpOrder가 없으면 USD는 xformOp:* Attribute들이 있어도 트랜스폼을 계산하지 않습니다.
+* 어떤 Op를 어떤 순서로 곱할지 명시적으로 선언해야 합니다.
+
+```usda
+# 잘못된 예 — xformOpOrder 없음
 def Xform "Robot_01"
 {
     double3 xformOp:translate = (100, 0, 200)
@@ -1417,11 +1433,14 @@ def Xform "Robot_01"
     ]
     # → translate 후 rotateY 적용
 }
-uniform이 붙는 이유는 xformOpOrder는 프레임마다 달라지면 안 되기 때문입니다. Op의 종류와 순서는 씬 전체에서 고정된 구조입니다.
+```
+* uniform이 붙는 이유는 xformOpOrder는 프레임마다 달라지면 안 되기 때문입니다. Op의 종류와 순서는 씬 전체에서 고정된 구조입니다.
 
-프로젝트 코드 — 로봇 팔 관절 계층 구축
-.usda 텍스트 방식
-usdadef Xform "Robot_01"
+**프로젝트 코드 — 로봇 팔 관절 계층 구축**
+**.usda 텍스트 방식**
+
+```usda
+def Xform "Robot_01"
 (
     doc  = "조립 라인 A — 1번 로봇 팔"
     kind = "component"
@@ -1488,8 +1507,12 @@ usdadef Xform "Robot_01"
         }
     }
 }
-Python API 방식
-pythonfrom pxr import Usd, UsdGeom, Gf
+```
+
+**Python API 방식**
+
+```python
+from pxr import Usd, UsdGeom, Gf
 
 stage = Usd.Stage.Open("factory_base.usda")
 
@@ -1534,9 +1557,12 @@ make_joint(stage, f"{base2}/Shoulder/Elbow/Wrist",
            translate=(0, 80, 0),  doc="손목 관절")
 
 stage.Save()
+```
 
-World Transform 계산 — 계층 누적 확인
-pythonfrom pxr import UsdGeom, Usd
+**World Transform 계산 — 계층 누적 확인**
+
+```python
+from pxr import UsdGeom, Usd
 
 stage = Usd.Stage.Open("factory_base.usda")
 
@@ -1572,9 +1598,12 @@ for path in joints:
 # Elbow           world=( 100.0, 200.0, 200.0)
 # Wrist           world=( 100.0, 280.0, 200.0)
 # EndEffector     world=( 100.0, 320.0, 200.0)
+```
 
-XformCommonAPI vs 직접 Op 추가 — 선택 기준
-python# ── XformCommonAPI (간편, 제한적) ──────────────────────────
+**XformCommonAPI vs 직접 Op 추가 — 선택 기준**
+
+```python
+# ── XformCommonAPI (간편, 제한적) ──────────────────────────
 # TRS만 쓰는 단순한 경우에 적합
 api = UsdGeom.XformCommonAPI(xform)
 api.SetTranslate(Gf.Vec3d(100, 0, 200))
@@ -1595,10 +1624,13 @@ xform.AddRotateYOp(
 ops = xform.GetOrderedXformOps()
 for op in ops:
     print(f"  {op.GetOpName():35s} = {op.Get()}")
+```
 
-resetXformStack — 부모 트랜스폼 차단
-특수한 경우에 부모의 트랜스폼을 상속받지 않고 완전히 독립적인 World 좌표를 쓰고 싶을 때 resetXformStack 플래그를 씁니다.
-usdadef Xform "FixedCamera"
+**resetXformStack — 부모 트랜스폼 차단**
+   * 특수한 경우에 부모의 트랜스폼을 상속받지 않고 완전히 독립적인 World 좌표를 쓰고 싶을 때 resetXformStack 플래그를 씁니다.
+
+```usda
+def Xform "FixedCamera"
 {
     double3 xformOp:translate    = (0, 200, -500)
     uniform token[] xformOpOrder = [
@@ -1606,11 +1638,16 @@ usdadef Xform "FixedCamera"
         "xformOp:translate"
     ]
 }
-python# Python에서 resetXformStack 추가
-xform.SetResetXformStack(True)
-주의: 일반 씬에서 남용하면 계층 구조의 의미가 깨집니다. 카메라나 환경 맵처럼 씬 계층과 독립적으로 고정되어야 할 오브젝트에만 씁니다.
+```
 
-지금까지 프로젝트 상태
+```python
+# Python에서 resetXformStack 추가
+xform.SetResetXformStack(True)
+```
+* 주의: 일반 씬에서 남용하면 계층 구조의 의미가 깨집니다. 카메라나 환경 맵처럼 씬 계층과 독립적으로 고정되어야 할 오브젝트에만 씁니다.
+
+**지금까지 프로젝트 상태**
+```
 factory_base.usda
 └── /Factory
     ├── /Factory/Materials           (Scope)
@@ -1625,17 +1662,11 @@ factory_base.usda
     │       │               └── EndEffector (Xform) translate=(0,40,0)   ★
     │       └── Robot_02            (Xform) — 동일 관절 계층
     └── /Factory/Floor              (Mesh)
-로봇 팔의 관절 계층이 완성되었습니다. 각 관절의 rotateZ 값이 현재 0.0으로 고정되어 있는데, 이것이 Module ⑨ TimeSamples에서 프레임마다 달라지는 애니메이션 데이터로 채워집니다.
-다음 모듈 ⑧ Primvars에서는 렌더러에 데이터를 전달하는 특수한 Attribute인 Primvar를 다룹니다. 지금 Floor에 붙어 있는 primvars:displayColor가 왜 일반 Attribute와 다른지, 그리고 interpolation이 Mesh 렌더링에 어떤 영향을 주는지를 깊이 파고듭니다.
-
-계속 진행할까요? 다음 → ⑧ Primvars입력 내용: 7번의 블럭도는 다시 그려주고 완료되면 8번으로 진행해줘7번의 블럭도는 다시 그려주고 완료되면 8번으로 진행해줘07:27Claude 응답: Phase 2 — Module ⑦ : Xform 블록도 재작성 블록도 재작성 완료입니다.Phase 2 — Module ⑦ : Xform 블록도 재작성
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation-duration: 0.25s;
-    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-  }
-VvisualizeVvisualize show_widget블록도 재작성 완료입니다. 왼쪽은 xformOp 스택의 구조·순서·pivot 패턴·resetXformStack까지, 오른쪽은 각 관절의 World Transform 누적 값을 함께 표시했습니다. 블록을 클릭하면 해당 관절 계산 방법으로 바로 이동할 수 있습니다.
+```
+   * 로봇 팔의 관절 계층이 완성되었습니다.
+   * 각 관절의 rotateZ 값이 현재 0.0으로 고정되어 있는데, 이것이 Module ⑨ TimeSamples에서 프레임마다 달라지는 애니메이션 데이터로 채워집니다.
+   * 다음 모듈 ⑧ Primvars에서는 렌더러에 데이터를 전달하는 특수한 Attribute인 Primvar를 다룹니다.
+   * 지금 Floor에 붙어 있는 primvars:displayColor가 왜 일반 Attribute와 다른지, 그리고 interpolation이 Mesh 렌더링에 어떤 영향을 주는지를 깊이 파고듭니다.
 
 ---
 
@@ -1644,16 +1675,10 @@ VvisualizeVvisualize show_widget블록도 재작성 완료입니다. 왼쪽은 x
 
 <img src="usd-buildup\USD-009.png">
 
+**Primvar란 무엇인가**
+   * Primvar(Primitive Variable)는 primvars: 네임스페이스를 가진 특수 Attribute입니다. 일반 Attribute와 세 가지 점에서 다릅니다.
 
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation-duration: 0.25s;
-    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-  }
-VvisualizeVvisualize show_widget
-Primvar란 무엇인가
-**Primvar(Primitive Variable)**는 primvars: 네임스페이스를 가진 특수 Attribute입니다. 일반 Attribute와 세 가지 점에서 다릅니다.
+```
 일반 Attribute     렌더러가 직접 읽지 않음
                    자식에게 상속되지 않음
                    interpolation 없음
@@ -1661,15 +1686,25 @@ Primvar란 무엇인가
 Primvar            렌더러·Shader가 직접 연결해서 읽음
                    자식 Prim으로 자동 상속(cascading)
                    interpolation 메타데이터로 보간 방식 지정
-렌더러 관점에서 Primvar는 Mesh의 각 점·면·버텍스에 데이터를 어떻게 분배할지를 지정하는 채널입니다. UV 좌표, 버텍스 컬러, 노멀, 커스텀 렌더 데이터가 모두 Primvar로 전달됩니다.
+```
+   * 렌더러 관점에서 Primvar는 Mesh의 각 점·면·버텍스에 데이터를 어떻게 분배할지를 지정하는 채널입니다.
+   * UV 좌표, 버텍스 컬러, 노멀, 커스텀 렌더 데이터가 모두 Primvar로 전달됩니다.
 
-Interpolation 4가지
-모드값 개수의미constant1Prim 전체에 단일 값uniformface 수면마다 하나의 값, 면 내부는 동일varying / vertexvertex 수버텍스마다 값, 면 내부는 선형 보간faceVaryingfaceVertex 수UV처럼 면마다 독립적인 버텍스 값
-faceVarying이 UV 텍스처 좌표에 쓰이는 이유는 — 하나의 버텍스가 여러 면에 공유되더라도 면마다 UV 좌표가 달라야 하기 때문입니다.
+**Interpolation 4가지**
+| 모드 | 값 개수 | 의미 | 
+|:------:|:------:|:------:|
+| constant | 1 | Prim 전체에 단일 값 | 
+| uniform | face 수 | 면마다 하나의 값, 면 내부는 동일 | 
+| varying / vertex | vertex 수 | 버텍스마다 값, 면 내부는 선형 보간 | 
+| faceVaryingface | Vertex 수 | UV처럼 면마다 독립적인 버텍스 값 | 
 
-프로젝트 코드 — Primvar 추가
-.usda 텍스트 방식
-usdadef Mesh "Floor"
+* faceVarying이 UV 텍스처 좌표에 쓰이는 이유는 — 하나의 버텍스가 여러 면에 공유되더라도 면마다 UV 좌표가 달라야 하기 때문입니다.
+
+**프로젝트 코드 — Primvar 추가**
+   * .usda 텍스트 방식
+
+```usda
+def Mesh "Floor"
 (
     doc = "공장 바닥면"
 )
@@ -1722,8 +1757,12 @@ def Xform "Robot_01"
     rel material:binding = </Factory/Materials/MetalMaterial>
     custom int custom:serialNumber = 1001
 }
-Python API 방식
-pythonfrom pxr import Usd, UsdGeom, Sdf, Gf, Vt
+```
+
+**Python API 방식**
+
+```python
+from pxr import Usd, UsdGeom, Sdf, Gf, Vt
 
 stage = Usd.Stage.Open("factory_base.usda")
 
@@ -1772,9 +1811,12 @@ gloss = robot_pvAPI.CreatePrimvar(
 gloss.Set(0.85)
 
 stage.Save()
+```
 
-Primvar 읽기 — 상속 추적
-pythonfrom pxr import UsdGeom
+**Primvar 읽기 — 상속 추적**
+
+```python
+from pxr import UsdGeom
 
 # 자식 Prim에서 상속된 Primvar 포함해서 조회
 shoulder = stage.GetPrimAtPath(
@@ -1796,18 +1838,24 @@ if dc:
     print(dc.Get())           # [(0.15, 0.15, 0.6)]  Robot_01에서 상속
     print(dc.GetInterpolation())  # constant
     print(dc.GetPrimvarName())    # displayColor
+```
 
-indices — 메모리 절약 패턴
-Primvar는 SetIndices()로 값 배열을 인덱싱할 수 있습니다. 동일한 값을 반복하지 않고 인덱스로 참조하는 방식입니다.
-usda# 4개 face에 2가지 색만 쓰는 경우
+**indices — 메모리 절약 패턴**
+   * Primvar는 SetIndices()로 값 배열을 인덱싱할 수 있습니다. 동일한 값을 반복하지 않고 인덱스로 참조하는 방식입니다.
+
+```usda
+# 4개 face에 2가지 색만 쓰는 경우
 color3f[] primvars:displayColor = [(1,0,0), (0,0,1)]
 (
     interpolation = "uniform"
 )
 # face 0,2는 빨강(인덱스 0), face 1,3은 파랑(인덱스 1)
 int[] primvars:displayColor:indices = [0, 1, 0, 1]
+```
 
-지금까지 프로젝트 상태
+**지금까지 프로젝트 상태**
+
+```
 factory_base.usda
 └── /Factory
     ├── /Factory/Materials           (Scope)
@@ -1823,9 +1871,14 @@ factory_base.usda
     └── /Factory/Floor              (Mesh)
           primvars:displayColor = [(0.25,0.25,0.25)]       ★ 추가
           primvars:st (UV, faceVarying)                     ★ 추가
+```
+
 Phase 2 완료입니다. Scope·Xform·Primvars — 씬의 공간 구조와 렌더 데이터 채널이 모두 갖춰졌습니다.
 
-Phase 3으로 진입합니다
+---
+
+## Phase 3
+
 다음 모듈 ⑨ TimeCodes & TimeSamples에서는 지금까지 0.0으로 고정된 각 관절의 rotateZ 값에 키프레임을 심어 로봇 팔이 실제로 움직이게 만듭니다.
 
 계속 진행할까요? 다음 → ⑨ TimeCodes & TimeSamples입력 내용: 8번의 블럭도에서 글씨가 오버랩 된것이 있어서 다시 수정해주고8번의 블럭도에서 글씨가 오버랩 된것이 있어서 다시 수정해주고
