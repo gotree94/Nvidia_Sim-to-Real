@@ -146,6 +146,9 @@ bpy.ops.wm.usd_export(filepath='/home/shadeform/output.usdc', export_meshes=True
       * window > Jupyter Notebook
    * Jupyter Notebook 창에서
       * Omniverse (Python 3) 커널 선택
+
+<img src="img\030.png">
+
 ## 8. BaseSample
    * BaseSample code는 robotics 예제에서 재사용 할 수 있도록 만들어진 boilerplate 코드
    * 아래와 같은 작업들을 수행할 수 있음
@@ -155,39 +158,59 @@ bpy.ops.wm.usd_export(filepath='/home/shadeform/output.usdc', export_meshes=True
    * Window > Examples > Robotics Examples > General > Hello World > Load 로 
    * 로딩할 수 있으나, BaseSample를 상속하여 Jupyter Notebook에서 사용할 것임
 
+<img src="img\031.png">
+
 ## 9. 
    * 01.hello_world
       * world = self.get_world() 로 world를 받아온 후, 바닥판을 추가하는 예제
       * world는 singleton이기 때문에, Isaac Sim 구동 중에는 하나의 world만 존재
       * API는 python api 링크를 참조 : https://docs.isaacsim.omniverse.nvidia.com/5.0.0/reference_python_api.html
 
+<img src="img\032.png">
+
    * 02.hello_cube
       * Collider와 Rigidbody를 가지고있는 DynamicCuboid가 포함된 예제
       * https://docs.isaacsim.omniverse.nvidia.com/5.0.0/py/source/extensions/isaacsim.core.api/docs/index.html#isaacsim.core.api.objects.DynamicCuboid
       * setup_scene함수에서 world.scene.add를 사용해 scene을 구성할 수 있음
 
+<img src="img\033.png">
+
    * 03.get_assets
       * Asset의 URL을 받아오고, reference로 띄우는 예제
 
+<img src="img\034.png">
+
    * 04.hello_robot
       * 객체를 world.scene.get_object(name)으로 받아보기
+
+<img src="img\035.png">
 
    * 05.wheeled_robot
       * physics callback을 추가하여 재생버튼을 눌렀을 때 로봇이 움직이도록 해보기
       * 두 바퀴의 속도를 다르게 해보기 
 
+<img src="img\036.png">
+
    * 06.manipulator
       * Wheeled robot이외에, Franka_panda manipulator를 생성해보자
+
+<img src="img\037.png">
 
    * 07.controllers
       * PickPlaceController를 이용해, Articulation에 간편한 인터페이스로 Pick and Place 동작을 수행해보기
 
+<img src="img\038.png">
+
    * 08.integrating_robots
       * 지금까지 만든 두 로봇 장면을 합쳐보기
+
+<img src="img\039.png">
 
    * 09.tasks
       * task는 scene생성, 정보수집 및 계산 등을 용이하게 하기 위한 class
       * 지금까지 활용한 항목들을 task를 이용해서 다시 작성할 수 있다. 
+
+<img src="img\040.png">
 
    * Explore more examples
       * Window > Examples > Robotics Examples에서 다양한 robotics examples 확인 가능
