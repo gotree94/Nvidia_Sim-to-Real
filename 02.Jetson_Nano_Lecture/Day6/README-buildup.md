@@ -1881,6 +1881,19 @@ Phase 2 완료입니다. Scope·Xform·Primvars — 씬의 공간 구조와 렌�
 
 다음 모듈 ⑨ TimeCodes & TimeSamples에서는 지금까지 0.0으로 고정된 각 관절의 rotateZ 값에 키프레임을 심어 로봇 팔이 실제로 움직이게 만듭니다.
 
+
+<img src="usd-buildup\USD-010.png">
+
+<img src="usd-buildup\USD-011.png">
+
+<img src="usd-buildup\USD-012.png">
+
+<img src="usd-buildup\USD-013.png">
+
+<img src="usd-buildup\USD-014.png">
+
+<img src="usd-buildup\USD-015.png">
+
 계속 진행할까요? 다음 → ⑨ TimeCodes & TimeSamples입력 내용: 8번의 블럭도에서 글씨가 오버랩 된것이 있어서 다시 수정해주고8번의 블럭도에서 글씨가 오버랩 된것이 있어서 다시 수정해주고
 완료되면 9번을 진행해줘07:30Claude 응답: Module ⑧ 블록도 수정 블록도 수정 완료입니다.Module ⑧ 블록도 수정
   ::view-transition-group(*),
