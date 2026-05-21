@@ -89,28 +89,28 @@
    * F3 > Cursor to World Origin 하고,
    * Layout > Empty > Plain Axes로 축 생성
 
-<img src="img\015-1.png"> <img src="img\015-2.png">
+<img src="img\015.png"> <img src="img\016.png">
 
    * Root, Empty 를 ctrl로 차례대로 선택 후
    * ctrl + p > set parent to object (keep transform)
 
-<img src="img\016.png">
-
+<img src="img\017.png">
    * 여기서부터, clear parent, set parent를 전체적으로 반복
    * 생성했던 Xform은 clear parent,
    * 나머지는 clear and keep transform
 
-<img src="img\017.png">
-
-   * 오른 쪽 항목에서 Mesh 클릭 후 ctrl 클릭으로      (Plane Axes)을 클릭하고
+<img src="img\018.png">
+   * 오른 쪽 항목에서 Mesh 클릭 후 ctrl 클릭으로 <img src="img\019-1.png"> (Plane Axes)을 클릭하고
    * 화면에 마우스를 올린 후 ctrl + p > Set parent to Object (Keep Transform)
 
-<img src="img\018.png">
+<img src="img\019-2.png">
 
    * 메쉬의 origin 설정
    * 메쉬 클릭 후 (드래그 가능)
    * F3 > Object > Set Origin > Origin to Center of Mass 
    * 별도의 origin 설정이 필요할 수 있음
+
+<img src="img\020.png">
 
    * 상단의 Scripting 에 들어가서 New 클릭 후, filepath 설정 후 실행 버튼 클릭  
 ```
