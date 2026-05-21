@@ -1,82 +1,197 @@
-하드웨어 진단
-항목	상태
-RTX 5090 (Blackwell)	✅ 문제없음. 단, 최신 NVIDIA 드라이버 필수 (v570 이상)
-RAM 24GB	⚠️ Isaac Sim 권장 RAM은 32GB 이상. 간단한 scene은 가능하지만, 복잡한 시뮬레이션/Idealab 사용시 부족할 수 있음
-Ubuntu 22.04	✅ 공식 지원 버전
-디스크 여유공간	Isaac Sim 설치 시 ~30GB 이상 필요 (설치 후 더 커질 수 있음)
-설치 단계
-1. NVIDIA 드라이버 설치 (RTX 5090 필수)
-RTX 5090은 Blackwell 아키텍처이므로 드라이버 v570 이상이 반드시 필요합니다.
+# CAD to Sim
 
-# 사용 가능한 드라이버 확인
-ubuntu-drivers devices
+* 준비물
+   -	블렌더
+   -	리깅할 로봇 CAD, RB10-1300E 레인보우로보틱스 - 협동로봇
+   -	로봇 사양서
 
-# 최신 드라이버 설치 (570 권장)
-sudo apt install nvidia-driver-570
-# 또는 nvidia-driver-570-open (laptop hybrid graphics면 open 버전 고려)
+## 1. 리깅이란?
+리깅은 3D 모델이 움직일 수 있도록 뼈대를 심는 작업을 말한다
 
-# 재부팅
-sudo reboot
+로봇 리깅은 공식적으로 정의된 언어는 아니지만, 간단하게 로봇이 움직일 수 있도록 하는 작업을 뜻한다 
+파일 가져오기
+다운로드 받은 파일을 File > Import로 가져옵니다.
 
-# 확인
-nvidia-smi
-노트북 hybrid graphics: 노트북이라면 nvidia-driver-570-open이 더 잘 맞을 수 있습니다. nvidia-smi에 RTX 5090이 잡히는지 확인하세요.
+파일 가져오기
+Convert Visible Only 체크 해제,
+Enable Instancing 체크 해제 후
+Unit을 Meters로 설정하고 Import
 
-2. GCC/G++ 11 설정
-sudo apt update
-sudo apt install build-essential gcc-11 g++-11
+> stp폴더와 같은 곳에 usd 파일 생성
+Prim 정리
 
-# GCC 11을 시스템 기본으로
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 200
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 200
+Looks Prim을 tn__RB101300EEVersion_lMb0r1C에 Drag & Drop 한 후
+다음과 같이 블럭지정하여 Save Selected
 
-# 확인
-gcc --version   # 11.x.x 확인
-3. 기타 의존성
-sudo apt install libegl1 libvulkan1 rsync python3 pip
-4. Isaac Sim 설치
-다운로드한 파일 형식에 따라:
 
-A) tar.xz / tar.gz 압축파일인 경우:
+Prim 정리
+중첩되어있는 Xform 안에 있는 Mesh를 정리
 
-cd ~/Downloads   # 다운로드 위치
-# tar.xz
-tar -xf IsaacSim-5.1.0-*-linux-x86_64.tar.xz
-# 또는 tar.gz
-tar -xzf IsaacSim-5.1.0-*-linux-x86_64.tar.gz
+메쉬를 상위 Xform으로 옮기기
 
-mv IsaacSim-5.1.0 ~/isaacsim
-cd ~/isaacsim
+모든 Link에 대해 반복
+Prim 정리
 
-# 호환성 체크 (권장)
-./isaac-sim.compatibility_check.sh
+사용하지 않는 Xform Prim을 삭제하고, 이름을 읽기 쉽게 변경
 
-# 실행
-./isaac-sim.sh
-B) GitHub에서 git clone한 경우:
 
-cd ~/isaacsim
-git lfs install
-git lfs pull
-./build.sh
-cd _build/linux-x86_64/release
-./isaac-sim.sh
-RAM 24GB 관련 팁
-RAM이 24GB이므로 실행 시 다음 옵션을 고려하세요:
 
-# 간단한 scene 실행 (권장)
-./isaac-sim.sh
+Prim 정리
+로봇의 도면 또는 DH-parameter를 참조하여 새롭게 Xform 생성
+일단 필요할 것 같은 Xform 지점을 모두 생성하고, 
+이후에 분류를 권장
 
-# 복잡한 scene / Isaac Lab 사용시 swap 확보
-sudo fallocate -l 32G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
+Robot Base의 Translate, Orient를 (0, 0, 0)으로 하여 
+Z-up을 권장
+(사진의 flange는 Link6)  
+Adding Color
 
-# headless 모드로 실행 (GUI 없이, RAM 절약)
-./isaac-sim.sh --no-window
-요약
-✅ Ubuntu 22.04 + RTX 5090 = 훌륭한 GPU 성능
-⚠️ RAM 24GB = 간단한 시뮬레이션 위주로 사용 권장
-⚠️ NVIDIA Driver v570+ 필수 (RTX 5090 지원)
-다운로드하신 파일이 정확히 어떤 형식인지(tar.xz, git clone, 또는 다른 방식) 알려주시면 해당 부분을 더 구체적으로 도와드릴 수 있습니다.
+Mesh의 Property 중 Material, 또는 Mesh가 다양한 Diffuse를 가지고 있는 경우 Diffuse의 Material을 다시 지정
+
+
+Blender
+블렌더 실행 후 우측 기본 요소 제거
+블렌더의 경우 휠 클릭 및 드래그로 네비게이션 진행
+
+Blender
+USD 파일을 드래그앤 드랍하여 불러온 후 Import USD
+
+이후 Root를 확장, 내부 요소를 블럭 지정한 후
+Blender
+화면에 마우스를 올리고, alt + p > clear parent
+작업할 메쉬 를 마우스로 클릭
+Blender
+화면에서 Tab을 눌러 Edit Mode로 진행
+점을 클릭 또는, 점 다수를 shift로 클릭하여 선택하고 
+ctrl + s > Cursor to Selected
+
+점을 잘못 클릭했다면 alt + a 로 선택해제
+
+Blender
+F3을 눌러 검색 > Origin to 3d Cursor
+
+Blender
+새로운 Blender 창을 열고, USD Import 진행
+Scale을 100으로 설정 
+Blender
+Root를 선택한 후, 기록했던 Location을 빼기
+Blender
+새로운 축을 만들고, 세우기 위해 
+F3 > Cursor to World Origin 하고,
+Layout > Empty > Plain Axes로 축 생성
+
+Blender
+Root, Empty 를 ctrl로 차례대로 선택 후
+ctrl + p > set parent to object (keep transform)
+Blender
+여기서부터, clear parent, set parent를 전체적으로 반복
+
+생성했던 Xform은 clear parent,
+나머지는 clear and keep transform
+
+Blender
+오른 쪽 항목에서 Mesh 클릭 후 ctrl 클릭으로      (Plane Axes)을 클릭하고
+화면에 마우스를 올린 후 ctrl + p > Set parent to Object (Keep Transform)
+Blender
+메쉬의 origin 설정
+메쉬 클릭 후 (드래그 가능)
+F3 > Object > Set Origin > Origin to Center of Mass 
+별도의 origin 설정이 필요할 수 있음
+
+
+Blender
+상단의 Scripting 에 들어가서 New 클릭 후, filepath 설정 후 실행 버튼 클릭  
+import bpy
+bpy.ops.wm.usd_export(filepath='/home/shadeform/output.usdc', export_meshes=True, merge_parent_xform=True, convert_world_material=True)
+Diffuse
+stage의 env_light 삭제
+모든 메쉬를 보도록 필터링하고 선택한 후
+Refinement Override에 체크하고 
+Refinement Level 조정
+
+
+
+
+Joints
+움직이는 Link에 Rigidbody 속성을 부여
+
+Joints
+로봇의 기반인 Robot_Base에 우클릭하여 fixed joint를 생성
+Joints
+생성한 fixed joint에 Articulation root 부여
+Joints
+이후 Link끼리 Revolute Joint를 생성하고 
+Revolute Joint의 Axis를 직접 조절
+Joints
+Revolute Joint에 Angular Drive를 추가
+
+Damping과 Stiffness를 적절히 부여
+
+
+Core API Tutorial Series
+
+Core API Tutorial Series - nvidia
+
+Jupyter notebook extension
+window > Extensions 
+Jupyter notebook extension
+
+팝업 창에 jupyter를 검색 후, 나오는 JUPYTER NOTEBOOK INTEGRATION을 클릭 > DISABLED, AUTOLOAD 왼쪽의 버튼을 모두 클릭하여 활성화
+Jupyter notebook extension
+
+활성화된 Jupyter Notebook 사용
+
+window > Jupyter Notebook
+Jupyter notebook extension
+
+Jupyter Notebook 창에서
+Omniverse (Python 3) 커널 선택
+BaseSample
+BaseSample code는 robotics 예제에서 재사용 할 수 있도록 만들어진 boilerplate 코드
+아래와 같은 작업들을 수행할 수 있음
+•	Stage 생성 시, world 초기화
+•	전체 앱 종료 없이 변경점만 로딩
+•	World안의 객체를 초기 값으로 변경
+
+Window > Examples > Robotics Examples > General > Hello World > Load 로 
+로딩할 수 있으나, BaseSample를 상속하여 Jupyter Notebook에서 사용할 것임
+01.hello_world
+world = self.get_world() 로 world를 받아온 후, 바닥판을 추가하는 예제
+world는 singleton이기 때문에, Isaac Sim 구동 중에는 하나의 world만 존재
+
+
+
+
+API는 python api 링크를 참조
+02.hello_cube
+Collider와 Rigidbody를 가지고있는 DynamicCuboid가 포함된 예제
+setup_scene함수에서 world.scene.add를 사용해 scene을 구성할 수 있음
+
+03.get_assets
+Asset의 URL을 받아오고, reference로 띄우는 예제
+04.hello_robot
+객체를 world.scene.get_object(name)으로 받아보기
+05.wheeled_robot
+physics callback을 추가하여 재생버튼을 눌렀을 때 로봇이 움직이도록 해보기
+두 바퀴의 속도를 다르게 해보기 
+06.manipulator
+Wheeled robot이외에, Franka_panda manipulator를 생성해보자
+07.controllers
+PickPlaceController를 이용해, Articulation에 간편한 인터페이스로 Pick and Place 동작을 수행해보기
+08.integrating_robots
+지금까지 만든 두 로봇 장면을 합쳐보기
+09.tasks
+task는 scene생성, 정보수집 및 계산 등을 용이하게 하기 위한 class
+
+지금까지 활용한 항목들을 task를 이용해서
+다시 작성할 수 있다. 
+Explore more examples
+
+
+Window > Examples > Robotics Examples에서 다양한 robotics examples 확인 가능
+ex) multi-robot > RoboFactory 
+Do it yourself
+기존까지 구현한 Scene에 오늘 학습한 Python code를 활용해보기
+-	매니퓰레이터가 들어야 할 큐브에 mass를 높게 설정해보기
+-	jetbot에 다른 controller를 적용해보기
+등..
