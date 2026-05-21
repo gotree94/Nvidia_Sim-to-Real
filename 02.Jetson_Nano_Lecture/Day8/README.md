@@ -100,7 +100,7 @@
    * 나머지는 clear and keep transform
 
 <img src="img\018.png">
-   * 오른 쪽 항목에서 Mesh 클릭 후 ctrl 클릭으로 <img src="img\019-1.png"> (Plane Axes)을 클릭하고
+   * 오른 쪽 항목에서 Mesh 클릭 후 ctrl 클릭으로 <img src="img\019-1.png" width="30%"> (Plane Axes)을 클릭하고
    * 화면에 마우스를 올린 후 ctrl + p > Set parent to Object (Keep Transform)
 
 <img src="img\019-2.png">
