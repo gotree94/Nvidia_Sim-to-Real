@@ -1,8 +1,8 @@
 # Day 8: CAD to Sim
 
 * 준비물
-   -	블렌더
-   -	리깅할 로봇 CAD, RB10-1300E 레인보우로보틱스 - 협동로봇
+   -	블렌더 https://www.blender.org/download/
+   -	리깅할 로봇 CAD, RB10-1300E 레인보우로보틱스 - 협동로봇 https://www.rainbow-robotics.com/rb
    -	로봇 사양서
 
 ## 1. 리깅이란?
