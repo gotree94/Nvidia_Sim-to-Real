@@ -1681,6 +1681,10 @@ factory_base.usda
 
 <img src="usd-buildup\USD-009.png">
 
+<img src="usd-buildup\USD-010.png">
+
+<img src="usd-buildup\USD-011.png">
+
 **Primvar란 무엇인가**
    * Primvar(Primitive Variable)는 primvars: 네임스페이스를 가진 특수 Attribute입니다. 일반 Attribute와 세 가지 점에서 다릅니다.
 
@@ -1887,10 +1891,6 @@ Phase 2 완료입니다. Scope·Xform·Primvars — 씬의 공간 구조와 렌�
 
 다음 모듈 ⑨ TimeCodes & TimeSamples에서는 지금까지 0.0으로 고정된 각 관절의 rotateZ 값에 키프레임을 심어 로봇 팔이 실제로 움직이게 만듭니다.
 
-
-<img src="usd-buildup\USD-010.png">
-
-<img src="usd-buildup\USD-011.png">
 
 <img src="usd-buildup\USD-012.png">
 
