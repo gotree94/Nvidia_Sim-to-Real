@@ -1887,37 +1887,14 @@ Phase 2 완료입니다. Scope·Xform·Primvars — 씬의 공간 구조와 렌�
 
 다음 모듈 ⑨ TimeCodes & TimeSamples에서는 지금까지 0.0으로 고정된 각 관절의 rotateZ 값에 키프레임을 심어 로봇 팔이 실제로 움직이게 만듭니다.
 
+## Phase 3 — Module ⑨ : TimeCodes & TimeSamples
+
+**"로봇 팔이 움직인다 — 씬에 시간을 심다"**
 
 <img src="usd-buildup\USD-012.png">
 
-<img src="usd-buildup\USD-013.png">
+* TimeCode란 무엇인가
 
-<img src="usd-buildup\USD-014.png">
-
-<img src="usd-buildup\USD-015.png">
-
-계속 진행할까요? 다음 → ⑨ TimeCodes & TimeSamples입력 내용: 8번의 블럭도에서 글씨가 오버랩 된것이 있어서 다시 수정해주고8번의 블럭도에서 글씨가 오버랩 된것이 있어서 다시 수정해주고
-완료되면 9번을 진행해줘07:30Claude 응답: Module ⑧ 블록도 수정 블록도 수정 완료입니다.Module ⑧ 블록도 수정
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation-duration: 0.25s;
-    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-  }
-VvisualizeVvisualize show_widget블록도 수정 완료입니다. 4가지 interpolation 모드 칸 간격을 균등하게 벌리고, 텍스트 위치를 박스 안으로 정확히 배치했습니다. 하단 상속 다이어그램도 라벨 오버랩 없이 재정렬했습니다.
-
-## Phase 3 — Module ⑨ : TimeCodes & TimeSamples
-
-"로봇 팔이 움직인다 — 씬에 시간을 심다"
-
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation-duration: 0.25s;
-    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-  }
-VvisualizeVvisualize show_widget
-TimeCode란 무엇인가
 USD의 시간 단위는 TimeCode입니다. 초(second)가 아니라 추상적인 숫자입니다. timeCodesPerSecond로 실제 시간과 연결합니다.
 timeCodesPerSecond = 24.0
 startTimeCode = 1.0
@@ -2161,13 +2138,8 @@ Phase 4로 진입합니다
 
 **"씬에 빛을 더하다 — UsdLux 조명 시스템"**
 
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation-duration: 0.25s;
-    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-  }
-VvisualizeVvisualize show_widget
+<img src="usd-buildup\USD-013.png">
+
 UsdLux — USD 조명 시스템
 UsdLux는 USD의 조명 스키마 라이브러리입니다. 렌더러에 독립적인 표준 조명 인터페이스를 제공하며, Hydra를 통해 어떤 렌더러(RenderMan, Arnold, Karma, Omniverse RTX)에서도 동일하게 해석됩니다.
 모든 UsdLux 조명 Prim은 공통 Attribute를 공유합니다.
@@ -2383,15 +2355,10 @@ Phase 4 조명 완료입니다. 세 종류의 조명이 Light Linking으로 각�
 
 ## Phase 4 — Module ⑪ : File Formats
 
-"usda · usdc · usdz — 포맷을 알면 파이프라인이 보인다"
+**"usda · usdc · usdz — 포맷을 알면 파이프라인이 보인다"**
 
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation-duration: 0.25s;
-    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-  }
-VvisualizeVvisualize show_widget
+<img src="usd-buildup\USD-014.png">
+
 포맷 선택 원칙
 세 포맷은 용도가 다릅니다. 파일 확장자만 다른 게 아니라 파이프라인에서의 역할이 완전히 구분됩니다.
 .usda   개발·디버깅·교육·Git 버전 관리
@@ -2806,6 +2773,8 @@ Phase 5로 진입합니다
 "씬을 레고처럼 조립하다 — 6가지 컴포지션 아크"
 
 ---
+
+<img src="usd-buildup\USD-015.png">
 
 
 
