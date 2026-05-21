@@ -244,3 +244,7 @@ bpy.ops.wm.usd_export(filepath='/home/shadeform/output.usdc', export_meshes=True
          -	매니퓰레이터가 들어야 할 큐브에 mass를 높게 설정해보기
 -	jetbot에 다른 controller를 적용해보기
 등..
+
+
+* https://bangrobotech.tistory.com/18
+* 
