@@ -2234,8 +2234,55 @@ At:
 [7.312s] [ext: omni.kit.property.light-1.0.12] startup
 Inconsistency detected by ld.so: ../elf/dl-tls.c: 618: _dl_allocate_tls_init: Assertion `listp != NULL' failed!
 (base) gotree94@gotree94-ROG-Strix-SCAR-16-G635LX-G635LX:~/isaacsim$ 
-
 ```
+
+* 문제는 PyTorch에 번들된 CUDA 라이브러리와 시스템 NVIDIA 드라이버(580 / CUDA 13.0) 간의 불일치입니다.
+* 에러 메시지의 핵심:
+```
+libcusparse.so.12: undefined symbol: __nvJitLinkCreate_12_8, version libnvJitLink.so.12
+Isaac Sim에 번들된 PyTorch는 CUDA 12.8용 라이브러리를 쓰는데, RTX 5090 드라이버(580)는 CUDA 13.0입니다. nvJitLink 심볼이 호환되지 않습니다.
+```
+
+* 해결책 1 (가장 쉬움) — libnvJitLink12 설치
+```
+# CUDA 12.x JIT 링커 라이브러리 설치
+sudo apt install libnvjitlink12
+
+# 또는 Ubuntu 22.04 CUDA 12 Repo (자세한건 아래 2번 참고)
+해결책 2 — CUDA 12.8 Toolkit 설치 (확실한 방법)
+
+# NVIDIA CUDA 12.8 repository 등록
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo apt update
+
+# CUDA 12.8 toolkit 설치
+sudo apt install cuda-toolkit-12-8
+
+# LD_LIBRARY_PATH에 CUDA 12.8 추가 (~/.bashrc에 추가)
+echo 'export LD_LIBRARY_PATH=/usr/local/cuda-12.8/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
+source ~/.bashrc
+
+# 재실행
+cd /home/gotree94/isaacsim
+./isaac-sim.sh
+해결책 3 — LD_PRELOAD 우회 (빠른 테스트)
+
+# 시스템에 이미 있는 libnvJitLink 확인
+ldconfig -p | grep nvJitLink
+
+# 번들된 libnvJitLink를 시스템 것으로 대체
+cp /usr/lib/x86_64-linux-gnu/libnvJitLink.so.12 \
+   /home/gotree94/isaacsim/_build/linux-x86_64/release/exts/omni.isaac.ml_archive/pip_prebundle/torch/lib/
+
+# 또는 환경변수로 강제
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libnvJitLink.so.12
+./isaac-sim.sh
+1번(sudo apt install libnvjitlink12) 2번(CUDA 12.8 toolkit) 순서로 시도해보세요.
+```
+
+
+
 ---
 
 ## 5. RAM 24GB → SWAP 설정 (필수)
