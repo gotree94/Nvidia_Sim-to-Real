@@ -42,27 +42,39 @@
    * 이후에 분류를 권장
    * Robot Base의 Translate, Orient를 (0, 0, 0)으로 하여 Z-up을 권장 (사진의 flange는 Link6)  
 
+<img src="img\006.png">
+
 ## 4. Adding Color
    * Mesh의 Property 중 Material, 또는 Mesh가 다양한 Diffuse를 가지고 있는 경우 Diffuse의 Material을 다시 지정
 
-<img src="img\006.png">
+<img src="img\007.png">
 
 # 5. Blender
    * 블렌더 실행 후 우측 기본 요소 제거
    * 블렌더의 경우 휠 클릭 및 드래그로 네비게이션 진행
 
+<img src="img\008.png"> <img src="img\009.png">
+
    * USD 파일을 드래그앤 드랍하여 불러온 후 Import USD
    * 이후 Root를 확장, 내부 요소를 블럭 지정한 후
 
+<img src="img\010.png">
+
    * 화면에 마우스를 올리고, alt + p > clear parent
    * 작업할 메쉬 를 마우스로 클릭
+
+<img src="img\011.png">
 
    * 화면에서 Tab을 눌러 Edit Mode로 진행
    * 점을 클릭 또는, 점 다수를 shift로 클릭하여 선택하고 
    * ctrl + s > Cursor to Selected
    * 점을 잘못 클릭했다면 alt + a 로 선택해제
 
+<img src="img\012.png">
+
    * F3을 눌러 검색 > Origin to 3d Cursor
+
+<img src="img\013.png">
 
    * 새로운 Blender 창을 열고, USD Import 진행
    * Scale을 100으로 설정 
