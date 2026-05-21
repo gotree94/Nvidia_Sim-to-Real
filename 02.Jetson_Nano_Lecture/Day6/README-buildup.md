@@ -3571,8 +3571,39 @@ base = stage.GetPrimAtPath("/_RobotBase")
 base.GetAttribute("custom:manufacturer").Set("NewFactory Corp")
 # Robot_01, Robot_02 모두 즉시 반영
 
-커리큘럼 완료 — 전체 요약
-Phase모듈핵심 개념프로젝트 기여1Stage씬 진입점, Layer Stackfactory_base.usda 생성1PrimsSdfPath, Specifier, Kind/Factory 트리 구성1Attributes타입 시스템, Default Value위치·재질·커스텀 데이터1RelationshipsSdfPath 포인터material:binding, light:link1Metadatadoc, kind, customData씬 문서화, 계층 분류2Scope논리 컨테이너Materials/Lights/Robots 분류2XformxformOp 스택관절 계층 구조2Primvarsinterpolation, 상속버텍스 컬러, UV3TimeSamplesTimeCode, 키프레임로봇 팔 애니메이션4LightingUsdLux, Light Linking3종 조명 체계4File Formatsusda/usdc/usdz개발→프로덕션→배포4ModulesIsA/API SchemaPhysics, Render 추가5Composition6 아크레이어 분리 조립5LIVRPS우선순위 해석비파괴 오버라이드5Key Concepts합성 엔진, Instancing최종 패키징
+**커리큘럼 완료 — 전체 요약**
+
+| Phase | 모듈 | 핵심 개념 | 프로젝트 기여 | 
+| 1 | Stage | 씬 진입점, Layer Stackfactory_base.usda 생성 | 
+| 1 | Prims | SdfPath, Specifier, Kind/Factory 트리 구성 | 
+| 1 | Attributes | 타입 시스템, Default Value위치·재질·커스텀 데이터 | 
+| 1 | Relationships | SdfPath 포인터material:binding, light:link | 
+| 1 | Metadata | doc, kind, customData씬 문서화, 계층 분류 | 
+| 2 | Scope | 논리 컨테이너Materials/Lights/Robots 분류 | 
+| 2 | Xform | xformOp 스택관절 계층 구조 | 
+| 2 | Primvars | interpolation, 상속버텍스 컬러, UV | 
+| 3 | TimeSamples | TimeCode, 키프레임로봇 팔 애니메이션 | 
+| 4 | Lighting | UsdLux, Light Linking3종 조명 체계 | 
+| 4 | File Format | susda/usdc/usdz개발→프로덕션→배포 | 
+| 4 | Modules | IsA/API SchemaPhysics, Render 추가 | 
+| 5 | Composition | 6 아크레이어 분리 조립 | 
+| 5 | LIVRPS | 우선순위 해석비파괴 오버라이드 |  
+| 5 | Key Concepts | 합성 엔진, Instancing | 최종 패키징 | 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 🎉 전체 커리큘럼 완료입니다.
 15개 모듈, 5개 Phase, 하나의 Robot Factory Scene — Stage에서 시작해 Composition 마스터리까지 USD의 전체 개념 체계를 단일 프로젝트로 완성했습니다. 특정 모듈을 더 깊이 파고들거나, 실제 Omniverse / Houdini 환경에서의 적용 방법이 필요하시면 말씀해 주세요.
