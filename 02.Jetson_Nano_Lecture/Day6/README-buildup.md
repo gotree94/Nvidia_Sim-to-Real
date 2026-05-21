@@ -2740,7 +2740,8 @@ for api in prim.GetAppliedSchemas():
 print(UsdPhysics.RigidBodyAPI.CanApply(prim))  # True
 print(prim.HasAPI(UsdPhysics.RigidBodyAPI))    # True
 
-지금까지 프로젝트 상태
+**지금까지 프로젝트 상태**
+```
 factory_base.usda
 └── /Factory
     ├── /Factory/PhysicsScene          ★ UsdPhysics 추가
@@ -2764,6 +2765,7 @@ factory_base.usda
 /Render/Settings                       ★ UsdRender 추가
     resolution=1920×1080
     camera → MainCamera
+```
 Phase 4 완전 완료입니다. UsdGeom · UsdShade · UsdLux · UsdPhysics · UsdRender — 로봇 공장 씬에 필요한 모든 Schema 모듈이 적용되었습니다.
 
 Phase 5로 진입합니다
@@ -2776,5 +2778,802 @@ Phase 5로 진입합니다
 
 <img src="usd-buildup\USD-015.png">
 
+컴포지션 아크 상세 — 개념과 코드
 
+LIVRPS란
+USD 컴포지션의 핵심 규칙입니다. 여러 아크가 같은 Prim의 같은 Attribute에 오피니언(의견)을 가질 때 어느 것이 이기는가를 결정하는 우선순위 체계입니다.
+L  Local         — 현재 레이어의 직접 선언       (가장 강함)
+I  Inherit       — class Prim 상속
+V  Variant       — VariantSet 선택
+R  Reference     — 외부 파일 참조
+P  Payload       — 지연 로딩 참조
+S  SubLayer      — 레이어 스택                   (가장 약함)
+같은 레이어 안에서는 L이 항상 이깁니다. 즉, over로 선언한 로컬 오피니언이 Reference에서 가져온 값을 덮어씁니다. 이것이 비파괴 오버라이드의 핵심 원리입니다.
+
+① SubLayer — 레이어 스택 쌓기
+SubLayer는 여러 .usda 파일을 같은 씬의 다른 관점으로 쌓는 방법입니다. 영화 편집의 트랙 개념과 동일합니다.
+factory_composed.usda        ← Root Layer (마스터)
+  subLayers:
+    factory_lighting.usda    ← 조명 담당자 작업
+    factory_anim.usda        ← 애니메이터 작업
+    factory_base.usda        ← 모델링 담당자 작업 (가장 약함)
+위에 있을수록 강합니다. factory_lighting.usda가 factory_base.usda의 값을 덮어씁니다.
+.usda 텍스트 방식
+usda# factory_composed.usda — 마스터 컴포지션 파일
+#usda 1.0
+(
+    doc            = "Robot Factory — Composed Master"
+    defaultPrim    = "Factory"
+    upAxis         = "Y"
+    metersPerUnit  = 0.01
+
+    subLayers = [
+        @factory_lighting.usda@,   # 조명 레이어 (강)
+        @factory_anim.usda@,       # 애니메이션 레이어
+        @factory_base.usda@        # 베이스 레이어 (약)
+    ]
+)
+# 이 파일 자체에는 Prim이 없어도 됨
+# 세 레이어가 합성되어 /Factory 트리가 완성됨
+Python API 방식
+pythonfrom pxr import Usd, Sdf
+
+# 마스터 Stage 생성
+stage = Usd.Stage.CreateNew("factory_composed.usda")
+root  = stage.GetRootLayer()
+
+# SubLayer 추가 — 인덱스 0이 가장 강함
+root.subLayerPaths.append("factory_lighting.usda")
+root.subLayerPaths.append("factory_anim.usda")
+root.subLayerPaths.append("factory_base.usda")
+
+# SubLayer 시간 오프셋 (Module ⑨에서 소개한 기능)
+root.subLayerOffsets[1] = Sdf.LayerOffset(offset=0, scale=1.0)
+
+stage.Save()
+
+# 합성 결과 확인
+for prim in stage.Traverse():
+    print(prim.GetPath())
+
+② Reference — 에셋 재사용의 핵심
+Reference는 외부 파일의 Prim을 현재 씬의 특정 경로에 배치합니다. 같은 robot_arm.usda를 Robot_01과 Robot_02 두 곳에 배치하면 파일을 복사하지 않고도 두 개의 로봇이 생깁니다.
+robot_arm.usda          ← 로봇 팔 에셋 정의
+factory_base.usda
+  /Factory/Robots/Robot_01  references → robot_arm.usda </RobotArm>
+  /Factory/Robots/Robot_02  references → robot_arm.usda </RobotArm>
+.usda 텍스트 방식
+usda# robot_arm.usda — 재사용 가능한 로봇 팔 에셋
+#usda 1.0
+(
+    defaultPrim = "RobotArm"
+)
+def Xform "RobotArm"
+(
+    doc  = "재사용 로봇 팔 에셋"
+    kind = "component"
+)
+{
+    custom string custom:model = "ARM-7X"
+
+    def Xform "Shoulder"
+    {
+        double3 xformOp:translate    = (0, 80, 0)
+        double  xformOp:rotateZ      = 0.0
+        uniform token[] xformOpOrder = [
+            "xformOp:translate", "xformOp:rotateZ"
+        ]
+        def Xform "Elbow"
+        {
+            double3 xformOp:translate    = (0, 120, 0)
+            double  xformOp:rotateZ      = 0.0
+            uniform token[] xformOpOrder = [
+                "xformOp:translate", "xformOp:rotateZ"
+            ]
+            def Xform "Wrist"
+            {
+                double3 xformOp:translate    = (0, 80, 0)
+                double  xformOp:rotateZ      = 0.0
+                uniform token[] xformOpOrder = [
+                    "xformOp:translate", "xformOp:rotateZ"
+                ]
+            }
+        }
+    }
+}
+usda# factory_base.usda — Reference로 로봇 배치
+def Scope "Robots"
+{
+    # Robot_01 — robot_arm.usda의 defaultPrim을 참조
+    def Xform "Robot_01"
+    (
+        references = @./robot_arm.usda@
+    )
+    {
+        # Reference 위에 로컬 오버라이드 (L이 R보다 강함)
+        double3 xformOp:translate    = (100, 0, 200)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+        custom int custom:serialNumber = 1001
+    }
+
+    # Robot_02 — 동일 에셋, 다른 위치
+    def Xform "Robot_02"
+    (
+        references = @./robot_arm.usda@
+    )
+    {
+        double3 xformOp:translate    = (300, 0, 200)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+        custom int custom:serialNumber = 1002
+    }
+}
+Python API 방식
+pythonfrom pxr import Usd, Sdf
+
+stage = Usd.Stage.Open("factory_base.usda")
+
+# Reference 추가
+robot_01 = stage.GetPrimAtPath("/Factory/Line_A/Robots/Robot_01")
+robot_01.GetReferences().AddReference("./robot_arm.usda")
+
+# 특정 Prim 경로를 지정해서 참조
+robot_02 = stage.GetPrimAtPath("/Factory/Line_A/Robots/Robot_02")
+robot_02.GetReferences().AddReference(
+    assetPath = "./robot_arm.usda",
+    primPath  = Sdf.Path("/RobotArm")   # defaultPrim 대신 명시
+)
+
+# Reference 목록 확인
+edit = robot_01.GetPrimStack()
+for spec in edit:
+    print(spec.referenceList)
+
+stage.Save()
+
+③ Payload — 지연 로딩
+Payload는 Reference와 문법이 거의 동일하지만 로딩 시점이 다릅니다. Stage를 열 때 Payload는 기본적으로 로드되지 않습니다. 명시적으로 Load해야 합니다.
+usdadef Xform "Robot_01"
+(
+    # 고해상도 메시는 Payload로 — 필요할 때만 로드
+    payload = @./robot_arm_detail.usda@
+)
+{
+    # Payload 밖의 데이터는 항상 로드됨 (bbox 등 경량 데이터)
+    float3 extent = [(-50,-10,-50), (50, 330, 50)]
+    custom string custom:model = "ARM-7X"
+}
+pythonfrom pxr import Usd
+
+# ── Payload 로딩 전략 선택 ────────────────────────────────
+
+# 1. 전체 Payload 로드 (기본)
+stage = Usd.Stage.Open(
+    "factory_composed.usda",
+    load=Usd.Stage.LoadAll       # 모든 Payload 즉시 로드
+)
+
+# 2. Payload 없이 열기 (경량 탐색용)
+stage = Usd.Stage.Open(
+    "factory_composed.usda",
+    load=Usd.Stage.LoadNone      # Payload 전혀 로드 안 함
+)
+
+# 3. 특정 Prim만 선택 로드
+stage.Load("/Factory/Line_A/Robots/Robot_01")   # 이 Prim만 로드
+stage.Unload("/Factory/Line_A/Robots/Robot_02") # 이 Prim 언로드
+
+# 로드 상태 확인
+prim = stage.GetPrimAtPath("/Factory/Line_A/Robots/Robot_01")
+print(prim.IsLoaded())   # True / False
+
+# 현재 로드된 Prim 목록
+for path in stage.GetLoadSet():
+    print(path)
+
+④ Inherit — class Prim으로 공통 속성 관리
+Inherit은 class Prim의 속성을 여러 Prim이 공유하는 메커니즘입니다. Reference와 다른 핵심 특징은 런타임에 class를 수정하면 모든 상속 Prim에 즉시 반영된다는 점입니다.
+usda#usda 1.0
+
+# class Prim — 렌더링 안 됨, 데이터 공유 전용
+class Xform "_RobotBase"
+{
+    # 모든 로봇이 공유할 기본 속성
+    color3f[] primvars:displayColor = [(0.15, 0.15, 0.6)]
+    (
+        interpolation = "constant"
+    )
+    float primvars:robotGloss = 0.85
+    custom string custom:manufacturer = "FactoryBot Inc."
+    custom int    custom:revision     = 3
+}
+
+def Xform "Robot_01"
+(
+    inherits = </_RobotBase>   # class 상속
+)
+{
+    # _RobotBase의 속성을 모두 물려받음
+    # 로컬에서 오버라이드 가능 (L > I)
+    double3 xformOp:translate    = (100, 0, 200)
+    uniform token[] xformOpOrder = ["xformOp:translate"]
+    custom int custom:serialNumber = 1001
+    # displayColor는 _RobotBase에서 상속 — 여기서 재선언 불필요
+}
+
+def Xform "Robot_02"
+(
+    inherits = </_RobotBase>
+)
+{
+    double3 xformOp:translate    = (300, 0, 200)
+    uniform token[] xformOpOrder = ["xformOp:translate"]
+    custom int custom:serialNumber = 1002
+}
+pythonfrom pxr import Usd, UsdGeom, Sdf, Gf, Vt
+
+stage = Usd.Stage.Open("factory_base.usda")
+
+# class Prim 생성
+base_class = stage.CreateClassPrim("/_RobotBase")
+
+# class에 공통 속성 설정
+pvAPI = UsdGeom.PrimvarsAPI(base_class)
+dc = pvAPI.CreatePrimvar(
+    "displayColor",
+    Sdf.ValueTypeNames.Color3fArray,
+    UsdGeom.Tokens.constant
+)
+dc.Set(Vt.Vec3fArray([Gf.Vec3f(0.15, 0.15, 0.6)]))
+
+base_class.CreateAttribute(
+    "custom:manufacturer",
+    Sdf.ValueTypeNames.String, custom=True
+).Set("FactoryBot Inc.")
+
+# Inherit 추가
+robot_01 = stage.GetPrimAtPath("/Factory/Line_A/Robots/Robot_01")
+robot_01.GetInherits().AddInherit(Sdf.Path("/_RobotBase"))
+
+robot_02 = stage.GetPrimAtPath("/Factory/Line_A/Robots/Robot_02")
+robot_02.GetInherits().AddInherit(Sdf.Path("/_RobotBase"))
+
+# 런타임 일괄 변경 — class 수정 → 모든 Robot에 즉시 반영
+base_class.GetAttribute("custom:manufacturer").Set("FactoryBot v2")
+# Robot_01, Robot_02 모두 즉시 "FactoryBot v2"로 변경됨
+
+stage.Save()
+
+⑤ Variant — 스위처블 옵션
+Variant는 하나의 Prim이 여러 가지 버전 중 하나를 선택적으로 표시하는 메커니즘입니다. LOD 전환, 색상 옵션, 모델 타입 전환에 씁니다.
+usdadef Xform "Robot_01"
+(
+    # VariantSet 선언과 현재 선택값
+    variants = {
+        string modelType = "ARM-7X"
+        string lodLevel  = "high"
+    }
+    variantSets = ["modelType", "lodLevel"]
+)
+{
+    double3 xformOp:translate    = (100, 0, 200)
+    uniform token[] xformOpOrder = ["xformOp:translate"]
+
+    variantSet "modelType" = {
+        "ARM-7X" {
+            custom string custom:model    = "ARM-7X"
+            custom float  custom:payload  = 7.5
+            # ARM-7X 전용 지오메트리 Reference 등
+        }
+        "ARM-9X" {
+            custom string custom:model    = "ARM-9X"
+            custom float  custom:payload  = 9.2
+        }
+    }
+
+    variantSet "lodLevel" = {
+        "high" {
+            payload = @./robot_arm_high.usda@
+        }
+        "low" {
+            payload = @./robot_arm_low.usda@
+        }
+    }
+}
+pythonfrom pxr import Usd
+
+stage = Usd.Stage.Open("factory_base.usda")
+prim  = stage.GetPrimAtPath("/Factory/Line_A/Robots/Robot_01")
+
+# VariantSet 생성
+model_vs = prim.GetVariantSets().AddVariantSet("modelType")
+lod_vs   = prim.GetVariantSets().AddVariantSet("lodLevel")
+
+# Variant 추가 및 내용 편집
+for variant_name, model, payload_val in [
+    ("ARM-7X", "ARM-7X", 7.5),
+    ("ARM-9X", "ARM-9X", 9.2),
+]:
+    model_vs.AddVariant(variant_name)
+    model_vs.SetVariantSelection(variant_name)
+
+    # with 블록 안에서 편집 → 해당 Variant 안에 기록됨
+    with model_vs.GetVariantEditContext():
+        prim.CreateAttribute(
+            "custom:model",
+            Sdf.ValueTypeNames.String, custom=True
+        ).Set(model)
+        prim.CreateAttribute(
+            "custom:payloadKg",
+            Sdf.ValueTypeNames.Float, custom=True
+        ).Set(payload_val)
+
+# LOD Variant
+for lod, ref_path in [("high", "./robot_arm_high.usda"),
+                       ("low",  "./robot_arm_low.usda")]:
+    lod_vs.AddVariant(lod)
+    lod_vs.SetVariantSelection(lod)
+    with lod_vs.GetVariantEditContext():
+        prim.GetPayloads().AddPayload(ref_path)
+
+# 현재 선택 설정
+model_vs.SetVariantSelection("ARM-7X")
+lod_vs.SetVariantSelection("high")
+
+# 선택 조회
+print(model_vs.GetVariantSelection())  # "ARM-7X"
+print(lod_vs.GetVariantSelection())    # "high"
+
+# 런타임에 전환
+model_vs.SetVariantSelection("ARM-9X")  # 즉시 전환
+
+stage.Save()
+
+지금까지 프로젝트 상태
+robot_factory/
+├── robot_arm.usda              ← 재사용 에셋 (defaultPrim=RobotArm)
+├── robot_arm_high.usda         ← LOD high 메시
+├── robot_arm_low.usda          ← LOD low 메시
+├── factory_base.usda           ← 베이스 레이어
+│     /_RobotBase (class)       ← Inherit 공통 속성
+│     /Factory/Robots/Robot_01  ← references robot_arm.usda  ★
+│                                  inherits /_RobotBase       ★
+│                                  variantSet modelType/lod   ★
+│     /Factory/Robots/Robot_02  ← 동일 구조
+├── factory_anim.usda           ← 애니메이션 레이어
+├── factory_lighting.usda       ← 조명 레이어
+└── factory_composed.usda       ← 마스터 (SubLayer 스택) ★
+      subLayers = [lighting, anim, base]
+5가지 컴포지션 아크가 모두 프로젝트에 적용되었습니다. 다음 모듈 ⑭ LIVRPS에서는 이 아크들이 충돌할 때 우선순위가 어떻게 작동하는지, 그리고 over를 사용한 비파괴 오버라이드 패턴을 실전 예제로 깊이 파고듭니다.
+
+계속 진행할까요? 다음 → ⑭ LIVRPS입력 내용: 네네06:40Claude 응답: Phase 5 — Module ⑭ : LIVRPSPhase 5 — Module ⑭ : LIVRPS
+"오피니언 충돌 시 누가 이기는가 — 우선순위의 모든 것"
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+VvisualizeVvisualize show_widget
+오피니언(Opinion)이란
+USD에서 오피니언은 "어떤 레이어가 어떤 Attribute에 대해 주장하는 값"입니다. 여러 레이어가 같은 Attribute에 대해 서로 다른 값을 주장할 때 LIVRPS 규칙이 중재합니다.
+오피니언 = (레이어, Attribute 경로, 값) 의 3-tuple
+
+예:
+  factory_lighting.usda  →  /Factory/Lights/KeyLight.inputs:intensity = 800
+  factory_base.usda      →  /Factory/Lights/KeyLight.inputs:intensity = 500
+
+→ SubLayer 스택에서 factory_lighting이 위에 있으므로
+  최종값 = 800  (더 강한 오피니언 채택)
+
+같은 레이어 안에서의 LIVRPS
+같은 .usda 파일 안에서도 LIVRPS가 작동합니다. 한 Prim에 Local 선언과 Reference가 공존할 때입니다.
+usdadef Xform "Robot_01"
+(
+    # R: Reference — robot_arm.usda 의 모든 값을 가져옴
+    references = @./robot_arm.usda@
+)
+{
+    # L: Local 오버라이드 — Reference 값을 덮어씀
+    # robot_arm.usda에 translate가 있어도 이 값이 최종
+    double3 xformOp:translate    = (100, 0, 200)
+    uniform token[] xformOpOrder = ["xformOp:translate"]
+
+    # robot_arm.usda의 custom:model은 여기서 선언 안 했으므로
+    # Reference 값인 "ARM-7X" 그대로 유지됨
+}
+이 패턴이 비파괴 오버라이드의 본질입니다. 원본 파일을 수정하지 않고 참조 위에서 값을 덮어씁니다.
+
+over — 전용 오버라이드 Prim
+def는 Prim을 새로 정의합니다. over는 이미 존재하는 Prim을 수정하기 위한 전용 선언입니다. over로 선언된 Prim은 다른 아크가 실제 Prim을 제공하지 않으면 씬에 존재하지 않습니다.
+usda# factory_override.usda — 오버라이드 전용 레이어
+#usda 1.0
+(
+    # 이 파일은 subLayer로 factory_base.usda 위에 올라감
+)
+
+# over: Prim을 새로 만들지 않고 기존 Prim의 값만 수정
+over "Factory"
+{
+    over "Lights"
+    {
+        over "KeyLight"
+        {
+            # 조명 강도만 오버라이드 — 나머지는 base 값 유지
+            float inputs:intensity = 1200.0
+            color3f inputs:color   = (1.0, 0.8, 0.7)
+        }
+    }
+
+    over "Line_A"
+    {
+        over "Robots"
+        {
+            over "Robot_01"
+            {
+                # serialNumber만 수정
+                custom int custom:serialNumber = 9001
+            }
+        }
+    }
+}
+
+SubLayer 스택 안에서의 우선순위
+SubLayer 스택은 LIVRPS의 S 레벨에서 작동하지만, 스택 안에서도 위에 있을수록 강합니다.
+factory_composed.usda
+  subLayers = [
+    @factory_override.usda@,   ← 가장 강한 SubLayer
+    @factory_lighting.usda@,
+    @factory_anim.usda@,
+    @factory_base.usda@        ← 가장 약한 SubLayer
+  ]
+
+/Factory/Lights/KeyLight.inputs:intensity 의 오피니언:
+  factory_override.usda  → 1200.0   ← 채택
+  factory_lighting.usda  → 800.0
+  factory_base.usda      → 500.0
+
+프로젝트 코드 — LIVRPS 전체 시나리오
+실전 시나리오: 같은 robot_arm.usda 에셋을 쓰지만, 촬영 감독 버전과 QA 버전이 서로 다른 오버라이드를 가집니다.
+usda# shot_director.usda — 촬영 감독 오버라이드
+#usda 1.0
+(
+    doc = "촬영 감독 버전 — 조명·색상 조정"
+    subLayers = [
+        @factory_composed.usda@   # 베이스 합성 씬
+    ]
+)
+
+# L: SubLayer 위에서 로컬 오버라이드
+over "Factory"
+{
+    over "Lights"
+    {
+        over "KeyLight"
+        {
+            float inputs:intensity = 1500.0   # L > S (base의 500)
+        }
+    }
+
+    over "Line_A"
+    {
+        over "Robots"
+        {
+            over "Robot_01"
+            (
+                # Variant 전환 — V 레벨에서 작동
+                variants = {
+                    string modelType = "ARM-9X"
+                }
+            )
+            {
+                # L: 로컬 색상 오버라이드
+                color3f[] primvars:displayColor = [(0.8, 0.2, 0.1)]
+            }
+        }
+    }
+}
+Python으로 오피니언 추적
+pythonfrom pxr import Usd, Sdf, UsdGeom
+
+stage = Usd.Stage.Open("shot_director.usda")
+
+attr = stage.GetAttributeAtPath(
+    "/Factory/Lights/KeyLight.inputs:intensity"
+)
+
+# 최종 합성값
+print(attr.Get())   # 1500.0
+
+# 오피니언 스택 전체 조회 — 어느 레이어가 어떤 값을 주장하는가
+for spec in attr.GetPropertyStack(Usd.TimeCode.Default()):
+    print(f"  {spec.layer.identifier:40s} → {spec.default}")
+
+# 출력:
+#   shot_director.usda                       → 1500.0  (L, 채택)
+#   factory_override.usda                    → 1200.0
+#   factory_lighting.usda                    → 800.0
+#   factory_base.usda                        → 500.0
+
+# Prim 스택 — Prim 레벨 오피니언 추적
+prim = stage.GetPrimAtPath("/Factory/Line_A/Robots/Robot_01")
+for spec in prim.GetPrimStack():
+    print(f"  {spec.layer.identifier:40s}  specifier={spec.specifier}")
+
+# 출력:
+#   shot_director.usda    specifier=over
+#   factory_base.usda     specifier=def   (실제 Prim 정의)
+#   robot_arm.usda        specifier=def   (Reference 원본)
+
+레이어 오프셋과 LIVRPS 상호작용
+SubLayer에 offset/scale을 주면 시간 축에서도 우선순위가 유지됩니다.
+pythonfrom pxr import Sdf
+
+root = stage.GetRootLayer()
+
+# SubLayer 인덱스 0(가장 강한)에 오프셋 적용
+root.subLayerOffsets[0] = Sdf.LayerOffset(offset=24.0, scale=1.0)
+
+# → 이 레이어의 TimeSample f1 = 마스터 타임라인 f25
+# → LIVRPS 강도는 그대로 유지 (시간만 이동)
+
+자주 하는 실수 — def vs over
+usda# 잘못된 패턴 — over 대신 def를 오버라이드로 쓰는 경우
+# (SubLayer 위에서)
+def Xform "Robot_01"      # ← def를 쓰면 Reference가 무시됨!
+{
+    float inputs:intensity = 1500.0
+}
+
+# 올바른 패턴
+over "Robot_01"            # ← over: 기존 Prim 위에 값만 덮어씀
+{
+    float inputs:intensity = 1500.0
+}
+def를 오버라이드 목적으로 쓰면 해당 레이어에서 Prim이 새로 정의되어 Reference 연결이 끊어질 수 있습니다. 오버라이드는 반드시 over를 써야 합니다.
+
+지금까지 프로젝트 상태
+robot_factory/
+├── robot_arm.usda              (에셋 — defaultPrim=RobotArm)
+├── factory_base.usda           (베이스 레이어)
+│     /_RobotBase               (class — Inherit 공통 속성)
+│     /Factory/Robots/Robot_01  (references + inherits + variantSet)
+├── factory_anim.usda           (애니메이션 레이어)
+├── factory_lighting.usda       (조명 레이어)
+├── factory_override.usda       (over 오버라이드 레이어) ★ 추가
+├── factory_composed.usda       (SubLayer 마스터)
+└── shot_director.usda          (촬영 감독 버전) ★ 추가
+      subLayers = [factory_composed]
+      over KeyLight intensity=1500
+      over Robot_01 variant=ARM-9X, color override
+LIVRPS 우선순위 체계가 완성되었습니다. 다음 모듈 ⑮ Key Composition Concepts에서는 지금까지 배운 모든 것을 종합합니다. PrimStack · PropertyStack · 합성 엔진 내부 동작 · 실전 파이프라인 패턴을 정리하고 전체 프로젝트를 최종 완성합니다.
+
+계속 진행할까요? 다음 → ⑮ Key Composition Concepts (최종)입력 내용: 넵넵06:41Claude 응답: Phase 5 — Module ⑮ : Key Composition ConceptsPhase 5 — Module ⑮ : Key Composition Concepts
+"합성 엔진의 내부 — 모든 것을 하나로"
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+VvisualizeVvisualize show_widget
+합성 엔진이 하는 일
+Stage를 열면 USD 합성 엔진은 다음 5단계를 수행합니다.
+1. Layer Stack 구성
+   → Root Layer + SubLayer를 순서대로 수집
+
+2. Composition Index 구축
+   → 각 Prim 경로에 대해 어떤 아크(R/P/I/V)가 있는지 인덱싱
+   → 재귀적으로 Reference → 그 Reference의 SubLayer까지 탐색
+
+3. PrimStack 생성
+   → 각 Prim의 SdfPrimSpec 목록을 LIVRPS 순서로 정렬
+
+4. Value Resolution
+   → 실제 값을 요청받을 때 PrimStack을 순회
+   → 가장 강한 오피니언을 찾으면 즉시 반환 (lazy evaluation)
+
+5. Composed Prim Tree 제공
+   → 애플리케이션에 최종 합성된 Prim Tree를 노출
+중요한 점은 4단계가 lazy하다는 것입니다. attr.Get()을 호출하기 전까지 값을 실제로 계산하지 않습니다. 이것이 수백만 개의 Prim을 가진 씬을 빠르게 열 수 있는 이유입니다.
+
+NameChildren 합산 — 자식 Prim은 합집합
+LIVRPS는 Attribute 값에 적용되지만, 자식 Prim 목록은 모든 아크의 합집합입니다.
+robot_arm.usda:
+  /RobotArm/Shoulder/Elbow/Wrist
+
+factory_base.usda (Reference 후 로컬 추가):
+  /Factory/Robots/Robot_01  references → robot_arm.usda
+  /Factory/Robots/Robot_01/DebugMarker  ← 로컬에서 추가
+
+최종 자식 목록:
+  Shoulder  (robot_arm.usda에서)
+  DebugMarker (factory_base.usda 로컬에서)
+  → 합집합 = [Shoulder, DebugMarker]
+
+Instancing — 메모리 공유
+같은 Reference를 수백 개 배치할 때 Instancing으로 메모리를 공유합니다.
+usda# 100개의 로봇을 배치하되 메모리는 하나만 사용
+def Xform "Robot_01" (references = @robot_arm.usda@ instanceable = true) {}
+def Xform "Robot_02" (references = @robot_arm.usda@ instanceable = true) {}
+# ... 100개
+pythonfrom pxr import Usd
+
+# instanceable 설정
+prim = stage.GetPrimAtPath("/Factory/Line_A/Robots/Robot_01")
+prim.SetInstanceable(True)
+
+# 인스턴스 여부 확인
+print(prim.IsInstanceable())   # True
+print(prim.IsInstance())       # True (합성 후 실제 인스턴스)
+print(prim.IsPrototype())      # False
+
+# 프로토타입(공유 데이터) 접근
+proto = prim.GetPrototype()
+if proto:
+    print(proto.GetPath())     # /__Prototype_1
+
+# 같은 프로토타입을 쓰는 모든 인스턴스 수집
+for inst in proto.GetInstances():
+    print(inst.GetPath())
+
+Asset Resolution — @경로@ 해석
+Reference·Payload·Texture의 @path@는 실제 파일 경로가 아닙니다. ArResolver가 이 경로를 실제 디스크 경로로 변환합니다.
+pythonfrom pxr import Ar
+
+# 기본 Resolver — 상대 경로를 절대 경로로 변환
+resolver = Ar.GetResolver()
+
+# 경로 해석
+resolved = resolver.Resolve("./robot_arm.usda")
+print(resolved)   # /home/나무/robot_factory/robot_arm.usda
+
+# 커스텀 Resolver — 스튜디오 에셋 DB 연동
+# (플러그인으로 등록, 경로 형식 완전 커스텀 가능)
+# 예: "asset:robot_arm_v003" → /pipeline/assets/robot/v003/robot_arm.usdc
+
+프로젝트 최종 완성 코드
+지금까지 만든 모든 요소를 하나로 조립합니다.
+pythonfrom pxr import (
+    Usd, UsdGeom, UsdShade, UsdLux,
+    UsdPhysics, UsdRender, UsdUtils,
+    Sdf, Gf, Vt, Kind
+)
+
+# ══════════════════════════════════════════════════════════
+# 1. 레이어 분리 구조 확인
+# ══════════════════════════════════════════════════════════
+# factory_base.usda      — Prim 구조 + Material + Physics
+# factory_anim.usda      — TimeSamples 애니메이션
+# factory_lighting.usda  — 조명
+# factory_override.usda  — over 오버라이드
+# factory_composed.usda  — SubLayer 마스터
+# shot_director.usda     — 최종 샷 오버라이드
+
+# ══════════════════════════════════════════════════════════
+# 2. 마스터 Stage 열기 및 전체 합성 확인
+# ══════════════════════════════════════════════════════════
+stage = Usd.Stage.Open("shot_director.usda")
+
+print("=== Layer Stack ===")
+for layer in stage.GetLayerStack():
+    print(f"  {layer.identifier}")
+
+print("\n=== Composed Prim Tree ===")
+for prim in stage.Traverse():
+    depth  = len(prim.GetPath().pathComponents) - 1
+    indent = "  " * depth
+    kind   = Usd.ModelAPI(prim).GetKind()
+    print(f"{indent}{prim.GetName():30s} [{prim.GetTypeName()}]"
+          f"  kind={kind}")
+
+# ══════════════════════════════════════════════════════════
+# 3. 오피니언 추적 유틸
+# ══════════════════════════════════════════════════════════
+def trace_opinions(stage, attr_path):
+    """특정 Attribute의 모든 오피니언을 LIVRPS 순으로 출력."""
+    attr = stage.GetAttributeAtPath(attr_path)
+    if not attr:
+        print(f"  Attribute not found: {attr_path}")
+        return
+    print(f"\n=== Opinions for {attr_path} ===")
+    print(f"  Final value: {attr.Get()}")
+    for spec in attr.GetPropertyStack(Usd.TimeCode.Default()):
+        marker = "✓ ADOPTED" if spec == \
+            attr.GetPropertyStack(Usd.TimeCode.Default())[0] \
+            else "  skipped"
+        print(f"  {marker}  {spec.layer.identifier:40s}"
+              f" → {spec.default}")
+
+trace_opinions(stage,
+    "/Factory/Lights/KeyLight.inputs:intensity")
+trace_opinions(stage,
+    "/Factory/Line_A/Robots/Robot_01.xformOp:translate")
+
+# ══════════════════════════════════════════════════════════
+# 4. Variant 런타임 전환
+# ══════════════════════════════════════════════════════════
+robot = stage.GetPrimAtPath("/Factory/Line_A/Robots/Robot_01")
+vsets = robot.GetVariantSets()
+
+print("\n=== VariantSets ===")
+for name in vsets.GetNames():
+    vs  = vsets.GetVariantSet(name)
+    sel = vs.GetVariantSelection()
+    print(f"  {name}: {vs.GetVariantNames()}  current='{sel}'")
+
+# 전환
+vsets.GetVariantSet("modelType").SetVariantSelection("ARM-9X")
+vsets.GetVariantSet("lodLevel").SetVariantSelection("low")
+print("\nAfter switch:")
+print(f"  model = {robot.GetAttribute('custom:model').Get()}")
+
+# ══════════════════════════════════════════════════════════
+# 5. 의존성 분석 + usdz 패키징
+# ══════════════════════════════════════════════════════════
+layers, assets, unresolved = \
+    UsdUtils.ComputeAllDependencies("shot_director.usda")
+
+print(f"\n=== Dependencies ===")
+print(f"  Layers : {len(layers)}")
+print(f"  Assets : {len(assets)}")
+print(f"  Broken : {len(unresolved)}")
+
+# 최종 배포 패키지 생성
+UsdUtils.CreateNewUsdzPackage(
+    assetPath    = "shot_director.usda",
+    usdzFilePath = "robot_factory_final.usdz"
+)
+print("\n✓ robot_factory_final.usdz 생성 완료")
+
+전체 커리큘럼 최종 프로젝트 상태
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+VvisualizeVvisualize show_widget
+핵심 패턴 3가지 — 실전 요약
+지금까지 배운 15개 모듈을 실전에서 어떻게 조합할지 최종 정리합니다.
+패턴 1 — 에셋 파이프라인
+에셋 정의          robot_arm.usda       (def, defaultPrim)
+    ↓ Reference
+씬 배치            factory_base.usda    (위치·오버라이드)
+    ↓ SubLayer
+애니메이션 추가    factory_anim.usda    (TimeSamples)
+    ↓ SubLayer
+조명 추가          factory_lighting.usda
+    ↓ SubLayer
+샷 오버라이드      shot_director.usda   (over, Variant 전환)
+    ↓ Export
+배포               robot_factory.usdz
+패턴 2 — 비파괴 오버라이드
+python# 원본을 건드리지 않고 값 변경
+# 항상 over + SubLayer 조합
+over_layer = Sdf.Layer.CreateNew("my_override.usda")
+with Usd.EditContext(stage, over_layer):
+    prim = stage.GetPrimAtPath("/Factory/Lights/KeyLight")
+    prim.GetAttribute("inputs:intensity").Set(2000.0)
+over_layer.Save()
+# factory_base.usda는 변경 없음
+패턴 3 — 런타임 씬 조작
+python# Variant 전환 → 즉시 씬 변경
+robot.GetVariantSets().GetVariantSet("lodLevel")\
+     .SetVariantSelection("low")
+
+# Payload 선택적 로드 → 메모리 관리
+stage.Unload("/Factory/Line_A/Robots/Robot_02")
+
+# class 수정 → 모든 상속 Prim 일괄 변경
+base = stage.GetPrimAtPath("/_RobotBase")
+base.GetAttribute("custom:manufacturer").Set("NewFactory Corp")
+# Robot_01, Robot_02 모두 즉시 반영
+
+커리큘럼 완료 — 전체 요약
+Phase모듈핵심 개념프로젝트 기여1Stage씬 진입점, Layer Stackfactory_base.usda 생성1PrimsSdfPath, Specifier, Kind/Factory 트리 구성1Attributes타입 시스템, Default Value위치·재질·커스텀 데이터1RelationshipsSdfPath 포인터material:binding, light:link1Metadatadoc, kind, customData씬 문서화, 계층 분류2Scope논리 컨테이너Materials/Lights/Robots 분류2XformxformOp 스택관절 계층 구조2Primvarsinterpolation, 상속버텍스 컬러, UV3TimeSamplesTimeCode, 키프레임로봇 팔 애니메이션4LightingUsdLux, Light Linking3종 조명 체계4File Formatsusda/usdc/usdz개발→프로덕션→배포4ModulesIsA/API SchemaPhysics, Render 추가5Composition6 아크레이어 분리 조립5LIVRPS우선순위 해석비파괴 오버라이드5Key Concepts합성 엔진, Instancing최종 패키징
+
+🎉 전체 커리큘럼 완료입니다.
+15개 모듈, 5개 Phase, 하나의 Robot Factory Scene — Stage에서 시작해 Composition 마스터리까지 USD의 전체 개념 체계를 단일 프로젝트로 완성했습니다. 특정 모듈을 더 깊이 파고들거나, 실제 Omniverse / Houdini 환경에서의 적용 방법이 필요하시면 말씀해 주세요.
 
