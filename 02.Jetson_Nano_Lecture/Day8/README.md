@@ -79,21 +79,33 @@
    * 새로운 Blender 창을 열고, USD Import 진행
    * Scale을 100으로 설정 
 
+<img src="img\013.png">
+
    * Root를 선택한 후, 기록했던 Location을 빼기
+
+<img src="img\014.png">
 
    * 새로운 축을 만들고, 세우기 위해 
    * F3 > Cursor to World Origin 하고,
    * Layout > Empty > Plain Axes로 축 생성
 
+<img src="img\015.png">
+
    * Root, Empty 를 ctrl로 차례대로 선택 후
    * ctrl + p > set parent to object (keep transform)
+
+<img src="img\016.png">
 
    * 여기서부터, clear parent, set parent를 전체적으로 반복
    * 생성했던 Xform은 clear parent,
    * 나머지는 clear and keep transform
 
+<img src="img\017.png">
+
    * 오른 쪽 항목에서 Mesh 클릭 후 ctrl 클릭으로      (Plane Axes)을 클릭하고
    * 화면에 마우스를 올린 후 ctrl + p > Set parent to Object (Keep Transform)
+
+<img src="img\018.png">
 
    * 메쉬의 origin 설정
    * 메쉬 클릭 후 (드래그 가능)
