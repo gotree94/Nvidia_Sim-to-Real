@@ -53,28 +53,28 @@
    * 블렌더 실행 후 우측 기본 요소 제거
    * 블렌더의 경우 휠 클릭 및 드래그로 네비게이션 진행
 
-<img src="img\008.png"> <img src="img\009.png">
+<img src="img\008-1.png"> <img src="img\008-2.png">
 
    * USD 파일을 드래그앤 드랍하여 불러온 후 Import USD
    * 이후 Root를 확장, 내부 요소를 블럭 지정한 후
 
-<img src="img\010.png">
+<img src="img\009.png">
 
    * 화면에 마우스를 올리고, alt + p > clear parent
    * 작업할 메쉬 를 마우스로 클릭
 
-<img src="img\011.png">
+<img src="img\010.png">
 
    * 화면에서 Tab을 눌러 Edit Mode로 진행
    * 점을 클릭 또는, 점 다수를 shift로 클릭하여 선택하고 
    * ctrl + s > Cursor to Selected
    * 점을 잘못 클릭했다면 alt + a 로 선택해제
 
-<img src="img\012.png">
+<img src="img\011.png">
 
    * F3을 눌러 검색 > Origin to 3d Cursor
 
-<img src="img\013.png">
+<img src="img\012.png">
 
    * 새로운 Blender 창을 열고, USD Import 진행
    * Scale을 100으로 설정 
