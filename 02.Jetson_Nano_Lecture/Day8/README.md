@@ -100,7 +100,7 @@
    * 나머지는 clear and keep transform
 
 <img src="img\018.png">
-   * 오른 쪽 항목에서 Mesh 클릭 후 ctrl 클릭으로 <img src="img\019-1.png" width="30%"> (Plane Axes)을 클릭하고
+   * 오른 쪽 항목에서 Mesh 클릭 후 ctrl 클릭으로 <img src="img\019-1.png"> (Plane Axes)을 클릭하고
    * 화면에 마우스를 올린 후 ctrl + p > Set parent to Object (Keep Transform)
 
 <img src="img\019-2.png">
@@ -118,11 +118,16 @@ import bpy
 bpy.ops.wm.usd_export(filepath='/home/shadeform/output.usdc', export_meshes=True, merge_parent_xform=True, convert_world_material=True)
 ```
 
+<img src="img\021-1.png"> <br>
+<img src="img\021-2.png">
+
 ## 6. Diffuse
    * stage의 env_light 삭제
    * 모든 메쉬를 보도록 필터링하고 선택한 후
    * Refinement Override에 체크하고 
    * Refinement Level 조정
+
+<img src="img\022.png">
 
 ## 7. Joints
    * 움직이는 Link에 Rigidbody 속성을 부여
