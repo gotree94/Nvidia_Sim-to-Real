@@ -132,25 +132,25 @@ bpy.ops.wm.usd_export(filepath='/home/shadeform/output.usdc', export_meshes=True
 ## 7. Joints
    * 움직이는 Link에 Rigidbody 속성을 부여
 
-<img src="img\025.png">   
+<img src="img\023.png">
 
    * 로봇의 기반인 Robot_Base에 우클릭하여 fixed joint를 생성
 
-<img src="img\026.png">   
+<img src="img\024.png">
 
    * 생성한 fixed joint에 Articulation root 부여
 
-<img src="img\027.png">   
+<img src="img\025.png">
    
    * 이후 Link끼리 Revolute Joint를 생성하고 
    * Revolute Joint의 Axis를 직접 조절
 
-<img src="img\028.png">   
+<img src="img\026.png">
 
    * Revolute Joint에 Angular Drive를 추가
    * Damping과 Stiffness를 적절히 부여
 
-<img src="img\028.png">   
+<img src="img\027.png">
 
    * Core API Tutorial Series
       * Core API Tutorial Series - nvidia : https://docs.isaacsim.omniverse.nvidia.com/5.1.0/core_api_tutorials/index.html
