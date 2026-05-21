@@ -79,8 +79,24 @@ cd _build/linux-x86_64/release
 (base) gotree94@gotree94-ROG-Strix-SCAR-16-G635LX-G635LX:~/isaacsim$ ./build.sh
 Script dir: /home/gotree94/isaacsim
 /home/gotree94/isaacsim/tools/packman/packman: line 2: $'\r': command not found
+```
 
 ```
+(base) gotree94@gotree94-ROG-Strix-SCAR-16-G635LX-G635LX:~/isaacsim$ git lfs install
+git: 'lfs' is not a git command. See 'git --help'.
+
+The most similar command is
+	log
+(base) gotree94@gotree94-ROG-Strix-SCAR-16-G635LX-G635LX:~/isaacsim$ git lfs pull
+git: 'lfs' is not a git command. See 'git --help'.
+
+The most similar command is
+	log
+(base) gotree94@gotree94-ROG-Strix-SCAR-16-G635LX-G635LX:~/isaacsim$ 
+
+
+```
+
 
 ---
 
