@@ -31,10 +31,13 @@
    * 메쉬를 상위 Xform으로 옮기기
    * 모든 Link에 대해 반복
 
-<img src="img\004.png"> <br>
-<img src="img\005.png">
+<img src="img\004-1.png"> <br>
+<img src="img\004-2.png">
    
    * 사용하지 않는 Xform Prim을 삭제하고, 이름을 읽기 쉽게 변경
+
+<img src="img\005.png">
+
    * 로봇의 도면 또는 DH-parameter를 참조하여 새롭게 Xform 생성
    * 일단 필요할 것 같은 Xform 지점을 모두 생성하고, 
    * 이후에 분류를 권장
@@ -42,6 +45,8 @@
 
 ## 4. Adding Color
    * Mesh의 Property 중 Material, 또는 Mesh가 다양한 Diffuse를 가지고 있는 경우 Diffuse의 Material을 다시 지정
+
+<img src="img\006.png">
 
 # 5. Blender
    * 블렌더 실행 후 우측 기본 요소 제거
