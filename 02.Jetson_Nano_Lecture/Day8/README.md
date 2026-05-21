@@ -1,4 +1,4 @@
-# CAD to Sim
+# Day 8: CAD to Sim
 
 * 준비물
    -	블렌더
