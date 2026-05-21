@@ -3526,7 +3526,7 @@ print(f"  Broken : {len(unresolved)}")
 ## 전체 커리큘럼 최종 프로젝트 상태
 
 
-<img src=""usd-buildup\USD-020.png">
+<img src="usd-buildup\USD-020.png">
 
 **핵심 패턴 3가지 — 실전 요약**
    * 지금까지 배운 15개 모듈을 실전에서 어떻게 조합할지 최종 정리합니다.
