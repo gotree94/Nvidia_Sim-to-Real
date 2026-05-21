@@ -1910,7 +1910,8 @@ Phase 2 완료입니다. Scope·Xform·Primvars — 씬의 공간 구조와 렌�
   }
 VvisualizeVvisualize show_widget블록도 수정 완료입니다. 4가지 interpolation 모드 칸 간격을 균등하게 벌리고, 텍스트 위치를 박스 안으로 정확히 배치했습니다. 하단 상속 다이어그램도 라벨 오버랩 없이 재정렬했습니다.
 
-Phase 3 — Module ⑨ : TimeCodes & TimeSamples
+## Phase 3 — Module ⑨ : TimeCodes & TimeSamples
+
 "로봇 팔이 움직인다 — 씬에 시간을 심다"
 
   ::view-transition-group(*),
@@ -2152,13 +2153,17 @@ factory_base.usda  (= factory_anim.usda 로 저장 권장)
     │                     └── EndEffector
     └── Robot_02
           visibility.timeSamples = {1:"inherited", 120:"invisible" ...}  ★
-Phase 3 완료입니다. 로봇 팔이 10초 동안 세 관절이 독립적으로 움직이는 애니메이션이 완성되었습니다.
+
+* Phase 3 완료입니다. 로봇 팔이 10초 동안 세 관절이 독립적으로 움직이는 애니메이션이 완성되었습니다.
 
 Phase 4로 진입합니다
 다음 모듈 ⑩ Lighting에서는 공장 씬에 조명 체계를 구축합니다. UsdLux의 조명 타입들과 Light Linking으로 로봇에만 선택적으로 조명을 비추는 방법을 다룹니다.
 
-계속 진행할까요? 다음 → ⑩ Lighting입력 내용: OKOK07:33Claude 응답: Phase 4 — Module ⑩ : LightingPhase 4 — Module ⑩ : Lighting
-"씬에 빛을 더하다 — UsdLux 조명 시스템"
+---
+
+## Phase 4 — Module ⑩ : Lighting
+
+**"씬에 빛을 더하다 — UsdLux 조명 시스템"**
 
   ::view-transition-group(*),
   ::view-transition-old(*),
@@ -2374,10 +2379,14 @@ factory_base.usda
     │         (lightLink 없음 — 전체 씬 적용)
     ├── /Factory/Line_A/Robots/...  (애니메이션 유지)
     └── /Factory/Floor              (Mesh)
+
 Phase 4 조명 완료입니다. 세 종류의 조명이 Light Linking으로 각각 담당 영역을 나눠 비추고 있습니다.
 다음 모듈 ⑪ File Formats에서는 .usda / .usdc / .usdz의 차이와 변환 방법, 그리고 파이프라인에서 어떤 포맷을 언제 써야 하는지를 다룹니다.
 
-계속 진행할까요? 다음 → ⑪ File Formats입력 내용: OKOK07:34Claude 응답: Phase 4 — Module ⑪ : File FormatsPhase 4 — Module ⑪ : File Formats
+---
+
+## Phase 4 — Module ⑪ : File Formats
+
 "usda · usdc · usdz — 포맷을 알면 파이프라인이 보인다"
 
   ::view-transition-group(*),
@@ -2511,15 +2520,296 @@ factory_anim.usdc   ← ★ 애니메이션 레이어 변환 추가
 factory.usdz        ← ★ 배포 패키지 생성
 포맷 체계가 갖춰졌습니다. 다음 모듈 ⑫ Modules에서는 USD가 제공하는 스키마 라이브러리 전체를 조망합니다. 지금까지 써온 UsdGeom, UsdShade, UsdLux가 모두 Module 시스템의 일부이며, UsdPhysics, UsdSkel, UsdRender 등 로봇 시뮬레이션에 직결되는 모듈들을 프로젝트에 연결합니다.
 
-계속 진행할까요? 다음 → ⑫ Modules입력 내용: OKOK07:36Claude 응답: Phase 4 — Module ⑫ : Modules (USD Schema Libraries)Phase 4 — Module ⑫ : Modules (USD Schema Libraries)
-"UsdGeom부터 UsdPhysics까지 — USD의 부품 창고"
+## Phase 4 — Module ⑫ : Modules (USD Schema Libraries)
 
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation-duration: 0.25s;
-    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-  }
-VvisualizeVvisualize show_widget
+**"UsdGeom부터 UsdPhysics까지 — USD의 부품 창고"**
+
+USD Schema 모듈 상세
+
+모듈 시스템의 구조
+USD의 모든 Schema는 두 종류로 나뉩니다.
+IsA Schema (타입 스키마)
+  → Prim의 타입 자체를 정의
+  → def Xform / def Mesh / def SphereLight
+  → prim.IsA(UsdGeom.Xform) 로 타입 체크
+
+API Schema (믹스인 스키마)
+  → 기존 Prim에 기능을 추가
+  → 타입을 바꾸지 않고 Attribute·Relationship을 추가
+  → UsdShade.MaterialBindingAPI(prim).Bind(mat)
+  → 여러 API Schema를 동시에 적용 가능
+
+UsdGeom — 지오메트리 스키마
+지금까지 가장 많이 써온 모듈입니다. 프로젝트에 이미 적용된 것들을 정리합니다.
+pythonfrom pxr import UsdGeom
+
+# ── Typed Schema (IsA) ────────────────────────────────────
+UsdGeom.Xform       # 트랜스폼 그룹
+UsdGeom.Scope       # 논리 컨테이너
+UsdGeom.Mesh        # 폴리곤 메시
+UsdGeom.Sphere      # 구체 (implicit)
+UsdGeom.Cylinder    # 원기둥
+UsdGeom.Cone        # 원뿔
+UsdGeom.Cube        # 정육면체
+UsdGeom.Camera      # 카메라
+
+# ── API Schema ────────────────────────────────────────────
+UsdGeom.XformCommonAPI   # TRS 단순화 API
+UsdGeom.PrimvarsAPI      # Primvar 읽기/쓰기
+UsdGeom.VisibilityAPI    # visibility 제어
+UsdGeom.ModelAPI         # kind / Model 계층
+
+# ── Stage 레벨 유틸 ───────────────────────────────────────
+UsdGeom.SetStageUpAxis(stage, UsdGeom.Tokens.y)
+UsdGeom.SetStageMetersPerUnit(stage, 0.01)
+UsdGeom.GetStageUpAxis(stage)        # "Y"
+UsdGeom.GetStageMetersPerUnit(stage) # 0.01
+
+UsdShade — 머티리얼·셰이더 스키마
+pythonfrom pxr import UsdShade, Sdf, Gf
+
+# Material 정의
+mat = UsdShade.Material.Define(stage, "/Factory/Materials/Metal")
+
+# Shader 정의 — UsdPreviewSurface (범용 PBR)
+shader = UsdShade.Shader.Define(
+    stage, "/Factory/Materials/Metal/PBRShader"
+)
+shader.CreateIdAttr("UsdPreviewSurface")
+
+# Shader 입력 설정
+shader.CreateInput("diffuseColor",
+    Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f(0.2, 0.2, 0.25))
+shader.CreateInput("metallic",
+    Sdf.ValueTypeNames.Float).Set(0.9)
+shader.CreateInput("roughness",
+    Sdf.ValueTypeNames.Float).Set(0.2)
+shader.CreateInput("opacity",
+    Sdf.ValueTypeNames.Float).Set(1.0)
+
+# Shader 출력 → Material 표면 연결
+surface_out = shader.CreateOutput(
+    "surface", Sdf.ValueTypeNames.Token
+)
+mat.CreateSurfaceOutput().ConnectToSource(surface_out)
+
+# 텍스처 연결 — UsdUVTexture
+tex = UsdShade.Shader.Define(
+    stage, "/Factory/Materials/Metal/DiffuseTex"
+)
+tex.CreateIdAttr("UsdUVTexture")
+tex.CreateInput("file",
+    Sdf.ValueTypeNames.Asset).Set("./textures/metal_diffuse.png")
+tex.CreateInput("wrapS",
+    Sdf.ValueTypeNames.Token).Set("repeat")
+tex.CreateInput("wrapT",
+    Sdf.ValueTypeNames.Token).Set("repeat")
+
+# 텍스처 출력 → Shader 입력 연결
+rgb_out = tex.CreateOutput("rgb", Sdf.ValueTypeNames.Float3)
+shader.GetInput("diffuseColor").ConnectToSource(rgb_out)
+
+# 바인딩
+robot_prim = stage.GetPrimAtPath("/Factory/Line_A/Robots/Robot_01")
+UsdShade.MaterialBindingAPI(robot_prim).Bind(mat)
+
+UsdPhysics — 로봇 관절에 물리 구속 추가 ★
+로봇 시뮬레이션에서 핵심입니다. 각 관절에 RevoluteJoint를 추가하면 Isaac Sim / MuJoCo / PhysX 에서 물리 기반 제어가 가능해집니다.
+.usda 텍스트 방식
+usda# Stage 레벨에 Physics Scene 추가
+def PhysicsScene "PhysicsScene"
+{
+    vector3f physics:gravityDirection = (0, -1, 0)
+    float    physics:gravityMagnitude = 981.0
+}
+
+def Xform "Robot_01"
+{
+    # RigidBodyAPI — 강체 물리 속성 적용
+    bool physics:rigidBodyEnabled = true
+    bool physics:kinematicEnabled = true  # 키네마틱 (외부 제어)
+
+    def Xform "Shoulder"
+    {
+        bool physics:rigidBodyEnabled = true
+
+        # RevoluteJoint — Z축 회전 관절 구속
+        def PhysicsRevoluteJoint "ShoulderJoint"
+        {
+            # 연결 대상
+            rel physics:body0 = </Factory/Line_A/Robots/Robot_01>
+            rel physics:body1 = </Factory/Line_A/Robots/Robot_01/Shoulder>
+
+            # 회전 축
+            uniform token physics:axis = "Z"
+
+            # 관절 한계 (도 단위)
+            bool  physics:lowerLimitEnabled = true
+            bool  physics:upperLimitEnabled = true
+            float physics:lowerLimit = -90.0
+            float physics:upperLimit =  90.0
+        }
+    }
+}
+Python API 방식
+pythonfrom pxr import UsdPhysics, Gf
+
+# ── Physics Scene 추가 ────────────────────────────────────
+physics_scene = UsdPhysics.Scene.Define(
+    stage, "/Factory/PhysicsScene"
+)
+physics_scene.CreateGravityDirectionAttr(Gf.Vec3f(0, -1, 0))
+physics_scene.CreateGravityMagnitudeAttr(981.0)
+
+# ── RigidBodyAPI — Robot_01 Base에 적용 ──────────────────
+robot_prim = stage.GetPrimAtPath(
+    "/Factory/Line_A/Robots/Robot_01"
+)
+rigid_api = UsdPhysics.RigidBodyAPI.Apply(robot_prim)
+rigid_api.CreateRigidBodyEnabledAttr(True)
+rigid_api.CreateKinematicEnabledAttr(True)
+
+# ── CollisionAPI — 충돌 형상 추가 ────────────────────────
+shoulder_prim = stage.GetPrimAtPath(
+    "/Factory/Line_A/Robots/Robot_01/Shoulder"
+)
+UsdPhysics.RigidBodyAPI.Apply(shoulder_prim)
+col_api = UsdPhysics.CollisionAPI.Apply(shoulder_prim)
+col_api.CreateCollisionEnabledAttr(True)
+
+# ── RevoluteJoint — Shoulder 관절 ────────────────────────
+shoulder_joint = UsdPhysics.RevoluteJoint.Define(
+    stage,
+    "/Factory/Line_A/Robots/Robot_01/Shoulder/ShoulderJoint"
+)
+
+# 연결 Body 설정
+shoulder_joint.CreateBody0Rel().AddTarget(
+    "/Factory/Line_A/Robots/Robot_01"
+)
+shoulder_joint.CreateBody1Rel().AddTarget(
+    "/Factory/Line_A/Robots/Robot_01/Shoulder"
+)
+
+# 회전 축 및 한계
+shoulder_joint.CreateAxisAttr(UsdPhysics.Tokens.z)
+shoulder_joint.CreateLowerLimitAttr(-90.0)
+shoulder_joint.CreateUpperLimitAttr(90.0)
+
+# Elbow, Wrist도 동일 패턴
+for joint_path, body0, body1, lo, hi in [
+    (
+        "/Factory/Line_A/Robots/Robot_01/Shoulder/Elbow/ElbowJoint",
+        "/Factory/Line_A/Robots/Robot_01/Shoulder",
+        "/Factory/Line_A/Robots/Robot_01/Shoulder/Elbow",
+        -120.0, 120.0
+    ),
+    (
+        "/Factory/Line_A/Robots/Robot_01/Shoulder/Elbow/Wrist/WristJoint",
+        "/Factory/Line_A/Robots/Robot_01/Shoulder/Elbow",
+        "/Factory/Line_A/Robots/Robot_01/Shoulder/Elbow/Wrist",
+        -60.0, 60.0
+    ),
+]:
+    j = UsdPhysics.RevoluteJoint.Define(stage, joint_path)
+    j.CreateBody0Rel().AddTarget(body0)
+    j.CreateBody1Rel().AddTarget(body1)
+    j.CreateAxisAttr(UsdPhysics.Tokens.z)
+    j.CreateLowerLimitAttr(lo)
+    j.CreateUpperLimitAttr(hi)
+
+stage.Save()
+
+UsdRender — 렌더 설정 추가
+pythonfrom pxr import UsdRender, UsdGeom
+
+# ── Camera 추가 ───────────────────────────────────────────
+cam_prim = UsdGeom.Camera.Define(
+    stage, "/Factory/Cameras/MainCamera"
+)
+cam_prim.CreateFocalLengthAttr(35.0)
+cam_prim.CreateFocusDistanceAttr(500.0)
+cam_prim.CreateFStopAttr(5.6)
+
+cam_xf = UsdGeom.Xformable(cam_prim.GetPrim())
+cam_xf.AddTranslateOp().Set(Gf.Vec3d(0, 300, -800))
+cam_xf.AddRotateXOp().Set(-20.0)
+
+# ── RenderSettings ────────────────────────────────────────
+render_settings = UsdRender.Settings.Define(
+    stage, "/Render/Settings"
+)
+render_settings.CreateResolutionAttr(Gf.Vec2i(1920, 1080))
+render_settings.CreatePixelAspectRatioAttr(1.0)
+
+# 카메라 연결
+render_settings.CreateCameraRel().AddTarget(
+    "/Factory/Cameras/MainCamera"
+)
+
+# RenderProduct — 출력 이미지 정의
+product = UsdRender.Product.Define(
+    stage, "/Render/Product"
+)
+product.CreateProductNameAttr("./renders/factory_beauty.exr")
+
+stage.Save()
+
+API Schema 적용 패턴 — Apply() 메서드
+API Schema는 Apply() 클래스 메서드로 기존 Prim에 붙입니다.
+pythonfrom pxr import UsdPhysics, UsdShade, UsdGeom
+
+prim = stage.GetPrimAtPath("/Factory/Line_A/Robots/Robot_01")
+
+# API Schema 적용
+rigid   = UsdPhysics.RigidBodyAPI.Apply(prim)
+col     = UsdPhysics.CollisionAPI.Apply(prim)
+binding = UsdShade.MaterialBindingAPI.Apply(prim)
+
+# 적용된 API Schema 목록 확인
+for api in prim.GetAppliedSchemas():
+    print(api)
+# PhysicsRigidBodyAPI
+# PhysicsCollisionAPI
+# MaterialBindingAPI
+
+# API Schema 적용 여부 확인
+print(UsdPhysics.RigidBodyAPI.CanApply(prim))  # True
+print(prim.HasAPI(UsdPhysics.RigidBodyAPI))    # True
+
+지금까지 프로젝트 상태
+factory_base.usda
+└── /Factory
+    ├── /Factory/PhysicsScene          ★ UsdPhysics 추가
+    │     gravityDirection=(0,-1,0)
+    │     gravityMagnitude=981
+    ├── /Factory/Cameras               ★ UsdGeom.Camera 추가
+    │   └── MainCamera
+    ├── /Factory/Materials             (UsdShade — 텍스처 연결 강화)
+    ├── /Factory/Lights                (UsdLux — 기존 유지)
+    ├── /Factory/Line_A
+    │   └── Robots
+    │       └── Robot_01
+    │           physics:rigidBodyEnabled = true  ★
+    │           └── Shoulder
+    │               └── ShoulderJoint  (RevoluteJoint, Z, -90~90) ★
+    │               └── Elbow
+    │                   └── ElbowJoint (RevoluteJoint, Z,-120~120) ★
+    │                   └── Wrist
+    │                       └── WristJoint (RevoluteJoint, Z,-60~60) ★
+    └── /Factory/Floor
+/Render/Settings                       ★ UsdRender 추가
+    resolution=1920×1080
+    camera → MainCamera
+Phase 4 완전 완료입니다. UsdGeom · UsdShade · UsdLux · UsdPhysics · UsdRender — 로봇 공장 씬에 필요한 모든 Schema 모듈이 적용되었습니다.
+
+Phase 5로 진입합니다
+지금까지 만든 모든 것이 단일 파일 안에 있었습니다. Phase 5에서는 이 씬을 여러 레이어로 분리하고, 컴포지션 시스템으로 다시 조립합니다. 다음 모듈 ⑬ Composition에서는 SubLayer · Reference · Payload · Inherit · Variant · Specialize — LIVRPS 여섯 가지 컴포지션 아크의 전체 그림을 먼저 조망합니다.
+
+계속 진행할까요? 다음 → ⑬ Composition입력 내용: OKOK22:32Claude 응답: Phase 5 — Module ⑬ : CompositionPhase 5 — Module ⑬ : Composition
+"씬을 레고처럼 조립하다 — 6가지 컴포지션 아크"
+
 ---
+
+
 
