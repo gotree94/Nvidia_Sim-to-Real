@@ -11,17 +11,29 @@
 
 ## 2. 파일 가져오기
    * 다운로드 받은 파일을 File > Import로 가져옵니다.
+
+<img src="img\001.png">
+
    * Convert Visible Only 체크 해제,
    * Enable Instancing 체크 해제 후
    * Unit을 Meters로 설정하고 Import
       > stp폴더와 같은 곳에 usd 파일 생성
 
+<img src="img\002.png">
+
 ## 3. Prim 정리
    * Looks Prim을 tn__RB101300EEVersion_lMb0r1C에 Drag & Drop 한 후 
    * 다음과 같이 블럭지정하여 Save Selected
+
+<img src="img\003.png">
+   
    * 중첩되어있는 Xform 안에 있는 Mesh를 정리
    * 메쉬를 상위 Xform으로 옮기기
    * 모든 Link에 대해 반복
+
+<img src="img\004.png"> <br>
+<img src="img\005.png">
+   
    * 사용하지 않는 Xform Prim을 삭제하고, 이름을 읽기 쉽게 변경
    * 로봇의 도면 또는 DH-parameter를 참조하여 새롭게 Xform 생성
    * 일단 필요할 것 같은 Xform 지점을 모두 생성하고, 
