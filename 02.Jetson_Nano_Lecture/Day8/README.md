@@ -89,7 +89,7 @@
    * F3 > Cursor to World Origin 하고,
    * Layout > Empty > Plain Axes로 축 생성
 
-<img src="img\015.png">
+<img src="img\015-1.png"> <img src="img\015-2.png">
 
    * Root, Empty 를 ctrl로 차례대로 선택 후
    * ctrl + p > set parent to object (keep transform)
