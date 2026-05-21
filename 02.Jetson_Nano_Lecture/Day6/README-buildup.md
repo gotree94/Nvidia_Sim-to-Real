@@ -3433,9 +3433,11 @@ print(resolved)   # /home/나무/robot_factory/robot_arm.usda
 # (플러그인으로 등록, 경로 형식 완전 커스텀 가능)
 # 예: "asset:robot_arm_v003" → /pipeline/assets/robot/v003/robot_arm.usdc
 
-프로젝트 최종 완성 코드
-지금까지 만든 모든 요소를 하나로 조립합니다.
-pythonfrom pxr import (
+**프로젝트 최종 완성 코드**
+   * 지금까지 만든 모든 요소를 하나로 조립합니다.
+
+```python
+from pxr import (
     Usd, UsdGeom, UsdShade, UsdLux,
     UsdPhysics, UsdRender, UsdUtils,
     Sdf, Gf, Vt, Kind
@@ -3519,25 +3521,19 @@ print(f"\n=== Dependencies ===")
 print(f"  Layers : {len(layers)}")
 print(f"  Assets : {len(assets)}")
 print(f"  Broken : {len(unresolved)}")
+```
 
-# 최종 배포 패키지 생성
-UsdUtils.CreateNewUsdzPackage(
-    assetPath    = "shot_director.usda",
-    usdzFilePath = "robot_factory_final.usdz"
-)
-print("\n✓ robot_factory_final.usdz 생성 완료")
+## 전체 커리큘럼 최종 프로젝트 상태
 
-전체 커리큘럼 최종 프로젝트 상태
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation-duration: 0.25s;
-    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-  }
-VvisualizeVvisualize show_widget
-핵심 패턴 3가지 — 실전 요약
-지금까지 배운 15개 모듈을 실전에서 어떻게 조합할지 최종 정리합니다.
-패턴 1 — 에셋 파이프라인
+
+
+
+**핵심 패턴 3가지 — 실전 요약**
+   * 지금까지 배운 15개 모듈을 실전에서 어떻게 조합할지 최종 정리합니다.
+
+**패턴 1 — 에셋 파이프라인**
+
+```
 에셋 정의          robot_arm.usda       (def, defaultPrim)
     ↓ Reference
 씬 배치            factory_base.usda    (위치·오버라이드)
@@ -3549,8 +3545,12 @@ VvisualizeVvisualize show_widget
 샷 오버라이드      shot_director.usda   (over, Variant 전환)
     ↓ Export
 배포               robot_factory.usdz
-패턴 2 — 비파괴 오버라이드
-python# 원본을 건드리지 않고 값 변경
+```
+
+**패턴 2 — 비파괴 오버라이드**
+
+```python
+# 원본을 건드리지 않고 값 변경
 # 항상 over + SubLayer 조합
 over_layer = Sdf.Layer.CreateNew("my_override.usda")
 with Usd.EditContext(stage, over_layer):
@@ -3558,8 +3558,12 @@ with Usd.EditContext(stage, over_layer):
     prim.GetAttribute("inputs:intensity").Set(2000.0)
 over_layer.Save()
 # factory_base.usda는 변경 없음
-패턴 3 — 런타임 씬 조작
-python# Variant 전환 → 즉시 씬 변경
+```
+
+**패턴 3 — 런타임 씬 조작**
+
+```python
+# Variant 전환 → 즉시 씬 변경
 robot.GetVariantSets().GetVariantSet("lodLevel")\
      .SetVariantSelection("low")
 
@@ -3570,24 +3574,26 @@ stage.Unload("/Factory/Line_A/Robots/Robot_02")
 base = stage.GetPrimAtPath("/_RobotBase")
 base.GetAttribute("custom:manufacturer").Set("NewFactory Corp")
 # Robot_01, Robot_02 모두 즉시 반영
+```
 
 **커리큘럼 완료 — 전체 요약**
 
 | Phase | 모듈 | 핵심 개념 | 프로젝트 기여 | 
-| 1 | Stage | 씬 진입점, Layer Stackfactory_base.usda 생성 | 
-| 1 | Prims | SdfPath, Specifier, Kind/Factory 트리 구성 | 
-| 1 | Attributes | 타입 시스템, Default Value위치·재질·커스텀 데이터 | 
-| 1 | Relationships | SdfPath 포인터material:binding, light:link | 
-| 1 | Metadata | doc, kind, customData씬 문서화, 계층 분류 | 
-| 2 | Scope | 논리 컨테이너Materials/Lights/Robots 분류 | 
-| 2 | Xform | xformOp 스택관절 계층 구조 | 
-| 2 | Primvars | interpolation, 상속버텍스 컬러, UV | 
-| 3 | TimeSamples | TimeCode, 키프레임로봇 팔 애니메이션 | 
-| 4 | Lighting | UsdLux, Light Linking3종 조명 체계 | 
-| 4 | File Format | susda/usdc/usdz개발→프로덕션→배포 | 
-| 4 | Modules | IsA/API SchemaPhysics, Render 추가 | 
-| 5 | Composition | 6 아크레이어 분리 조립 | 
-| 5 | LIVRPS | 우선순위 해석비파괴 오버라이드 |  
+|:-------:|:-------:|:-------:|:-------:|
+| 1 | Stage | 씬 진입점, Layer Stack | factory_base.usda 생성 | 
+| 1 | Prims | SdfPath, Specifier, Kind | /Factory 트리 구성 | 
+| 1 | Attributes | 타입 시스템, Default Value | 위치·재질·커스텀 데이터 | 
+| 1 | Relationships | SdfPath 포인터 | material:binding, light:link | 
+| 1 | Metadata | doc, kind, customData | 씬 문서화, 계층 분류 | 
+| 2 | Scope | 논리 컨테이너 | Materials/Lights/Robots 분류 | 
+| 2 | Xform | xformOp 스택 | 관절 계층 구조 | 
+| 2 | Primvars | interpolation, 상속 | 버텍스 컬러, UV | 
+| 3 | TimeSamples | TimeCode, 키프레임 | 로봇 팔 애니메이션 | 
+| 4 | Lighting | UsdLux, Light Linking | 3종 조명 체계 | 
+| 4 | File Format | susda/usdc/usdz | 개발→프로덕션→배포 | 
+| 4 | Modules | IsA/API Schema | Physics, Render 추가 | 
+| 5 | Composition | 6 아크 | 레이어 분리 조립 | 
+| 5 | LIVRPS | 우선순위 해석 | 비파괴 오버라이드 |  
 | 5 | Key Concepts | 합성 엔진, Instancing | 최종 패키징 | 
 
 
