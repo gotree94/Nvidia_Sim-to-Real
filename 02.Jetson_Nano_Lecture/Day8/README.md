@@ -31,8 +31,7 @@
    * 메쉬를 상위 Xform으로 옮기기
    * 모든 Link에 대해 반복
 
-<img src="img\004-1.png"> <br>
-<img src="img\004-2.png">
+<img src="img\004-1.png"> <img src="img\004-2.png">
    
    * 사용하지 않는 Xform Prim을 삭제하고, 이름을 읽기 쉽게 변경
 
