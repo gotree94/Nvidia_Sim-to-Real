@@ -1112,7 +1112,7 @@ factory_base.usda
 ## Phase 2 — Module ⑥ : Scope
 **"트랜스폼 없는 논리적 컨테이너"**
 
-<img src="usd-buildup\USD-007.png">
+<img src="usd-buildup\USD-007.png"> 
 
 **Scope란 무엇인가**
    * Scope는 UsdGeom이 정의한 가장 단순한 Prim 타입입니다. 유일한 역할은 자식 Prim들을 논리적으로 묶는 것이며, 트랜스폼 스택에 아무런 영향을 주지 않습니다.
@@ -1352,7 +1352,7 @@ factory_base.usda
 
 **"공간을 지배하는 트랜스폼 시스템"**
 
-<img src="usd-buildup\USD-008.png">
+<img src="usd-buildup\USD-008.png"> <img src="usd-buildup\USD-009.png">
 
 **xformOp 네임스페이스가 존재하는 이유**
 
@@ -1679,11 +1679,7 @@ factory_base.usda
 ## Phase 2 — Module ⑧ : Primvars
 **"렌더러에게 데이터를 전달하는 특수 Attribute"**
 
-<img src="usd-buildup\USD-009.png">
-
-<img src="usd-buildup\USD-010.png">
-
-<img src="usd-buildup\USD-011.png">
+<img src="usd-buildup\USD-010.png"> <img src="usd-buildup\USD-011.png">
 
 **Primvar란 무엇인가**
    * Primvar(Primitive Variable)는 primvars: 네임스페이스를 가진 특수 Attribute입니다. 일반 Attribute와 세 가지 점에서 다릅니다.
