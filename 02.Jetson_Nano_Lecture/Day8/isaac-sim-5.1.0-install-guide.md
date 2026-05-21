@@ -75,6 +75,13 @@ cd _build/linux-x86_64/release
 ./isaac-sim.sh
 ```
 
+```
+(base) gotree94@gotree94-ROG-Strix-SCAR-16-G635LX-G635LX:~/isaacsim$ ./build.sh
+Script dir: /home/gotree94/isaacsim
+/home/gotree94/isaacsim/tools/packman/packman: line 2: $'\r': command not found
+
+```
+
 ---
 
 ## 4. 실행 명령어
