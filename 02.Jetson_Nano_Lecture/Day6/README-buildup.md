@@ -10,6 +10,12 @@
    * Phase 1 — Module ④ : Relationships
    * Phase 1 — Module ⑤ : Metadata
    * Phase 2 — Module ⑦ : Xform
+   * Phase 2 — Module ⑧ : Primvars
+   * Phase 3 — Module ⑨ : TimeCodes & TimeSamples
+   * Phase 4 — Module ⑩ : Lighting
+   * Phase 4 — Module ⑪ : File Formats
+   * Phase 4 — Module ⑫ : Modules (USD Schema Libraries)
+   * Phase 5 — Module ⑬ : Composition
 
 ---
 
