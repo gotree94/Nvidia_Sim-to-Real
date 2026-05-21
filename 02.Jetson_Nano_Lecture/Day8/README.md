@@ -131,23 +131,48 @@ bpy.ops.wm.usd_export(filepath='/home/shadeform/output.usdc', export_meshes=True
 
 ## 7. Joints
    * 움직이는 Link에 Rigidbody 속성을 부여
+
+<img src="img\025.png">   
+
    * 로봇의 기반인 Robot_Base에 우클릭하여 fixed joint를 생성
+
+<img src="img\026.png">   
+
    * 생성한 fixed joint에 Articulation root 부여
+
+<img src="img\027.png">   
+   
    * 이후 Link끼리 Revolute Joint를 생성하고 
    * Revolute Joint의 Axis를 직접 조절
+
+<img src="img\028.png">   
+
    * Revolute Joint에 Angular Drive를 추가
    * Damping과 Stiffness를 적절히 부여
+
+<img src="img\028.png">   
+
    * Core API Tutorial Series
       * Core API Tutorial Series - nvidia : https://docs.isaacsim.omniverse.nvidia.com/5.1.0/core_api_tutorials/index.html
+
    * Jupyter notebook extension
-      * window > Extensions 
+      * window > Extensions
+
+<img src="img\028.png">   
+
    * 팝업 창에 jupyter를 검색 후, 나오는 JUPYTER NOTEBOOK INTEGRATION을 클릭 > DISABLED, AUTOLOAD 왼쪽의 버튼을 모두 클릭하여 활성화
+
+<img src="img\029-1.png">   <img src="img\029-2.png">   
+   
    * 활성화된 Jupyter Notebook 사용
       * window > Jupyter Notebook
+
+<img src="img\030.png">   
+   
    * Jupyter Notebook 창에서
       * Omniverse (Python 3) 커널 선택
 
-<img src="img\030.png">
+<img src="img\031.png">
 
 ## 8. BaseSample
    * BaseSample code는 robotics 예제에서 재사용 할 수 있도록 만들어진 boilerplate 코드
@@ -157,8 +182,6 @@ bpy.ops.wm.usd_export(filepath='/home/shadeform/output.usdc', export_meshes=True
       •	World안의 객체를 초기 값으로 변경
    * Window > Examples > Robotics Examples > General > Hello World > Load 로 
    * 로딩할 수 있으나, BaseSample를 상속하여 Jupyter Notebook에서 사용할 것임
-
-<img src="img\031.png">
 
 ## 9. 
    * 01.hello_world
