@@ -85,6 +85,11 @@ uv python install 3.10
 uv sync --python 3.10 --extra cu130
 ```
 
+* 설치 후, nvcc --version 하시기 전에 다음 명령어 입력
+```
+echo 'export PATH=/usr/local/cuda-13.0/bin:$PATH' >> ~/.bashrc
+```
+
 ---
 **참고사항**
 
