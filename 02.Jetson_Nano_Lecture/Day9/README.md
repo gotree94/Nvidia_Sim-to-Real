@@ -61,6 +61,31 @@ source ~/.bashrc
 <img src="img/006.png">
 
 ---
+## 강사님 확인 내용
+
+**cuda 13.0 설치 링크**
+```
+https://developer.nvidia.com/cuda-13-0-3-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_network
+```
+
+**nano ~/.bashrc 하신 이후, 맨 밑 줄을 다음과 같이 수정**
+
+```
+# export PATH=/usr/local/cuda-12.8/bin:$PATH
+export PATH=/usr/local/cuda-13.0/bin:$PATH
+```
+
+```
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env
+```
+
+```
+uv python install 3.10
+uv sync --python 3.10 --extra cu130
+```
+
+---
 **참고사항**
 
 # brevlab RTX Pro 6000 — Setup Checklist
