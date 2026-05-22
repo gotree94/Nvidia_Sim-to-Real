@@ -132,6 +132,132 @@ hf auth login
 ```
 
 ---
+
+**테스트 하면서 확인중**
+
+# Cosmos-Transfer2.5 설치 기록
+
+> 환경: brevlab — NVIDIA RTX PRO 6000 Blackwell (96 GB) / 16 CPUs / 192 GiB RAM / Ubuntu 22.04
+
+---
+
+## 1. GPU 및 드라이버 확인
+
+```bash
+nvidia-smi
+```
+
+| 항목 | 값 |
+|---|---|
+| GPU | NVIDIA RTX PRO 6000 Blackwell |
+| VRAM | 97,887 MiB (~96 GB) |
+| Driver | 580.126.09 |
+| CUDA Version | 13.0 |
+
+---
+
+## 2. git-lfs 설치
+
+```bash
+sudo apt update
+sudo apt install -y git-lfs
+git lfs install
+```
+
+---
+
+## 3. Repository clone
+
+HTTPS 사용 (SSH 키가 없으므로)
+
+```bash
+git clone https://github.com/nvidia-cosmos/cosmos-transfer2.5.git
+cd cosmos-transfer2.5
+git lfs pull
+```
+
+---
+
+## 4. 시스템 패키지 설치
+
+```bash
+sudo apt install -y curl ffmpeg libx11-dev tree wget
+```
+
+---
+
+## 5. uv 설치
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env
+```
+
+---
+
+## 6. Python 3.10 + 의존성 설치 (CUDA 13.0)
+
+```bash
+uv python install 3.10
+uv sync --python 3.10 --extra cu130
+source .venv/bin/activate
+```
+
+설치 후 프롬프트에 `(cosmos-transfer2)` 확인.
+
+---
+
+## 7. CUDA Toolkit 13.0 설치 (nvcc)
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo apt-get update
+sudo apt-get -y install cuda-toolkit-13-0
+```
+
+확인:
+
+```bash
+nvcc --version
+```
+
+| 항목 | 값 |
+|---|---|
+| nvcc | NVIDIA (R) Cuda compiler driver |
+| Release | 13.0, V13.0.88 |
+| 빌드 | cuda_13.0.r13.0/compiler.36424714_0 |
+
+---
+
+## 8. Hugging Face 로그인
+
+```bash
+hf auth login
+```
+
+- Read 권한이 있는 HF Token 입력
+- [NVIDIA Open Model License](https://huggingface.co/nvidia/Cosmos-Transfer2.5-2B) 동의 필요
+
+---
+
+## 최종 설치 완료 항목
+
+| # | 단계 | 상태 |
+|---|---|---|
+| 1 | GPU 환경 확인 (RTX PRO 6000, 96 GB) | ✅ |
+| 2 | NVIDIA Driver 580.126.09 (CUDA 13.0) | ✅ |
+| 3 | git-lfs 설치 | ✅ |
+| 4 | Repository clone + lfs pull | ✅ |
+| 5 | 시스템 패키지 설치 | ✅ |
+| 6 | uv 설치 | ✅ |
+| 7 | Python 3.10 + 의존성 (cu130) | ✅ |
+| 8 | 가상환경 활성화 (cosmos-transfer2) | ✅ |
+| 9 | CUDA Toolkit 13.0 (nvcc V13.0.88) | ✅ |
+| 10 | Hugging Face 로그인 | ✅ |
+
+
+---
 **참고사항**
 
 # brevlab RTX Pro 6000 — Setup Checklist
