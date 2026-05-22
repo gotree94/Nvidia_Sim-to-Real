@@ -60,8 +60,7 @@ source ~/.bashrc
 
 <img src="img/006.png">
 
----
-## 강사님 확인 내용
+**테스트 하면서 확인중**
 
 ```
 ubuntu@fb087a37cf33:~/Desktop/Projects$ nvidia-smi
@@ -92,49 +91,6 @@ Fri May 22 05:36:54 2026
 
 ```
 
-
-**cuda 13.0 설치 링크**
-```
-https://developer.nvidia.com/cuda-13-0-3-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_network
-```
-
-**nano ~/.bashrc 하신 이후, 맨 밑 줄을 다음과 같이 수정**
-
-```
-# export PATH=/usr/local/cuda-12.8/bin:$PATH
-export PATH=/usr/local/cuda-13.0/bin:$PATH
-```
-
-```
-curl -LsSf https://astral.sh/uv/install.sh | sh
-source $HOME/.local/bin/env
-```
-
-```
-uv python install 3.10
-uv sync --python 3.10 --extra cu130
-```
-
-* 설치 후, nvcc --version 하시기 전에 다음 명령어 입력
-```
-echo 'export PATH=/usr/local/cuda-13.0/bin:$PATH' >> ~/.bashrc
-```
-
-```
-sudo apt list --installed | grep nvidia
-```
-
-* 이 내용을 봤을 때 nvidia-driver-숫자 여기서 숫자를 보시면 됩니다.
-
-```
-uv tool install -U "huggingface_hub[cli]"
-hf auth login
-```
-
----
-
-**테스트 하면서 확인중**
-
 # Cosmos-Transfer2.5 설치 기록
 
 > 환경: brevlab — NVIDIA RTX PRO 6000 Blackwell (96 GB) / 16 CPUs / 192 GiB RAM / Ubuntu 22.04
@@ -156,19 +112,38 @@ nvidia-smi
 
 ---
 
-## 2. git-lfs 설치
+## 2. CUDA Toolkit PATH 설정
 
 ```bash
-sudo apt update
-sudo apt install -y git-lfs
+nano ~/.bashrc
+```
+
+맨 밑 줄에 추가:
+
+```bash
+export PATH=/usr/local/cuda-13.0/bin:$PATH
+```
+
+```bash
+source ~/.bashrc
+```
+
+> 첫 확인 시 nvcc는 CUDA 11.5 (apt nvidia-cuda-toolkit)였으나, 이후 13.0으로 재설치됨.
+
+---
+
+## 3. git-lfs 설치
+
+```bash
+sudo apt update && sudo apt install -y git-lfs
 git lfs install
 ```
 
 ---
 
-## 3. Repository clone
+## 4. Repository clone
 
-HTTPS 사용 (SSH 키가 없으므로)
+SSH 키가 없어 HTTPS 사용.
 
 ```bash
 git clone https://github.com/nvidia-cosmos/cosmos-transfer2.5.git
@@ -178,7 +153,7 @@ git lfs pull
 
 ---
 
-## 4. 시스템 패키지 설치
+## 5. 시스템 패키지 설치
 
 ```bash
 sudo apt install -y curl ffmpeg libx11-dev tree wget
@@ -186,7 +161,7 @@ sudo apt install -y curl ffmpeg libx11-dev tree wget
 
 ---
 
-## 5. uv 설치
+## 6. uv 설치
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -195,7 +170,7 @@ source $HOME/.local/bin/env
 
 ---
 
-## 6. Python 3.10 + 의존성 설치 (CUDA 13.0)
+## 7. Python 3.10 + 의존성 설치 (CUDA 13.0)
 
 ```bash
 uv python install 3.10
@@ -207,12 +182,20 @@ source .venv/bin/activate
 
 ---
 
-## 7. CUDA Toolkit 13.0 설치 (nvcc)
+## 8. CUDA Toolkit 13.0 재설치
+
+apt `nvidia-cuda-toolkit`으로 설치된 CUDA 11.5를 제거하고 13.0으로 재설치.
 
 ```bash
+# 기존 CUDA 11.5 제거
+sudo apt remove -y nvidia-cuda-toolkit
+
+# CUDA 13.0 repository 등록
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
 sudo dpkg -i cuda-keyring_1.1-1_all.deb
 sudo apt-get update
+
+# CUDA Toolkit 13.0 설치
 sudo apt-get -y install cuda-toolkit-13-0
 ```
 
@@ -224,20 +207,41 @@ nvcc --version
 
 | 항목 | 값 |
 |---|---|
-| nvcc | NVIDIA (R) Cuda compiler driver |
+| nvcc | NVIDIA (R) Cuda compiler driver (2025) |
 | Release | 13.0, V13.0.88 |
 | 빌드 | cuda_13.0.r13.0/compiler.36424714_0 |
 
 ---
 
-## 8. Hugging Face 로그인
+## 9. Hugging Face 로그인
 
 ```bash
+# huggingface_hub CLI 설치
+uv tool install -U "huggingface_hub[cli]"
+
+# 로그인
 hf auth login
 ```
 
 - Read 권한이 있는 HF Token 입력
 - [NVIDIA Open Model License](https://huggingface.co/nvidia/Cosmos-Transfer2.5-2B) 동의 필요
+
+---
+
+## 10. Inference 테스트 실행 (선택)
+
+```bash
+# 예제 1: depth control
+python examples/inference.py \
+    -i assets/robot_example/depth/robot_depth_spec.json \
+    -o outputs/depth
+
+# 예제 2: distilled edge
+python examples/inference.py \
+    -i assets/robot_example/distilled/edge/robot_edge_spec.json \
+    -o outputs/distilled/edge \
+    --model=edge/distilled
+```
 
 ---
 
@@ -247,14 +251,17 @@ hf auth login
 |---|---|---|
 | 1 | GPU 환경 확인 (RTX PRO 6000, 96 GB) | ✅ |
 | 2 | NVIDIA Driver 580.126.09 (CUDA 13.0) | ✅ |
-| 3 | git-lfs 설치 | ✅ |
-| 4 | Repository clone + lfs pull | ✅ |
-| 5 | 시스템 패키지 설치 | ✅ |
-| 6 | uv 설치 | ✅ |
-| 7 | Python 3.10 + 의존성 (cu130) | ✅ |
-| 8 | 가상환경 활성화 (cosmos-transfer2) | ✅ |
-| 9 | CUDA Toolkit 13.0 (nvcc V13.0.88) | ✅ |
-| 10 | Hugging Face 로그인 | ✅ |
+| 3 | CUDA Toolkit 13.0 (nvcc V13.0.88) | ✅ |
+| 4 | ~/.bashrc PATH 설정 (/usr/local/cuda-13.0/bin) | ✅ |
+| 5 | git-lfs 설치 | ✅ |
+| 6 | Repository clone + lfs pull | ✅ |
+| 7 | 시스템 패키지 설치 | ✅ |
+| 8 | uv 설치 | ✅ |
+| 9 | Python 3.10 + 의존성 (cu130) | ✅ |
+| 10 | 가상환경 활성화 (cosmos-transfer2) | ✅ |
+| 11 | Hugging Face 로그인 | ✅ |
+| 12 | Inference 테스트 실행 | ✅ |
+
 
 
 ---
