@@ -378,6 +378,10 @@ The video has been transformed from a modern urban driving scene to one set alon
 <img width="9997" height="32" alt="image" src="https://github.com/user-attachments/assets/d99e5133-92a1-4a0f-b404-bb596ab2ba18" />
 ```
 
+```
+비디오는 현대적인 도심 주행 장면에서 아름다운 해변가 풍경으로 변환되었습니다. 차량 내부에 장착된 대시캠 또는 이와 유사한 고정 카메라로 촬영된 것으로 보입니다. 넓은 도로 양쪽에는 저층 건물들이 자리 잡고 있어 지역 전체에 여유롭고 개방적인 분위기를 줍니다. 이 건물들은 대부분 작은 상점, 카페, 여관들로 구성되어 해안 마을의 분위기를 자아냅니다. 도로 앞쪽에는 여러 대의 차량이 보이지만, 원본 장면과 달리 모두 흰색으로 깔끔하고 통일감 있는 모습을 보여줍니다. 교통량은 적고, 차량들은 일정한 속도로 앞으로 나아갑니다. 도로를 따라 차선 통제 또는 공사 구역을 안내하는 교통 콘이 설치되어 있습니다. 도로 왼쪽에는 야자수가 인도를 따라 늘어서 있어 장면에 열대 해변가 느낌을 더합니다. 보행자들은 건물 근처에서 여유롭게 걷거나 서 있는 모습이 보입니다. 건축 양식은 유리 외관보다는 밝은 색상의 콘크리트와 목재 악센트가 특징으로, 해변가 분위기를 한층 살려줍니다. 하늘은 맑고 화창하여 장면이 밝고 선명하게 보입니다. 차량은 도로가 여러 방향으로 갈라지는 교차로에 접근하면서 일정한 속도를 유지합니다. 카메라는 주행 내내 고정되어 있어 야자수가 늘어선 도로, 흰색 차량, 여유로운 해안가 풍경을 안정적으로 보여줍니다. 전반적인 분위기는 평화로운 해변가 마을을 연상시키는 고요하고 따뜻한 느낌입니다
+```
+
 <img src="img/008.jpg">
 
 ## Cosmos Synthetic Data Generation 
@@ -390,6 +394,11 @@ The video has been transformed from a modern urban driving scene to one set alon
 This scene depicts the interior of a factory. The floor is made of white epoxy material, and inside the factory, rows of metal racks are lined up, each stacked with blue boxes. On the factory floor, several items have fallen off the racks, and safety cones and warning markings are placed nearby to prevent entry into restricted areas. On the right side of the scene, a white male worker wearing a fluorescent safety jacket and a hat is working. The factory walls are made of red brick, and the structural frame above the bricks is constructed of steel. Fluorescent lights hanging from the ceiling illuminate the space, adding to the realistic atmosphere of the scene. The entire image is rendered with such a high level of realism that it does not look like computer graphics or a simulated environment at all.
 <img width="5509" height="32" alt="image" src="https://github.com/user-attachments/assets/6a532b44-5cce-47f5-9808-9740adf2b228" />
 ```
+
+```
+이 장면은 공장 내부를 묘사하고 있습니다. 바닥은 흰색 에폭시 재질로 되어 있으며, 공장 내부에는 여러 줄의 금속 랙이 정렬되어 있고 각각 파란색 상자가 쌓여 있습니다. 공장 바닥에는 랙에서 떨어진 몇몇 물건들이 있으며, 출입 제한 구역 진입을 막기 위해 안전 콘과 경고 표시가 근처에 배치되어 있습니다. 장면 오른쪽에는 형광 안전 조끼와 모자를 착용한 백인 남성 작업자가 작업 중입니다. 공장 벽은 붉은 벽돌로 되어 있고, 벽돌 위의 구조 프레임은 강철로 구성되어 있습니다. 천장에 매달린 형광등이 공간을 비추며 장면의 사실적인 분위기를 더하고 있습니다. 전체 이미지는 컴퓨터 그래픽이나 시뮬레이션 환경처럼 보이지 않을 정도로 높은 수준의 사실감으로 렌더링되어 있습니다.
+```
+
 
 <img src="img/009-1.jpg">
 
