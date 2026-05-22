@@ -70,7 +70,18 @@ Isaac Sim과 Cosmos-transfer2.5를 사용하여 산출물을 만들고 아래 �
 -	결과 영상
 
 
-
+<img src="img/001.png">
+<img src="img/002-1.png">
+<img src="img/002-2.jpg">
+<img src="img/003.png">
+<img src="img/004-1.png">
+<img src="img/004-2.png">
+<img src="img/005.png">
+<img src="img/006.png">
+<img src="img/007.jpg">
+<img src="img/008.jpg">
+<img src="img/009-1.jpg">
+<img src="img/009-2.jpg">
 
 
 
