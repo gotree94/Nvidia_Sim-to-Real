@@ -63,6 +63,36 @@ source ~/.bashrc
 ---
 ## 강사님 확인 내용
 
+```
+ubuntu@fb087a37cf33:~/Desktop/Projects$ nvidia-smi
+Fri May 22 05:36:54 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX PRO 6000 Blac...    On  |   00000000:01:00.0 Off |                    0 |
+| N/A   30C    P0             81W /  600W |    1355MiB /  97887MiB |     29%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A             616      G   /usr/lib/xorg/Xorg                      133MiB |
+|    0   N/A  N/A             659      C   /usr/bin/python3                        626MiB |
+|    0   N/A  N/A             774      G   /usr/bin/kwin_x11                         9MiB |
+|    0   N/A  N/A             840      G   /usr/bin/plasmashell                     69MiB |
+|    0   N/A  N/A            7647      G   /usr/lib/firefox/firefox                421MiB |
++-----------------------------------------------------------------------------------------+
+
+```
+
+
 **cuda 13.0 설치 링크**
 ```
 https://developer.nvidia.com/cuda-13-0-3-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_network
