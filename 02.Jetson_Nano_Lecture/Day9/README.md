@@ -48,21 +48,19 @@ source ~/.bashrc
 <img src="img/005.png">
 
 
-Cosmos-transfer2.5
-이후 transfer2.5 setup 과정 실행
-주의! H100은 Graphics Engine이 없습니다(원격 GUI 사용 불가)
+## Cosmos-transfer2.5
+   * 이후 transfer2.5 setup 과정 실행 : https://github.com/nvidia-cosmos/cosmos-transfer2.5/blob/main/docs/setup.md
+   * 주의! H100은 Graphics Engine이 없습니다(원격 GUI 사용 불가)
 
 <img src="img/006.png">
 
 
 ## Cosmos-transfer2.5
-
-https://github.com/nvidia-cosmos/cosmos-transfer2.5/blob/main/docs/inference.md
-다음 페이지에 따라 예제를 직접 수정해보고, assets/robot_example/robot_prompt 를 수정하여 같은 영상에 다른 prompt 적용해보기
+   * https://github.com/nvidia-cosmos/cosmos-transfer2.5/blob/main/docs/inference.md
+   * 다음 페이지에 따라 예제를 직접 수정해보고, assets/robot_example/robot_prompt 를 수정하여 같은 영상에 다른 prompt 적용해보기
 
 ## Cosmos-transfer2.5 Examples
-  * 모델에 입력할 Prompt는 매우 세밀한 묘사를 하도록 작성해야하며, 
-  * 많은 시도를 필요로 합니다.
+  * 모델에 입력할 Prompt는 매우 세밀한 묘사를 하도록 작성해야하며, 많은 시도를 필요로 합니다.
 
 ```
 The video captures a robotic manipulation demonstration conducted in an outdoor-like setting. Instead of a laboratory environment, the background features a vivid green grass surface that creates a natural and open atmosphere. Two robotic arms are positioned on either side of a black shirt, which is neatly spread out on a yellow cushion placed on the ground. Behind them, there is a couch made of paper material, adding an interesting, lightweight element to the scene. The left robotic arm is white with a black gripper and begins the task by moving toward the shirt with precise, controlled motions. Its gripper opens and closes as it aligns itself for an accurate grasp. The right robotic arm, which is black with a more articulated gripper, remains still at first, ready to cooperate in the manipulation. Once the left arm grips one side of the shirt and lifts it slightly, the right arm moves in to secure the opposite edge. The two arms then work in synchronized motion, gently lifting and holding the shirt between them. Their precise, coordinated movements emphasize both the stability of their grip and the flexibility required to handle soft fabric. The camera remains fixed on the scene, ensuring a clear, uninterrupted view of the entire manipulation process against the grassy background and paper-textured sofa.
@@ -74,7 +72,7 @@ The video captures a robotic manipulation demonstration conducted in an outdoor-
 
 
 ## Cosmos-cosmos2.5 Examples
-Input이 애매하거나, 모델이 아직 완벽하지 않기 때문에 오류가 발생하기도 합니다.
+   * Input이 애매하거나, 모델이 아직 완벽하지 않기 때문에 오류가 발생하기도 합니다.
 
 ```
 The video has been transformed from a modern urban driving scene to one set along a scenic beachfront. It appears to be filmed with a dashcam or a similar fixed camera mounted inside the vehicle. On both sides of the wide road, there are low-rise buildings, giving the area a relaxed and open atmosphere. These buildings are mostly small shops, cafés, and inns, contributing to a coastal town vibe. Several cars are visible on the road ahead, but unlike the original scene, they are all white, creating a clean and uniform look. Traffic is light, and the vehicles maintain a steady pace as they move forward. Traffic cones are placed along the road to guide cars through a lane closure or roadwork area. On the left side of the road, palm trees line the sidewalk, adding a tropical and beachside feeling to the scene. Pedestrians can be seen walking leisurely or standing near the buildings. The architecture is characterized by light-colored concrete and wood accents rather than glass facades, enhancing the seaside ambiance. The sky is clear and sunny, making the scene bright and highly visible. The car maintains a constant speed as it approaches an intersection where the road splits into different directions. The camera remains fixed throughout the drive, providing a stable view of the palm-lined road, the white cars, and the relaxed coastal surroundings. The overall atmosphere is calm, warm, and reminiscent of a peaceful beachfront town.
@@ -83,9 +81,8 @@ The video has been transformed from a modern urban driving scene to one set alon
 
 <img src="img/008.jpg">
 
-
 ## Cosmos Synthetic Data Generation 
-   * Cosmos Synthetic Data Generation
+   * Cosmos Synthetic Data Generation : https://docs.isaacsim.omniverse.nvidia.com/5.1.0/replicator_tutorials/tutorial_replicator_cosmos.html
    * Cosmos에 들어갈 input data를 생성하는 script
 
 ## Cosmos Synthetic Data Generation 
