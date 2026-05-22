@@ -55,6 +55,7 @@ source ~/.bashrc
 
 ## Cosmos-transfer2.5
    * 이후 transfer2.5 setup 과정 실행 : https://github.com/nvidia-cosmos/cosmos-transfer2.5/blob/main/docs/setup.md
+   * Balckwell에서는 버전이 바뀌어서 링크 참고 : https://github.com/nvidia-cosmos/cosmos-transfer2.5/blob/main/docs/setup.md
    * 주의! H100은 Graphics Engine이 없습니다(원격 GUI 사용 불가)
 
 <img src="img/006.png">
