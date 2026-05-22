@@ -76,6 +76,11 @@ The video captures a robotic manipulation demonstration conducted in an outdoor-
 ## Cosmos-cosmos2.5 Examples
 Input이 애매하거나, 모델이 아직 완벽하지 않기 때문에 오류가 발생하기도 합니다.
 
+```
+The video has been transformed from a modern urban driving scene to one set along a scenic beachfront. It appears to be filmed with a dashcam or a similar fixed camera mounted inside the vehicle. On both sides of the wide road, there are low-rise buildings, giving the area a relaxed and open atmosphere. These buildings are mostly small shops, cafés, and inns, contributing to a coastal town vibe. Several cars are visible on the road ahead, but unlike the original scene, they are all white, creating a clean and uniform look. Traffic is light, and the vehicles maintain a steady pace as they move forward. Traffic cones are placed along the road to guide cars through a lane closure or roadwork area. On the left side of the road, palm trees line the sidewalk, adding a tropical and beachside feeling to the scene. Pedestrians can be seen walking leisurely or standing near the buildings. The architecture is characterized by light-colored concrete and wood accents rather than glass facades, enhancing the seaside ambiance. The sky is clear and sunny, making the scene bright and highly visible. The car maintains a constant speed as it approaches an intersection where the road splits into different directions. The camera remains fixed throughout the drive, providing a stable view of the palm-lined road, the white cars, and the relaxed coastal surroundings. The overall atmosphere is calm, warm, and reminiscent of a peaceful beachfront town.
+<img width="9997" height="32" alt="image" src="https://github.com/user-attachments/assets/d99e5133-92a1-4a0f-b404-bb596ab2ba18" />
+```
+
 <img src="img/008.jpg">
 
 
@@ -84,6 +89,11 @@ Input이 애매하거나, 모델이 아직 완벽하지 않기 때문에 오류�
    * Cosmos에 들어갈 input data를 생성하는 script
 
 ## Cosmos Synthetic Data Generation 
+
+```
+This scene depicts the interior of a factory. The floor is made of white epoxy material, and inside the factory, rows of metal racks are lined up, each stacked with blue boxes. On the factory floor, several items have fallen off the racks, and safety cones and warning markings are placed nearby to prevent entry into restricted areas. On the right side of the scene, a white male worker wearing a fluorescent safety jacket and a hat is working. The factory walls are made of red brick, and the structural frame above the bricks is constructed of steel. Fluorescent lights hanging from the ceiling illuminate the space, adding to the realistic atmosphere of the scene. The entire image is rendered with such a high level of realism that it does not look like computer graphics or a simulated environment at all.
+<img width="5509" height="32" alt="image" src="https://github.com/user-attachments/assets/6a532b44-5cce-47f5-9808-9740adf2b228" />
+```
 
 <img src="img/009-1.jpg">
 
