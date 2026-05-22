@@ -263,6 +263,28 @@ python examples/inference.py \
 | 12 | Inference 테스트 실행 | ✅ |
 
 
+```
+ubuntu@fb087a37cf33:~/Desktop/Projects/cosmos-transfer2.5/assets$ ls *example
+car_example:
+car_input.mp4  car_prompt.txt  depth  edge  multicontrol  seg  vis
+
+humanoid_example:
+depth  edge  humanoid_guided_mask.mp4  humanoid_input.mp4  humanoid_prompt.txt  seg  vis
+
+image_example:
+calm_street.mp4  coastal_highway_guided_mask.mp4  coastal_highway.mp4  image2image_guided.json  image2image.json  image_style.json  sunset.jpg
+
+multiview_example:
+input_videos  multiview_autoregressive_spec.json  multiview_spec.json  prompt.txt  world_scenario_videos
+
+plenoptic_example:
+batch.jsonl  cameras  metadata.csv  rot_left.json  sample.json  sample_output  videos
+
+robot_example:
+depth  distilled  edge  multicontrol  robot_input.mp4  robot_prompt.txt  seg  vis
+
+```
+
 
 ---
 **참고사항**
