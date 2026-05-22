@@ -282,9 +282,11 @@ batch.jsonl  cameras  metadata.csv  rot_left.json  sample.json  sample_output  v
 
 robot_example:
 depth  distilled  edge  multicontrol  robot_input.mp4  robot_prompt.txt  seg  vis
-
 ```
 
+```
+python examples/inference.py -i assets/car_example/depth/car_depth_spec.json -o outputs/depth
+```
 
 ---
 **참고사항**
