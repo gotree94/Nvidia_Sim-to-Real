@@ -5,6 +5,9 @@
      * Data Generation With MobilityGen : https://docs.isaacsim.omniverse.nvidia.com/5.1.0/synthetic_data_generation/tutorial_replicator_mobility_gen.html
    * 0과 1 사이의 값으로 나타낸 맵으로 0은 free space, 1은 occupied space를 나타낸다
 
+ * Replay 하기전에 변경할것
+ * sudo chmod -R 777 /home/shadeform
+
 <img src="img/001.png">
 
 ## Data Generation with MobilityGen
