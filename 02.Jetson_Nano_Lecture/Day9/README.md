@@ -26,11 +26,16 @@
    * 먼저 Huggingface에 가입합니다 : https://huggingface.co/join
    * 가입 후, 계정 > Settings > Create new Access Token > Read Token 생성
 
+<img src="img/003.png">
+
 ## Cosmos-transfer2.5
    * nvidia/Cosmos-Predict2.5-2B · Hugging Face : https://huggingface.co/nvidia/Cosmos-Predict2.5-2B
    * nvidia/Cosmos-Transfer2.5-2B · Hugging Face : https://huggingface.co/nvidia/Cosmos-Transfer2.5-2B
    * nvidia/Cosmos-Guardrail1 · Hugging Face : https://huggingface.co/nvidia/Cosmos-Guardrail1
    * 다음 링크에 들어가서 Model 사용 허가 신청
+
+<img src="img/004-1.png">
+<img src="img/004-2.png">
 
 ## Cosmos-transfer2.5
    * 아래 Launchable instance 실행 후, cuda12.8 설치 링크 참고하여 설치
@@ -40,13 +45,15 @@
 echo 'export PATH=/usr/local/cuda-12.8/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 ```
+<img src="img/005.png">
 
 
 Cosmos-transfer2.5
 이후 transfer2.5 setup 과정 실행
 주의! H100은 Graphics Engine이 없습니다(원격 GUI 사용 불가)
 
-<img src="img/003.png">
+<img src="img/006.png">
+
 
 ## Cosmos-transfer2.5
 
@@ -54,36 +61,40 @@ https://github.com/nvidia-cosmos/cosmos-transfer2.5/blob/main/docs/inference.md
 다음 페이지에 따라 예제를 직접 수정해보고, assets/robot_example/robot_prompt 를 수정하여 같은 영상에 다른 prompt 적용해보기
 
 ## Cosmos-transfer2.5 Examples
-모델에 입력할 Prompt는 매우 세밀한 묘사를 하도록 작성해야하며, 
-많은 시도를 필요로 합니다.
+  * 모델에 입력할 Prompt는 매우 세밀한 묘사를 하도록 작성해야하며, 
+  * 많은 시도를 필요로 합니다.
 
-<img src="img/004-1.png">
-<img src="img/004-2.png">
-<img src="img/005.png">
-<img src="img/006.png">
+```
+The video captures a robotic manipulation demonstration conducted in an outdoor-like setting. Instead of a laboratory environment, the background features a vivid green grass surface that creates a natural and open atmosphere. Two robotic arms are positioned on either side of a black shirt, which is neatly spread out on a yellow cushion placed on the ground. Behind them, there is a couch made of paper material, adding an interesting, lightweight element to the scene. The left robotic arm is white with a black gripper and begins the task by moving toward the shirt with precise, controlled motions. Its gripper opens and closes as it aligns itself for an accurate grasp. The right robotic arm, which is black with a more articulated gripper, remains still at first, ready to cooperate in the manipulation. Once the left arm grips one side of the shirt and lifts it slightly, the right arm moves in to secure the opposite edge. The two arms then work in synchronized motion, gently lifting and holding the shirt between them. Their precise, coordinated movements emphasize both the stability of their grip and the flexibility required to handle soft fabric. The camera remains fixed on the scene, ensuring a clear, uninterrupted view of the entire manipulation process against the grassy background and paper-textured sofa.
+
+<img width="11653" height="41" alt="image" src="https://github.com/user-attachments/assets/1606fb5b-1496-4901-bf74-17b7ed3a6ca1" />
+```
+
 <img src="img/007.jpg">
+
+
+## Cosmos-cosmos2.5 Examples
+Input이 애매하거나, 모델이 아직 완벽하지 않기 때문에 오류가 발생하기도 합니다.
+
 <img src="img/008.jpg">
+
+
+## Cosmos Synthetic Data Generation 
+   * Cosmos Synthetic Data Generation
+   * Cosmos에 들어갈 input data를 생성하는 script
+
+## Cosmos Synthetic Data Generation 
+
 <img src="img/009-1.jpg">
+
 <img src="img/009-2.jpg">
 
-
-Cosmos-cosmos2.5 Examples
-Input이 애매하거나, 모델이 아직 완벽하지 않기 때문에 오류가 발생하기도 합니다.
-Cosmos Synthetic Data Generation 
-Cosmos Synthetic Data Generation
-
-Cosmos에 들어갈 input data를 생성하는 script
-
-
-Cosmos Synthetic Data Generation 
-
-Do it yourself
-Isaac Sim과 Cosmos-transfer2.5를 사용하여 산출물을 만들고 아래 항목들을 제출
-
--	Stage 구성에 사용한 usd 전체
--	Stage 구성 및 Synthetic Data Generation 용도로 사용한 데이터 전체
--	Cosmos-transfer2.5 에 들어간 input 폴더 및 prompt
--	결과 영상
+## Do it yourself
+   * Isaac Sim과 Cosmos-transfer2.5를 사용하여 산출물을 만들고 아래 항목들을 제출
+      -	Stage 구성에 사용한 usd 전체
+      -	Stage 구성 및 Synthetic Data Generation 용도로 사용한 데이터 전체
+      -	Cosmos-transfer2.5 에 들어간 input 폴더 및 prompt
+      -	결과 영상
 
 
 
