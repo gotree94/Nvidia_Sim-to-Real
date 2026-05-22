@@ -55,10 +55,99 @@ source ~/.bashrc
 
 ## Cosmos-transfer2.5
    * 이후 transfer2.5 setup 과정 실행 : https://github.com/nvidia-cosmos/cosmos-transfer2.5/blob/main/docs/setup.md
-   * Balckwell에서는 버전이 바뀌어서 링크 참고 : https://github.com/nvidia-cosmos/cosmos-transfer2.5/blob/main/docs/setup.md
+     * Balckwell에서는 버전이 바뀌어서 링크 참고 : https://github.com/nvidia-cosmos/cosmos-transfer2.5/blob/main/docs/setup.md
    * 주의! H100은 Graphics Engine이 없습니다(원격 GUI 사용 불가)
 
 <img src="img/006.png">
+
+---
+**참고사항**
+
+# brevlab RTX Pro 6000 — Setup Checklist
+
+## 인스턴스 접속 후 첫 확인
+
+```bash
+# 1. NVIDIA 드라이버 확인
+nvidia-smi
+# → Driver Version >= 570.124.06
+
+# 2. GPU 확인
+nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
+# → "NVIDIA RTX PRO 6000", 96 GB
+
+# 3. OS 확인
+cat /etc/os-release
+# → Ubuntu 22.04+
+
+# 4. CUDA 버전 확인
+nvcc --version || python3 -c "import torch; print(torch.version.cuda)"
+# → 12.8 이상 (uv sync가 PyTorch wheel로 설치하므로 host toolkit 없어도 무방)
+
+# 5. Docker 확인 (선택)
+docker --version && nvidia-ctk --version
+```
+
+## 설치 절차
+
+### 1. git-lfs 설치
+
+```bash
+sudo apt install git-lfs
+git lfs install
+```
+
+### 2. Repository clone
+
+```bash
+git clone git@github.com:nvidia-cosmos/cosmos-transfer2.5.git
+cd cosmos-transfer2.5
+git lfs pull
+```
+
+### 3. 시스템 패키지 설치
+
+```bash
+sudo apt update && sudo apt -y install curl ffmpeg libx11-dev tree wget
+```
+
+### 4. uv 설치
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env
+```
+
+### 5. Python + 의존성 설치
+
+```bash
+uv python install           # Python 3.13
+uv sync --extra=cu128       # CUDA 12.8 + PyTorch 2.7
+source .venv/bin/activate
+```
+
+## HF Token 설정 (필수)
+
+Cosmos 체크포인트는 gated model이므로 NVIDIA Open Model License 동의 및 HF Token 필요.
+
+```bash
+# CLI 로그인 (대화형)
+hf auth login
+
+# 또는 환경변수 설정
+export HF_TOKEN="hf_..."
+```
+
+## 체크포인트 다운로드
+
+실행 시 자동 다운로드됩니다. 캐시 위치 변경은 `HF_HOME` 환경변수로 설정.
+
+---
+
+> **참고**: Docker 사용 시 `--runtime=nvidia --ipc=host` 필요. Virtual Environment(위 절차)가 brevlab 환경에서는 더 간단합니다.
+
+
+---
 
 
 ## Cosmos-transfer2.5
