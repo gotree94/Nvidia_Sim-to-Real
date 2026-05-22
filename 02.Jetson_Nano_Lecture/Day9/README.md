@@ -120,6 +120,17 @@ uv sync --python 3.10 --extra cu130
 echo 'export PATH=/usr/local/cuda-13.0/bin:$PATH' >> ~/.bashrc
 ```
 
+```
+sudo apt list --installed | grep nvidia
+```
+
+* 이 내용을 봤을 때 nvidia-driver-숫자 여기서 숫자를 보시면 됩니다.
+
+```
+uv tool install -U "huggingface_hub[cli]"
+hf auth login
+```
+
 ---
 **참고사항**
 
