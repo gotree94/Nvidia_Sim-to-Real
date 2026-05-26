@@ -610,6 +610,15 @@ source ~/.bashrc
 brev --version
 ```
 
+```
+dministrator@DESKTOP-C2MQEL4:/mnt/c/Users/Administrator$ echo 'export PATH="${HOME}/.local/bin:${PATH}"' >> ~/.bashrc
+dministrator@DESKTOP-C2MQEL4:/mnt/c/Users/Administrator$ source ~/.bashrc
+dministrator@DESKTOP-C2MQEL4:/mnt/c/Users/Administrator$ brev --version
+Command 'brev' not found, did you mean:
+  command 'rev' from deb util-linux (2.37.2-4ubuntu3.4)
+Try: sudo apt install <deb name>
+```
+
    * Make sure you have WSL 2 installed and configured, virtualization enabled in your BIOS, and Ubuntu installed from the Microsoft Store.
 
 ```
