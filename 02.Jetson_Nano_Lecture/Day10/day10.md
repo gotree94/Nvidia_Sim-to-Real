@@ -966,3 +966,8 @@ GPU VRAM (24GB) ← 부족 → CPU Offload → System RAM (64GB) ← 초과 → 
 ---
 
 *최종 업데이트: 2026-05-26*
+
+
+http://localhost:9090?url=rerun%2Bhttp%3A%2F%2Flocalhost%3A9876%2Fproxy
+
+
