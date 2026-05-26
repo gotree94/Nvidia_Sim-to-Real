@@ -601,6 +601,15 @@ Add it by appending the following line to your shell profile (e.g. ~/.bashrc, ~/
 Then restart your shell or run 'source' on the profile to pick up the change.
 ```
 
+```
+Ubuntu 터미널에서:
+echo 'export PATH="${HOME}/.local/bin:${PATH}"' >> ~/.bashrc
+source ~/.bashrc
+
+적용 확인:
+brev --version
+```
+
    * Make sure you have WSL 2 installed and configured, virtualization enabled in your BIOS, and Ubuntu installed from the Microsoft Store.
 
 ```
