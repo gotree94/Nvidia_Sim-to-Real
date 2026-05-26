@@ -478,7 +478,7 @@ root@brev-yq79qpxyp:/#
 
 ## 11. Terminal 1(Selkies)
 
-``
+```
 xhost + 
 sudo docker run -it --rm --name real-robot --network host --privileged \
     --device nvidia.com/gpu=all \
