@@ -606,6 +606,14 @@ list your instances:
 dministrator@DESKTOP-C2MQEL4:~$
 ```
 
+```
+dministrator@DESKTOP-C2MQEL4:~$ brev port-forward ku-7ea052 -p 9876:9876
+2026/05/26 14:54:20 external nodes: skipping (list failed): not_found: not found
+Port forwarding...
+localhost:9876 -> ku-7ea052:9876
+```
+
+
 ---
 
 ## 3. Brev CLI로 클라우드 GPU 인스턴스 실행
