@@ -619,6 +619,23 @@ Command 'brev' not found, did you mean:
 Try: sudo apt install <deb name>
 ```
 
+```
+sudo로 설치해서 바이너리가 /root/.local/bin/brev에 있고, 일반 사용자의 PATH에는 없습니다.
+
+가장 간단한 해결 방법 (택1):
+
+방법 1 — /usr/local/bin으로 복사 (추천)
+
+sudo cp /root/.local/bin/brev /usr/local/bin/brev
+brev --version
+방법 2 — 재설치 (sudo 없이)
+
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/brevdev/brev-cli/main/bin/install-latest.sh)"
+export PATH="${HOME}/.local/bin:${PATH}"
+source ~/.bashrc
+brev --version
+```
+
    * Make sure you have WSL 2 installed and configured, virtualization enabled in your BIOS, and Ubuntu installed from the Microsoft Store.
 
 ```
