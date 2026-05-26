@@ -66,6 +66,10 @@ git lfs pull
 ```
 
 ```
+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
+```
+
+```
 docker build -t teleop-docker -f docker/sim/Dockerfile .
 ./docker/real/build.sh blackwell 
 터미널 창을 새로 열어
