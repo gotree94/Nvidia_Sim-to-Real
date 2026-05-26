@@ -590,9 +590,9 @@ Run this in your Windows (WSL) terminal
 ```
 sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/brevdev/brev-cli/main/bin/install-latest.sh)"
 ```
+   * Make sure you have WSL 2 installed and configured, virtualization enabled in your BIOS, and Ubuntu installed from the Microsoft Store.
 
 ```
-Make sure you have WSL 2 installed and configured, virtualization enabled in your BIOS, and Ubuntu installed from the Microsoft Store.
 Login to your account
 Run this in your terminal
 ```
