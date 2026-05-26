@@ -590,6 +590,17 @@ Run this in your Windows (WSL) terminal
 ```
 sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/brevdev/brev-cli/main/bin/install-latest.sh)"
 ```
+
+```
+dministrator@DESKTOP-C2MQEL4:/mnt/c/Users/Administrator$ sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/brevdev/brev-cli/main/bin/install-latest.sh)"
+Successfully installed brev CLI to /root/.local/bin/brev
+
+Warning: /root/.local/bin is not in your PATH.
+Add it by appending the following line to your shell profile (e.g. ~/.bashrc, ~/.zshrc):
+    export PATH="${HOME}/.local/bin:${PATH}"
+Then restart your shell or run 'source' on the profile to pick up the change.
+```
+
    * Make sure you have WSL 2 installed and configured, virtualization enabled in your BIOS, and Ubuntu installed from the Microsoft Store.
 
 ```
