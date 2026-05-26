@@ -5,6 +5,8 @@
 > **GitHub:** https://github.com/isaac-sim/Sim-to-Real-SO-101-Workshop  
 > **최종 목표:** Vision-Language-Action (VLA) 모델을 훈련시켜 SO-101 로봇 팔이 **시뮬레이션 → 실제 환경**에서 원심분리관 바이알을 집어 랙에 꽂는 태스크를 수행하도록 하는 것
 
+[SO-101 Robot](https://github.com/TheRobotStudio/SO-ARM100)
+
 ---
 
 ## 📋 목차
