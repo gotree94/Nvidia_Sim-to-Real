@@ -66,12 +66,214 @@ git lfs pull
 ```
 
 ```
-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
+shadeform@brev-yq79qpxyp:~$ git clone https://github.com/isaac-sim/Sim-to-Real-SO-101-Workshop.git
+Cloning into 'Sim-to-Real-SO-101-Workshop'...
+remote: Enumerating objects: 126, done.
+remote: Counting objects: 100% (126/126), done.
+remote: Compressing objects: 100% (105/105), done.
+remote: Total 126 (delta 22), reused 112 (delta 19), pack-reused 0 (from 0)
+Receiving objects: 100% (126/126), 94.42 KiB | 2.55 MiB/s, done.
+Resolving deltas: 100% (22/22), done.
+shadeform@brev-yq79qpxyp:~$ cd Sim-to-Real-SO-101-Workshop
+shadeform@brev-yq79qpxyp:~/Sim-to-Real-SO-101-Workshop$ sudo apt-get update && sudo apt-get install -y docker.io git-lfs
+Get:1 file:/var/cuda-repo-ubuntu2204-12-2-local  InRelease [1,572 B]
+Get:1 file:/var/cuda-repo-ubuntu2204-12-2-local  InRelease [1,572 B]
+Get:2 https://nvidia.github.io/libnvidia-container/stable/deb/amd64  InRelease [1,477 B]
+Hit:3 https://apt.grafana.com stable InRelease                             
+Hit:4 https://download.docker.com/linux/ubuntu jammy InRelease             
+Hit:5 http://us.archive.ubuntu.com/ubuntu jammy InRelease                  
+Get:6 https://repos.influxdata.com/debian stable InRelease [6,922 B]       
+Hit:7 http://us.archive.ubuntu.com/ubuntu jammy-updates InRelease          
+Hit:8 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64  InRelease
+Hit:9 https://pkgs.netbird.io/debian stable InRelease                      
+Hit:10 http://us.archive.ubuntu.com/ubuntu jammy-backports InRelease       
+Hit:11 http://security.ubuntu.com/ubuntu/ jammy-security InRelease  
+Hit:12 https://packagecloud.io/ookla/speedtest-cli/ubuntu jammy InRelease
+Fetched 8,399 B in 1s (16.6 kB/s)                                
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies:
+ containerd.io : Conflicts: containerd
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+shadeform@brev-yq79qpxyp:~/Sim-to-Real-SO-101-Workshop$ git lfs install
+git: 'lfs' is not a git command. See 'git --help'.
+
+The most similar command is
+        log
+shadeform@brev-yq79qpxyp:~/Sim-to-Real-SO-101-Workshop$ git lfs pull
+git: 'lfs' is not a git command. See 'git --help'.
+
+The most similar command is
+        log
 ```
 
 ```
 docker build -t teleop-docker -f docker/sim/Dockerfile .
-./docker/real/build.sh blackwell 
+```
+
+```
+shadeform@brev-yq79qpxyp:~/Sim-to-Real-SO-101-Workshop$ docker build -t teleop-docker -f docker/sim/Dockerfile .
+[+] Building 150.7s (24/24) FINISHED                         docker:default
+ => [internal] load build definition from Dockerfile                   0.0s
+ => => transferring dockerfile: 2.62kB                                 0.0s
+ => [internal] load metadata for nvcr.io/nvidia/isaac-lab:2.3.2        1.0s
+ => [internal] load .dockerignore                                      0.0s
+ => => transferring context: 487B                                      0.0s
+ => [ 1/19] FROM nvcr.io/nvidia/isaac-lab:2.3.2@sha256:388dbc806f48  108.8s
+ => => resolve nvcr.io/nvidia/isaac-lab:2.3.2@sha256:388dbc806f48359a  0.0s
+ => => sha256:cdd5dbb5f25fd8cd469d61390286ff54e1696 16.77kB / 16.77kB  0.0s
+ => => sha256:f07c37e3f0c9f58f7febd0aa9a425523d282be6 6.36kB / 6.36kB  0.0s
+ => => sha256:b08e2ff4391ef70ca747960a731d1f21a75fe 29.72MB / 29.72MB  0.4s
+ => => sha256:88a179c20f7b61825ddcc5e15a6323a143bef4ee97f 131B / 131B  0.2s
+ => => sha256:1da7123d9f2062daf2df982fa338a6c7c43f7 84.83MB / 84.83MB  0.8s
+ => => sha256:388dbc806f48359a964cb9f807feb226da95d0a107f 743B / 743B  0.0s
+ => => sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb557748 32B / 32B  0.3s
+ => => sha256:02c044224ab8c0ca1fcf82cfcf986276182d6cc7f8a 289B / 289B  0.4s
+ => => sha256:60a8ce43c0b5bad5a5157479192cc34e43e2a16173e 277B / 277B  0.5s
+ => => sha256:94d1fac93cee3ac1275ea09c4ecc105b3555a3f474b 286B / 286B  0.5s
+ => => extracting sha256:b08e2ff4391ef70ca747960a731d1f21a75febbd86ed  0.7s
+ => => sha256:83e99b1b5b4dfee69fd1dfdda5e71b007108e2b0a65 483B / 483B  0.5s
+ => => sha256:36b9c1c25bc12a0416f978e84e4bef2ade064f9 3.55kB / 3.55kB  0.6s
+ => => sha256:b6c279fb3d9fd4af1fc4f542b17a45891b26fef02f9f1 99B / 99B  0.6s
+ => => sha256:28be3cd701d4bb377cd628a92ecb67b1e2de13 7.50GB / 7.50GB  33.9s
+ => => sha256:21db504e8800737646e2baf561051756701cce606e6 155B / 155B  0.8s
+ => => sha256:76592f3487852e8723e1d642908cbdfb6488ceb 1.91kB / 1.91kB  0.8s
+ => => sha256:ccdbb44ded143a3baa1deb821b52f06f7cdc07a1bc0 173B / 173B  0.8s
+ => => sha256:f625311765b15365e2691f0ebabbe2fde45 141.31MB / 141.31MB  1.8s
+ => => sha256:aa4d6036bd768f4f10ab6639c76ab852775b75e 2.54MB / 2.54MB  1.0s
+ => => sha256:cc839ec8f78d7cbabaf75fe9c00816291f9b7057e82 161B / 161B  1.1s
+ => => sha256:d06b839940c8d364eb4e4842225917c47d602e2 3.66MB / 3.66MB  1.3s
+ => => extracting sha256:88a179c20f7b61825ddcc5e15a6323a143bef4ee97fd  0.0s
+ => => extracting sha256:1da7123d9f2062daf2df982fa338a6c7c43f79e2e365  1.0s
+ => => sha256:6fc8ed87312d82a08715f006425f3150daeda 31.30kB / 31.30kB  1.4s
+ => => sha256:8a0fce89e732e0c2b04eb29b3328cfe550264ff610d 389B / 389B  1.5s
+ => => sha256:32708e2591cb0adb85d1da544474c177897da79f53b 307B / 307B  1.5s
+ => => sha256:d19b6b66ceea7b0b7f9ce287f69f0c425ad 642.70MB / 642.70MB  5.4s
+ => => sha256:2e8bc716115c3999da57b46845bf25569cfd86a 3.16kB / 3.16kB  1.9s
+ => => sha256:6ece29e71b323477c200a3d91dbae396b507825 1.69kB / 1.69kB  2.0s
+ => => extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb55774  0.0s
+ => => extracting sha256:02c044224ab8c0ca1fcf82cfcf986276182d6cc7f8ad  0.0s
+ => => extracting sha256:94d1fac93cee3ac1275ea09c4ecc105b3555a3f474bd  0.0s
+ => => extracting sha256:60a8ce43c0b5bad5a5157479192cc34e43e2a16173e5  0.0s
+ => => extracting sha256:83e99b1b5b4dfee69fd1dfdda5e71b007108e2b0a65c  0.0s
+ => => extracting sha256:36b9c1c25bc12a0416f978e84e4bef2ade064f94112a  0.0s
+ => => extracting sha256:b6c279fb3d9fd4af1fc4f542b17a45891b26fef02f9f  0.0s
+ => => extracting sha256:28be3cd701d4bb377cd628a92ecb67b1e2de13bb0a5  55.2s
+ => => extracting sha256:21db504e8800737646e2baf561051756701cce606e66  0.0s
+ => => extracting sha256:ccdbb44ded143a3baa1deb821b52f06f7cdc07a1bc08  0.0s
+ => => extracting sha256:76592f3487852e8723e1d642908cbdfb6488ceb145ca  0.0s
+ => => extracting sha256:f625311765b15365e2691f0ebabbe2fde4502d33ee67  2.8s
+ => => extracting sha256:aa4d6036bd768f4f10ab6639c76ab852775b75ebfd44  0.2s
+ => => extracting sha256:cc839ec8f78d7cbabaf75fe9c00816291f9b7057e82d  0.0s
+ => => extracting sha256:d06b839940c8d364eb4e4842225917c47d602e255f86  0.1s
+ => => extracting sha256:6fc8ed87312d82a08715f006425f3150daeda2b5cf04  0.0s
+ => => extracting sha256:8a0fce89e732e0c2b04eb29b3328cfe550264ff610d2  0.0s
+ => => extracting sha256:32708e2591cb0adb85d1da544474c177897da79f53b9  0.0s
+ => => extracting sha256:d19b6b66ceea7b0b7f9ce287f69f0c425ad06611b24  15.4s
+ => => extracting sha256:2e8bc716115c3999da57b46845bf25569cfd86a391a4  0.0s
+ => => extracting sha256:6ece29e71b323477c200a3d91dbae396b507825ed6bb  0.0s
+ => [internal] load build context                                      0.0s
+ => => transferring context: 1.47kB                                    0.0s
+ => [ 2/19] WORKDIR /workspace                                         6.1s
+ => [ 3/19] RUN git clone https://github.com/huggingface/lerobot.git   5.0s
+ => [ 4/19] WORKDIR /workspace/lerobot                                 0.0s
+ => [ 5/19] RUN git checkout e670ac5daf9b76                            0.3s
+ => [ 6/19] RUN /workspace/isaaclab/_isaac_sim/python.sh -m pip insta  2.1s
+ => [ 7/19] RUN printf '%s\n'     "packaging==23.0"     "numpy==1.26.  0.2s
+ => [ 8/19] RUN /workspace/isaaclab/_isaac_sim/python.sh -m pip inst  12.7s
+ => [ 9/19] RUN curl --proto "=https" --tlsv1.2 -sSf -L -o /tmp/ffmpe  3.3s
+ => [10/19] RUN apt-get update && apt-get install -y --no-install-rec  3.5s
+ => [11/19] RUN /workspace/isaaclab/_isaac_sim/python.sh -m pip insta  3.2s
+ => [12/19] RUN /workspace/isaaclab/_isaac_sim/python.sh -m pip insta  1.1s
+ => [13/19] WORKDIR /workspace/Sim-to-Real-SO-101-Workshop             0.0s
+ => [14/19] COPY ./docker/sim/entrypoint.sh /workspace/Sim-to-Real-SO  0.0s
+ => [15/19] COPY ./docker/utils.sh /workspace/Sim-to-Real-SO-101-Work  0.0s
+ => [16/19] RUN chmod +x docker/sim/entrypoint.sh                      0.1s
+ => [17/19] RUN /workspace/isaaclab/_isaac_sim/python.sh -m pip insta  1.5s
+ => [18/19] RUN mkdir -p /tmp/pycache && chmod 1777 /tmp/pycache       0.1s
+ => [19/19] RUN cat docker/utils.sh >> /root/.bashrc                   0.2s
+ => exporting to image                                                 1.5s
+ => => exporting layers                                                1.5s
+ => => writing image sha256:3cd0a1860a998c1615200f76656fbc196e2050d71  0.0s
+ => => naming to docker.io/library/teleop-docker                       0.0s
+```
+
+```
+./docker/real/build.sh blackwell
+```
+
+```
+shadeform@brev-yq79qpxyp:~/Sim-to-Real-SO-101-Workshop$ ./docker/real/build.sh blackwell 
+[+] Building 3716.2s (21/21) FINISHED                                                                                docker:default
+ => [internal] load build definition from Dockerfile.blackwell                                                                 0.0s
+ => => transferring dockerfile: 1.97kB                                                                                         0.0s
+ => [internal] load metadata for docker.io/nvidia/cuda:13.0.0-devel-ubuntu24.04                                                0.6s
+ => [internal] load .dockerignore                                                                                              0.0s
+ => => transferring context: 487B                                                                                              0.0s
+ => [internal] load build context                                                                                              0.0s
+ => => transferring context: 63B                                                                                               0.0s
+ => [ 1/16] FROM docker.io/nvidia/cuda:13.0.0-devel-ubuntu24.04@sha256:1e8ac7a54c184a1af8ef2167f28fa98281892a835c981ebcddb1f  30.1s
+ => => resolve docker.io/nvidia/cuda:13.0.0-devel-ubuntu24.04@sha256:1e8ac7a54c184a1af8ef2167f28fa98281892a835c981ebcddb1fad0  0.0s
+ => => sha256:1e8ac7a54c184a1af8ef2167f28fa98281892a835c981ebcddb1fad04bdd452d 743B / 743B                                     0.0s
+ => => sha256:435220c0fef35cbf712e11999f8670a83835ef3cdd18564e5e8122f83078c88c 2.63kB / 2.63kB                                 0.0s
+ => => sha256:0acb0bb33f9956b78fbfc026a81d9f3fbcf52f6c3c51ed7ff503b2f5db52d651 105.07MB / 105.07MB                             0.7s
+ => => sha256:949aeb228afe6b802c1dbddad76439bc158a86f5900223ab13b3f60536b005a0 20.23kB / 20.23kB                               0.0s
+ => => sha256:32f112e3802cadcab3543160f4d2aa607b3cc1c62140d57b4f5441384f40e927 29.72MB / 29.72MB                               0.5s
+ => => sha256:9c9b39ad83d512d5af47e9c22f4458cb586f05ea478656a372c5e739cb7280e5 4.55MB / 4.55MB                                 0.2s
+ => => sha256:13e8f87efde86df96bfe73da211eb196d0416702b69d92947ec617138e6db64b 6.88kB / 6.88kB                                 0.3s
+ => => sha256:ddc61996788ff6833bbe82138d6fc5000e848953b90df5055cbae21479218914 186B / 186B                                     0.3s
+ => => sha256:1ba07b1309cf3cbf6f4649e357d9a21e94039b6100973ef20599eb4a11a8b338 1.51GB / 1.51GB                                 7.7s
+ => => sha256:84fef9f1ca4f21e9c7411db3c57fe91a1f401d7051d87a3bfed97ff70a2cf72c 59.61kB / 59.61kB                               0.6s
+ => => extracting sha256:32f112e3802cadcab3543160f4d2aa607b3cc1c62140d57b4f5441384f40e927                                      0.7s
+ => => sha256:492db7b3e492442f7a1ad30fea534f61ad89da451c675ccab2488e41034d0886 1.68kB / 1.68kB                                 0.7s
+ => => sha256:932162d4fcf6e1094ee1544e8fde0ae2a02b2c4e9545f64f373ce3a4479189e6 1.52kB / 1.52kB                                 0.7s
+ => => sha256:04c1659590951cf4645f7fc21adeeb72ce204df3349b1b68e615ed5911f543d6 2.31GB / 2.31GB                                12.3s
+ => => sha256:5065c92eaa27f9fa100247b99dc946350ed4f7f2b4c5bf56da89df21462b7c4a 89.73kB / 89.73kB                               0.8s
+ => => extracting sha256:9c9b39ad83d512d5af47e9c22f4458cb586f05ea478656a372c5e739cb7280e5                                      0.1s
+ => => extracting sha256:0acb0bb33f9956b78fbfc026a81d9f3fbcf52f6c3c51ed7ff503b2f5db52d651                                      1.0s
+ => => extracting sha256:ddc61996788ff6833bbe82138d6fc5000e848953b90df5055cbae21479218914                                      0.0s
+ => => extracting sha256:13e8f87efde86df96bfe73da211eb196d0416702b69d92947ec617138e6db64b                                      0.0s
+ => => extracting sha256:1ba07b1309cf3cbf6f4649e357d9a21e94039b6100973ef20599eb4a11a8b338                                      6.3s
+ => => extracting sha256:84fef9f1ca4f21e9c7411db3c57fe91a1f401d7051d87a3bfed97ff70a2cf72c                                      0.0s
+ => => extracting sha256:492db7b3e492442f7a1ad30fea534f61ad89da451c675ccab2488e41034d0886                                      0.0s
+ => => extracting sha256:932162d4fcf6e1094ee1544e8fde0ae2a02b2c4e9545f64f373ce3a4479189e6                                      0.0s
+ => => extracting sha256:04c1659590951cf4645f7fc21adeeb72ce204df3349b1b68e615ed5911f543d6                                     16.0s
+ => => extracting sha256:5065c92eaa27f9fa100247b99dc946350ed4f7f2b4c5bf56da89df21462b7c4a                                      0.0s
+ => [ 2/16] RUN apt-get update && apt-get install -y     software-properties-common     build-essential     cmake     git     27.8s
+ => [ 3/16] RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1                                   0.1s 
+ => [ 4/16] RUN python3.10 -m ensurepip --upgrade     && python3.10 -m pip install --upgrade pip setuptools wheel packaging n  3.6s 
+ => [ 5/16] RUN apt-get remove -y python3-cryptography python3-cryptography-dev 2>/dev/null || true                            0.2s 
+ => [ 6/16] RUN python3 -m pip install --ignore-installed cryptography                                                         1.0s 
+ => [ 7/16] RUN git clone https://github.com/NVIDIA/Isaac-GR00T.git /Isaac-GR00T                                               2.0s 
+ => [ 8/16] RUN cd /Isaac-GR00T &&     git checkout "ead52833afbbf4243f8cd5e7664f48a94de03b19" &&     git rev-parse --verif  148.8s 
+ => [ 9/16] RUN cd /Isaac-GR00T/gr00t/eval/real_robot/SO100 &&     python3 -m pip install -e . --break-system-packages        20.0s 
+ => [10/16] RUN python3 -m pip uninstall -y torch torchvision torchaudio && python3 -m pip install --pre torch torchvision t  44.7s 
+ => [11/16] RUN export MAX_JOBS=2 && python3 -m pip install flash-attn --no-build-isolation --no-cache-dir                  3403.7s 
+ => [12/16] RUN python3 -m pip install feetech-servo-sdk                                                                       1.9s 
+ => [13/16] RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1                                     0.2s 
+ => [14/16] COPY docker/utils.sh /root/tmp/utils.sh                                                                            0.0s 
+ => [15/16] RUN cat /root/tmp/utils.sh >> /root/.bashrc && rm /root/tmp/utils.sh                                               0.2s 
+ => [16/16] RUN apt-get update && apt-get install -y     libx11-6     libxcb1     libxkbcommon0     libxkbcommon-x11-0     li  7.4s 
+ => exporting to image                                                                                                        23.9s 
+ => => exporting layers                                                                                                       23.9s 
+ => => writing image sha256:9a74a1353cf0dc695803aa4366542a5c3a55edad1b821baa37620f39331edbfe                                   0.0s 
+ => => naming to docker.io/library/real-robot                                                                                  0.0s
+shadeform@brev-yq79qpxyp:~/Sim-to-Real-SO-101-Workshop$ 
+```
+
+```
+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
+```
+
+```
 터미널 창을 새로 열어
 pip install -U "huggingface_hub[cli]" 
 hf auth login 
