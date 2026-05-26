@@ -1,5 +1,7 @@
 # Day10 : Sim-to-Real with NVIDIA Isaac 
 
+https://meet.google.com/rey-cayx-bve
+
 ## 1. Brev
    * 오늘 과정은 RTX Pro 6000 인스턴스를 사용하여 Train an SO-101 Robot From Sim-to-Real With NVIDIA Isaac을 진행합니다.
       * https://docs.nvidia.com/learning/physical-ai/sim-to-real-so-101/latest/index.html
