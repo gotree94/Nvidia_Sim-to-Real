@@ -5,12 +5,14 @@
       * https://docs.nvidia.com/learning/physical-ai/sim-to-real-so-101/latest/index.html
    * Instance 실행 후, nvidia-ctk --version 명령어를 통해 설치여부를 확인합니다.
    * 또한
+
       ```sudo chmod 666 /var/run/docker.sock로 selkies 내부에서 도커를 사용하도록 합니다.
          sudo chmod -R 777 /home/shadeform
       ```
-```
-nvidia-ctk --version
-```
+      
+      ```
+      nvidia-ctk --version
+      ```
 
 ## 2. Hands on 설명
 
