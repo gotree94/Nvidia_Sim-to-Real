@@ -279,14 +279,101 @@ shadeform@brev-yq79qpxyp:~/Sim-to-Real-SO-101-Workshop$
 ```
 
 ```
-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
+터미널 창을 새로 열어
+pip install -U "huggingface_hub[cli]"
 ```
 
 ```
-터미널 창을 새로 열어
-pip install -U "huggingface_hub[cli]" 
+shadeform@brev-yq79qpxyp:~$ pip install -U "huggingface_hub[cli]" 
+Defaulting to user installation because normal site-packages is not writeable
+Collecting huggingface_hub[cli]
+  Downloading huggingface_hub-1.16.1-py3-none-any.whl (668 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 668.2/668.2 KB 16.0 MB/s eta 0:00:00
+WARNING: huggingface-hub 1.16.1 does not provide the extra 'cli'
+Collecting filelock>=3.10.0
+  Downloading filelock-3.29.0-py3-none-any.whl (39 kB)
+Collecting typing-extensions>=4.1.0
+  Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.6/44.6 KB 23.6 MB/s eta 0:00:00
+Collecting typer>=0.20.0
+  Downloading typer-0.25.1-py3-none-any.whl (58 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.4/58.4 KB 27.3 MB/s eta 0:00:00
+Requirement already satisfied: pyyaml>=5.1 in /usr/lib/python3/dist-packages (from huggingface_hub[cli]) (5.4.1)
+Requirement already satisfied: packaging>=20.9 in /usr/lib/python3/dist-packages (from huggingface_hub[cli]) (21.3)
+Collecting fsspec>=2023.5.0
+  Downloading fsspec-2026.4.0-py3-none-any.whl (203 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 203.4/203.4 KB 23.5 MB/s eta 0:00:00
+Collecting httpx<1,>=0.23.0
+  Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.5/73.5 KB 28.0 MB/s eta 0:00:00
+Collecting hf-xet<2.0.0,>=1.4.3
+  Downloading hf_xet-1.5.0-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 36.6 MB/s eta 0:00:00
+Collecting tqdm>=4.42.1
+  Downloading tqdm-4.67.3-py3-none-any.whl (78 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.4/78.4 KB 41.5 MB/s eta 0:00:00
+Collecting httpcore==1.*
+  Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.8/78.8 KB 35.7 MB/s eta 0:00:00
+Collecting anyio
+  Downloading anyio-4.13.0-py3-none-any.whl (114 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 114.4/114.4 KB 49.4 MB/s eta 0:00:00
+Requirement already satisfied: idna in /usr/lib/python3/dist-packages (from httpx<1,>=0.23.0->huggingface_hub[cli]) (3.3)
+Requirement already satisfied: certifi in /usr/local/lib/python3.10/dist-packages (from httpx<1,>=0.23.0->huggingface_hub[cli]) (2026.5.20)
+Collecting h11>=0.16
+  Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+Collecting click>=8.2.1
+  Downloading click-8.4.1-py3-none-any.whl (116 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 116.6/116.6 KB 44.0 MB/s eta 0:00:00
+Collecting annotated-doc>=0.0.2
+  Downloading annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+Collecting rich>=13.8.0
+  Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 310.7/310.7 KB 74.2 MB/s eta 0:00:00
+Collecting shellingham>=1.3.0
+  Downloading shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Collecting pygments<3.0.0,>=2.13.0
+  Downloading pygments-2.20.0-py3-none-any.whl (1.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 54.2 MB/s eta 0:00:00
+Collecting markdown-it-py>=2.2.0
+  Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 91.7/91.7 KB 45.2 MB/s eta 0:00:00
+Collecting exceptiongroup>=1.0.2
+  Downloading exceptiongroup-1.3.1-py3-none-any.whl (16 kB)
+Collecting mdurl~=0.1
+  Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Installing collected packages: typing-extensions, tqdm, shellingham, pygments, mdurl, hf-xet, h11, fsspec, filelock, click, annotated-doc, markdown-it-py, httpcore, exceptiongroup, rich, anyio, typer, httpx, huggingface_hub
+Successfully installed annotated-doc-0.0.4 anyio-4.13.0 click-8.4.1 exceptiongroup-1.3.1 filelock-3.29.0 fsspec-2026.4.0 h11-0.16.0 hf-xet-1.5.0 httpcore-1.0.9 httpx-0.28.1 huggingface_hub-1.16.1 markdown-it-py-4.2.0 mdurl-0.1.2 pygments-2.20.0 rich-15.0.0 shellingham-1.5.4 tqdm-4.67.3 typer-0.25.1 typing-extensions-4.15.0
+shadeform@brev-yq79qpxyp:~$ 
+```
+
+```
 hf auth login 
 이후 read token 입력
+token : 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
+```
+
+```
+shadeform@brev-yq79qpxyp:~$ hf auth login 
+
+    _|    _|  _|    _|    _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|_|_|_|    _|_|      _|_|_|  _|_|_|_|
+    _|    _|  _|    _|  _|        _|          _|    _|_|    _|  _|            _|        _|    _|  _|        _|
+    _|_|_|_|  _|    _|  _|  _|_|  _|  _|_|    _|    _|  _|  _|  _|  _|_|      _|_|_|    _|_|_|_|  _|        _|_|_|
+    _|    _|  _|    _|  _|    _|  _|    _|    _|    _|    _|_|  _|    _|      _|        _|    _|  _|        _|
+    _|    _|    _|_|      _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|        _|    _|    _|_|_|  _|_|_|_|
+
+    To log in, `huggingface_hub` requires a token generated from https://huggingface.co/settings/tokens .
+Enter your token (input will not be visible): 
+Add token as git credential? [y/N]: n
+Token is valid (permission: read).
+The token `ku_nvidia` has been saved to /home/shadeform/.cache/huggingface/stored_tokens
+Your token has been saved to /home/shadeform/.cache/huggingface/token
+Login successful.
+The current active token is: `ku_nvidia`
+shadeform@brev-yq79qpxyp:~$ 
+```
+
+```
 #nvidia/GR00T-N1.6-3B · Hugging Face
 https://huggingface.co/nvidia/GR00T-N1.6-3B
 ```
@@ -303,6 +390,35 @@ hf download aravindhs-NV/sreetz-so101_teleop_vials_rack_left_augment_02 \
   --local-dir ./models/aravindhs-NV/sreetz-so101_teleop_vials_rack_left_augment_02
 hf download aravindhs-NV/so100-orig-groot-vials-rack-left-cosmos-70 \
   --local-dir ./models/aravindhs-NV/so100-orig-groot-vials-rack-left-cosmos-70
+```
+
+```
+shadeform@brev-yq79qpxyp:~/Sim-to-Real-SO-101-Workshop$ mkdir -p models
+hf download aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left \
+  --local-dir ./models/aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left
+hf download aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left_sim_and_real \
+  --local-dir ./models/aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left_sim_and_real
+hf download aravindhs-NV/sreetz-so101_teleop_vials_rack_left_augment_02 \
+  --local-dir ./models/aravindhs-NV/sreetz-so101_teleop_vials_rack_left_augment_02
+hf download aravindhs-NV/so100-orig-groot-vials-rack-left-cosmos-70 \
+  --local-dir ./models/aravindhs-NV/so100-orig-groot-vials-rack-left-cosmos-70
+Fetching 51 files: 100%|████████████████████████████████████████████████████████████████████████████| 51/51 [01:16<00:00,  1.50s/it]
+Download complete: 100%|███████████████████████████████████████████████████████████████████████| 55.4G/55.4G [01:16<00:00, 2.80GB/s]✓ Downloaded
+  path: /home/shadeform/Sim-to-Real-SO-101-Workshop/models/aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left
+Download complete: 100%|████████████████████████████████████████████████████████████████████████| 55.4G/55.4G [01:16<00:00, 723MB/s]
+Fetching 51 files: 100%|████████████████████████████████████████████████████████████████████████████| 51/51 [01:15<00:00,  1.48s/it]
+Download complete: 100%|███████████████████████████████████████████████████████████████████████| 55.4G/55.4G [01:15<00:00, 3.51GB/s]✓ Downloaded
+  path: /home/shadeform/Sim-to-Real-SO-101-Workshop/models/aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left_sim_and_real
+Download complete: 100%|████████████████████████████████████████████████████████████████████████| 55.4G/55.4G [01:15<00:00, 733MB/s]
+Fetching 51 files: 100%|████████████████████████████████████████████████████████████████████████████| 51/51 [01:16<00:00,  1.51s/it]
+Download complete: 100%|███████████████████████████████████████████████████████████████████████| 55.4G/55.4G [01:16<00:00, 3.20GB/s]✓ Downloaded
+  path: /home/shadeform/Sim-to-Real-SO-101-Workshop/models/aravindhs-NV/sreetz-so101_teleop_vials_rack_left_augment_02
+Download complete: 100%|████████████████████████████████████████████████████████████████████████| 55.4G/55.4G [01:16<00:00, 720MB/s]
+Fetching 19 files: 100%|████████████████████████████████████████████████████████████████████████████| 19/19 [00:41<00:00,  2.18s/it]
+Download complete: 100%|███████████████████████████████████████████████████████████████████████| 22.8G/22.8G [00:41<00:00, 1.69GB/s]✓ Downloaded
+  path: /home/shadeform/Sim-to-Real-SO-101-Workshop/models/aravindhs-NV/so100-orig-groot-vials-rack-left-cosmos-70
+Download complete: 100%|████████████████████████████████████████████████████████████████████████| 22.8G/22.8G [00:41<00:00, 549MB/s]
+shadeform@brev-yq79qpxyp:~/Sim-to-Real-SO-101-Workshop$ 
 ```
 
 ## 10. Terminal 1
@@ -322,6 +438,42 @@ sudo docker run -it --rm --name real-robot --network host --privileged \
     -v $PWD/docker/real/scripts:/Isaac-GR00T/gr00t/eval/real_robot/SO100 \
     real-robot \
     /bin/bash
+```
+
+```
+shadeform@brev-yq79qpxyp:~/Sim-to-Real-SO-101-Workshop$ xhost + 
+sudo docker run -it --rm --name real-robot --network host --privileged \
+    --device nvidia.com/gpu=all \
+    -e DISPLAY \
+    -v /dev:/dev \
+    -v /run/udev:/run/udev:ro \
+    -v $HOME/.Xauthority:/root/.Xauthority \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v ~/.cache/huggingface/lerobot/calibration:/root/.cache/huggingface/lerobot/calibration \
+    -v $PWD/models:/workspace/models \
+    -v $PWD/docker/env:/root/env \
+    -v $PWD/docker/real/scripts:/Isaac-GR00T/gr00t/eval/real_robot/SO100 \
+    real-robot \
+    /bin/bash
+
+Command 'xhost' not found, but can be installed with:
+sudo apt install x11-xserver-utils
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+root@brev-yq79qpxyp:/# 
 ```
 
 ## 11. Terminal 1(Selkies)
