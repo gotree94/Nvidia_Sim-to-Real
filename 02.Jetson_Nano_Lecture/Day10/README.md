@@ -15,6 +15,12 @@
       nvidia-ctk --version
       ```
 
+      ```
+      shadeform@brev-yq79qpxyp:~/Sim-to-Real-SO-101-Workshop$ nvidia-ctk --version
+      NVIDIA Container Toolkit CLI version 1.18.1
+      commit: efe99418ef87500dbe059cadc9ab418b2815b9d5
+      ```
+
 ## 2. Hands on 설명
 
    * Overview — Train an SO-101 Robot From Sim-to-Real With NVIDIA Isaac
