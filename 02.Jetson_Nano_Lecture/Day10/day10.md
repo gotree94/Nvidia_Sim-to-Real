@@ -87,6 +87,12 @@ WSL2 버전 확인:
 wsl -l -v
 ```
 
+```
+PS C:\Users\Administrator> wsl -l -v
+  NAME            STATE           VERSION
+* Ubuntu-22.04    Running         2
+```
+
 ### 2.2 Ubuntu 업데이트
 
 ```bash
