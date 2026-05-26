@@ -971,3 +971,17 @@ GPU VRAM (24GB) ← 부족 → CPU Offload → System RAM (64GB) ← 초과 → 
 http://localhost:9090?url=rerun%2Bhttp%3A%2F%2Flocalhost%3A9876%2Fproxy
 
 
+brev login 후 9876번 포트포워딩
+
+pip install rerun-sdk
+rerun --connect rerun+http://127.0.0.1:9876/proxy
+
+
+
+Terminal 1의 12번, 14번 페이지 명령어 실행  
+Terminal 4에서 rerun --connect rerun+http://127.0.0.1:9876/proxy 명령어를 실행하여 rerun viewer 실행
+Terminal 3 명령어 켜진 상태에서
+Terminal 2의  17번 페이지 명령어 실행
+
+
+
