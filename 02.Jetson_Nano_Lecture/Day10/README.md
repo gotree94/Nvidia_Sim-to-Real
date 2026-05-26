@@ -585,27 +585,49 @@ xvfb-run -a lerobot_eval \
 Using Brev CLI (SSH)
 Install the CLI
 Run this in your Windows (WSL) terminal
-sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/brevdev/brev-cli/main/bin/install-latest.sh)"
+```
 
+```
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/brevdev/brev-cli/main/bin/install-latest.sh)"
+```
+
+```
 Make sure you have WSL 2 installed and configured, virtualization enabled in your BIOS, and Ubuntu installed from the Microsoft Store.
 Login to your account
 Run this in your terminal
-brev login
+```
 
+```
+brev login
+```
+
+```
 Open a terminal locally
 Run this in your terminal
-brev shell ku-7ea052
+```
 
+```
+brev shell ku-7ea052
+```
+
+```
 Open in Code Editor
 Run this in your terminal
-brev open ku-7ea052 cursor
+```
 
+```
+brev open ku-7ea052 cursor
+```
+
+```
 Port Forward
 Configure port forwarding
 8080 -> 9876
 Run this in your terminal
-brev port-forward ku-7ea052 -p 8080:9876
+```
 
+```
+brev port-forward ku-7ea052 -p 8080:9876
 ```
 
 
