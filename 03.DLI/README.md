@@ -146,7 +146,7 @@ Let’s keep going!
 
 Let’s look at another Action Graph that uses a Differential Controller to move the Nova Carter robot, using messages from ROS.
 
-> Note
+> **Note** <br>
 > This graph has been pre-built for you to save time, but let’s analyze it together for reference.
 
  <img src="dli_img/image5.png">
