@@ -292,6 +292,17 @@ ros2 topic list
 
 3. `/joint_states`가 사용 가능한 토픽 중에 나열되는지 확인합니다.
 
+```
+$ ros2 topic list
+/cmd_vel
+/joint_states
+/odom
+/parameter_events
+/point_cloud
+/rosout
+/tf
+```
+
 * 이 섹션을 완료함으로써 Nova Carter를 위한 Joint State Publisher를 성공적으로 설정하여 관절 상태를 ROS와 원활하게 통신할 수 있게 되었습니다.
 
 ---
@@ -332,17 +343,6 @@ ros2 topic list
 
 ```
 ros2 topic list
-```
-
-```
-$ ros2 topic list
-/cmd_vel
-/joint_states
-/odom
-/parameter_events
-/point_cloud
-/rosout
-/tf
 ```
 
 2. 모든 Nova Carter 관련 토픽이 이제 `/carter` 접두사로 시작하는지 확인합니다. 다음과 유사한 출력이 표시되어야 합니다:
