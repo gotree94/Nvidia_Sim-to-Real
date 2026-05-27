@@ -18,7 +18,7 @@ Discord 커뮤니티에 참여하여 하드웨어와 소프트웨어 모두에 �
 ## 📖 문서
 
 - **SO-101 문서**: 아래 페이지 참조
-- **SO-100 문서 (Deprecated)**: [이전 문서 보기]((https://github.com/TheRobotStudio/SO-ARM100/blob/main/SO100.md)")
+- **SO-100 문서 (Deprecated)**: [이전 문서 보기]((https://github.com/TheRobotStudio/SO-ARM100/blob/main/SO100.md))
 
 ---
 
