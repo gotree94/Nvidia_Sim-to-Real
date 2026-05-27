@@ -57,7 +57,7 @@
 |------|------|
 | **allai ID** | allai14(조인행), allai12(김남우) |
 | **과제** | **🤖 NVIDIA TurtleBot3 Dual Autonomous Navigation** |
-| **설명** | NVIDIA Isaac Sim + Cosmos + Isaac Lab 기반 TurtleBot3 자율주행 풀스택 프로젝트 (End-to-End Autonomous Navigation + Digital Twin Closed-Loop) |
+| **설명** | NVIDIA Isaac Sim + Cosmos + Isaac Lab 기반 TurtleBot3 자율주행 풀스택 프로젝트 <br> (End-to-End Autonomous Navigation + Digital Twin Closed-Loop) |
 | **기반 자료** | 수업 DLI 과정 한글 정리 → turtlebot3_double 프로젝트로 확장 |
 | **레포** | https://github.com/gotree94/nvidia-turtlebot3_double |
 | **진행 상황** | PPT 정리 중 |
