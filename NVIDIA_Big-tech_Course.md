@@ -108,11 +108,9 @@
 
 #### 참고 자료 (김성인 교수님 제안)
 
-| 자료 | 링크 |
-|:----|:----:|
-| USD Scene Templates Pack | [USD Scene Templates Pack](https://docs.omniverse.nvidia.com/usd/latest/usd_content_samples/downloadable_packs.html) |
-| Warehouse Creator 튜토리얼 | [Warehouse Creator 튜토리얼](https://docs.isaacsim.omniverse.nvidia.com/5.1.0/digital_twin/warehouse_logistics/ext_omni_warehouse_creator.html) |
-| 충돌 회피 튜토리얼 | [충돌 회피 튜토리얼](https://docs.isaacsim.omniverse.nvidia.com/5.1.0/digital_twin/warehouse_logistics/logistics_tutorial_cuopt.html) |
+* [USD Scene Templates Pack](https://docs.omniverse.nvidia.com/usd/latest/usd_content_samples/downloadable_packs.html) |
+* [Warehouse Creator 튜토리얼](https://docs.isaacsim.omniverse.nvidia.com/5.1.0/digital_twin/warehouse_logistics/ext_omni_warehouse_creator.html) |
+* [충돌 회피 튜토리얼](https://docs.isaacsim.omniverse.nvidia.com/5.1.0/digital_twin/warehouse_logistics/logistics_tutorial_cuopt.html) |
 
 ---
 
