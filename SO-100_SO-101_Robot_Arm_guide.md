@@ -1,8 +1,8 @@
 # Standard Open SO-100 & SO-101 Arms
 
-https://github.com/TheRobotStudio/SO-ARM100#kits
-https://github.com/TheRobotStudio/SO-ARM100
-https://github.com/isaac-sim/Sim-to-Real-SO-101-Workshop
+* https://github.com/TheRobotStudio/SO-ARM100#kits
+* https://github.com/TheRobotStudio/SO-ARM100
+* https://github.com/isaac-sim/Sim-to-Real-SO-101-Workshop
 
 
 > SO-101 팔로워 암 · SO-101 리더 암
