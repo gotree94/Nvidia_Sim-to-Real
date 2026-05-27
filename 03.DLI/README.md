@@ -227,12 +227,14 @@ Let’s move forward and continue building on this solid groundwork!
 **Quiz 2 points possible (graded)**
 
 1. Action Graphs in Isaac Sim are event-driven tools used for visual programming.
+
 ```
 ○ False
 ○ True
 ```
 
 2. What is the primary purpose of creating a lidar graph in Isaac Sim for Nova Carter?
+
 ```
 ○ To control the robot's movement
 ○ To publish synthetic point cloud data to ROS
