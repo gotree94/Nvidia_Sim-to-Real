@@ -48,9 +48,11 @@ Ubuntu 22.04 LTS
   │   ├─ MoveIt2 (조작)
   │   └─ 다양한 ROS 패키지 (vision_msgs, ackermann_msgs 등)
   ├─ Isaac Sim 5.1.0 (또는 5.0.0, 4.5.0)
-  ├─ Parsec (원격 데스크톱, 선택사항)
-  │   └─ ⚠️ 주의: `curl https://parsec.app/install/parsec.sh | sudo bash` 스크립트는 **404 반환으로 사용 불가**
-  │   └─ ✅ Snap으로 설치: `sudo snap install parsec --classic`
+  ├─ TigerVNC (원격 데스크톱, 무료·오픈소스, 선택사항)
+  │   └─ ✅ 설치: `sudo apt install tigervnc-standalone-server`
+  ├─ Parsec (원격 데스크톱, 상용, 선택사항)
+  │   └─ ⚠️ 15일 무료, Linux 호스팅 불가 (Windows 연결 전용)
+  │   └─ 설치: `sudo snap install parsec --classic`
   └─ DLI 코스 에셋 (DLI_SIL_online_dli.zip)
 ```
 
@@ -981,71 +983,131 @@ ros2 launch isaac_moveit isaac_moveit.launch.py
 | 디스크 공간 부족 | Isaac Sim ~30GB, ROS 2 ~5GB, DLI 에셋 ~2GB 필요 |
 | 스왑 공간 부족 | 64GB RAM이면 보통 충분하나, 빌드 시 8GB 스왑 권장 |
 
-### 10.6 Parsec (원격 데스크톱) 설치
+### 10.6 원격 데스크톱 (TigerVNC / Parsec)
 
-> **🔄 중요 변경사항**: Parsec이 Linux 설치 방식을 **Snap으로 전환**하면서 기존 `.deb` 설치 스크립트(`https://parsec.app/install/parsec.sh`)가 **삭제**되었습니다.
-> 아래 명령어는 **404 HTML 페이지를 반환**하므로 사용하지 마세요:
-> ```bash
-> curl -sSL https://parsec.app/install/parsec.sh | sudo bash   # ❌ 404 Error
-> ```
+Ubuntu 22.04에 원격으로 GUI 데스크톱에 접속해야 하는 경우 **TigerVNC** (무료·오픈소스) 또는 **Parsec** (상용)을 사용할 수 있습니다.
+가장 자유롭고 비용이 없는 **TigerVNC**를 기본 권장합니다.
+
+---
+
+#### 10.6.1 TigerVNC 설치 및 설정 (권장 ✅)
+
+> **특징**: 무료 · 오픈소스 · Ubuntu 저장소에서 apt 한 줄 설치 · SSH 터널링으로 암호화 · 경량 XFCE 데스크톱 조합 권장
+> **⚠️ Wayland 호환성**: TigerVNC는 가상 Xorg 디스플레이를 생성하므로 Wayland 세션과 호환되지 않습니다.
+> GNOME/GDM3를 사용 중이라면 `/etc/gdm3/custom.conf`에서 `WaylandEnable=false`로 설정 후 재부팅하세요.
+
+```bash
+# ──────────────────────────────────────────────
+# 1. TigerVNC 서버 및 필수 패키지 설치 (~5MB)
+# ──────────────────────────────────────────────
+sudo apt update
+sudo apt install -y tigervnc-standalone-server tigervnc-common tigervnc-tools
+
+# ──────────────────────────────────────────────
+# 2. 데스크톱 환경 설치 (XFCE 권장 — 경량 600MB)
+# ──────────────────────────────────────────────
+# ※ Ubuntu 22.04 Desktop 이미 설치되어 있으면 GNOME으로도 사용 가능
+#    단, XFCE가 원격 VNC 성능이 더 좋음
+sudo apt install -y xfce4 xfce4-goodies dbus-x11
+
+# ──────────────────────────────────────────────
+# 3. VNC 비밀번호 설정 (최대 8자)
+# ──────────────────────────────────────────────
+vncpasswd
+# → Enter password (8자 이하 권장)
+# → Verify password
+# → View-only password? n
+
+# ──────────────────────────────────────────────
+# 4. VNC 시작 스크립트 생성 (~/.vnc/xstartup)
+# ──────────────────────────────────────────────
+mkdir -p ~/.vnc
+cat > ~/.vnc/xstartup << 'EOF'
+#!/bin/sh
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+startxfce4
+EOF
+chmod +x ~/.vnc/xstartup
+
+# ──────────────────────────────────────────────
+# 5. VNC 서버 실행 (디스플레이 :1 = 포트 5901)
+# ──────────────────────────────────────────────
+vncserver :1 -geometry 1920x1080 -depth 24 -localhost yes
+
+# 실행 확인
+vncserver -list            # → "Xvnc :1" 표시 확인
+ss -tlnp | grep 5901       # → 5901 포트 LISTEN 확인
+```
 
 | 문제 | 원인 | 해결 방법 |
 |------|------|----------|
-| `curl .../parsec.sh \| sudo bash` 실행 시 bash 문법 오류 (`<!DOCTYPE html>`) | Parsec 공식 설치 스크립트 URL이 **404 HTML 페이지 반환** | Snap으로 설치 (`sudo snap install parsec --classic`) |
-| `sudo systemctl start parsec` → `Unit parsec.service not found` | Snap 설치 방식은 systemd service를 직접 생성하지 않음 | Snap 설치 완료 후 `snap run parsec` 또는 앱 런처에서 실행 |
-| **Snap 설치 방법 (권장)** | Ubuntu 22.04에는 Snap이 기본 포함 | ```bash
-# Parsec Snap 설치 (classic 모드: Fuse 마운트 권한 필요)
+| 연결 후 **회색/빈 화면** | `~/.vnc/xstartup`에 데스크톱 환경이 명시되지 않음 | 위 4번 스크립트 작성 후 `vncserver -kill :1 && vncserver :1` 재시작 |
+| **Wayland** 연결 불가 | TigerVNC는 Xorg만 지원 | `/etc/gdm3/custom.conf` → `WaylandEnable=false` → 재부팅 |
+| VNC 비밀번호 **8자 제한** | TigerVNC 고유 제한 | 8자 이하로 설정 (`vncpasswd`로 재설정) |
+| `vncserver -list`에 `:1`이 없음 | 서버가 실행 중이 아님 | 위 5번 명령어로 다시 시작 |
+| **SSH 터널 없이** 외부 접속 필요 | 보안 설정 완화 필요 | `-localhost yes` → `-localhost no`로 변경, 방화벽 5901 포트 오픈 |
+| **부팅 시 자동 실행** 필요 | systemd 서비스 등록 | 아래 [systemd 서비스 등록] 참고 |
+
+> **🔐 SSH 터널링으로 안전하게 접속 (권장)**:
+> ```bash
+> # 클라이언트 머신에서:
+> ssh -L 5901:localhost:5901 -C -N -f gotree94@<server-ip>
+> # 그 후 VNC 클라이언트에서 localhost:5901 연결
+> ```
+>
+> **💡 systemd 서비스 등록 (부팅 시 자동 실행)**:
+> ```bash
+> sudo tee /etc/systemd/system/vncserver@.service > /dev/null << 'EOF'
+> [Unit]
+> Description=TigerVNC server on display :%i
+> After=syslog.target network.target
+>
+> [Service]
+> Type=simple
+> User=gotree94
+> PAMName=login
+> PIDFile=/home/gotree94/.vnc/%H%i.pid
+> ExecStartPre=/bin/sh -c '/usr/bin/vncserver -kill :%i > /dev/null 2>&1 || :'
+> ExecStart=/usr/bin/vncserver :%i -geometry 1920x1080 -depth 24 -localhost yes -fg
+> ExecStop=/usr/bin/vncserver -kill :%i
+>
+> [Install]
+> WantedBy=multi-user.target
+> EOF
+> sudo systemctl daemon-reload
+> sudo systemctl enable vncserver@1.service
+> sudo systemctl start vncserver@1.service
+> ```
+
+---
+
+#### 10.6.2 Parsec (대체 옵션 — 상용, 15일 무료)
+
+> **용도**: Windows/macOS 기기에 낮은 지연시간으로 게이밍 수준 연결 필요 시. 단, **15일 무료 체험 후 유료**이며 Linux 호스팅은 지원하지 않습니다.
+>
+> **🔄 참고**: Parsec 공식 설치 스크립트(`curl https://parsec.app/install/parsec.sh`)는 현재 **404 HTML 페이지**를 반환합니다. Snap 설치로 전환되었습니다.
+
+```bash
+# Snap으로 설치 (classic 모드)
 sudo snap install parsec --classic
-
-# 실행
-
-```
-snap run parsec   # 또는 앱 런처에서 Parsec 실행
+snap run parsec
 ```
 
-# 업데이트
-```
-sudo snap refresh parsec
-```
+| 항목 | TigerVNC | Parsec |
+|------|----------|--------|
+| **가격** | **완전 무료** (오픈소스) | 15일 무료 → $8.33/월 (Pro) |
+| **지연시간** | LAN: 낮음 / WAN: 중간 | **매우 낮음** (게이밍 최적화) |
+| **Ubuntu → Windows 접속** | ❌ (VNC만 지원) | ✅ (**가장 큰 장점**) |
+| **Ubuntu 호스팅** | ✅ (우분투를 원격 조종) | ❌ (연결만 가능) |
+| **설치 난이도** | 중간 (xstartup 설정 필요) | 쉬움 (Snap 한 줄) |
+| **암호화** | SSH 터널링 필요 | 내장 암호화 |
+| **오픈소스** | ✅ GPLv2 | ❌ 독점 소프트웨어 |
+| **권장 사용처** | 우분투 → 우분투 원격 작업 | 우분투 → Windows 게이밍/고성능 작업 |
 
-```
-|
-| **`.deb` 직접 다운로드 (대체 방법)** | Parsec 공식 사이트에서 .deb 제공 | 
-```
-
-bash
-
-# 1. https://parsec.app/downloads → Linux (Ubuntu 22.04 LTS Desktop) 선택 → .deb 다운로드
-
-# 2. 설치
-```
-sudo apt install ./parsec-*.deb
-```
-
-# 3. libssl1.1 의존성 문제 발생 시 (Ubuntu 22.04):
-
-```
-echo "deb http://old-releases.ubuntu.com/ubuntu impish-security main" | sudo tee /etc/apt/sources.list.d/impish-security.list
-sudo apt update
-sudo apt install libssl1.1
-sudo rm /etc/apt/sources.list.d/impish-security.list
-```
-
-|
-| **Flatpak 설치 (비공식)** | 공식 지원 아님, 커뮤니티 래퍼 | ```bash
-
-# Flathub에서 설치 (비공식 래퍼)
-
-```
-flatpak install flathub com.parsecgaming.parsec
-flatpak run com.parsecgaming.parsec
-```
-
-|
-| **Linux은 Hosting 미지원** | Parsec Linux 클라이언트는 **다른 기기로의 연결 전용** | Linux에서는 **Windows/macOS 기기에 연결**만 가능. Linux 머신 호스팅은 지원하지 않음 |
-
-> **💡 본 장비 사용 시나리오**: Windows 11 듀얼 부팅 환경이 있으므로, Parsec을 Ubuntu에 설치하여 **Windows 환경에 원격 접속**하는 용도로 사용하세요. Linux → Windows 연결은 정상 작동합니다.
-```
+> **💡 본 장비 사용 시나리오**:
+> - **Isaac Sim/ROS 작업**: TigerVNC (우분투 → 우분투, 무료)
+> - **Windows 게이밍/고성능 앱**: Parsec (15일 무료 or 유료) 또는 **Windows RDP** 사용
 
 ---
 
@@ -1063,9 +1125,10 @@ flatpak run com.parsecgaming.parsec
 | ROS 2 Humble 설치 | [https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) |
 | NVIDIA 드라이버 다운로드 | [https://www.nvidia.com/en-us/drivers/](https://www.nvidia.com/en-us/drivers/) |
 | Isaac Sim 호환성 체커 | [https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html](https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html) |
+| TigerVNC GitHub (공식 저장소) | [https://github.com/TigerVNC/tigervnc](https://github.com/TigerVNC/tigervnc) |
+| TigerVNC 설치 가이드 (DigitalOcean) | [https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-on-ubuntu-22-04](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-on-ubuntu-22-04) |
 | Parsec Snap 설치 가이드 | [https://snapcraft.io/parsec](https://snapcraft.io/parsec) |
-| Parsec Linux 설치 공식 문서 | [https://support.parsec.app/hc/en-us/articles/4422904998413](https://support.parsec.app/hc/en-us/articles/4422904998413) |
-| Parsec 다운로드 페이지 | [https://parsec.app/downloads](https://parsec.app/downloads) |
+| Parsec 공식 문서 | [https://support.parsec.app/hc/en-us/articles/4422904998413](https://support.parsec.app/hc/en-us/articles/4422904998413) |
 
 ### 11.2 도움말 및 커뮤니티
 
@@ -1148,12 +1211,19 @@ colcon build
 echo "source ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/install/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
-# ===== 8. (선택) Parsec 원격 데스크톱 설치 =====
-#   ⚠️ 구 스크립트(curl .../parsec.sh | sudo bash)는 404 Error → Snap 사용
-#   Parsec Linux는 Windows/macOS 연결 전용 (Linux 호스팅 불가)
-sudo snap install parsec --classic
-snap run parsec           # 검증: GUI 실행 확인
-# 또는 앱 런처에서 Parsec 실행
+# ===== 8. (선택) 원격 데스크톱 (TigerVNC / Parsec) =====
+#
+# [방법 A] TigerVNC (무료·오픈소스, Ubuntu → Ubuntu 원격 권장)
+sudo apt install -y tigervnc-standalone-server tigervnc-common tigervnc-tools
+sudo apt install -y xfce4 xfce4-goodies dbus-x11  # 경량 데스크톱
+vncpasswd                    # VNC 전용 비밀번호 설정 (8자 이하)
+vncserver :1 -geometry 1920x1080 -depth 24 -localhost yes
+# 검증: vncserver -list → ":1" 표시 확인
+# 연결: ssh -L 5901:localhost:5901 user@host → vncviewer localhost:5901
+#
+# [방법 B] Parsec (상용, 저지연, Ubuntu → Windows 연결 전용)
+#   sudo snap install parsec --classic
+#   snap run parsec
 
 echo "✅ 모든 설치 완료!"
 ```
@@ -1199,10 +1269,13 @@ echo "✅ 모든 설치 완료!"
 > - [x] `colcon build` → 5 packages finished, 에러 없음 ✅
 > - [ ] `source install/setup.bash` → `.bashrc` 등록 필요 시
 >
-> ### ✅ [Parsec] 원격 데스크톱 (선택사항)
-> - ⚠️ 구 `curl .../parsec.sh | sudo bash` 스크립트는 **404 반환** → Snap 사용
-> - [ ] `sudo snap install parsec --classic` → 설치 완료
-> - [ ] `snap run parsec` → GUI 정상 실행
+> ### ✅ [Remote Desktop] 원격 데스크톱 (선택사항)
+> - **TigerVNC** (무료) 또는 **Parsec** (상용) 둘 중 하나 선택 설치
+> - TigerVNC:
+>   - [ ] `sudo apt install -y tigervnc-standalone-server xfce4` → 설치 완료
+>   - [ ] `vncserver :1 -geometry 1920x1080` → 실행 확인
+> - Parsec (Ubuntu → Windows 연결 전용):
+>   - [ ] `sudo snap install parsec --classic` → 설치 완료
 
 ### ✅ [Assets] DLI Course Assets
 > - [ ] `ls ~/Desktop/DLI_SIL/Starting_point/` → nova_carter, franka 등 존재
