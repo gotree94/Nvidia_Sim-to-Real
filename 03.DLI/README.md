@@ -217,28 +217,23 @@ The odometry publisher enables Nova Carter to share its movement data with ROS n
 
 ## Module 2: Creating ROS Graphs for Nova Carter
 
-Review
+**Review**
+
 In this module, we successfully created and configured ROS Action Graphs for the Nova Carter robot, including the Lidar graph, Twist subscriber, and Odometry publisher. These graphs enable Nova Carter to interact with ROS by publishing sensor data, receiving motion commands, and sharing odometry information.
 
 With these foundational components in place, Nova Carter is now ready to perform advanced tasks such as navigation and mapping in subsequent modules.
 Let’s move forward and continue building on this solid groundwork!
 
-Quiz
-2 points possible (graded)
-Action Graphs in Isaac Sim are event-driven tools used for visual programming.
+## Quiz 2 points possible (graded)
 
-False
+1. Action Graphs in Isaac Sim are event-driven tools used for visual programming.
+○ False
+○ True
 
-True
-unanswered
-What is the primary purpose of creating a lidar graph in Isaac Sim for Nova Carter?
-
-To control the robot's movement
-
-To publish synthetic point cloud data to ROS
-
-To generate odometry data
-unanswered
+2. What is the primary purpose of creating a lidar graph in Isaac Sim for Nova Carter?
+○To control the robot's movement
+○To publish synthetic point cloud data to ROS
+○To generate odometry data
 
 ---
 ## Module 3: Setting up Additional ROS Features
