@@ -165,12 +165,9 @@ https://brev.nvidia.com/
 
 ## 4. DLI 
    * Software-in-the-Loop Testing for Robots With OpenUSD, Isaac Sim, and ROS
-
    * https://docs.isaacsim.omniverse.nvidia.com/5.1.0/omnigraph/omnigraph_tutorial.html
-   
    * https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-OV-39+V1
-
-* Download : 6.0.0 : https://github.com/isaac-sim/IsaacSim/tree/develop
+   * Download : 6.0.0 : https://github.com/isaac-sim/IsaacSim/tree/develop
 
 
 ```
@@ -197,10 +194,13 @@ To build and set up the project, follow these steps:
 **Run the Installation Script**
 
 Execute the provided installation script to set up the environment from the root folder:
+```
+
 ```bash
 bash ./install.sh
 ```
 
+```
 This script will:
 - Initialize and update submodules.
 - Install ROS 2 Humble, including setting up the locale and sources.
@@ -216,8 +216,8 @@ ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$
 ```
 ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$ ./install.sh
 ...
-...
-...
+
+```
 Installing ROS workspace...
 Configuring and building ROS workspace...
 /usr/bin/sudo: 175: rosdep: not found
@@ -239,7 +239,7 @@ colcon build
 source install/setup.bash
 ```
 
-```
+---
 
 **문제 분석**
 
