@@ -215,7 +215,7 @@ ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$
 
 ```
 ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$ ./install.sh
-...
+```
 
 ```
 Installing ROS workspace...
