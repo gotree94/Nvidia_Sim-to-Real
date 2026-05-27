@@ -948,19 +948,20 @@ If you were not able to configure the environment, use the asset in Checkpoint4_
 
 Congratulations on completing this hands-on lab! Together, we’ve explored the exciting possibilities of robotics simulation using Isaac Sim and ROS. Starting with foundational configurations, we set up Nova Carter and Franka robots, integrated advanced tools like MoveIt2 for manipulation, and enabled autonomous navigation with Nav2. Finally, you applied these skills in a collaborative multi-robot challenge, showcasing the power of simulation for testing and development.
 
-* Check out the Robotics Fundamentals Learning Path to continue your learning journey.
+* Check out the [Robotics Fundamentals Learning Path](https://www.nvidia.com/en-us/learn/learning-path/robotics/) to continue your learning journey.
 
-[ Robotics Fundamentals Learning Path](https://www.nvidia.com/en-us/learn/learning-path/robotics/) 
+
 ---
-Quiz 정답
 
-## Module 2 퀴즈 정답
+## Quiz 정답
+
+**Module 2 퀴즈 정답**
    * 1번 문제: Action Graphs in Isaac Sim are event-driven tools used for visual programming. (Isaac Sim의 액션 그래프는 비주얼 프로그래밍을 위해 사용되는 이벤트 기반 도구이다.)
       * 정답: True
    * 2번 문제: What is the primary purpose of creating a lidar graph in Isaac Sim for Nova Carter? (Nova Carter를 위해 Isaac Sim에서 라이다 그래프를 생성하는 주된 목적은 무엇인가?)
       * 정답: To publish synthetic point cloud data to ROS (ROS에 합성 포인트 클라우드 데이터를 발행하기 위함)   
 
-## Module 3 퀴즈 정답
+**Module 3 퀴즈 정답**
    * 1번 문제: A Joint State Publisher in ROS is used to broadcast a robot's joint states to ROS topics for real-time monitoring.
       * (ROS의 Joint State Publisher는 실시간 모니터링을 위해 로봇의 관절 상태를 ROS 토픽으로 브로드캐스트하는 데 사용된다.)
       * 정답: True
@@ -969,21 +970,21 @@ Quiz 정답
       * 정답: To avoid topic conflicts when working with multiple robots
       * (여러 대의 로봇을 다룰 때 토픽 충돌을 방지하기 위함)   
 
-## Module 6 퀴즈 정답
+**Module 6 퀴즈 정답**
    * 1번 문제: What is the purpose of creating a unified Environment ROS Graph in this module? (본 모듈에서 통합 환경 ROS 그래프를 생성하는 목적은 무엇인가?)
    * 정답: To ensure all ROS topics are correctly namespaced and functional for multi-robot tasks (다중 로봇 작업에서 모든 ROS 토픽이 올바르게 네임스페이스가 지정되고 정상 작동하도록 보장하기 위함)   
 
-## Module 7 퀴즈 정답
+**Module 7 퀴즈 정답**
    * 1번 문제: What is the purpose of sourcing the ROS setup file (source /opt/ros/humble/setup.bash) in a terminal? (터미널에서 ROS 설정 파일(source /opt/ros/humble/setup.bash)을 소싱하는 목적은 무엇인가?)
    * 정답: To ensure the terminal is properly configured to use ROS commands and access ROS packages (터미널이 ROS 명령어를 사용하고 ROS 패키지에 접근할 수 있도록 올바르게 구성하기 위함)   
 
-## Module 8 퀴즈 정답
+**Module 8 퀴즈 정답**
    * 1번 문제: What is the purpose of sourcing a ROS workspace setup file (e.g., source install/setup.bash) after building a ROS workspace?
    * (ROS 작업 공간을 빌드한 후 작업 공간 설정 파일(예: source install/setup.bash)을 소싱하는 목적은 무엇인가?)
    * 정답: To ensure that all packages in the workspace are recognized and accessible by ROS in the current terminal session
    * (현재 터미널 세션에서 작업 공간 내의 모든 패키지가 ROS에 의해 인식되고 접근 가능하도록 보장하기 위함)   
 
-## Module 9 퀴즈 정답
+**Module 9 퀴즈 정답**
    * 1번 문제: What is the main purpose of using MoveIt2 in robotics?
    * (로봇 공학에서 MoveIt2를 사용하는 주요 목적은 무엇인가?)정답: Manipulation tasks (매니퓰레이션/조작 작업)   
 
