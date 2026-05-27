@@ -520,35 +520,40 @@ Middle Mouse Button: Pan <br>
 
 ## Module 5: Creating the Occupancy Map
 
-Visualize and Save the Map
+**Visualize and Save the Map**
 
+<img src="dli_img/image34.png">
 
-Click Visualize Image to open the visualization window.
-Set Rotate Image to 180°.
-Choose ROS Occupancy Map Parameter File (YAML) for the Coordinate Type.
-Click Regenerate Image.
-Copy the YAML content from the dialog and save it as warehouse_env.yaml inside the /Desktop/DLI_SIL folder.
-💡 Tip
-Here's an example of how to make this file using the terminal:
-1. Copy the text in the dialog box above, under Occupancy Map.
-2. Open a terminal and type cat > ~/Desktop/DIL_SIL/warehouse_env.yaml
-3. Right click and select Paste.
-4. Press CTRL+D.
+1. Click Visualize Image to open the visualization window.
+2. Set Rotate Image to 180°.
+3. Choose ROS Occupancy Map Parameter File (YAML) for the Coordinate Type.
+4. Click Regenerate Image.
+5. Copy the YAML content from the dialog and save it as warehouse_env.yaml inside the /Desktop/DLI_SIL folder.
 
-Save the generated image as warehouse_env.png in the same directory.
+>💡 Tip <br>
+Here's an example of how to make this file using the terminal: <br>
+1. Copy the text in the dialog box above, under Occupancy Map. <br>
+2. Open a terminal and type cat > ~/Desktop/DIL_SIL/warehouse_env.yaml <br>
+3. Right click and select Paste. <br>
+4. Press CTRL+D. <br>
 
+6. Save the generated image as warehouse_env.png in the same directory.
 
-📝 Note
-The occupancy map provides a grid-based representation where each cell’s value indicates the likelihood of an obstacle's presence.
-This map is essential for localization and safe path planning, as it helps the robot avoid obstacles by assigning high costs to areas with detected obstacles.
+<img src="dli_img/image40.png">
 
-💾 Checkpoint
-If you find yourself lost or want to jump ahead, load Checkpoint 3.
+>📝 Note  <br>
+The occupancy map provides a grid-based representation where each cell’s value indicates the likelihood of an obstacle's presence.  <br>
+This map is essential for localization and safe path planning, as it helps the robot avoid obstacles by assigning high costs to areas with detected obstacles.  <br>
+
+> 💾 Checkpoint  <br>
+If you find yourself lost or want to jump ahead, load Checkpoint 3.  <br>
 
 ---
 
 ## Module 6: Setting up the Environment
-Overview
+
+**Overview**
+
 In this module, we will set up a shared simulation environment where both Nova Carter and Franka robots can operate collaboratively. Building on the configurations from previous modules, we will position the robots, create a unified Environment ROS Graph, and verify that all topics are correctly namespaced and functional. By the end of this module, you’ll have a fully integrated environment ready for multi-robot tasks and advanced simulations. Let’s get started!
 
 ---
