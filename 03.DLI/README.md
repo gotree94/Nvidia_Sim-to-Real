@@ -3,28 +3,29 @@
 ---
  
 ## Introduction
-Overview
+
+**Overview**
 Welcome to the lab, Software-in-the-Loop Testing for Robots With OpenUSD, Isaac Sim, and ROS! This course is designed to immerse you in the world of robotics simulation using NVIDIA Isaac Sim and ROS 2. Whether you're a beginner or an experienced developer, this course will guide you through building, configuring, and testing robotic systems in a virtual environment.
 
-What You'll Do in This Course:
+**What You'll Do in This Course:**
+   * Learn how to launch Isaac Sim and integrate it with ROS 2 for seamless communication between your simulation and ROS nodes.
+   * Develop ROS-compatible graphs for sensors like Lidar, control mechanisms like Twist subscribers, and odometry publishers.
+   * Build environment maps that robots can use for navigation and obstacle avoidance.
+   * Use tools like MoveIt2 for manipulation tasks and Nav2 for autonomous navigation.
+   * Combine navigation and manipulation skills to complete a simulated task involving multiple robots.
 
-Learn how to launch Isaac Sim and integrate it with ROS 2 for seamless communication between your simulation and ROS nodes.
-Develop ROS-compatible graphs for sensors like Lidar, control mechanisms like Twist subscribers, and odometry publishers.
-Build environment maps that robots can use for navigation and obstacle avoidance.
-Use tools like MoveIt2 for manipulation tasks and Nav2 for autonomous navigation.
-Combine navigation and manipulation skills to complete a simulated task involving multiple robots.
-By the end of this course, you will have gained practical experience in configuring and testing robotic systems within a simulated environment, preparing you to apply these skills to real-world robotics projects. Let’s get started!
+* By the end of this course, you will have gained practical experience in configuring and testing robotic systems within a simulated environment, preparing you to apply these skills to real-world robotics projects. Let’s get started!
 
 ---
 
 ## Setting up Isaac Sim and ROS Integration
-Overview
-In this module, we will configure Isaac Sim to communicate with ROS 2, enabling seamless data exchange between the simulation environment and your ROS nodes.
 
-By the end of this module, you will have a fully operational Isaac Sim environment integrated with ROS 2, ready for robotics development and testing.
+**Overview**
 
-Before you begin, download the course assets you'll need for this lab. We recommend you extract the folder to your desktop to follow-along with the instructions in this course: (/Desktop/DLI_SIL). 
-https://download.learn.nvidia.com/assets/s-ov-39-v1/DLI_SIL_online_dli.zip
+   * In this module, we will configure Isaac Sim to communicate with ROS 2, enabling seamless data exchange between the simulation environment and your ROS nodes.
+   * By the end of this module, you will have a fully operational Isaac Sim environment integrated with ROS 2, ready for robotics development and testing.
+   * Before you begin, [download the course assets](https://download.learn.nvidia.com/assets/s-ov-39-v1/DLI_SIL_online_dli.zip) you'll need for this lab. We recommend you extract the folder to your desktop to follow-along with the instructions in this course: (/Desktop/DLI_SIL). 
+
 
 ---
 
