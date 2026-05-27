@@ -835,44 +835,63 @@ In Isaac Sim’s Viewport, switch cameras to the “third_person_view_cam” or 
 
 By completing this section, you have successfully configured and run the Nav2 stack for Nova Carter, enabling autonomous navigation within the simulation environment.
 
-## Quiz
-1 point possible (graded)
-What is the purpose of sourcing a ROS workspace setup file (e.g., source install/setup.bash) after building a ROS workspace?
-To install ROS packages
-To configure the ROS workspace directory
-To ensure that all packages in the workspace are recognized and accessible by ROS in the current terminal session
-To build the ROS workspace using colcon
+## Quiz : 1 point possible (graded)
 
+What is the purpose of sourcing a ROS workspace setup file (e.g., source install/setup.bash) after building a ROS workspace?
+
+```
+○ To install ROS packages
+○ To configure the ROS workspace directory
+○ To ensure that all packages in the workspace are recognized and accessible by ROS in the current terminal session
+○ To build the ROS workspace using colcon
+```
 ---
 
 ## Module 9: Manipulation With MoveIt2
 
-Overview
+**Overview**
+
 Let’s keep going and integrate MoveIt2, a powerful robotics manipulation platform for ROS, with the Franka robot in Isaac Sim. MoveIt2 enables advanced motion planning, control, and manipulation tasks. By the end of this module, you’ll be able to execute motion plans for the Franka robot and visualize its movements in real time.
 
 ---
 
 ## Module 9: Manipulation With MoveIt2
-Running MoveIt2
-Press the Play button.
-Open a new terminal and source your ROS workspace:
+
+**Running MoveIt2** 
+1. Press the Play button.
+2. Open a new terminal and source your ROS workspace:
+
+```
 source ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/install/setup.bash
-Run the following command to launch MoveIt2 with Franka:
+```
+
+3. Run the following command to launch MoveIt2 with Franka:
+
+```
 ros2 launch isaac_moveit isaac_moveit.launch.py
+```
 
+<img src="dli_img/image2.png">
 
-You should see a window like this: the white model represents the actual position of the robot, and the orange model represents the target position of the robot.
+* You should see a window like this: the white model represents the actual position of the robot, and the orange model represents the target position of the robot.
 
-Use the arrows and circular rings to drag the target position like this:
+* Use the arrows and circular rings to drag the target position like this:
 
+<img src="dli_img/image28.png">
 
-Then click Plan and Execute.
-Similar to the previous step, update the gripper by selecting “hand” for the planning group and set the goal state to “close” (or “open” if the gripper is already closed). Then click Plan and Execute.
+* Then click Plan and Execute.
 
-In Isaac Sim, switch to the Franka camera view to observe the robot's movements as it executes motion plans.
+4. Similar to the previous step, update the gripper by selecting “hand” for the planning group and set the goal state to “close” (or “open” if the gripper is already closed). Then click Plan and Execute.
 
+https://learn.learn.nvidia.com/assets/courseware/v1/f6406f99a4d1d683ff56370a8e7f959d/asset-v1:DLI+S-OV-39+V1+type@asset+block/gtc_mega1_lab_manipulation.mp4
 
-Optionally, click Windows > Viewports > Viewports2, Select “camera” to toggle first-person view camera that we imported earlier.
+5. In Isaac Sim, switch to the Franka camera view to observe the robot's movements as it executes motion plans.
+
+<img src="dli_img/imageFrankaAndCarter.png">
+
+* Optionally, click Windows > Viewports > Viewports2, Select “camera” to toggle first-person view camera that we imported earlier.
+
+<img src="dli_img/image37.png">
 
 ---
 
