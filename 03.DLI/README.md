@@ -560,36 +560,46 @@ In this module, we will set up a shared simulation environment where both Nova C
 
 ## Module 6: Setting up the Environment
 
-Import Both Robots Into the Stage
-Navigate to the Content Browser in Isaac Sim.
+**Import Both Robots Into the Stage**
+
+1. Navigate to the Content Browser in Isaac Sim.
+
+<img src="dli_img/image21.png"><br>
+<img src="dli_img/image41.png">
+
+2. Drag and drop the nova_carter and franka assets into the Stage.
+   * Use the asset in Checkpoint1_nova_carter if you were not able to configure the Nova Carter.
+   * Use the asset in Checkpoint2_franka if you were not able to configure the Franka.
+
+<img src="dli_img/image25.png">
+
+3. Move both robot xforms (nova_carter_sensors and franka) into the Robots scope.
+4. Select the nova_carter xform in the Stage Tree.
+   * Translate: (-3, 1.2, 0)
+   * Orient: (0, 0, -90)
+5. Select the franka xform in the Stage Tree.
+
+<img src="dli_img/image20.png">
+
+6. Set its transform values to:
+   * Translate: (-4.7, -6.1, 0.8)
+   * Orient: (0.0, 0.0, 0.0)
+7. Right-click in the Stage Tree and select Create > Scope.
+8. Rename this new scope to Graph.
+
+<img src="dli_img/image12.png">
+
+9. Navigate to Tools > ROS 2 Omnigraphs > Clock.
+10. Set up the Clock node as prompted and click OK.
+11. Press the Play button in Isaac Sim to start the simulation.
 
 
-Drag and drop the nova_carter and franka assets into the Stage.
-Use the asset in Checkpoint1_nova_carter if you were not able to configure the Nova Carter.
-Use the asset in Checkpoint2_franka if you were not able to configure the Franka.
-
-
-Move both robot xforms (nova_carter_sensors and franka) into the Robots scope.
-Select the nova_carter xform in the Stage Tree.
-Translate: (-3, 1.2, 0)
-Orient: (0, 0, -90)
-Select the franka xform in the Stage Tree.
-
-
-Set its transform values to:
-Translate: (-4.7, -6.1, 0.8)
-Orient: (0.0, 0.0, 0.0)
-Right-click in the Stage Tree and select Create > Scope.
-Rename this new scope to Graph.
-
-
-Navigate to Tools > ROS 2 Omnigraphs > Clock.
-Set up the Clock node as prompted and click OK.
-Press the Play button in Isaac Sim to start the simulation.
 ---
-Module 6: Setting up the Environment
 
-Verify ROS Topics
+## Module 6: Setting up the Environment
+
+**Verify ROS Topics**
+
 Open a ROS-sourced terminal.
 Run the following command to list all active topics:
 ros2 topic list
