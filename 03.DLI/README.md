@@ -945,11 +945,12 @@ If you were not able to configure the environment, use the asset in Checkpoint4_
 ## Software-in-the-Loop Testing for Robots With OpenUSD, Isaac Sim, and ROS
 
 **Review**
+
 Congratulations on completing this hands-on lab! Together, we’ve explored the exciting possibilities of robotics simulation using Isaac Sim and ROS. Starting with foundational configurations, we set up Nova Carter and Franka robots, integrated advanced tools like MoveIt2 for manipulation, and enabled autonomous navigation with Nav2. Finally, you applied these skills in a collaborative multi-robot challenge, showcasing the power of simulation for testing and development.
 
-Check out the Robotics Fundamentals Learning Path to continue your learning journey.
-https://www.nvidia.com/en-us/learn/learning-path/robotics/
+* Check out the Robotics Fundamentals Learning Path to continue your learning journey.
 
+[ Robotics Fundamentals Learning Path](https://www.nvidia.com/en-us/learn/learning-path/robotics/) 
 ---
 Quiz 정답
 
