@@ -279,82 +279,104 @@ In this section, we will configure a ROS Joint State Publisher for the Nova Cart
 
 ## Module 3: Setting up Additional ROS Features
 
-Verify Functionality
-Press the Play button in Isaac Sim to activate the publisher.
-Open a ROS-sourced terminal and run the following command:
-ros2 topic list
-Confirm that /joint_states is listed among the available topics.
-By completing this section, you have successfully set up a Joint State Publisher for Nova Carter, enabling seamless communication of its joint states with ROS.
+**Verify Functionality**
 
+1. Press the Play button in Isaac Sim to activate the publisher.
+2. Open a ROS-sourced terminal and run the following command:
+
+```
+ros2 topic list
+```
+
+3. Confirm that /joint_states is listed among the available topics.
+
+* By completing this section, you have successfully set up a Joint State Publisher for Nova Carter, enabling seamless communication of its joint states with ROS.
 
 ---
-Module 3: Setting up Additional ROS Features
 
-Create Auto Name Space Attribute
+## Module 3: Setting up Additional ROS Features
+
+**Create Auto Name Space Attribute**
 Now we can add an auto namespace attribute to the Nova Carter robot. This ensures that all ROS topics and services associated with the robot are properly namespaced, preventing conflicts when working with multiple robots or systems.
 
- 
+<img src="dli_img/image39.png">
 
-In the Stage Tree, right-click on the nova_carter_sensors prim.
-Select Add > Attribute from the context menu.
+1. In the Stage Tree, right-click on the nova_carter_sensors prim.
+2. Select Add > Attribute from the context menu.
  
-
-In the dialog box that appears:
-Set the Name to isaac:namespace.
-Set the Type to String.
-Ensure that Custom is checked.
-Click Add to finalize.
+<img src="dli_img/image7.png">
  
+3. In the dialog box that appears:
+   * Set the Name to isaac:namespace.
+   * Set the Type to String.
+   * Ensure that Custom is checked.
+   * Click Add to finalize.
 
-In the Raw USD Properties within the Property panel, locate the newly added isaac:namespace attribute.
-Set its value to carter.
-Save your changes by pressing Ctrl+S.
-Press the Play button in Isaac Sim to activate the simulation.
+<img src="dli_img/image23.png">
+  
+
+4. In the Raw USD Properties within the Property panel, locate the newly added isaac:namespace attribute.
+5. Set its value to carter.
+6. Save your changes by pressing Ctrl+S.
+7. Press the Play button in Isaac Sim to activate the simulation.
+
 ---
-Module 3: Setting up Additional ROS Features
-Verify Namespaced Topics
-Open a ROS-sourced terminal and run:
-ros2 topic list
-Verify that all Nova Carter-related topics are now prefixed with /carter. You should see output similar to:
- 
 
-Namespacing is critical when working with multiple robots or systems in ROS to avoid topic collisions.
+## Module 3: Setting up Additional ROS Features
+
+**Verify Namespaced Topics**
+
+1. Open a ROS-sourced terminal and run:
+
+```
+ros2 topic list
+```
+
+2. Verify that all Nova Carter-related topics are now prefixed with /carter. You should see output similar to:
+ 
+<img src="dli_img/image38.png">
+
+* Namespacing is critical when working with multiple robots or systems in ROS to avoid topic collisions.
 
 
 ---
 ## Module 3: Setting up Additional ROS Features
-Review
+
+**Review**
+
 In this module, we expanded Nova Carter's capabilities by configuring a Joint State Publisher and implementing an auto namespace attribute. These enhancements ensure organized communication and seamless integration with ROS, setting the stage for advanced robotics applications. With these features in place, Nova Carter is now better equipped to interact with its environment and handle complex tasks. Let’s continue building on this progress in the next module!
 
 Test your knowledge with the following quiz.
 
-Quiz
-2 points possible (graded)
+**Quiz 2 points possible (graded)**
+
 A Joint State Publisher in ROS is used to broadcast a robot's joint states to ROS topics for real-time monitoring.
-
+``
 False
-
 True
-unanswered
+```
+
 What is the purpose of adding an auto namespace attribute to the Nova Carter robot?
-
+```
 To increase the robot's speed in simulation
-
 To enable the robot to publish odometry data
-
 To avoid topic conflicts when working with multiple robots
-unanswered
+```
 
 ---
+
 ## Module 4: Configuring the Franka Robot
-Overview
+
+**Overview**
+
 Congratulations on completing the setup for Nova Carter! In this module, we’ll focus on configuring the Franka robot with its own ROS Action Graphs and features. This includes setting up joint state publishers and subscribers, adding a namespace for topic organization, and integrating an Owl camera for advanced manipulation tasks. By the end of this module, you’ll have both robots fully configured and ready to work together in the simulation environment.
 
 Let’s get started!
 
 
 ---
-Module 4: Configuring the Franka Robot
+
+## Module 4: Configuring the Franka Robot
 Configuring the Franka ROS Graphs
 Now that the Carter robot is ready, and data is ready to be communicated with ROS, let’s set up the Franka robot with its own Action Graphs.
 
