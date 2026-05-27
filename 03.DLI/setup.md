@@ -998,28 +998,50 @@ ros2 launch isaac_moveit isaac_moveit.launch.py
 sudo snap install parsec --classic
 
 # 실행
+
+```
 snap run parsec   # 또는 앱 런처에서 Parsec 실행
+```
 
 # 업데이트
+```
 sudo snap refresh parsec
-``` |
-| **`.deb` 직접 다운로드 (대체 방법)** | Parsec 공식 사이트에서 .deb 제공 | ```bash
+```
+
+```
+|
+| **`.deb` 직접 다운로드 (대체 방법)** | Parsec 공식 사이트에서 .deb 제공 | 
+```
+
+bash
+
 # 1. https://parsec.app/downloads → Linux (Ubuntu 22.04 LTS Desktop) 선택 → .deb 다운로드
 
 # 2. 설치
+```
 sudo apt install ./parsec-*.deb
+```
 
 # 3. libssl1.1 의존성 문제 발생 시 (Ubuntu 22.04):
+
+```
 echo "deb http://old-releases.ubuntu.com/ubuntu impish-security main" | sudo tee /etc/apt/sources.list.d/impish-security.list
 sudo apt update
 sudo apt install libssl1.1
 sudo rm /etc/apt/sources.list.d/impish-security.list
-``` |
+```
+
+|
 | **Flatpak 설치 (비공식)** | 공식 지원 아님, 커뮤니티 래퍼 | ```bash
+
 # Flathub에서 설치 (비공식 래퍼)
+
+```
 flatpak install flathub com.parsecgaming.parsec
 flatpak run com.parsecgaming.parsec
-``` |
+```
+
+|
 | **Linux은 Hosting 미지원** | Parsec Linux 클라이언트는 **다른 기기로의 연결 전용** | Linux에서는 **Windows/macOS 기기에 연결**만 가능. Linux 머신 호스팅은 지원하지 않음 |
 
 > **💡 본 장비 사용 시나리오**: Windows 11 듀얼 부팅 환경이 있으므로, Parsec을 Ubuntu에 설치하여 **Windows 환경에 원격 접속**하는 용도로 사용하세요. Linux → Windows 연결은 정상 작동합니다.
