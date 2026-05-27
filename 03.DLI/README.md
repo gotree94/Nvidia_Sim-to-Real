@@ -140,37 +140,44 @@ Let’s keep going!
 ---
 
 ## Module 2: Creating ROS Graphs for Nova Carter
-Adding ROS 2 Nodes to the Graph
+
+**Adding ROS 2 Nodes to the Graph**
+
 Let’s look at another Action Graph that uses a Differential Controller to move the Nova Carter robot, using messages from ROS.
 
-Note
-This graph has been pre-built for you to save time, but let’s analyze it together for reference.
+> Note
+> This graph has been pre-built for you to save time, but let’s analyze it together for reference.
 
- 
+ <img src="dli_img/image5.png">
 
-The following nodes were added to the graph:
-ROS 2 Context Node
-ROS 2 Subscribe Twist Node
-Two instances of the Break 3 Vector Node
+1. The following nodes were added to the graph:
+   * ROS 2 Context Node
+   * ROS 2 Subscribe Twist Node
+   * Two instances of the Break 3 Vector Node
  
+<img src="dli_img/image44.png">
 
-They were connected as follows:
-Connect ROS 2 Context: Context to ROS 2 Subscribe Twist: Context.
-Connect ROS 2 Subscribe Twist Angular Velocity (Z) to one of the Break 3 Vector nodes.
-Connect ROS 2 Subscribe Twist Linear Velocity (X) to the other Break 3 Vector node.
-From the Break 3 Vector nodes:
-Connect Z of Angular Velocity to Desired Angular Velocity on the Differential Controller.
-Connect X of Linear Velocity to Desired Linear Velocity on the Differential Controller.
-Connect On Playback Tick Delta Seconds to DT on the Differential Controller.
-Optional Advanced Configuration
-Select the Differential Controller node and adjust additional parameters:
-Set maximum acceleration, deceleration, and angular acceleration as needed for your application.
+2. They were connected as follows:
+   * Connect ROS 2 Context: Context to ROS 2 Subscribe Twist: Context.
+   * Connect ROS 2 Subscribe Twist Angular Velocity (Z) to one of the Break 3 Vector nodes.
+   * Connect ROS 2 Subscribe Twist Linear Velocity (X) to the other Break 3 Vector node.
+   * From the Break 3 Vector nodes:
+     * Connect Z of Angular Velocity to Desired Angular Velocity on the Differential Controller.
+     * Connect X of Linear Velocity to Desired Linear Velocity on the Differential Controller.
+   * Connect On Playback Tick Delta Seconds to DT on the Differential Controller.
+
+3. Optional Advanced Configuration
+   * Select the Differential Controller node and adjust additional parameters:
+     * Set maximum acceleration, deceleration, and angular acceleration as needed for your application.
+
+<img src="dli_img/image5.png">
  
-Ensured that the output array names for left and right wheels match your robot's configuration.
-This setup allows Nova Carter to interpret Twist messages from ROS and convert them into physical motion within Isaac Sim.
+4. Ensured that the output array names for left and right wheels match your robot's configuration.
+   * This setup allows Nova Carter to interpret Twist messages from ROS and convert them into physical motion within Isaac Sim.
 
 
 ---
+
 ## Module 2: Creating ROS Graphs for Nova Carter
 
 Create Odometry Publisher
