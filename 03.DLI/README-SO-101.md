@@ -1,6 +1,9 @@
 # Train an SO-101 Robot From Sim-to-Real With NVIDIA Isaac
 
 https://docs.nvidia.com/learning/physical-ai/sim-to-real-so-101/latest/index.html
+https://github.com/TheRobotStudio/SO-ARM100
+
+SO-101 Robot
 
 ---
 Train an SO-101 Robot From Sim-to-Real With NVIDIA Isaac
