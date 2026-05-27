@@ -166,8 +166,6 @@ Your graph should now look like this:
 
 The odometry publisher enables Nova Carter to share its movement data with ROS nodes, which is critical for navigation and localization tasks.
 
-
-
 ---
 
 ## Module 2: Creating ROS Graphs for Nova Carter
@@ -378,8 +376,10 @@ Overview
 The occupancy map gives general information about the environment: white for free space, black for occupied (obstacles), and gray for unknown. The robot can use this map and match it with the patterns of obstacles it detected with the lidar to localize itself. In addition, in the path planning algorithm, cost heuristics are assigned to obstacles (infinite cost to obstacles, so the robot will not intentionally plan a path that collides with obstacles, as well as high costs for regions near the obstacles to create a safety buffer). With this cost information, the robot can compute the optimal path using a planning algorithm.
 
 Let's get started!
+
 ---
-Module 5: Creating the Occupancy Map
+
+## Module 5: Creating the Occupancy Map
 Create the Map
 Open the file /Desktop/DLI_SIL/Starting_point/warehouse_env/warehouse_env.usd in Isaac Sim.
 💡 Tip
@@ -404,6 +404,7 @@ Cell Size: 0.05
 Click Calculate to create the occupancy map, which centers the mapping at approximately (-2.5, -1, 0.2).
 
 ---
+
 ## Module 5: Creating the Occupancy Map
 
 Visualize and Save the Map
@@ -430,6 +431,7 @@ This map is essential for localization and safe path planning, as it helps the r
 
 💾 Checkpoint
 If you find yourself lost or want to jump ahead, load Checkpoint 3.
+
 ---
 
 ## Module 6: Setting up the Environment
@@ -620,23 +622,24 @@ Module 8: Autonomous Navigation with Nav2
 Review
 By completing this section, you have successfully configured and run the Nav2 stack for Nova Carter, enabling autonomous navigation within the simulation environment.
 
-Quiz
+## Quiz
 1 point possible (graded)
 What is the purpose of sourcing a ROS workspace setup file (e.g., source install/setup.bash) after building a ROS workspace?
-
 To install ROS packages
-
 To configure the ROS workspace directory
-
 To ensure that all packages in the workspace are recognized and accessible by ROS in the current terminal session
-
 To build the ROS workspace using colcon
+
 ---
-Module 9: Manipulation With MoveIt2
+
+## Module 9: Manipulation With MoveIt2
+
 Overview
 Let’s keep going and integrate MoveIt2, a powerful robotics manipulation platform for ROS, with the Franka robot in Isaac Sim. MoveIt2 enables advanced motion planning, control, and manipulation tasks. By the end of this module, you’ll be able to execute motion plans for the Franka robot and visualize its movements in real time.
+
 ---
-Module 9: Manipulation With MoveIt2
+
+## Module 9: Manipulation With MoveIt2
 Running MoveIt2
 Press the Play button.
 Open a new terminal and source your ROS workspace:
@@ -658,9 +661,9 @@ In Isaac Sim, switch to the Franka camera view to observe the robot's movements 
 
 Optionally, click Windows > Viewports > Viewports2, Select “camera” to toggle first-person view camera that we imported earlier.
 
-
 ---
-Module 9: Manipulation With MoveIt2
+
+## Module 9: Manipulation With MoveIt2
 Review
 Alright! We successfully integrated MoveIt2 with the Franka robot, enabling motion planning and manipulation capabilities within Isaac Sim. This setup allows the robot to execute complex tasks and prepares us for further exploration of autonomous navigation in the next module. Great progress so far, how about a bonus?!
 
@@ -675,14 +678,14 @@ Manipulation tasks
 Sensor integration
 
 Voice control integration
+
 ---
-Challenge
+
+## Challenge
 Multi-Robot Coordination
 In this final challenge, we will combine everything we’ve learned to complete a collaborative task using both Nova Carter and Franka. The goal is to use ROS Nav2 to autonomously navigate Nova Carter to the Franka loading zone, use Franka to pick up a cube, load it onto Nova Carter, and then navigate Nova Carter back to the drop-off zone.
 
-
-
-Challenge Instructions
+## Challenge Instructions
 Navigate Nova Carter to the Loading Zone
 Use the Nav2 stack to send a navigation goal for Nova Carter to reach the Franka loading zone.
 Ensure that the robot avoids obstacles and follows an optimal path based on the occupancy map.
@@ -697,30 +700,14 @@ Use Nav2 again to send a navigation goal for Nova Carter to move to the designat
 Ensure smooth navigation while carrying the cube.
 💡 Tip
 If you were not able to configure the environment, use the asset in Checkpoint4_completed_environment, and if you were not able to generate the occupancy map, use the ROS workspace in Checkpoint5_completed_ros_package.
+
 ---
-Software-in-the-Loop Testing for Robots With OpenUSD, Isaac Sim, and ROS
-Review
+
+## Software-in-the-Loop Testing for Robots With OpenUSD, Isaac Sim, and ROS
+
+**Review**
 Congratulations on completing this hands-on lab! Together, we’ve explored the exciting possibilities of robotics simulation using Isaac Sim and ROS. Starting with foundational configurations, we set up Nova Carter and Franka robots, integrated advanced tools like MoveIt2 for manipulation, and enabled autonomous navigation with Nav2. Finally, you applied these skills in a collaborative multi-robot challenge, showcasing the power of simulation for testing and development.
 
 Check out the Robotics Fundamentals Learning Path to continue your learning journey.
 https://www.nvidia.com/en-us/learn/learning-path/robotics/
----
-
----
-
----
-
----
-
----
-
----
-
----
-
-
-
-
-
-
 
