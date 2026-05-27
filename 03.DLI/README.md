@@ -355,7 +355,7 @@ Test your knowledge with the following quiz.
 
 A Joint State Publisher in ROS is used to broadcast a robot's joint states to ROS topics for real-time monitoring.
 
-``
+```
 ○ False
 ○ True
 ```
