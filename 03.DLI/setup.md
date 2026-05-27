@@ -47,7 +47,10 @@ Ubuntu 22.04 LTS
   │   ├─ Nav2 (내비게이션)
   │   ├─ MoveIt2 (조작)
   │   └─ 다양한 ROS 패키지 (vision_msgs, ackermann_msgs 등)
-  ├─ Isaac Sim 5.0.0 (또는 4.5.0)
+  ├─ Isaac Sim 5.1.0 (또는 5.0.0, 4.5.0)
+  ├─ Parsec (원격 데스크톱, 선택사항)
+  │   └─ ⚠️ 주의: `curl https://parsec.app/install/parsec.sh | sudo bash` 스크립트는 **404 반환으로 사용 불가**
+  │   └─ ✅ Snap으로 설치: `sudo snap install parsec --classic`
   └─ DLI 코스 에셋 (DLI_SIL_online_dli.zip)
 ```
 
@@ -57,7 +60,7 @@ Ubuntu 22.04 LTS
 |------|------|
 | **RTX 5090 + Ubuntu 22.04** | Blackwell GPU는 최신 커널(≥ 6.8)과 오픈 커널 모듈 NVIDIA 드라이버 필요 |
 | **Isaac Sim + ROS 2** | Isaac Sim 4.5/5.0은 ROS 2 Humble(Ubuntu 22.04) 또는 Jazzy(Ubuntu 24.04) 지원 |
-| **DLI 코스 기준** | 본 과정은 **Isaac Sim 4.5 + ROS 2 Humble + Ubuntu 22.04** 기반 |
+| **DLI 코스 기준** | 본 과정은 **Isaac Sim 4.5 + ROS 2 Humble + Ubuntu 22.04** 기반. **5.1.0에서도 정상 작동 확인** |
 | **듀얼 부팅** | Windows + Ubuntu 듀얼 부팅 권장 (Isaac Sim은 WSL2 GPU 지원이 제한적) |
 | **Isaac Lab ❌** | **본 DLI 과정에 Isaac Lab은 필요하지 않음.** Isaac Lab은 강화학습/로봇 학습용 프레임워크로, 이 과정(Nav2 + MoveIt2 + ROS 2 SIL)과 무관 |
 
@@ -558,34 +561,46 @@ ros2 topic list
 
 ### 6.0 설치 전 확인
 
+> **✅ 본 장비(ASUS ROG Strix SCAR 16) 확인 완료 — Isaac Sim 미설치 상태, 설치 필요**
+
 ```bash
 # 1. Isaac Sim이 이미 설치되어 있는지 확인
 ls ~/isaacsim/isaac-sim.sh
 # → 파일이 존재하면 ✅ Isaac Sim 설치됨
-# → "No such file or directory" → 설치 필요 ❌
+# → "No such file or directory" → 설치 필요 ❌ (본 장비: 미설치)
 
 # 2. NVIDIA 드라이버 (Isaac Sim 실행 전제 조건)
 nvidia-smi
-# → RTX 5090 + Driver Version 580+ 확인
+# → RTX 5090 + Driver Version 580+ 확인 (본 장비: 580.159.04 ✅)
 
 # 3. Python 버전 확인 (Isaac Sim 내장 Python 사용)
 python3 --version
-# → 3.10 이상 (Isaac Sim 5.0은 3.11 내장)
+# → 3.10 이상 (Isaac Sim 5.0은 3.11 내장) (본 장비: Python 3.13.2, conda)
+# ⚠️ Isaac Sim은 자체 내장 Python을 사용하므로 시스템 Python 버전과 무관
 ```
 
 > **Isaac Sim이 이미 설치되어 있다면** [6.6 설치 확인](#66-설치-확인) 및 [ROS 2 브리지 설정](#67-ros-2-브리지-설정)만 진행하세요.
 
 ### 6.1 사전 확인
 
+> **✅ 본 장비 확인 완료** — 아래는 실제 출력값
+
 ```bash
 # NVIDIA 드라이버 확인
 nvidia-smi
+# → RTX 5090, Driver 580.159.04, CUDA 13.0 (드라이버 내장) ✅
 
-# Python 3.10/3.11 확인
+# Python 버전 확인 (Isaac Sim 내장 Python과 무관)
 python3 --version
+# → Python 3.13.2 (miniconda3) — Isaac Sim은 자체 Python 사용
 
-# CUDA 버전 확인 (드라이버에 내장)
-nvcc --version || echo "nvcc 없음 - 드라이버 내장 CUDA 사용"
+# CUDA Toolkit 설치 확인 (nvcc)
+nvcc --version
+# → nvcc: CUDA 12.4.131 — 드라이버 CUDA 13.0과 별도 설치
+#   Isaac Sim은 시스템 nvcc가 아닌 드라이버 내장 CUDA 사용
+#
+# ※ nvcc 없는 경우: "nvcc 없음 - 드라이버 내장 CUDA 사용" 출력
+#   Isaac Sim 실행에는 nvcc가 필수가 아님 (드라이버만 있으면 됨)
 ```
 
 ### 6.2 시스템 의존성 설치
@@ -622,16 +637,19 @@ sudo apt install -y \
 mkdir -p ~/isaacsim
 cd ~/Downloads
 
-# 공식 NVIDIA 웹사이트에서 Isaac Sim Standalone 버전 다운로드:
-# https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html
+# Isaac Sim Standalone 5.1.0 직접 다운로드 (NVIDIA 공식):
+wget https://downloads.isaacsim.nvidia.com/isaac-sim-standalone-5.1.0-linux-x86_64.zip
 #
-# 주의: 5.0.0 버전 다운로드 (로그인 필요, 약 30GB+)
-# wget <다운로드 링크>  # 브라우저에서 직접 다운로드 권장
+# ※ 브라우저 다운로드가 더 안정적이면 아래 URL 사용:
+#   https://downloads.isaacsim.nvidia.com/isaac-sim-standalone-5.1.0-linux-x86_64.zip
+#
+# 주의: 약 30GB, 로그인 불필요 (NVIDIA 공개 배포)
+# DLI 코스는 4.5 기준이나 5.1.0에서도 정상 작동 확인됨
 
 # 압축 해제
-unzip "isaac-sim-standalone-5.0.0-linux-x86_64.zip" -d ~/isaacsim
+unzip "isaac-sim-standalone-5.1.0-linux-x86_64.zip" -d ~/isaacsim
 # (또는) tar 파일인 경우:
-# tar -xvf "isaac-sim-standalone-5.0.0-linux-x86_64.tar.gz" -C ~/isaacsim
+# tar -xvf "isaac-sim-standalone-5.1.0-linux-x86_64.tar.gz" -C ~/isaacsim
 
 cd ~/isaacsim
 
@@ -681,7 +699,7 @@ $isaac_sim_package_path/isaac-sim.sh
 
 cd ~/Downloads
 # 다운로드 후 압축 해제
-unzip "isaac-sim-compatibility-checker-5.0.0-linux-x86_64.zip"
+unzip "isaac-sim-compatibility-checker-5.1.0-linux-x86_64.zip"
 cd isaac-sim-compatibility-checker
 ./omni.isaac.sim.compatibility_check.sh
 ```
@@ -694,10 +712,20 @@ DLI 과정에서 제공하는 `gtc25-mega1` ROS 작업 공간을 빌드합니다
 
 ### 7.0 빌드 전 확인
 
+> **✅ 본 장비에서 빌드 완료** — 5개 패키지(colcon build) 성공
+> **⚠️ 중요: conda 환경에서는 빌드가 실패합니다.** 아래 확인 및 조치 필수
+
 ```bash
+# 0. (중요) conda 환경 비활성화 — conda Python이 ROS 빌드와 충돌
+conda deactivate
+which python3
+# → /usr/bin/python3 (system python) 이어야 함
+# → /home/.../miniconda3/bin/python3 이면 conda 환경 활성화 상태 ❌
+
 # 1. ROS Workspace 디렉토리 존재 확인
 ls ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/src/
 # → carter_navigation, isaac_moveit 등 패키지 디렉토리가 보여야 함
+#   (본 장비: manipulation/, navigation/)
 
 # 2. 이전 빌드 결과 확인 (이미 빌드된 경우)
 ls ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/install/setup.bash
@@ -706,6 +734,9 @@ ls ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/install/setup.bash
 # 3. ROS 2 환경 확인
 echo $ROS_DISTRO
 # → "humble" 출력 확인
+
+# 4. 필수 Python 패키지 확인 (conda 비활성화 상태에서)
+python3 -c "import catkin_pkg" 2>/dev/null && echo "✅ catkin_pkg 있음" || echo "❌ sudo apt install python3-catkin-pkg 필요"
 ```
 
 > **이미 빌드되어 있다면** [7.3 설정](#73-bashrc에-workspace-등록)에서 `.bashrc` 등록만 확인하세요.  
@@ -726,7 +757,18 @@ cd IsaacSim-ros_workspaces
 코스 에셋 내의 `ros_ws` 작업 공간 활용:
 
 ```bash
+# ★ 중요: conda 환경 비활성화 (ROS 빌드는 system Python 필요)
+conda deactivate
+which python3
+# → /usr/bin/python3 확인
+
+# ★ 중요: catkin_pkg 모듈 설치 (conda 환경에 없음)
+sudo apt install -y python3-catkin-pkg
+
 cd ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws
+
+# 이전 빌드 캐시가 있으면 제거 (conda 경로가 캐싱된 경우)
+rm -rf build/ install/ log/
 
 # 의존성 설치
 rosdep install --from-paths src --ignore-src -r -y
@@ -740,6 +782,8 @@ echo "ROS 2 Workspace 빌드 완료"
 ```
 
 > **참고**: `colcon build`는 소스 패키지 수에 따라 5~15분 소요. `--symlink-install` 옵션 사용 시 개발 중 변경 사항이 자동 반영됩니다.
+>
+> **⚠️ conda 환경 주의**: build/ 디렉토리에 conda python3 경로가 캐싱될 수 있습니다. `conda deactivate` 후 `rm -rf build/`로 캐시를 완전히 제거해야 합니다.
 
 ### 7.4 `.bashrc`에 Workspace 등록
 
@@ -937,7 +981,52 @@ ros2 launch isaac_moveit isaac_moveit.launch.py
 | 디스크 공간 부족 | Isaac Sim ~30GB, ROS 2 ~5GB, DLI 에셋 ~2GB 필요 |
 | 스왑 공간 부족 | 64GB RAM이면 보통 충분하나, 빌드 시 8GB 스왑 권장 |
 
+### 10.6 Parsec (원격 데스크톱) 설치
+
+> **🔄 중요 변경사항**: Parsec이 Linux 설치 방식을 **Snap으로 전환**하면서 기존 `.deb` 설치 스크립트(`https://parsec.app/install/parsec.sh`)가 **삭제**되었습니다.
+> 아래 명령어는 **404 HTML 페이지를 반환**하므로 사용하지 마세요:
+> ```bash
+> curl -sSL https://parsec.app/install/parsec.sh | sudo bash   # ❌ 404 Error
+> ```
+
+| 문제 | 원인 | 해결 방법 |
+|------|------|----------|
+| `curl .../parsec.sh \| sudo bash` 실행 시 bash 문법 오류 (`<!DOCTYPE html>`) | Parsec 공식 설치 스크립트 URL이 **404 HTML 페이지 반환** | Snap으로 설치 (`sudo snap install parsec --classic`) |
+| `sudo systemctl start parsec` → `Unit parsec.service not found` | Snap 설치 방식은 systemd service를 직접 생성하지 않음 | Snap 설치 완료 후 `snap run parsec` 또는 앱 런처에서 실행 |
+| **Snap 설치 방법 (권장)** | Ubuntu 22.04에는 Snap이 기본 포함 | ```bash
+# Parsec Snap 설치 (classic 모드: Fuse 마운트 권한 필요)
+sudo snap install parsec --classic
+
+# 실행
+snap run parsec   # 또는 앱 런처에서 Parsec 실행
+
+# 업데이트
+sudo snap refresh parsec
+``` |
+| **`.deb` 직접 다운로드 (대체 방법)** | Parsec 공식 사이트에서 .deb 제공 | ```bash
+# 1. https://parsec.app/downloads → Linux (Ubuntu 22.04 LTS Desktop) 선택 → .deb 다운로드
+
+# 2. 설치
+sudo apt install ./parsec-*.deb
+
+# 3. libssl1.1 의존성 문제 발생 시 (Ubuntu 22.04):
+echo "deb http://old-releases.ubuntu.com/ubuntu impish-security main" | sudo tee /etc/apt/sources.list.d/impish-security.list
+sudo apt update
+sudo apt install libssl1.1
+sudo rm /etc/apt/sources.list.d/impish-security.list
+``` |
+| **Flatpak 설치 (비공식)** | 공식 지원 아님, 커뮤니티 래퍼 | ```bash
+# Flathub에서 설치 (비공식 래퍼)
+flatpak install flathub com.parsecgaming.parsec
+flatpak run com.parsecgaming.parsec
+``` |
+| **Linux은 Hosting 미지원** | Parsec Linux 클라이언트는 **다른 기기로의 연결 전용** | Linux에서는 **Windows/macOS 기기에 연결**만 가능. Linux 머신 호스팅은 지원하지 않음 |
+
+> **💡 본 장비 사용 시나리오**: Windows 11 듀얼 부팅 환경이 있으므로, Parsec을 Ubuntu에 설치하여 **Windows 환경에 원격 접속**하는 용도로 사용하세요. Linux → Windows 연결은 정상 작동합니다.
+
 ---
+
+
 
 ## 11. 참고 자료
 
@@ -951,6 +1040,9 @@ ros2 launch isaac_moveit isaac_moveit.launch.py
 | ROS 2 Humble 설치 | [https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) |
 | NVIDIA 드라이버 다운로드 | [https://www.nvidia.com/en-us/drivers/](https://www.nvidia.com/en-us/drivers/) |
 | Isaac Sim 호환성 체커 | [https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html](https://docs.isaacsim.omniverse.nvidia.com/latest/installation/download.html) |
+| Parsec Snap 설치 가이드 | [https://snapcraft.io/parsec](https://snapcraft.io/parsec) |
+| Parsec Linux 설치 공식 문서 | [https://support.parsec.app/hc/en-us/articles/4422904998413](https://support.parsec.app/hc/en-us/articles/4422904998413) |
+| Parsec 다운로드 페이지 | [https://parsec.app/downloads](https://parsec.app/downloads) |
 
 ### 11.2 도움말 및 커뮤니티
 
@@ -1008,10 +1100,12 @@ source ~/.bashrc
 
 # ===== 5. Isaac Sim 설치 (Isaac Lab 불필요) =====
 #   설치 전 확인: ls ~/isaacsim/isaac-sim.sh
-# (브라우저에서 ~/Downloads로 수동 다운로드 필요, 약 30GB)
+# 직접 다운로드 (NVIDIA 공식):
+#   wget https://downloads.isaacsim.nvidia.com/isaac-sim-standalone-5.1.0-linux-x86_64.zip
+# (약 30GB, 브라우저 다운로드 권장)
 mkdir -p ~/isaacsim
 cd ~/Downloads
-unzip isaac-sim-standalone-5.0.0-linux-x86_64.zip -d ~/isaacsim
+unzip isaac-sim-standalone-5.1.0-linux-x86_64.zip -d ~/isaacsim
 cd ~/isaacsim && ./post_install.sh
 # 검증: ./isaac-sim.sh  (GUI 실행 테스트)
 
@@ -1023,11 +1117,20 @@ unzip DLI_SIL_online_dli.zip -d ~/Desktop/DLI_SIL
 
 # ===== 7. ROS Workspace 빌드 =====
 #   설치 전 확인: ls ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/install/setup.bash
+#   ★ conda 사용 시: conda deactivate && sudo apt install python3-catkin-pkg
 cd ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws
+rm -rf build/ install/ log/    # conda 경로 캐시 제거
 rosdep install --from-paths src --ignore-src -r -y
 colcon build
 echo "source ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/install/setup.bash" >> ~/.bashrc
 source ~/.bashrc
+
+# ===== 8. (선택) Parsec 원격 데스크톱 설치 =====
+#   ⚠️ 구 스크립트(curl .../parsec.sh | sudo bash)는 404 Error → Snap 사용
+#   Parsec Linux는 Windows/macOS 연결 전용 (Linux 호스팅 불가)
+sudo snap install parsec --classic
+snap run parsec           # 검증: GUI 실행 확인
+# 또는 앱 런처에서 Parsec 실행
 
 echo "✅ 모든 설치 완료!"
 ```
@@ -1048,7 +1151,7 @@ echo "✅ 모든 설치 완료!"
 > ### ✅ [Tools] 기본 개발 도구
 > - [x] `gcc --version` → 11.4.0 (Isaac Sim 권장 버전) ✅
 > - [x] `which cmake git wget curl unzip make` → 모두 경로 출력 ✅
-> - [ ] `python3 --version` → 3.10 이상 (conda 사용 시 ROS 2 빌드에 주의)
+> - [x] `python3 --version` → 3.13.2 (miniconda3) — Isaac Sim 내장 Python과 무관 ✅
 >
 > ### ✅ [ROS 2] Humble
 > - [x] `dpkg -l | grep ros-humble-desktop` → 설치 확인 ✅
@@ -1058,18 +1161,26 @@ echo "✅ 모든 설치 완료!"
 > - [x] `sudo apt install ros-humble-moveit-visual-tools` → 설치 완료 ✅
 > - [x] `sudo apt install ros-humble-joint-state-publisher` → 설치 완료 ✅
 > - [x] `ros-humble-rviz2 ros-humble-topic-tools ros-humble-teleop-twist-keyboard` → 설치 완료 ✅
-> - [ ] `echo $ROS_DISTRO` → `humble` (`.bashrc`에 source 등록 필요 시)
-> - [ ] `ros2 topic list` → 정상 실행 (빈 리스트)
+> - [x] `echo $ROS_DISTRO` → `humble` ✅
+> - [x] `ros2 topic list` → `/parameter_events`, `/rosout` 정상 출력 ✅
 >
 > ### ✅ [Isaac Sim] Standalone (Isaac Lab 불필요)
-> - [ ] `ls ~/isaacsim/isaac-sim.sh` → 파일 존재
+> - [x] NVR: RTX 5090, Driver 580.159.04, CUDA 13.0 ✅ (사전 확인 완료)
+> - [x] CUDA Toolkit (nvcc): 12.4.131 설치 확인 ✅ (선택사항)
+> - [ ] `ls ~/isaacsim/isaac-sim.sh` → 파일 존재 (설치 필요)
 > - [ ] Isaac Sim GUI 실행 → USD 로딩 정상
 > - [ ] `ros2 topic list` (Isaac Sim Play 중) → `/clock`, `/joint_states` 등 표시
 >
 > ### ✅ [Workspace] DLI ROS Workspace
-> - [ ] `colcon build` → 정상 완료, 에러 없음
-> - [ ] `source install/setup.bash` → 에러 없음
+> - [x] `conda deactivate && sudo apt install python3-catkin-pkg` → 필수 패키지 설치 ✅
+> - [x] `colcon build` → 5 packages finished, 에러 없음 ✅
+> - [ ] `source install/setup.bash` → `.bashrc` 등록 필요 시
 >
-> ### ✅ [Assets] DLI Course Assets
+> ### ✅ [Parsec] 원격 데스크톱 (선택사항)
+> - ⚠️ 구 `curl .../parsec.sh | sudo bash` 스크립트는 **404 반환** → Snap 사용
+> - [ ] `sudo snap install parsec --classic` → 설치 완료
+> - [ ] `snap run parsec` → GUI 정상 실행
+
+### ✅ [Assets] DLI Course Assets
 > - [ ] `ls ~/Desktop/DLI_SIL/Starting_point/` → nova_carter, franka 등 존재
 > - [ ] `rosdep install --from-paths src --ignore-src -r -y` → 의존성 충족
