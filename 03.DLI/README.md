@@ -896,41 +896,48 @@ https://learn.learn.nvidia.com/assets/courseware/v1/f6406f99a4d1d683ff56370a8e7f
 ---
 
 ## Module 9: Manipulation With MoveIt2
-Review
+
+**Review**
+
 Alright! We successfully integrated MoveIt2 with the Franka robot, enabling motion planning and manipulation capabilities within Isaac Sim. This setup allows the robot to execute complex tasks and prepares us for further exploration of autonomous navigation in the next module. Great progress so far, how about a bonus?!
 
-Quiz
-1 point possible (graded)
-What is the main purpose of using MoveIt2 in robotics?
+**Quiz : 1 point possible (graded)**
 
-Autonomous navigation
+* What is the main purpose of using MoveIt2 in robotics?
 
-Manipulation tasks
-
-Sensor integration
-
-Voice control integration
+```
+○ Autonomous navigation
+○ Manipulation tasks
+○ Sensor integration
+○ Voice control integration
+```
 
 ---
 
 ## Challenge
-Multi-Robot Coordination
+
+**Multi-Robot Coordination**
+
 In this final challenge, we will combine everything we’ve learned to complete a collaborative task using both Nova Carter and Franka. The goal is to use ROS Nav2 to autonomously navigate Nova Carter to the Franka loading zone, use Franka to pick up a cube, load it onto Nova Carter, and then navigate Nova Carter back to the drop-off zone.
 
-## Challenge Instructions
-Navigate Nova Carter to the Loading Zone
-Use the Nav2 stack to send a navigation goal for Nova Carter to reach the Franka loading zone.
-Ensure that the robot avoids obstacles and follows an optimal path based on the occupancy map.
-Use Franka to Pick Up a Cube
-Switch control to Franka and use MoveIt2 to plan and execute a motion to pick up a cube from the loading zone.
-Carefully position Franka’s gripper to secure the cube.
-Load the Cube onto Nova Carter
-Plan and execute another motion with Franka to place the cube securely on Nova Carter’s platform.
-Verify that the cube is stable before proceeding.
-Navigate Nova Carter to the Drop-Off Zone
-Use Nav2 again to send a navigation goal for Nova Carter to move to the designated drop-off zone.
-Ensure smooth navigation while carrying the cube.
-💡 Tip
+<img src="dli_img/image35.png">
+
+**Challenge Instructions**
+
+1. Navigate Nova Carter to the Loading Zone
+  * Use the Nav2 stack to send a navigation goal for Nova Carter to reach the Franka loading zone.
+  * Ensure that the robot avoids obstacles and follows an optimal path based on the occupancy map.
+2. Use Franka to Pick Up a Cube
+   * Switch control to Franka and use MoveIt2 to plan and execute a motion to pick up a cube from the loading zone.
+   * Carefully position Franka’s gripper to secure the cube.
+3. Load the Cube onto Nova Carter
+   * Plan and execute another motion with Franka to place the cube securely on Nova Carter’s platform.
+   * Verify that the cube is stable before proceeding.
+4. Navigate Nova Carter to the Drop-Off Zone
+   * Use Nav2 again to send a navigation goal for Nova Carter to move to the designated drop-off zone.
+   * Ensure smooth navigation while carrying the cube.
+
+>💡 Tip <br>
 If you were not able to configure the environment, use the asset in Checkpoint4_completed_environment, and if you were not able to generate the occupancy map, use the ROS workspace in Checkpoint5_completed_ros_package.
 
 ---
