@@ -351,16 +351,18 @@ Test your knowledge with the following quiz.
 **Quiz 2 points possible (graded)**
 
 A Joint State Publisher in ROS is used to broadcast a robot's joint states to ROS topics for real-time monitoring.
+
 ``
-False
-True
+○ False
+○ True
 ```
 
 What is the purpose of adding an auto namespace attribute to the Nova Carter robot?
+
 ```
-To increase the robot's speed in simulation
-To enable the robot to publish odometry data
-To avoid topic conflicts when working with multiple robots
+○ To increase the robot's speed in simulation
+○ To enable the robot to publish odometry data
+○ To avoid topic conflicts when working with multiple robots
 ```
 
 ---
@@ -373,58 +375,75 @@ Congratulations on completing the setup for Nova Carter! In this module, we’ll
 
 Let’s get started!
 
-
 ---
 
 ## Module 4: Configuring the Franka Robot
-Configuring the Franka ROS Graphs
+
+**Configuring the Franka ROS Graphs**
+
 Now that the Carter robot is ready, and data is ready to be communicated with ROS, let’s set up the Franka robot with its own Action Graphs.
 
-Joint State Publisher and Subscriber
-Open the Desktop/DLI_SIL/Starting_point/franka/franka.usd file.
-In the Stage Tree, right-click and select Create > Scope.
-Rename the new scope to Graph
-A Scope acts as a container for organizing graphs and related components.
+**Joint State Publisher and Subscriber**
+1. Open the Desktop/DLI_SIL/Starting_point/franka/franka.usd file.
+2. In the Stage Tree, right-click and select Create > Scope.
+3. Rename the new scope to Graph
+   * A Scope acts as a container for organizing graphs and related components.
  
+<img src="dli_img/image17.png">
 
-Navigate to Tools > ROS 2 Omnigraphs > Joint States.
- 
+4. Navigate to Tools > ROS 2 Omnigraphs > Joint States.
 
-Configure the graph with the following settings:
-Graph Path: /franka/Graph/ROS_JointStates
-Articulation Root: /franka
-Enable both the Publisher and Subscriber options.
-Keep the Move Robot option selected.
-Confirm and save your configuration.
-Press the Play button.
+<img src="dli_img/image18.png"> 
+
+5. Configure the graph with the following settings:
+   * Graph Path: /franka/Graph/ROS_JointStates
+   * Articulation Root: /franka
+   * Enable both the Publisher and Subscriber options.
+   * Keep the Move Robot option selected.
+6. Confirm and save your configuration.
+7. Press the Play button.
 
 ---
+
 ## Module 4: Configuring the Franka Robot
-Setting the Node Namespace
+
+**Setting the Node Namespace**
+
 To verify that the node namespace is configured correctly, open a ROS-sourced terminal and run:
+
+```
 ros2 topic list
+```
+
 When you list the topics, note that Franka’s published topics appear without an additional namespace prefix. Ideally, they should be listed as, for example, /franka/joint_states rather than /joint_states.
 
 This is accomplished with an extra namespacing level.
 
-Node Namespace
+**Node Namespace**
+
 Similar to what we did for the Nova Carter robot, let’s add a specific namespace to the Franka robot so all topics published from the Franka are isolated. This will prevent any conflicts from other robot topics.
 
-Right-click on the franka prim and select Add > Attribute.
+1. Right-click on the franka prim and select Add > Attribute.
  
+<img src="dli_img/image7_1.png">
 
-Create a new attribute with the following properties:
-Name: isaac:namespace
-Type: String
-Ensure the Custom option is checked.
+2. Create a new attribute with the following properties:
+   * Name: isaac:namespace
+   * Type: String
+   * Ensure the Custom option is checked.
  
+<img src="dli_img/image22.png">
 
-Set the attribute value to franka in the Raw USD Properties panel.
-Save the changes.
-Press the Play button.
-To verify that the node namespace is configured correctly, open a ROS-sourced terminal and run:
+3. Set the attribute value to franka in the Raw USD Properties panel.
+4. Save the changes.
+5. Press the Play button.
+6. To verify that the node namespace is configured correctly, open a ROS-sourced terminal and run:
+
+```
 ros2 topic list
-When you list the topics, note that Franka’s published topics now appear with an additional namespace “franka” prefix. You should see, /franka/joint_states, and /franka/joint_command.
+```
+
+* When you list the topics, note that Franka’s published topics now appear with an additional namespace “franka” prefix. You should see, /franka/joint_states, and /franka/joint_command.
 
 
 ---
