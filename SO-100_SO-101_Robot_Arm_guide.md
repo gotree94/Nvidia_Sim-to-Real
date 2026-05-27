@@ -18,7 +18,7 @@ Discord 커뮤니티에 참여하여 하드웨어와 소프트웨어 모두에 �
 ## 📖 문서
 
 - **SO-101 문서**: 아래 페이지 참조
-- **SO-100 문서 (Deprecated)**: [이전 문서 보기](https://docs.towards/"여기에 SO-100 문서 링크")
+- **SO-100 문서 (Deprecated)**: [이전 문서 보기]((https://github.com/TheRobotStudio/SO-ARM100/blob/main/SO100.md)")
 
 ---
 
@@ -28,9 +28,9 @@ Discord 커뮤니티에 참여하여 하드웨어와 소프트웨어 모두에 �
 
 ### 1. 직접 조립 (Build it Yourself)
 
-1. **부품 조달**: Bill of Materials(BOM)에서 부품 확보
-2. **3D 프린팅**: 부품 3D 출력 (또는 주문) — [부품 출력 가이드](#3d-printing-printing-the-parts) 참조
-3. **조립**: [조립 가이드](#assembly-guide-조립-가이드) 따라하기
+1. **부품 조달**: Bill of Materials(BOM)에서 [부품 확보]((https://github.com/TheRobotStudio/SO-ARM100#sourcing-parts))
+2. **3D 프린팅**: 부품 3D 출력 (또는 주문) — [부품 출력 가이드]((https://github.com/TheRobotStudio/SO-ARM100#printing-the-parts)) 참조
+3. **조립**: [조립 가이드]((https://huggingface.co/docs/lerobot/so101)) 따라하기
 
 ### 2. 키트 구매 (Buy a Kit)
 
