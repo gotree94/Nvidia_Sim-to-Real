@@ -25,6 +25,7 @@ By the end of this module, you will have a fully operational Isaac Sim environme
 
 Before you begin, download the course assets you'll need for this lab. We recommend you extract the folder to your desktop to follow-along with the instructions in this course: (/Desktop/DLI_SIL). 
 https://download.learn.nvidia.com/assets/s-ov-39-v1/DLI_SIL_online_dli.zip
+
 ---
 
 ## Launching Isaac Sim With ROS 2
