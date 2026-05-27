@@ -5,30 +5,6 @@
 
 ---
 
-## 📋 allai ID — 성명 매핑
-
-| allai ID | 성명 | 이메일 |
-|:--------:|:----:|:------:|
-| allai01 | **김지윤** | allai01@allai.co.kr |
-| allai02 | **강영빈** | allai02@allai.co.kr |
-| allai03 | **유용준** | allai03@allai.co.kr |
-| allai04 | **서예진** | allai04@allai.co.kr |
-| allai05 | **전승현** | allai05@allai.co.kr |
-| allai06 | **권영진** | allai06@allai.co.kr |
-| allai07 | **원주성** | allai07@allai.co.kr |
-| allai08 | **권오주** | allai08@allai.co.kr |
-| allai09 | **박찬수** | allai09@allai.co.kr |
-| allai10 | **임희수** | allai10@allai.co.kr |
-| allai11 | **이호기** | allai11@allai.co.kr |
-| allai12 | **김남우** | allai12@allai.co.kr |
-| allai13 | **채민아** | allai13@allai.co.kr |
-| allai14 | **조인행** | allai14@allai.co.kr |
-| allai15 | **임상혁** | allai15@allai.co.kr |
-
-> **전체 15명**, allai07(원주성), allai10(임희수), allai11(이호기)는 현재 편성된 조에 포함되지 않음
-
----
-
 ## 📋 조 편성 (총 6팀)
 
 | 조 | 팀원 | 과제 | 상태 |
