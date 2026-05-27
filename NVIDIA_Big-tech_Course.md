@@ -34,7 +34,7 @@
 ### 조 ② — 전승현, 채민아, 임상혁 ✅
 
 | 항목 | 내용 |
-|------|------|
+|:------:|------|
 | **allai ID** | allai05(전승현), allai13(채민아), allai15(임상혁) |
 | **과제** | **🏘️ 마을(격자형 맵) 내비게이션 시뮬레이션** |
 | **제안자** | 전승현 (`05 allai`) |
@@ -54,7 +54,7 @@
 ### 조 ③ — 조인행, 김남우 ✅
 
 | 항목 | 내용 |
-|------|------|
+|:------:|------|
 | **allai ID** | allai14(조인행), allai12(김남우) |
 | **과제** | **🤖 NVIDIA TurtleBot3 Dual Autonomous Navigation** |
 | **설명** | NVIDIA Isaac Sim + Cosmos + Isaac Lab 기반 TurtleBot3 자율주행 풀스택 프로젝트 <br> (End-to-End Autonomous Navigation + Digital Twin Closed-Loop) |
