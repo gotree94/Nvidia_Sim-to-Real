@@ -49,12 +49,12 @@ https://brev.nvidia.com/
 
 * User Interface Reference
    * https://docs.isaacsim.omniverse.nvidia.com/5.1.0/gui/reference_user_interface.html
-       •	Menu Bar
-       •	Viewport
-       •	Main Toolbar
-       •	Browsers
-       •	Stage
-       •	Property Panel
+       -	Menu Bar
+       -	Viewport
+       -	Main Toolbar
+       -	Browsers
+       -	Stage
+       -	Property Panel
 
 * Menu Bar
        •	Create
