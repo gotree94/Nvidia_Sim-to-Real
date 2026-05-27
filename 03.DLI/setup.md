@@ -1,8 +1,9 @@
 # DLI 개발 환경 설치 및 설정 가이드
 
 > **코스**: OpenUSD, Isaac Sim, ROS를 활용한 로봇 소프트웨어-인-더-루프 테스트
-> **대상 하드웨어**: ASUS 2025 (Intel Core Ultra 9 16코어, NVIDIA GeForce RTX 5090, 64GB RAM, 4TB SSD)
+> **대상 하드웨어**: ASUS ROG Strix SCAR 16 G635LX (Intel Core Ultra 9, NVIDIA GeForce RTX 5090, 64GB RAM, 4TB SSD)
 > **OS 상태**: Ubuntu 22.04.5 LTS 설치 완료 ✅
+> **GPU 드라이버**: NVIDIA Driver 580.159.04 + CUDA 13.0 (RTX 5090) 설치 완료 ✅
 
 ---
 
@@ -95,7 +96,7 @@ df -h /
 |------|----------|--------------------|------|
 | Intel Arrow Lake (Core Ultra 9) | 커널 ≥ 6.8 | **6.8.x (HWE 기본 내장)** ✅ | 추가 조치 불필요 |
 | RTX 5090 (Blackwell) | 커널 ≥ 6.8 + 오픈 커널 모듈 드라이버 | **6.8.x 충족** ✅ | NVIDIA 드라이버만 설치 |
-| NVIDIA 드라이버 | ≥ 580.65.06 | 설치 안 됨 ❌ | [Section 3](#3-nvidia-드라이버-설치-rtx-5090) 진행 |
+| NVIDIA 드라이버 | ≥ 580.65.06 | **580.159.04 설치 완료** ✅ | [Section 3.5](#35-실제-설치-사례-및-트러블슈팅) 참고 |
 
 > **⚠️ 만약 커널 버전이 6.5 미만으로 확인될 경우** 다음 명령어로 HWE 커널을 수동 설치하세요:
 > ```bash
@@ -241,10 +242,20 @@ sudo ./NVIDIA-Linux-x86_64-580.65.06.run \
 
 ### 3.4 설치 확인 (재부팅 후)
 
+> **⚠️ 재부팅 전 필수 확인**: DKMS 모듈이 커널과 함께 빌드되었는지 반드시 확인하세요.
+> 드라이버 패키지는 설치됐어도 DKMS 모듈이 없으면 `nvidia-smi`가 실패합니다.
+> ```bash
+> sudo dkms status | grep nvidia
+> # → "nvidia/580.xxx.xx, 6.8.0-xxx-generic, x86_64: installed" ← installed 확인 필수!
+> # → 출력이 없거나 "built"가 아닌 경우 → 재부팅하지 말고 먼저 DKMS 패키지 설치
+> ```
+>
+> DKMS 누락 시: `sudo apt install nvidia-dkms-580-open` → `sudo dkms status` 재확인 → `sudo update-initramfs -u` → 재부팅
+
 ```bash
 # 0. DKMS 모듈 빌드 확인 (드라이버 로드의 전제 조건)
 sudo dkms status | grep nvidia
-# → nvidia/580.126.09, 6.8.0-111-generic, x86_64: installed (installed 확인 필수)
+# → nvidia/580.159.04, 6.8.0-111-generic, x86_64: installed (installed 확인 필수!)
 
 # 1. 커널 모듈 로드 확인
 lsmod | grep nvidia
@@ -254,19 +265,82 @@ lsmod | grep nvidia
 nvidia-smi
 ```
 
-정상 출력 예시:
+정상 출력 예시 (RTX 5090, ASUS ROG Strix SCAR 16 G635LX 실제 출력):
 ```
 +-----------------------------------------------------------------------------------------+
-| NVIDIA-SMI 580.65.06          Driver Version: 580.65.06      CUDA Version: 13.0         |
-|-------------------------------+----------------------+----------------------+
-| GPU  Name                 TCC | Bus-Id          Disp. | Volatile Uncorr. ECC |
-| Fan  Temp  Perf          Pwr: Usage/Cap|           Memory-Usage | GPU-Util  Compute M. |
-|                               |                      |               MIG M. |
-|===============================+======================+======================|
-|   0  NVIDIA GeForce RTX 5090  |   Off  |   00000000:01:00.0 Off |
-| N/A   45C    P0      45W /  150W |    1234MiB /  24564MiB |      0%      Default |
-+-------------------------------+----------------------+----------------------+
+| NVIDIA-SMI 580.159.04             Driver Version: 580.159.04     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 5090 ...    Off |   00000000:02:00.0 Off |                  N/A |
+| N/A   57C    P4             33W /   95W |       0MiB /  24463MiB |      2%      Default |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
 ```
+
+### 3.5 실제 설치 사례 및 트러블슈팅 (ASUS ROG Strix SCAR 16 G635LX + RTX 5090)
+
+> 실제 설치 과정에서 발생한 문제와 해결 방법을 기록합니다.
+
+#### 문제 상황
+
+Ubuntu 22.04.5 LTS (kernel 6.8.0-111-generic)에서 RTX 5090 드라이버 설치 시 다음과 같은 문제가 발생했습니다:
+
+1. **`nvidia-smi` 명령 실행 실패** — `NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver.`
+2. **원인: `nvidia-dkms-580-open` 패키지 누락**
+   - `nvidia-driver-580-open` 메타패키지가 설치되었으나, DKMS 커널 모듈이 자동으로 빌드되지 않음
+   - `sudo dkms status | grep nvidia` → 출력 없음 (빈 상태)
+
+#### 추가 문제: 패키지 버전 충돌 (PPA vs Ubuntu 공식 저장소)
+
+| 패키지 | 저장소 | 버전 |
+|--------|--------|------|
+| `nvidia-driver-580-open` | Ubuntu 공식 저장소 | 580.126.09 |
+| `nvidia-driver-580-open` | graphics-drivers PPA | 580.159.04 |
+| `nvidia-dkms-580-open` | **설치되지 않음** ❌ | — |
+
+- `nvidia-driver-580-open`은 Ubuntu 저장소의 580.126.09가 먼저 설치됨
+- 이후 PPA 추가 시 580.159.04와 충돌 발생
+- `nvidia-dkms-580-open`가 함께 설치되지 않아 커널 모듈 누락
+
+#### 최종 해결 명령어
+
+```bash
+# 1. 패키지 충돌 해결
+sudo apt --fix-broken install -y
+
+# 2. 드라이버 + DKMS + 유틸리티 통합 설치
+sudo apt install -y nvidia-driver-580-open nvidia-dkms-580-open nvidia-utils-580
+
+# 3. DKMS 빌드 확인 (installed 출력 필수)
+sudo dkms status | grep nvidia
+
+# 4. initramfs 업데이트
+sudo update-initramfs -u
+
+# 5. 재부팅
+sudo reboot
+
+# 6. 최종 확인
+nvidia-smi
+```
+
+#### 교훈
+
+- RTX 5090 (Blackwell)은 반드시 **오픈 커널 모듈 드라이버 (`nvidia-driver-5xx-open`)** 가 필요합니다.
+- **DKMS 상태 확인 (`sudo dkms status | grep nvidia`)** 이 드라이버 설치 성공 여부의 핵심 지표입니다.
+  - `nvidia-smi`가 실패하는 가장 흔한 원인: 패키지는 설치됐지만 DKMS 모듈이 없는 경우
+- PPA 사용 시 기존 Ubuntu 저장소 패키지와의 **버전 충돌**이 발생할 수 있습니다.
+  - 해결: `apt --fix-broken install`로 정리 후 원하는 버전으로 통일 설치
 
 ---
 
@@ -783,9 +857,12 @@ ros2 launch isaac_moveit isaac_moveit.launch.py
 |------|----------|
 | `nvidia-smi` 실행 안 됨 | `sudo apt purge nvidia-*` → `sudo apt install nvidia-driver-580-open` 후 재부팅 |
 | `nvidia-smi` 실패 + 패키지는 설치됨 | **DKMS 모듈 누락**. `sudo apt install nvidia-dkms-580-open` → `sudo dkms status`로 `installed` 확인 → `sudo update-initramfs -u` → 재부팅 |
+| `nvidia-smi` 실패 + DKMS도 없음 | 메타패키지가 DKMS를 자동 포함하지 못한 경우. `sudo apt install -y nvidia-driver-580-open nvidia-dkms-580-open nvidia-utils-580`로 통합 설치 |
+| 패키지 버전 충돌 (PPA vs Ubuntu 저장소) | `sudo apt --fix-broken install -y`로 충돌 해결 후 원하는 버전으로 통일 설치 |
 | 블랙 스크린 부팅 | GRUB에서 `nomodeset` 또는 `nouveau.modeset=0` 추가 |
 | GPU 인식 안 됨 | BIOS 설정 확인: Secure Boot **비활성화**, UEFI 설정 확인 |
 | `Failed to initialize NVML: Driver/library version mismatch` | 재부팅 후 재시도 |
+| `update-alternatives: error: no alternatives for gcc` | 이미 GCC 11이 기본인 상태. 3번 방식 무시하고 GCC 14만 추가 설치 (`sudo apt install gcc-14 g++-14`) |
 
 ### 10.2 Isaac Sim 관련
 
@@ -857,16 +934,19 @@ echo $ROS_DISTRO            # → "humble"이면 4번 skip
 
 # ===== 2. NVIDIA 드라이버 설치 (RTX 5090) =====
 #   설치 전 확인: nvidia-smi  /  sudo dkms status | grep nvidia
+#   ⚠️ 버전 충돌 시: sudo apt --fix-broken install -y
 sudo add-apt-repository -y ppa:graphics-drivers/ppa
-sudo apt update && sudo apt install -y nvidia-driver-580-open
+sudo apt update
 
-# ⚠️ 반드시 DKMS 모듈이 빌드되었는지 확인
+# ★ nvidia-dkms-580-open을 명시적으로 포함 (누락 방지)
+sudo apt install -y nvidia-driver-580-open nvidia-dkms-580-open nvidia-utils-580
+
+# ⚠️ 반드시 DKMS 모듈이 빌드되었는지 확인 (가장 중요!)
 sudo dkms status | grep nvidia
-# → "nvidia/..., installed" 출력 없으면:
-sudo apt install -y nvidia-dkms-580-open
-sudo dkms status | grep nvidia   # "installed" 재확인
-sudo update-initramfs -u
+# → "nvidia/..., installed" 출력 없으면 위 설치 실패 → 재시도
+# → 정상 출력: "nvidia/580.159.04, 6.8.0-111-generic, x86_64: installed"
 
+sudo update-initramfs -u
 sudo reboot
 nvidia-smi                  # 검증: RTX 5090 인식 확인
 
@@ -925,8 +1005,8 @@ echo "✅ 모든 설치 완료!"
 > - [ ] `uname -r` → 6.8.x 이상
 >
 > ### ✅ [GPU] NVIDIA RTX 5090
-> - [ ] `sudo dkms status | grep nvidia` → `installed` 확인
-> - [ ] `nvidia-smi` → RTX 5090 인식, Driver ≥ 580.65.06
+> - [x] `sudo dkms status | grep nvidia` → `installed` 확인 ✅
+> - [x] `nvidia-smi` → RTX 5090 인식, Driver 580.159.04, CUDA 13.0 ✅
 > - [ ] `lsmod | grep nvidia` → nvidia 드라이버 로드 확인
 >
 > ### ✅ [ROS 2] Humble
