@@ -425,6 +425,8 @@ gcc --version
 
 > 본 DLI 과정은 **ROS 2 Humble**을 사용합니다. (Ubuntu 22.04 전용)
 
+> **✅ 본 장비(ASUS ROG Strix SCAR 16)에서 ROS 2 Humble 저장소 등록 완료, ros-humble-desktop 포함 다수 패키지 설치 확인 완료**
+
 ### 5.0 설치 전 확인
 
 ```bash
@@ -441,11 +443,16 @@ dpkg -l | grep ros-humble-desktop | head -3
 ros2 --help
 # → 도움말 출력 → 정상
 # → "command not found" → 설치 필요 ❌
+
+# 4. apt 저장소 목록에서 ROS 2 확인
+ls /etc/apt/sources.list.d/ros2.list 2>/dev/null && echo "✅ ROS 2 저장소 등록됨" || echo "❌ 저장소 없음"
 ```
 
 > **ROS 2 Humble이 이미 설치되어 있다면** 아래 저장소 등록 및 설치 과정을 건너뛰고, [5.4 설정](#54-ros-2-환경-설정-bashrc-등록)에서 `.bashrc`만 확인하세요.
 
 ### 5.1 ROS 2 저장소 등록
+
+> ⏭️ **본 장비는 ROS 2 저장소가 이미 등록되어 있음** (`/etc/apt/sources.list.d/ros2.list` 존재, `apt update` 시 `packages.ros.org` Hit 확인됨)
 
 ```bash
 # ROS 2 GPG 키 추가
@@ -458,6 +465,8 @@ sudo apt update
 ```
 
 ### 5.2 ROS 2 Humble Desktop 설치
+
+> ⏭️ **본 장비는 `ros-humble-desktop`이 이미 설치되어 있음** (`apt install` 시 `already the newest version` 확인됨)
 
 ```bash
 # 전체 데스크탑 설치 (권장)
@@ -475,6 +484,9 @@ rosdep update
 
 ### 5.3 추가 ROS 패키지 설치 (DLI 과정 필수)
 
+> **✅ 본 장비에서 모두 설치 완료** (MoveIt 2.5.9, TF, rviz2 등)
+> 아래는 참고용 명령어입니다.
+
 ```bash
 # vision_msgs (바운딩 박스 시각화)
 sudo apt install -y ros-humble-vision-msgs
@@ -489,12 +501,14 @@ sudo apt install -y \
     ros-humble-nav2-msgs
 
 # MoveIt2 패키지
+# ⚠️ 패키지명은 ros-humble-moveit (ros-humble-moveit2가 아님)
 sudo apt install -y \
-    ros-humble-moveit2 \
+    ros-humble-moveit \
     ros-humble-moveit-msgs \
     ros-humble-moveit-visual-tools
 
 # TF, URDF 관련
+# (대부분 ros-humble-desktop에 포함되어 이미 설치됨)
 sudo apt install -y \
     ros-humble-robot-state-publisher \
     ros-humble-joint-state-publisher \
@@ -985,7 +999,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-a
 sudo apt update
 sudo apt install -y ros-humble-desktop python3-colcon-common-extensions python3-rosdep
 sudo rosdep init && rosdep update
-sudo apt install -y ros-humble-navigation2 ros-humble-nav2-bringup ros-humble-moveit2 \
+sudo apt install -y ros-humble-navigation2 ros-humble-nav2-bringup ros-humble-moveit \
     ros-humble-robot-state-publisher ros-humble-joint-state-publisher \
     ros-humble-rviz2 ros-humble-topic-tools
 echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
@@ -1037,9 +1051,15 @@ echo "✅ 모든 설치 완료!"
 > - [ ] `python3 --version` → 3.10 이상 (conda 사용 시 ROS 2 빌드에 주의)
 >
 > ### ✅ [ROS 2] Humble
-> - [ ] `echo $ROS_DISTRO` → `humble`
+> - [x] `dpkg -l | grep ros-humble-desktop` → 설치 확인 ✅
+> - [x] `ls /etc/apt/sources.list.d/ros2.list` → 저장소 등록 확인 ✅
+> - [x] `sudo apt install ros-humble-moveit` → MoveIt 2.5.9 설치 완료 ✅
+> - [x] `sudo apt install ros-humble-moveit-msgs` → 설치 완료 ✅
+> - [x] `sudo apt install ros-humble-moveit-visual-tools` → 설치 완료 ✅
+> - [x] `sudo apt install ros-humble-joint-state-publisher` → 설치 완료 ✅
+> - [x] `ros-humble-rviz2 ros-humble-topic-tools ros-humble-teleop-twist-keyboard` → 설치 완료 ✅
+> - [ ] `echo $ROS_DISTRO` → `humble` (`.bashrc`에 source 등록 필요 시)
 > - [ ] `ros2 topic list` → 정상 실행 (빈 리스트)
-> - [ ] `ros2 launch` → 도움말 출력
 >
 > ### ✅ [Isaac Sim] Standalone (Isaac Lab 불필요)
 > - [ ] `ls ~/isaacsim/isaac-sim.sh` → 파일 존재
