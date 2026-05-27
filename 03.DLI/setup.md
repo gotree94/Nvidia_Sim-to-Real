@@ -134,19 +134,30 @@ lspci | grep -i nvidia
 # 2. 드라이버 로드 확인
 nvidia-smi
 # → RTX 5090 인식 + Driver Version 표시되면 ✅ 이미 설치됨 → 3.4로 건너뛰기
-# → "command not found" 또는 "NVIDIA-SMI has failed" → 설치 필요 ❌
+# → "NVIDIA-SMI has failed" → 설치 필요 ❌ (또는 DKMS 모듈 누락)
 
 # 3. 현재 설치된 NVIDIA 패키지 확인
 dpkg -l | grep nvidia-driver
 # → nvidia-driver-580-open 등 설치되어 있으면 ✅
 
-# 4. Nouveau 드라이버 사용 중인지 확인
+# 4. DKMS 모듈 빌드 상태 확인 (핵심)
+sudo dkms status | grep nvidia
+# → "nvidia/580.126.09, 6.8.0-xxx-generic, x86_64: installed" ← 이렇게 출력되어야 정상
+# → 출력 없음 → nvidia-dkms-580-open 미설치 ❌
+
+# 5. 커널 모듈 파일 존재 확인
+ls -la /lib/modules/$(uname -r)/updates/dkms/nvidia*
+# → nvidia.ko 파일이 존재해야 정상
+
+# 6. Nouveau 드라이버 사용 중인지 확인
 lsmod | grep nouveau
 # → 출력 없음 = Nouveau 비활성화 상태 ✅
 # → 출력 있음 = Nouveau 활성화 → 비활성화 필요
 ```
 
-> **이미 설치되어 있다면** [3.4 설치 확인](#34-설치-확인) 섹션으로 건너뛰고 정상 동작만 확인하세요.
+> ⚠️ **`nvidia-smi` 실패 + `dkms status` 출력 없음** = `nvidia-dkms-580-open` 누락.
+> `nvidia-driver-580-open` 메타패키지가 자동으로 포함시키지 못한 경우입니다.
+> 해결: `sudo apt install nvidia-dkms-580-open` 실행 후 [3.4 DKMS 빌드](#34-dkms-빌드-확인)로 이동하세요.
 
 ### 3.1 Nouveau 비활성화
 
@@ -185,11 +196,26 @@ sudo apt update
 ubuntu-drivers devices
 # → RTX 5090 권장: nvidia-driver-580-open 또는 nvidia-driver-570-open
 
-# 설치
+# ⚠️ nvidia-driver-580-open 설치 시 nvidia-dkms-580-open이
+#    자동으로 함께 설치되어야 정상입니다. 설치 후 반드시 확인!
 sudo apt install -y nvidia-driver-580-open
 
 # Prime 설정 (노트북의 경우)
 sudo prime-select nvidia
+```
+
+> **설치 후 DKMS 확인**: `sudo dkms status | grep nvidia` 실행
+> - `nvidia/580.126.09, 6.8.0-xxx-generic, x86_64: installed` → 정상 ✅
+> - **출력 없음** → DKMS 패키지 누락 → 아래 추가 조치 실행:
+
+```bash
+# DKMS 패키지가 누락된 경우 수동 설치
+sudo apt install -y nvidia-dkms-580-open
+
+# DKMS 빌드가 완료될 때까지 대기 (2~5분 소요)
+sudo dkms status | grep nvidia
+# → "installed" 확인 후 initramfs 업데이트
+sudo update-initramfs -u
 ```
 
 #### 방식 B: NVIDIA 공식 .run 파일 설치
@@ -213,13 +239,18 @@ sudo ./NVIDIA-Linux-x86_64-580.65.06.run \
     --run-nvidia-xconfig
 ```
 
-### 3.4 설치 확인
+### 3.4 설치 확인 (재부팅 후)
 
 ```bash
-# 재부팅
-sudo reboot
+# 0. DKMS 모듈 빌드 확인 (드라이버 로드의 전제 조건)
+sudo dkms status | grep nvidia
+# → nvidia/580.126.09, 6.8.0-111-generic, x86_64: installed (installed 확인 필수)
 
-# 드라이버 확인
+# 1. 커널 모듈 로드 확인
+lsmod | grep nvidia
+# → nvidia, nvidia-modeset, nvidia-uvm 등이 출력되어야 정상
+
+# 2. 드라이버 확인
 nvidia-smi
 ```
 
@@ -751,6 +782,7 @@ ros2 launch isaac_moveit isaac_moveit.launch.py
 | 문제 | 해결 방법 |
 |------|----------|
 | `nvidia-smi` 실행 안 됨 | `sudo apt purge nvidia-*` → `sudo apt install nvidia-driver-580-open` 후 재부팅 |
+| `nvidia-smi` 실패 + 패키지는 설치됨 | **DKMS 모듈 누락**. `sudo apt install nvidia-dkms-580-open` → `sudo dkms status`로 `installed` 확인 → `sudo update-initramfs -u` → 재부팅 |
 | 블랙 스크린 부팅 | GRUB에서 `nomodeset` 또는 `nouveau.modeset=0` 추가 |
 | GPU 인식 안 됨 | BIOS 설정 확인: Secure Boot **비활성화**, UEFI 설정 확인 |
 | `Failed to initialize NVML: Driver/library version mismatch` | 재부팅 후 재시도 |
@@ -824,9 +856,17 @@ nvidia-smi                  # → 이미 설치되어 있으면 2번 skip
 echo $ROS_DISTRO            # → "humble"이면 4번 skip
 
 # ===== 2. NVIDIA 드라이버 설치 (RTX 5090) =====
-#   설치 전 확인: nvidia-smi
+#   설치 전 확인: nvidia-smi  /  sudo dkms status | grep nvidia
 sudo add-apt-repository -y ppa:graphics-drivers/ppa
 sudo apt update && sudo apt install -y nvidia-driver-580-open
+
+# ⚠️ 반드시 DKMS 모듈이 빌드되었는지 확인
+sudo dkms status | grep nvidia
+# → "nvidia/..., installed" 출력 없으면:
+sudo apt install -y nvidia-dkms-580-open
+sudo dkms status | grep nvidia   # "installed" 재확인
+sudo update-initramfs -u
+
 sudo reboot
 nvidia-smi                  # 검증: RTX 5090 인식 확인
 
@@ -885,6 +925,7 @@ echo "✅ 모든 설치 완료!"
 > - [ ] `uname -r` → 6.8.x 이상
 >
 > ### ✅ [GPU] NVIDIA RTX 5090
+> - [ ] `sudo dkms status | grep nvidia` → `installed` 확인
 > - [ ] `nvidia-smi` → RTX 5090 인식, Driver ≥ 580.65.06
 > - [ ] `lsmod | grep nvidia` → nvidia 드라이버 로드 확인
 >
