@@ -176,35 +176,40 @@ Let’s look at another Action Graph that uses a Differential Controller to move
 4. Ensured that the output array names for left and right wheels match your robot's configuration.
    * This setup allows Nova Carter to interpret Twist messages from ROS and convert them into physical motion within Isaac Sim.
 
-
 ---
 
 ## Module 2: Creating ROS Graphs for Nova Carter
 
-Create Odometry Publisher
+**Create Odometry Publisher**
+
 Let's create and configure an Odometry Publisher for the Nova Carter robot. This publisher will relay the robot's movement data, such as position and velocity, to ROS topics. Odometry data is essential for tasks like localization and navigation, as it provides information about the robot's state in the environment.
 
-In the Stage Tree, navigate to /nova_carter_sensors/chassis_link.
-Right-click on chassis_link and select Create > Xform.
-Rename the new Xform to base_link.
- 
+1. In the Stage Tree, navigate to /nova_carter_sensors/chassis_link.
+2. Right-click on chassis_link and select Create > Xform.
+3. Rename the new Xform to base_link.
 
-Go to Tools > Robotics > ROS 2 Omnigraph Odometry Publisher
-This tool simplifies the creation of a graph for publishing odometry data.
- 
+<img src="dli_img/image42.png">
 
-In the dialog window, set the following parameters:
-Graph Path: nova_carter_sensors/Graph/ROS_Odometry
-Articulation Root: /nova_carter_sensors/chassis_link
-Chassis Link Prim: /nova_carter_sensors/chassis_link/base_link
-Press OK to create the graph.
+4. Go to Tools > Robotics > ROS 2 Omnigraph Odometry Publisher
+   * This tool simplifies the creation of a graph for publishing odometry data.
  
+<img src="dli_img/image32.png">
 
-Locate the newly created graph in the Stage Tree under nova_carter_sensors/Graph/ROS_Odometry.
-Right-click on it and select Open Graph.
-Identify and delete the TFWorld2Odom node from the graph, via the Stage Panel.
-Your graph should now look like this:
-  
+5. In the dialog window, set the following parameters:
+   * Graph Path: nova_carter_sensors/Graph/ROS_Odometry
+   * Articulation Root: /nova_carter_sensors/chassis_link
+   * Chassis Link Prim: /nova_carter_sensors/chassis_link/base_link
+6. Press OK to create the graph.
+
+<img src="dli_img/image24.png">
+
+7. Locate the newly created graph in the Stage Tree under nova_carter_sensors/Graph/ROS_Odometry.
+8. Right-click on it and select Open Graph.
+9. Identify and delete the TFWorld2Odom node from the graph, via the Stage Panel.
+10. Your graph should now look like this:
+
+<img src="dli_img/image13.png"><br>
+<img src="dli_img/image19.png">
 
 The odometry publisher enables Nova Carter to share its movement data with ROS nodes, which is critical for navigation and localization tasks.
 
