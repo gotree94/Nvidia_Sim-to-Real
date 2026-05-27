@@ -479,7 +479,9 @@ The Owl camera is an asset with a ROS-specific variant, which we will now add to
 ---
 
 ## Module 5: Creating the Occupancy Map
-Overview
+
+**Overview**
+
 The occupancy map gives general information about the environment: white for free space, black for occupied (obstacles), and gray for unknown. The robot can use this map and match it with the patterns of obstacles it detected with the lidar to localize itself. In addition, in the path planning algorithm, cost heuristics are assigned to obstacles (infinite cost to obstacles, so the robot will not intentionally plan a path that collides with obstacles, as well as high costs for regions near the obstacles to create a safety buffer). With this cost information, the robot can compute the optimal path using a planning algorithm.
 
 Let's get started!
@@ -487,28 +489,32 @@ Let's get started!
 ---
 
 ## Module 5: Creating the Occupancy Map
-Create the Map
-Open the file /Desktop/DLI_SIL/Starting_point/warehouse_env/warehouse_env.usd in Isaac Sim.
-💡 Tip
-Camera control:
-ALT + Left Click: Rotate about object
-Right Mouse Button: Rotate about camera
-Scroll wheel: Zoom
-Middle Mouse Button: Pan
 
+**Create the Map**
 
+1. Open the file /Desktop/DLI_SIL/Starting_point/warehouse_env/warehouse_env.usd in Isaac Sim.
+> 💡 Tip <br>
+Camera control: <br>
+ALT + Left Click: Rotate about object <br>
+Right Mouse Button: Rotate about camera <br>
+Scroll wheel: Zoom <br>
+Middle Mouse Button: Pan <br>
 
-Navigate to Tools > Robotics > Occupancy.
+<img src="dli_img/image15.png">
 
+2. Navigate to Tools > Robotics > Occupancy.
 
-In the Occupancy Map tab, configure the following:
-Origin: (-2.5, -1.0, 0.52)
-Upper Bound: (3.5, 6.0, 0.03)
-Lower Bound: (-3.5, -6.0, -0.03)
-Cell Size: 0.05
+<img src="dli_img/image11.png">
 
+3. In the Occupancy Map tab, configure the following:
+   * Origin: (-2.5, -1.0, 0.52)
+   * Upper Bound: (3.5, 6.0, 0.03)
+   * Lower Bound: (-3.5, -6.0, -0.03)
+   * Cell Size: 0.05
 
-Click Calculate to create the occupancy map, which centers the mapping at approximately (-2.5, -1, 0.2).
+<img src="dli_img/image6.png">
+
+4. Click Calculate to create the occupancy map, which centers the mapping at approximately (-2.5, -1, 0.2).
 
 ---
 
