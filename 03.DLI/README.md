@@ -600,21 +600,26 @@ In this module, we will set up a shared simulation environment where both Nova C
 
 **Verify ROS Topics**
 
-Open a ROS-sourced terminal.
-Run the following command to list all active topics:
+1. Open a ROS-sourced terminal.
+2. Run the following command to list all active topics:
+
+```
 ros2 topic list
+```
 
+<img src="dli_img/image30.png">
 
-Confirm that you see topics for both Nova Carter and Franka, as well as shared topics like /clock.
+3. Confirm that you see topics for both Nova Carter and Franka, as well as shared topics like /clock.
 
 ---
 
 ## Module 6: Setting up the Environment
 
-Review
+**Review**
+
 We have successfully configured the Franka robot with its own ROS ActionGraphs, integrated a namespace for organized communication, and enhanced its functionality with an Owl camera for manipulation tasks. With both Nova Carter and Franka now fully set up in the shared simulation environment, you’re ready to explore multi-robot collaboration and advanced robotics applications in the next steps. Great work so far, let’s keep building!
 
-💾 Checkpoint
+>💾 Checkpoint <br>
 If you find yourself lost or want to jump ahead, load Checkpoint 4.
 
 Before we move on, test your knowledge with the following quiz.
@@ -622,26 +627,33 @@ Before we move on, test your knowledge with the following quiz.
 ## Quiz
 1 point possible (graded)
 What is the purpose of creating a unified Environment ROS Graph in this module?
-To configure joint state publishers for both robots
-To set up a Twist subscriber for differential drive robots
-To ensure all ROS topics are correctly namespaced and functional for multi-robot tasks
-To create an occupancy map for obstacle avoidance
+
+```
+○ To configure joint state publishers for both robots
+○ To set up a Twist subscriber for differential drive robots
+○ To ensure all ROS topics are correctly namespaced and functional for multi-robot tasks
+○ To create an occupancy map for obstacle avoidance
+```
 
 ---
 
 ## Module 7: ROS Workspace Setup
 
-Overview
+**Overview**
+
 In this module, we will set up our ROS workspaces that are required to run our autonomous software stacks.
 
 ---
 
 ## Module 7: ROS Workspace Setup
 
-Installing the nova_carter_description Package
+**Installing the nova_carter_description Package**
+
 The nova_carter_description package contains all the TF configurations and robot description details (URDF files) for Nova Carter. These instructions—adapted for Isaac Sim 4.5 and Isaac ROS 3.2—ensure that your environment is properly configured for integrating the robot’s description into your ROS workspace.
 
-Set Up Locale for UTF-8 Support
+1. Set Up Locale for UTF-8 Support
+
+```
 locale  # check for UTF-8
 
 sudo apt update && sudo apt install locales
@@ -650,104 +662,177 @@ sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 locale  # verify settings
-Install Required Dependencies
+```
+
+2. Install Required Dependencies
+
+```
 sudo apt update && sudo apt install gnupg wget
 sudo apt install software-properties-common
 sudo add-apt-repository universe
-Register NVIDIA's GPG Key and Repository
+```
+
+3. Register NVIDIA's GPG Key and Repository
 - Choose one of the following options based on your location:
 
+```
 wget -qO - https://isaac.download.nvidia.com/isaac-ros/repos.key | sudo apt
+```
 
 ---
 
 ## Module 7: ROS Workspace Setup
 
-Installing the ROS workspace
+**Installing the ROS workspace**
+
 Let’s configure and build your ROS workspace to ensure it is ready for integrating Isaac ROS packages and running simulation components. We will verify that your terminal is properly sourced, update package dependencies, compile the workspace, and source the built setup file.
 
-Open a new terminal and run:
+1. Open a new terminal and run:
+
+```
 source /opt/ros/humble/setup.bash
-Run the following commands to initialize and update rosdep:
+```
+
+2. Run the following commands to initialize and update rosdep:
+
+```
 rosdep init
 rosdep update
-Navigate to your ROS workspace directory, ros_ws, and install the required dependencies from the workspace source:
+```
+
+3. Navigate to your ROS workspace directory, ros_ws, and install the required dependencies from the workspace source:
+
+```
 rosdep install --from-paths src --ignore-src -r -y
-Build your workspace using colcon:
+```
+
+4. Build your workspace using colcon:
+
+```
 colcon build
-After the build completes, source the generated setup file to overlay the new packages into your current shell session:
+```
+
+5. After the build completes, source the generated setup file to overlay the new packages into your current shell session:
+
+```
 source install/setup.bash
+```
+
 You now have a workspace that is ready to run all the required packages. Our ROS workspace is fully configured and ready to support the necessary packages for our simulation environment. We're now prepared to move forward into more advanced modules.
 
 ---
 
 ## Module 7: ROS Workspace Setup
-Review
+
+**Review**
+
 We prepared the simulation environment by installing the nova_carter_description package and configuring the ROS workspace. These steps ensured that all necessary robot descriptions, TF configurations, and dependencies are in place for seamless integration with Isaac Sim. With this foundation, we’re ready to move forward into advanced robotics functionalities, starting with manipulation using MoveIt2 in the next module.
 
-## Quiz
-1 point possible (graded)
+## Quiz : 1 point possible (graded)
+
 What is the purpose of sourcing the ROS setup file (source /opt/ros/humble/setup.bash) in a terminal?
-To view source code of ROS nodes for a given workspace
-To enable robotics tasks and begin navigation tasks
-To ensure the terminal is properly configured to use ROS commands and access ROS packages
-To generate a new ROS workspace
-unanswered
+
+```
+○ To view source code of ROS nodes for a given workspace
+○ To enable robotics tasks and begin navigation tasks
+○ To ensure the terminal is properly configured to use ROS commands and access ROS packages
+○ To generate a new ROS workspace
+```
 
 ---
 
 ## Module 8: Autonomous Navigation with Nav2
-Overview
+
+**Overview**
+
 Throughout this lab, you’ve configured and tested key components for both Nova Carter and Franka, integrated advanced tools like MoveIt2, and prepared a shared simulation environment. In this module, we’ll bring everything together by setting up autonomous navigation using the Nav2 stack. By the end of this module, Nova Carter will be able to navigate the environment autonomously, completing the foundation for multi-robot collaboration.
 
 ---
 
 ## Module 8: Autonomous Navigation with Nav2
-Adding Occupancy Maps
-Copy the occupancy map image and YAML files that you generated in an earlier module to this folder: ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/src/navigation/carter_navigation/maps/
+
+**Adding Occupancy Maps**
+
+1. Copy the occupancy map image and YAML files that you generated in an earlier module to this folder:
+
+```
+~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/src/navigation/carter_navigation/maps/
+```
 
 ---
 
 ## Module 8: Autonomous Navigation with Nav2
-Building and Sourcing Your Workspace
-Navigate to the root of the workspace folder:
+
+**Building and Sourcing Your Workspace**
+
+1. Navigate to the root of the workspace folder:
+
+```
 cd ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/
-Run build command:
+```
+
+2. Run build command:
+
+```
 colcon build
+```
+
 It is important to source your workspace so that all packages can be found by ROS. Make sure to source your workspace each time you open a new terminal for the remainder of this lab.
 
+```
 source ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/install/setup.bash
-
+```
 ---
 
 ## Module 8: Autonomous Navigation with Nav2
 
-Running the Nav Stack
-Press the Play button in Isaac Sim to activate the simulation environment.
-Open a new terminal and source your ROS workspace:
+**Running the Nav Stack**
+
+1. Press the Play button in Isaac Sim to activate the simulation environment.
+2. Open a new terminal and source your ROS workspace:
+
+```
 source ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/install/setup.bash
-Run the following command to launch Nova Carter’s TF publisher. This uses the robot_state_publisher to publish TFs based on joint states from Isaac Sim:
+```
+
+3. Run the following command to launch Nova Carter’s TF publisher. This uses the robot_state_publisher to publish TFs based on joint states from Isaac Sim:
+
+```
 ros2 launch carter_navigation nova_carter_description_isaac_sim.launch.py
-In a new terminal, source your ROS workspace, and run this command to relay the /tf_static topic to a namespaced topic /carter/tf_static.
-This ensures static TF messages are correctly remapped: (as sometimes remapping in launch files is not guaranteed for static messages).
+```
+
+4. In a new terminal, source your ROS workspace, and run this command to relay the /tf_static topic to a namespaced topic /carter/tf_static.
+   * This ensures static TF messages are correctly remapped: (as sometimes remapping in launch files is not guaranteed for static messages).
+
+```
 source ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/install/setup.bash
 ros2 run topic_tools relay /tf_static /carter/tf_static
-Start Nav2 for Nova Carter by running the following command in another ROS-sourced terminal:
+```
+
+5. Start Nav2 for Nova Carter by running the following command in another ROS-sourced terminal:
+
+```
 source ~/Desktop/DLI_SIL/Starting_point/gtc25-mega1/ros_ws/install/setup.bash
 ros2 launch carter_navigation carter_warehouse_env.launch.py
-
+```
+<img src="dli_img/image43.png">
 
 You should see an RVIZ window that looks like this. The white areas mean free space, the dark areas mean obstacles that the robot needs to avoid. The pink and blue areas are regions with low and high costs to discourage the robot from going there to avoid potentially colliding with the environment.
 
 Now, left click on Nav2 Goal to set the target position and orientation of the robot.
 
+https://learn.learn.nvidia.com/assets/courseware/v1/a7bae6e7a772dbad4340b1788c8c8459/asset-v1:DLI+S-OV-39+V1+type@asset+block/gtc_mega1_lab_navigation.mp4
 
-💡 Tip
-To watch the Carter robot from different vantage points:
-In Isaac Sim’s Viewport, switch cameras to the “third_person_view_cam” or one of the other cameras mounted to the Carter robot while it’s moving.
+>💡 Tip <br>
+To watch the Carter robot from different vantage points: <br>
+In Isaac Sim’s Viewport, switch cameras to the “third_person_view_cam” or one of the other cameras mounted to the Carter robot while it’s moving. <br>
+
 ---
-Module 8: Autonomous Navigation with Nav2
-Review
+
+## Module 8: Autonomous Navigation with Nav2
+
+**Review**
+
 By completing this section, you have successfully configured and run the Nav2 stack for Nova Carter, enabling autonomous navigation within the simulation environment.
 
 ## Quiz
