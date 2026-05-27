@@ -34,8 +34,8 @@ Discord 커뮤니티에 참여하여 하드웨어와 소프트웨어 모두에 �
 
 ### 2. 키트 구매 (Buy a Kit)
 
-- 조립 완제품 또는 부품 키트를 아래 [공급 업체](#kits-키트-구매처)에서 구매
-- 선택사항: [조립 가이드](#assembly-guide-조립-가이드) 참조
+- 조립 완제품 또는 부품 키트를 아래 [공급 업체](https://github.com/TheRobotStudio/SO-ARM100#kits)에서 구매
+- 선택사항: [조립 가이드](https://huggingface.co/docs/lerobot/so101)참조
 
 ### 3. LeRobot 설정
 
