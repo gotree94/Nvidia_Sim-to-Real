@@ -1023,6 +1023,7 @@ flatpak run com.parsecgaming.parsec
 | **Linux은 Hosting 미지원** | Parsec Linux 클라이언트는 **다른 기기로의 연결 전용** | Linux에서는 **Windows/macOS 기기에 연결**만 가능. Linux 머신 호스팅은 지원하지 않음 |
 
 > **💡 본 장비 사용 시나리오**: Windows 11 듀얼 부팅 환경이 있으므로, Parsec을 Ubuntu에 설치하여 **Windows 환경에 원격 접속**하는 용도로 사용하세요. Linux → Windows 연결은 정상 작동합니다.
+```
 
 ---
 
