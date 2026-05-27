@@ -451,23 +451,31 @@ ros2 topic list
 
 ---
 ## Module 4: Configuring the Franka Robot
-Adding the Owl Camera to the Gripper
+
+**Adding the Owl Camera to the Gripper**
+
 The Owl camera is an asset with a ROS-specific variant, which we will now add to the end of the Franka robot’s tool_center prim. We will try to support more assets with built-in ROS graphs in a future version of Isaac Sim.
 
-Expand the panda_hand prim in the Stage panel using the + button, so you can see the prim named tool_center.
-Using the Content panel, locate the Owl USD file from the Desktop/DLI_SIL/Starting_point/owl folder.
-Drag the Owl USD file onto the /franka/panda_hand/tool_center, prim in the Stage outline. This action will parent the Owl camera to the end of the robot arm.
-Select the Owl prim in the Stage.
+1. Expand the panda_hand prim in the Stage panel using the + button, so you can see the prim named tool_center.
+2. Using the Content panel, locate the Owl USD file from the Desktop/DLI_SIL/Starting_point/owl folder.
+3. Drag the Owl USD file onto the /franka/panda_hand/tool_center, prim in the Stage outline. This action will parent the Owl camera to the end of the robot arm.
+4. Select the Owl prim in the Stage.
  
+<img src="dli_img/image14.png">
 
-In the Property panel under the Variants section, choose the variant named enabled.
+5. In the Property panel under the Variants section, choose the variant named enabled.
  
+<img src="dli_img/image31.png">
 
-Configure the transform properties for the Owl as follows:
-Translate:, (0.03, 0.0, -0.05)
-Orient:, (0, -90, 0)
-Note:
-If the Owl camera appeared at the base of the robot, confirm that Preferences > Stage > Keep Prim World Transform When Reparenting is unchecked. Then delete and re-import. Confirm these settings.
+6. Configure the transform properties for the Owl as follows:
+   * Translate:, (0.03, 0.0, -0.05)
+   * Orient:, (0, -90, 0)
+
+> Note: <br>
+> If the Owl camera appeared at the base of the robot, confirm that Preferences > Stage > Keep Prim World Transform When Reparenting is unchecked. Then delete and re-import. Confirm these settings.
+
+<img src="dli_img/image36.png">
+
 ---
 
 ## Module 5: Creating the Occupancy Map
