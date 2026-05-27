@@ -39,8 +39,8 @@
 
 ```
 Ubuntu 22.04 LTS
-  └─ NVIDIA Driver (≥ 580.65.06)
-      ├─ CUDA (드라이버에 내장)
+  └─ NVIDIA Driver 580.159.04 (≥ 580.65.06) ✅ 설치 완료
+      ├─ CUDA 13.0 (드라이버에 내장) ✅
       └─ NVIDIA Container Toolkit (선택사항)
   ├─ ROS 2 Humble
   │   ├─ colcon
@@ -348,24 +348,48 @@ nvidia-smi
 
 ### 4.0 설치 전 확인
 
+> **✅ 본 장비(ASUS ROG Strix SCAR 16)에서 모두 설치 및 확인 완료**
+
 ```bash
 # 각 도구별 설치 여부 확인
 which gcc g++ cmake git wget curl python3 pip3 unzip make
-# → 모두 경로 출력되어야 정상. 하나라도 "not found"면 설치 필요 ❌
+# 정상 출력 예시 (실제 검증 완료):
+#   /usr/bin/gcc
+#   /usr/bin/g++
+#   /usr/bin/cmake
+#   /usr/bin/git
+#   /usr/bin/wget
+#   /usr/bin/curl
+#   /home/gotree94/miniconda3/bin/python3  ← conda 환경
+#   /home/gotree94/miniconda3/bin/pip3       ← conda 환경
+#   /usr/bin/unzip
+#   /usr/bin/make
 
-# GCC 버전 확인 (14 권장)
+# GCC 버전 확인 (Isaac Sim 호환)
 gcc --version | head -1
+# → gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0 (Isaac Sim 권장 버전)
 
-# Python 버전 확인 (3.10 이상)
+# Python 버전 확인
 python3 --version
-
-# pip 확인
-pip3 --version
+# → Python 3.13.2 (miniconda3)
 ```
 
-> **모두 설치되어 있다면** 이 섹션을 건너뛰어도 됩니다. GCC 14는 RTX 5090 빌드 호환성을 위한 옵션이므로, 13 이상이면 무방합니다.
+> **모두 설치되어 있다면** 이 섹션을 건너뛰어도 됩니다.
+>
+> **GCC 버전 관련 중요 공지**:
+> - Isaac Sim 공식 문서는 **GCC/G++ 11**을 요구하며, **12 이상은 지원되지 않음**을 명시하고 있습니다.
+> - Ubuntu 22.04 기본 GCC 11.4.0을 그대로 사용하세요. 상위 버전으로 변경할 필요가 없습니다.
+> - GCC 14 설치는 불필요하며, Isaac Sim 호환성 문제가 발생할 수 있습니다.
+>
+> **Python (miniconda3) 관련 참고**:
+> - `python3`/`pip3`가 miniconda3 경로를 가리키는 경우, ROS 2 Humble (Python 3.10 기반)과 conda Python (3.13) 간 버전 불일치가 발생할 수 있습니다.
+> - ROS 2 설치/빌드 시 `conda deactivate`로 conda 환경을 비활성화하고 진행하는 것을 권장합니다.
+> - Isaac Sim은 자체 내장 Python을 사용하므로 시스템 Python과 무관합니다.
 
 ### 4.1 설치
+
+> ⏭️ **본 장비는 이미 모든 기본 도구가 설치 완료된 상태**이므로 이 섹션은 건너뛰어도 됩니다.
+> 아래 명령어는 참고용으로만 제공합니다.
 
 ```bash
 # UTF-8 로케일 설정
@@ -390,10 +414,8 @@ sudo apt update && sudo apt install -y \
     unzip \
     net-tools
 
-# GCC 14 (RTX 5090 호환성)
-sudo apt install -y gcc-14 g++-14
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 14
-sudo update-alternatives --set gcc /usr/bin/gcc-14
+# GCC는 Ubuntu 22.04 기본 버전(11.4.0) 사용
+# Isaac Sim은 GCC 11만 지원, 12+ 미지원
 gcc --version
 ```
 
@@ -862,7 +884,7 @@ ros2 launch isaac_moveit isaac_moveit.launch.py
 | 블랙 스크린 부팅 | GRUB에서 `nomodeset` 또는 `nouveau.modeset=0` 추가 |
 | GPU 인식 안 됨 | BIOS 설정 확인: Secure Boot **비활성화**, UEFI 설정 확인 |
 | `Failed to initialize NVML: Driver/library version mismatch` | 재부팅 후 재시도 |
-| `update-alternatives: error: no alternatives for gcc` | 이미 GCC 11이 기본인 상태. 3번 방식 무시하고 GCC 14만 추가 설치 (`sudo apt install gcc-14 g++-14`) |
+| `update-alternatives: error: no alternatives for gcc` | 이미 GCC 11이 기본인 상태. `update-alternatives` 설정은 불필요. `gcc --version`으로 11.4.0 확인 후 무시 |
 
 ### 10.2 Isaac Sim 관련
 
@@ -1008,6 +1030,11 @@ echo "✅ 모든 설치 완료!"
 > - [x] `sudo dkms status | grep nvidia` → `installed` 확인 ✅
 > - [x] `nvidia-smi` → RTX 5090 인식, Driver 580.159.04, CUDA 13.0 ✅
 > - [ ] `lsmod | grep nvidia` → nvidia 드라이버 로드 확인
+>
+> ### ✅ [Tools] 기본 개발 도구
+> - [x] `gcc --version` → 11.4.0 (Isaac Sim 권장 버전) ✅
+> - [x] `which cmake git wget curl unzip make` → 모두 경로 출력 ✅
+> - [ ] `python3 --version` → 3.10 이상 (conda 사용 시 ROS 2 빌드에 주의)
 >
 > ### ✅ [ROS 2] Humble
 > - [ ] `echo $ROS_DISTRO` → `humble`
