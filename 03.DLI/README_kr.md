@@ -334,6 +334,17 @@ ros2 topic list
 ros2 topic list
 ```
 
+```
+$ ros2 topic list
+/cmd_vel
+/joint_states
+/odom
+/parameter_events
+/point_cloud
+/rosout
+/tf
+```
+
 2. 모든 Nova Carter 관련 토픽이 이제 `/carter` 접두사로 시작하는지 확인합니다. 다음과 유사한 출력이 표시되어야 합니다:
 
 <img src="dli_img/image38.png">
