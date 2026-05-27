@@ -149,7 +149,7 @@ Let’s look at another Action Graph that uses a Differential Controller to move
 > **Note** <br>
 > This graph has been pre-built for you to save time, but let’s analyze it together for reference.
 
- <img src="dli_img/image5.png">
+ <img src="dli_img/image9.png">
 
 1. The following nodes were added to the graph:
    * ROS 2 Context Node
