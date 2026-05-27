@@ -224,7 +224,7 @@ In this module, we successfully created and configured ROS Action Graphs for the
 With these foundational components in place, Nova Carter is now ready to perform advanced tasks such as navigation and mapping in subsequent modules.
 Let’s move forward and continue building on this solid groundwork!
 
-## Quiz 2 points possible (graded)
+**Quiz 2 points possible (graded)**
 
 1. Action Graphs in Isaac Sim are event-driven tools used for visual programming.
 ```
@@ -240,34 +240,43 @@ Let’s move forward and continue building on this solid groundwork!
 ```
 
 ---
+
 ## Module 3: Setting up Additional ROS Features
-Overview
+
+**Overview**
+
 With our Action Graphs set up, let’s expand the Nova Carter robot's functionality by integrating additional ROS features. These enhancements include generating an occupancy map for navigation and configuring a joint state publisher to share the robot's articulation data with ROS.
 
 ---
-Module 3: Setting up Additional ROS Features
 
-Create Joint State Publisher
+## Module 3: Setting up Additional ROS Features
+
+**Create Joint State Publisher**
+
 In this section, we will configure a ROS Joint State Publisher for the Nova Carter robot. This publisher will broadcast the robot's joint states to ROS, allowing real-time monitoring of its movements.
 
- 
+ <img src="dli_img/image26.png">
 
-In the Stage Tree, right-click and select Create > Scope.
-Rename the new scope to Graph
-A Scope acts as a container for organizing graphs and related components.
-Navigate to Tools > Robotics > ROS 2 OmniGraphs > Joint States.
-This shortcut provides a quick way to configure a Joint State Publisher.
- 
+1. In the Stage Tree, right-click and select Create > Scope.
+2. Rename the new scope to Graph
+   * A Scope acts as a container for organizing graphs and related components.
+3. Navigate to Tools > Robotics > ROS 2 OmniGraphs > Joint States.
+   * This shortcut provides a quick way to configure a Joint State Publisher.
 
-Set the Graph Path to /nova_carter_sensors/Graph/ROS_JointStates
-Set the Articulation Root to /nova_carter_sensors
- 
+ <img src="dli_img/image19.png">
 
-Check the box for Publisher to enable joint state publishing.
-Uncheck the boxes for Subscriber and Move Robot, as they are not needed for this setup.
-Press OK to create the graph
-Save your work by pressing Ctrl+S
+4. Set the Graph Path to /nova_carter_sensors/Graph/ROS_JointStates
+5. Set the Articulation Root to /nova_carter_sensors
+ 
+ <img src="dli_img/image27.png">
+ 
+6. Check the box for Publisher to enable joint state publishing.
+7. Uncheck the boxes for Subscriber and Move Robot, as they are not needed for this setup.
+8. Press OK to create the graph
+9. Save your work by pressing Ctrl+S
+
 ---
+
 ## Module 3: Setting up Additional ROS Features
 
 Verify Functionality
