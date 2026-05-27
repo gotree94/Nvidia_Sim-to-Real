@@ -263,7 +263,7 @@ In this section, we will configure a ROS Joint State Publisher for the Nova Cart
 3. Navigate to Tools > Robotics > ROS 2 OmniGraphs > Joint States.
    * This shortcut provides a quick way to configure a Joint State Publisher.
 
- <img src="dli_img/image19.png">
+ <img src="dli_img/image33.png">
 
 4. Set the Graph Path to /nova_carter_sensors/Graph/ROS_JointStates
 5. Set the Articulation Root to /nova_carter_sensors
