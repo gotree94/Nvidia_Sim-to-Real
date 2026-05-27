@@ -254,6 +254,7 @@ source install/setup.bash
 
 **해결 방법**
    * Step 1: 중복 APT 저장소 정리
+
 ```
 # 중복 라인 확인
 grep -n "isaac" /etc/apt/sources.list
@@ -266,6 +267,7 @@ sudo nano /etc/apt/sources.list
 ```
 
    * Step 2: 빠진 패키지 설치
+
 ```
 # rosdep 설치
 sudo apt update
@@ -277,7 +279,8 @@ rosdep update
 ```
 
    * Step 3: ROS 2 Humble 재확인 (ament_cmake 포함)
-````
+
+```
 # ament_cmake가 실제로 설치되었는지 확인
 dpkg -l | grep ament-cmake
 
@@ -286,6 +289,7 @@ sudo apt install --reinstall -y ros-humble-desktop
 ```
 
    * Step 4: 올바른 순서로 빌드
+
 ```
 cd ~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1/ros_ws
 
