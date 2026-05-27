@@ -165,12 +165,9 @@ https://brev.nvidia.com/
 
 ## 4. DLI 
    * Software-in-the-Loop Testing for Robots With OpenUSD, Isaac Sim, and ROS
-
    * https://docs.isaacsim.omniverse.nvidia.com/5.1.0/omnigraph/omnigraph_tutorial.html
-   
    * https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-OV-39+V1
-
-* Download : 6.0.0 : https://github.com/isaac-sim/IsaacSim/tree/develop
+   * Download : 6.0.0 : https://github.com/isaac-sim/IsaacSim/tree/develop
 
 
 ```
@@ -197,10 +194,13 @@ To build and set up the project, follow these steps:
 **Run the Installation Script**
 
 Execute the provided installation script to set up the environment from the root folder:
+```
+
 ```bash
 bash ./install.sh
 ```
 
+```
 This script will:
 - Initialize and update submodules.
 - Install ROS 2 Humble, including setting up the locale and sources.
@@ -215,9 +215,9 @@ ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$
 
 ```
 ubuntu@e2e484f2865a:~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1$ ./install.sh
-...
-...
-...
+```
+
+```
 Installing ROS workspace...
 Configuring and building ROS workspace...
 /usr/bin/sudo: 175: rosdep: not found
@@ -239,19 +239,23 @@ colcon build
 source install/setup.bash
 ```
 
+---
+
+**문제 분석**
+
+   * 1. rosdep, colcon 명령어 없음
+   * 설치 스크립트에서 rosdep과 colcon이 설치되지 않은 상태에서 호출됨.
+
+   * 2. ament_cmake not found
+   * ROS 2 환경(source /opt/ros/humble/setup.bash)이 적용되지 않은 상태에서 colcon build 실행.
+
+   * 3. APT sources.list 중복
+   * NVIDIA 저장소가 sources.list에 두 번(:43과 :44) 등록됨.
+
+**해결 방법**
+   * Step 1: 중복 APT 저장소 정리
+
 ```
-문제 분석
-1. rosdep, colcon 명령어 없음
-설치 스크립트에서 rosdep과 colcon이 설치되지 않은 상태에서 호출됨.
-
-2. ament_cmake not found
-ROS 2 환경(source /opt/ros/humble/setup.bash)이 적용되지 않은 상태에서 colcon build 실행.
-
-3. APT sources.list 중복
-NVIDIA 저장소가 sources.list에 두 번(:43과 :44) 등록됨.
-
-해결 방법
-Step 1: 중복 APT 저장소 정리
 # 중복 라인 확인
 grep -n "isaac" /etc/apt/sources.list
 
@@ -260,7 +264,11 @@ sudo sed -i '/isaac\.download\.nvidia\.com\/isaac-ros/{2,$d}' /etc/apt/sources.l
 
 # 또는 파일을 열어서 직접 중복 라인 삭제
 sudo nano /etc/apt/sources.list
-Step 2: 빠진 패키지 설치
+```
+
+   * Step 2: 빠진 패키지 설치
+
+```
 # rosdep 설치
 sudo apt update
 sudo apt install -y python3-rosdep python3-colcon-common-extensions
@@ -268,13 +276,21 @@ sudo apt install -y python3-rosdep python3-colcon-common-extensions
 # rosdep 초기화
 sudo rosdep init
 rosdep update
-Step 3: ROS 2 Humble 재확인 (ament_cmake 포함)
+```
+
+   * Step 3: ROS 2 Humble 재확인 (ament_cmake 포함)
+
+```
 # ament_cmake가 실제로 설치되었는지 확인
 dpkg -l | grep ament-cmake
 
 # 없으면 재설치
 sudo apt install --reinstall -y ros-humble-desktop
-Step 4: 올바른 순서로 빌드
+```
+
+   * Step 4: 올바른 순서로 빌드
+
+```
 cd ~/Downloads/DLI_SIL_online_dli/Starting_point/gtc25-mega1/ros_ws
 
 # ROS 환경 먼저 source (반드시 동일 쉘에서)
